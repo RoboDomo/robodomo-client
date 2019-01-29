@@ -116,128 +116,108 @@ export default {
           },
     controlSpace: 20
   },
-  dashboards: {
-    boards: [
-      {
-        title: "Theater",
-        key: "theater",
-        tiles: [
-          { type: "clock" },
-          { type: "weather" },
-          { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
-          { type: "pool" },
-          { type: "spa" },
-          {
-            type: "theater",
-            denon: "denon-s910w",
-            tv: "olede6p",
-            settop: "hdmi1",
-            tivo: "tivo-bolt-3tb"
-          },
-          {
-            type: "garagedoor",
-            title: "Garage Doors",
-            devices: ["Garage Door Sensor", "Cart Door Sensor"]
-          },
-          {
-            type: "smartthings",
-            title: "Theater",
-            controls: [
-              { device: "Ceiling Fan", type: "fan" },
-              { device: "Ceiling Fan Light", type: "dimmer" },
-              { device: "Kitchen Sink Light", type: "switch" },
-              { device: "Kitchen Lights", type: "dimmer" },
-              { device: "Porch Light", type: "switch" },
-              { device: "Outside Light", type: "switch" },
-              { device: "Bathroom Light", type: "dimmer" }
-            ]
-          },
-          { type: "macro", name: "TV Mood", label: "TV Mood" },
-          { type: "macro", name: "TV Break", label: "TV Break" },
-          { type: "macro", name: "TV Resume", label: "TV Resume" },
-          //          {type: 'macro', name: 'Theater On', label: 'Theater On'},
-          //          {type: 'macro', name: 'Theater Off', label: 'Theater Off'},
-          { type: "macro", name: "Bedtime", label: "Bedtime" }
-        ]
-      },
-      {
-        title: "MBR",
-        key: "mbr",
-        tiles: [
-          { type: "clock" },
-          { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
-          { type: "weather" },
-          { type: "spa" },
-          {
-            type: "garagedoor",
-            title: "Garage Doors",
-            devices: ["Garage Door Sensor", "Cart Door Sensor"]
-          },
-          {
-            type: "smartthings",
-            title: "Master Bedroom",
-            controls: [
-              { device: "Bathroom Light", type: "dimmer" },
-              { device: "Bedroom Fan", type: "fan" },
-              { device: "Bedroom Lamp", type: "switch" },
-              { device: "Bedroom Light", type: "dimmer" },
-              { device: "Kitchen Sink Light", type: "switch" },
-              { device: "Kitchen Lights", type: "dimmer" },
-              { device: "Entryway Lights", type: "switch" }
-            ]
-          },
-          { type: "macro", name: "Good Night", label: "Good Night" },
-          { type: "macro", name: "Good Morning", label: "Good Morning" }
-        ]
-      },
-      {
-        title: "Office",
-        key: "office",
-        tiles: [
-          { type: "clock" },
-          { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
-          { type: "weather" },
-          {
-            type: "garagedoor",
-            title: "Garage Doors",
-            devices: ["Garage Door Sensor", "Cart Door Sensor"]
-          },
-          {
-            type: "smartthings",
-            title: "Office",
-            controls: [
-              { device: "Office Dimmer", type: "dimmer" },
-              { device: "Office Fan", type: "fan" },
-              { device: "Office Light", type: "dimmer" },
-              { device: "Back Room Light", type: "dimmer" },
-              { device: "Back Room Fan", type: "fan" },
-              { device: "Back Room Switch", type: "switch" }
-              //              {device: 'Kitchen Lights', type: 'dimmer'},
-              //              {device: 'Porch Light', type: 'switch'},
-              //              {device: 'Outside Light', type: 'switch'},
-              //              {device: 'Bathroom Light', type: 'dimmer'},
-            ]
-          }
-          //          {type: 'macro', name: 'Theater On', label: 'Theater On'},
-          //          {type: 'macro', name: 'Theater Off', label: 'Theater Off'},
-        ]
-      },
-      {
-        title: "Macros",
-        key: "macros",
-        tiles: [
-          { type: "macro", name: "Bedroom On", label: "Bedroom On" },
-          { type: "macro", name: "Bedroom Off", label: "Bedroom Off" },
-          { type: "macro", name: "Office On", label: "Office On" },
-          { type: "macro", name: "Office Off", label: "Office Off" },
-          { type: "macro", name: "Warm Spa", label: "Warm Spa" },
-          { type: "macro", name: "Enter Spa", label: "Enter Spa" },
-          { type: "macro", name: "Exit Spa", label: "Exit Spa" },
-          { type: "macro", name: "Spa Off", label: "Spa Off" }
-        ]
-      }
-    ]
-  },
+  dashboards: [
+    {
+      title: "Theater",
+      key: "theater",
+      tiles: [
+        { type: "clock" },
+        { type: "weather" },
+        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
+        { type: "pool" },
+        { type: "spa" },
+        {
+          type: "theater",
+          denon: "denon-s910w",
+          tv: "olede6p",
+          settop: "hdmi1",
+          tivo: "tivo-bolt-3tb"
+        },
+        {
+          type: "garagedoor",
+          title: "Garage Doors",
+          devices: ["Garage Door Sensor", "Cart Door Sensor"]
+        },
+        { device: "Ceiling Fan", type: "fan" },
+        { device: "Ceiling Fan Light", type: "dimmer" },
+        { device: "Kitchen Sink Light", type: "switch" },
+        { device: "Kitchen Lights", type: "dimmer" },
+        { device: "Porch Light", type: "switch" },
+        { device: "Outside Light", type: "switch" },
+        { device: "Bathroom Light", type: "dimmer" },
+        { type: "macro", name: "TV Mood", label: "TV Mood" },
+        { type: "macro", name: "TV Break", label: "TV Break" },
+        { type: "macro", name: "TV Resume", label: "TV Resume" },
+        //          {type: 'macro', name: 'Theater On', label: 'Theater On'},
+        //          {type: 'macro', name: 'Theater Off', label: 'Theater Off'},
+        { type: "macro", name: "Bedtime", label: "Bedtime" }
+      ]
+    },
+    {
+      title: "MBR",
+      key: "mbr",
+      tiles: [
+        { type: "clock" },
+        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
+        { type: "weather" },
+        { type: "spa" },
+        {
+          type: "garagedoor",
+          title: "Garage Doors",
+          devices: ["Garage Door Sensor", "Cart Door Sensor"]
+        },
+        { device: "Bathroom Light", type: "dimmer" },
+        { device: "Bedroom Fan", type: "fan" },
+        { device: "Bedroom Lamp", type: "switch" },
+        { device: "Bedroom Light", type: "dimmer" },
+        { device: "Kitchen Sink Light", type: "switch" },
+        { device: "Kitchen Lights", type: "dimmer" },
+        { device: "Entryway Lights", type: "switch" },
+        { type: "macro", name: "Good Night", label: "Good Night" },
+        { type: "macro", name: "Good Morning", label: "Good Morning" }
+      ]
+    },
+    {
+      title: "Office",
+      key: "office",
+      tiles: [
+        { type: "clock" },
+        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
+        { type: "weather" },
+        {
+          type: "garagedoor",
+          title: "Garage Doors",
+          devices: ["Garage Door Sensor", "Cart Door Sensor"]
+        },
+        { device: "Office Dimmer", type: "dimmer" },
+        { device: "Office Fan", type: "fan" },
+        { device: "Office Light", type: "dimmer" },
+        { device: "Back Room Light", type: "dimmer" },
+        { device: "Back Room Fan", type: "fan" },
+        { device: "Back Room Switch", type: "switch" }
+        //              {device: 'Kitchen Lights', type: 'dimmer'},
+        //              {device: 'Porch Light', type: 'switch'},
+        //              {device: 'Outside Light', type: 'switch'},
+        //              {device: 'Bathroom Light', type: 'dimmer'},
+        //          {type: 'macro', name: 'Theater On', label: 'Theater On'},
+        //          {type: 'macro', name: 'Theater Off', label: 'Theater Off'},
+      ]
+    },
+    {
+      title: "Macros",
+      key: "macros",
+      tiles: [
+        { type: "macro", name: "Bedroom On", label: "Bedroom On" },
+        { type: "macro", name: "Bedroom Off", label: "Bedroom Off" },
+        { type: "macro", name: "Office On", label: "Office On" },
+        { type: "macro", name: "Office Off", label: "Office Off" },
+        { type: "macro", name: "Warm Spa", label: "Warm Spa" },
+        { type: "macro", name: "Enter Spa", label: "Enter Spa" },
+        { type: "macro", name: "Exit Spa", label: "Exit Spa" },
+        { type: "macro", name: "Spa Off", label: "Spa Off" }
+      ]
+    }
+  ],
   weather: {
     locations: [
       { name: "Palm Desert CA", device: "92211" },

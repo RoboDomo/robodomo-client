@@ -5,8 +5,13 @@ import * as serviceWorker from "./serviceWorker";
 
 import MQTT from "lib/MQTT";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+
 MQTT.once("connect", () => {
-  ReactDOM.render(<App />, document.getElementById("root"));
+  ReactDOM.render(
+    <App style={{ height: "100%" }} />,
+    document.getElementById("root")
+  );
 });
 MQTT.connect();
 

@@ -1,22 +1,58 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+//import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import Dashboard from "routes/Dashboard";
-import Weather from "routes/Weather";
+import {
+  TabContainer,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem
+} from "react-bootstrap";
+
+import Dashboard from "screens/Dashboard";
+import Weather from "screens/Weather";
 
 class App extends Component {
   render() {
     return (
-      <Router>
-        <>
-          <nav>
-            <Link to="/">Dashboard</Link> | <Link to="/weather">Weather</Link>
-          </nav>
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/Dashboard" component={Dashboard} />
-          <Route path="/weather" component={Weather} />
-        </>
-      </Router>
+      <div
+        style={{
+          //          width: 1024,
+          //          height: 578,
+          margin: "auto",
+          border: "1px solid black"
+        }}
+      >
+        <TabContainer
+          id="mainTabs"
+          defaultActiveKey={1}
+          style={{
+            //            width: 1024,
+            //            height: 578,
+            display: "flex",
+            flexDirection: "column"
+          }}
+        >
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ flexGrow: 1 }}>
+              <TabContent>
+                <TabPane eventKey={1}>
+                  <Dashboard />
+                </TabPane>
+                <TabPane eventKey={2}>
+                  <Weather />
+                </TabPane>
+              </TabContent>
+            </div>
+            <div style={{ flexGrow: 0 }}>
+              <Nav bsStyle="pills">
+                <NavItem eventKey={1}>Dashboard</NavItem>
+                <NavItem eventKey={2}>Weather</NavItem>
+              </Nav>
+            </div>
+          </div>
+        </TabContainer>
+      </div>
     );
   }
 }
