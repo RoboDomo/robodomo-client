@@ -1831,6 +1831,11 @@ bootstrap@3.4:
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.4.0.tgz#f8d77540dd3062283d2ae7687e21c1e691961640"
   integrity sha512-F1yTDO9OHKH0xjl03DsOe8Nu1OWBIeAugGMhy3UTIYDdbbIPesQIhCEbj+HEr6wqlwweGAlP8F3OBC6kEuhFuw==
 
+bootswatch@3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/bootswatch/-/bootswatch-3.4.0.tgz#712ecbda714fe365e7310a0e20f89829eaea0ffa"
+  integrity sha512-eCMWAa3/vYkT7bKDbffcgmbfy8keGSETMY0ECt+vAnKf2nKtgJUlr99x5OGFp3ZKW4hQrsSR9mPhNqFQRl4PXw==
+
 bowser@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/bowser/-/bowser-2.1.0.tgz#76cc094f97578ba4858fb4359445ee1317d1be6f"

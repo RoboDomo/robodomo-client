@@ -40,8 +40,9 @@ const braviaFavorites = [
   "cbs"
 ];
 
-const bowser = require("bowser");
-
+const bowser = require("bowser"),
+  parser = bowser.getParser(window.navigator.userAgent);
+console.dir(parser.getResult());
 const screenSize = (function() {
   if (bowser.ipad) {
     return "normal";
@@ -126,13 +127,13 @@ export default {
         { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
         { type: "pool" },
         { type: "spa" },
-        {
-          type: "theater",
-          denon: "denon-s910w",
-          tv: "olede6p",
-          settop: "hdmi1",
-          tivo: "tivo-bolt-3tb"
-        },
+        //        {
+        //          type: "theater",
+        //          denon: "denon-s910w",
+        //          tv: "olede6p",
+        //          settop: "hdmi1",
+        //          tivo: "tivo-bolt-3tb"
+        //        },
         {
           type: "garagedoor",
           title: "Garage Doors",

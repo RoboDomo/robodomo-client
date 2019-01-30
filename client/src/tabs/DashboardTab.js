@@ -34,7 +34,7 @@ export default class DashboardTab extends Component {
           );
         case "macro":
           return (
-            <MacroTile key={++key}>
+            <MacroTile key={++key} config={tile}>
               <div>{tile.type}</div>
               <div>{tile.device}</div>
             </MacroTile>
@@ -48,7 +48,7 @@ export default class DashboardTab extends Component {
           );
         case "fan":
           return (
-            <FanTile key={++key}>
+            <FanTile key={++key} name={tile.device}>
               <div>{tile.type}</div>
               <div>{tile.device}</div>
             </FanTile>

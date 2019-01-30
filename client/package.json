@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "3.4",
+    "bootswatch": "3.4.0",
     "bowser": "^2.1.0",
     "mqtt": "^2.18.8",
     "react": "^16.7.0",

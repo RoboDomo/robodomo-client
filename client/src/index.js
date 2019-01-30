@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import MQTT from "lib/MQTT";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootswatch/slate/bootstrap.min.css";
 
 MQTT.once("connect", () => {
   ReactDOM.render(
