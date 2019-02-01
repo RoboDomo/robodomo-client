@@ -1,42 +1,39 @@
 import React, { Component } from "react";
-
 import Config from "Config";
 
 import { Tab, Tabs } from "react-bootstrap";
-import DashboardTab from "tabs/DashboardTab";
+import ThermostatTab from "tabs/ThermostatTab";
 
-export default class Dashboard extends Component {
+export default class Thermostat extends Component {
   constructor(props) {
     super(props);
     this.changeTab = this.changeTab.bind(this);
     this.state = {
-      activeTab: localStorage.getItem("dashboardTabState") || "1"
+      activeTab: localStorage.getItem("thermostatTabState") || "0"
     };
   }
-
   changeTab(eventKey) {
-    localStorage.setItem("dashboardTabState", eventKey);
+    localStorage.setItem("thermostatTabState", eventKey);
     this.setState({ activeTab: eventKey });
   }
-
   render() {
     return (
       <Tabs
-        id="dashboard-tabs"
+        id="thermostat-tabs"
         onSelect={this.changeTab}
         activeKey={this.state.activeTab}
         bsStyle="pills"
         mountOnEnter
         unmountOnExit
       >
-        {Config.dashboards.map(dashboard => {
+        {Config.nest.thermostats.map(thermostat => {
           return (
             <Tab
-              eventKey={dashboard.key}
-              key={dashboard.key}
-              title={dashboard.title}
+              title={thermostat.name}
+              eventKey={thermostat.name}
+              key={thermostat.name}
             >
-              <DashboardTab dashboard={dashboard} />
+              <ThermostatTab config={thermostat} />
             </Tab>
           );
         })}

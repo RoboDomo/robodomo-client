@@ -3,6 +3,9 @@ import React, { Component } from "react";
 export default class Tile extends Component {
   constructor(props) {
     super(props);
+    this.readOnly = props.readOnly || false;
+    this.backgroundColor = props.backgroundColor;
+    this.color = props.color;
     this.width = props.width || 1;
     this.height = props.height || 1;
     this.onClick = this.onClick.bind(this);
@@ -18,6 +21,8 @@ export default class Tile extends Component {
     return (
       <div
         style={{
+          backgroundColor: this.backgroundColor,
+          color: this.color,
           width: this.width * 128,
           height: this.height * 128,
           border: pressed ? "4px inset white" : "4px outset white",
@@ -27,8 +32,7 @@ export default class Tile extends Component {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
-          color: "white"
+          justifyContent: "center"
         }}
         onClick={this.onClick}
       >
@@ -38,7 +42,7 @@ export default class Tile extends Component {
   }
 
   onClick() {
-    if (this.timer) {
+    if (this.readOnly || this.timer) {
       return;
     }
     this.timer = setTimeout(() => {

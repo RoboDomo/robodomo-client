@@ -55,7 +55,7 @@ export default class DashboardTab extends Component {
           );
         case "garagedoor":
           return (
-            <GarageDoorTile key={++key}>
+            <GarageDoorTile key={++key} config={tile}>
               <div>{tile.type}</div>
               <div>{tile.device}</div>
             </GarageDoorTile>

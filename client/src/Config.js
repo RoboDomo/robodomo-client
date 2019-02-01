@@ -225,12 +225,129 @@ export default {
       { name: "Mission Beach CA", device: "92109" }
     ]
   },
+  autelis: {
+    device: "autelis",
+    name: "Pool Control",
+    // the forward and backward hash maps define the relationship between
+    // Autelis device names and ones we want to use/display.
+    // For example, on my pool hardware, autelis aux1 controls the spa jets;
+    // we want to use "jets" in our logic, not aux1.
+    // The wiring of your pool controls might be radically different.  Edit
+    // these maps to match your configuration.
+    //
+    // TODO: make autelis-microservice do the mapping?
+    deviceMap: {
+      forward: {
+        pump: "pump",
+        spa: "spa",
+        jet: "aux1",
+        blower: "aux2",
+        cleaner: "aux3",
+        waterfall: "aux4",
+        poolLight: "aux5",
+        spaLight: "aux6",
+        spaSetpoint: "spasp",
+        poolSetpoint: "poolsp",
+        spaHeat: "spaht",
+        poolHeat: "poolht",
+        poolTemp: "pooltemp",
+        spaTemp: "spatemp",
+        solarHeat: "solarht",
+        solarTemp: "solartemp"
+      },
+      backward: {
+        pump: "pump",
+        spa: "spa",
+        aux1: "jet",
+        aux2: "blower",
+        aux3: "cleaner",
+        aux4: "waterfall",
+        aux5: "poolLight",
+        aux6: "spaLight",
+        spasp: "spaSetpoint",
+        poolsp: "poolSetpoint",
+        pooltemp: "poolTemp",
+        spatemp: "spaTemp",
+        spaht: "spaHeat",
+        poolht: "poolHeat",
+        solartemp: "solarTemp",
+        solarht: "solarHeat"
+      }
+    }
+  },
   //  autelis: require("autelis-microservice/config").autelis,
   nest: {
     thermostats: [
       { device: "Falsetto/Hallway Thermostat", name: "Hallway Thermostat" }
     ]
   },
+  sensors: [
+    {
+      name: "Back Office Multisensor",
+      topic: "smartthings/Back Office Multisensor/battery",
+      type: "battery"
+    },
+    {
+      name: "Back Office Multisensor",
+      topic: "smartthings/Back Office Multisensor/humidity",
+      type: "humidity"
+    },
+    {
+      name: "Back Office Multisensor",
+      topic: "smartthings/Back Office Multisensor/illuminance",
+      type: "illuminance"
+    },
+    {
+      name: "Back Office Multisensor",
+      topic: "smartthings/Back Office Multisensor/motion",
+      type: "motion"
+    },
+    {
+      name: "Back Office Multisensor",
+      topic: "smartthings/Back Office Multisensor/temperature",
+      type: "temperature"
+    },
+    {
+      name: "Bathroom Sensor",
+      topic: "smartthings/Bathroom Sensor/motion",
+      type: "motion"
+    },
+    {
+      name: "Cart Door Sensor",
+      topic: "smartthings/Cart Door/contact",
+      type: "contact"
+    },
+    {
+      name: "Garage Door Sensor",
+      topic: "smartthings/Garage Door/contact",
+      type: "contact"
+    },
+    {
+      name: "Sliding Door",
+      topic: "smartthings/Sliding Door/contact",
+      type: "contact"
+    },
+    {
+      name: "Sliding Door",
+      topic: "smartthings/Sliding Door/temperature",
+      type: "temperature"
+    },
+    {
+      name: "Front Door",
+      topic: "smartthings/Front Door/motion",
+      type: "motion"
+    },
+    {
+      name: "Front Door",
+      topic: "smartthings/Front Door/battery",
+      type: "battery"
+    },
+    {
+      name: "Thermostat",
+      topic: "nest/Falsetto/Hallway Thermostat/ambient_temperature_f",
+      type: "temperature"
+    }
+  ],
   smartthings: {
     device: "smartthings",
     name: "SmartThings Hub",

@@ -25,7 +25,7 @@ export default class ClockTile extends Component {
       state = this.state;
 
     return (
-      <Tile width={2} height={2}>
+      <Tile width={2} height={2} readOnly>
         <div style={{ textAlign: "center" }}>
           <div style={{ fontSize: 37 * tileSize, width: "100%" }}>
             {this.state.time}
