@@ -62,9 +62,8 @@ export default class ThermostatTab extends Component {
     if (!thermostat || !now) {
       return null;
     }
-    console.log("state", this.state);
     return (
-      <Row style={{ marginTop: 30 }}>
+      <Row style={{ marginTop: 6 }}>
         <Col sm={3}>
           <ListGroup>
             <ListGroupItem>
@@ -131,22 +130,22 @@ export default class ThermostatTab extends Component {
               name="hvac"
               value={thermostat.hvac_mode}
             >
-              <ToggleButton style={{ width: 100, fontSize: 16 }} value="off">
+              <ToggleButton style={{ width: 85, fontSize: 14 }} value="off">
                 Off
               </ToggleButton>
-              <ToggleButton style={{ width: 100, fontSize: 16 }} value="heat">
+              <ToggleButton style={{ width: 85, fontSize: 14 }} value="heat">
                 Heat
               </ToggleButton>
-              <ToggleButton style={{ width: 100, fontSize: 16 }} value="cool">
+              <ToggleButton style={{ width: 85, fontSize: 14 }} value="cool">
                 Cool
               </ToggleButton>
               <ToggleButton
-                style={{ width: 100, fontSize: 16 }}
+                style={{ width: 85, fontSize: 14 }}
                 value="heat-cool"
               >
                 Heat-Cool
               </ToggleButton>
-              <ToggleButton style={{ width: 100, fontSize: 16 }} value="Eco">
+              <ToggleButton style={{ width: 85, fontSize: 14 }} value="Eco">
                 Eco
               </ToggleButton>
             </ToggleButtonGroup>
@@ -168,45 +167,41 @@ export default class ThermostatTab extends Component {
             </ListGroupItem>
           </ListGroup>
           <ListGroup>
-            <ListGroupItem action onClick={() => this.adjustTemperature(-2)}>
+            <ListGroupItem onClick={() => this.adjustTemperature(-2)}>
               <FaAngleDown /> Adjust{" "}
               <span style={{ float: "right" }}>-2 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem action onClick={() => this.adjustTemperature(-1)}>
+            <ListGroupItem onClick={() => this.adjustTemperature(-1)}>
               <FaAngleDown /> Adjust{" "}
               <span style={{ float: "right" }}>-1 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem action onClick={() => this.adjustTemperature(1)}>
+            <ListGroupItem onClick={() => this.adjustTemperature(1)}>
               <FaAngleUp /> Adjust{" "}
               <span style={{ float: "right" }}>+1 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem action onClick={() => this.adjustTemperature(2)}>
+            <ListGroupItem onClick={() => this.adjustTemperature(2)}>
               <FaAngleUp /> Adjust{" "}
               <span style={{ float: "right" }}>+2 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem action onClick={() => this.setTargetTemperature(82)}>
+            <ListGroupItem onClick={() => this.setTargetTemperature(82)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>82 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem action onClick={() => this.setTargetTemperature(79)}>
+            <ListGroupItem onClick={() => this.setTargetTemperature(79)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>78 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem action onClick={() => this.setTargetTemperature(75)}>
+            <ListGroupItem onClick={() => this.setTargetTemperature(75)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>75 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem action onClick={() => this.setTargetTemperature(72)}>
+            <ListGroupItem onClick={() => this.setTargetTemperature(72)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>72 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem action onClick={() => this.setTargetTemperature(70)}>
+            <ListGroupItem onClick={() => this.setTargetTemperature(70)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>70 &deg;</span>
-            </ListGroupItem>
-            <ListGroupItem action onClick={() => this.setTargetTemperature(60)}>
-              <FaAngleRight />
-              Set <span style={{ float: "right" }}>60 &deg;</span>
             </ListGroupItem>
           </ListGroup>
         </Col>
@@ -271,7 +266,6 @@ export default class ThermostatTab extends Component {
   }
 
   hvacModeChange(mode) {
-    console.log("mode change", mode);
     MQTT.publish(this.set_topic + "/hvac_mode", mode);
     //    this.state.thermostat.hvac_mode = mode;
     //    this.setState(this.state);

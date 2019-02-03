@@ -78,6 +78,7 @@ export default {
     macros: "macros"
   },
   screenSize: screenSize,
+  bowser: parser.getResult(),
   ui: {
     panelType: "primary",
     subPanelType: "default",
@@ -117,6 +118,36 @@ export default {
           },
     controlSpace: 20
   },
+  theaters: [
+    {
+      title: "Theater",
+      key: "theater",
+      guide: "CA68543",
+      devices: [
+        { name: "Harmony Hub", type: "harmony", device: "harmony-hub" },
+        { name: "Tivo", type: "tivo", device: "tivo-bolt-3tb" },
+        { name: "LG TV", type: "lgtv", device: "olede6p" },
+        { name: "Denon S910W", type: "denon", device: "denon-s910w" }
+      ],
+      buttons: [
+        { name: "Nest", type: "thermostat", device: "Hallway Thermostat" },
+        { name: "Celing Fan", type: "fan", device: "Celing Fan" },
+        { name: "Light", type: "dimmer", device: "Celing Fan Light" },
+        { name: "TV Break", type: "macro", device: "TV Break" },
+        { name: "TV Resume", type: "macro", device: "TV Resume" },
+        { name: "Bed Time", type: "macro", device: "Bed Time" }
+      ]
+    },
+    {
+      title: "MBR",
+      key: "mbr",
+      devices: [
+        { name: "TV", type: "bravia", device: "sony-850c" },
+        { name: "Denon X2100W", type: "denon", device: "denon-x2100w" },
+        { name: "TiVo", type: "tivo", device: "tivo-bolt" }
+      ]
+    }
+  ],
   dashboards: [
     {
       title: "Theater",
@@ -314,12 +345,12 @@ export default {
     },
     {
       name: "Cart Door Sensor",
-      topic: "smartthings/Cart Door/contact",
+      topic: "smartthings/Cart Door Sensor/contact",
       type: "contact"
     },
     {
       name: "Garage Door Sensor",
-      topic: "smartthings/Garage Door/contact",
+      topic: "smartthings/Garage Door Sensor/contact",
       type: "contact"
     },
     {
@@ -344,8 +375,13 @@ export default {
     },
     {
       name: "Thermostat",
-      topic: "nest/Falsetto/Hallway Thermostat/ambient_temperature_f",
+      topic: "nest/Falsetto/Hallway Thermostat/status/ambient_temperature_f",
       type: "temperature"
+    },
+    {
+      name: "Thermostat",
+      topic: "nest/Falsetto/Hallway Thermostat/status/humidity",
+      type: "humidity"
     }
   ],
   smartthings: {

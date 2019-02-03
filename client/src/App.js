@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 //import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+//import Config from "Config";
+
 import {
+  //  Grid,
+  Navbar,
   TabContainer,
   TabContent,
   TabPane,
@@ -11,6 +15,8 @@ import {
 
 import Dashboard from "screens/Dashboard";
 import { MdDashboard } from "react-icons/md";
+import Theater from "screens/Theater";
+import { IoIosTv } from "react-icons/io";
 import Weather from "screens/Weather";
 import { TiWeatherCloudy } from "react-icons/ti";
 import Thermostat from "screens/Thermostat";
@@ -33,84 +39,80 @@ class App extends Component {
   }
 
   render() {
-    console.log("activeTab", this.state.activeTab);
-    console.dir(this.state.activeTab);
     return (
-      <div
-        style={{
-          width: 1024,
-          height: 768,
-          margin: "auto",
-          border: "1px solid black"
-        }}
-      >
-        <TabContainer
-          id="mainTabs"
-          activeKey={parseInt(this.state.activeTab, 10)}
-          style={{
-            width: 1024,
-            height: 768,
-            display: "flex",
-            flexDirection: "column"
-          }}
-          onSelect={this.handleSelect}
-        >
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ flexGrow: 1 }}>
+      <>
+        <div style={{ marginTop: 60 }}>
+          <TabContainer
+            id="mainTabs"
+            activeKey={parseInt(this.state.activeTab, 10)}
+            onSelect={this.handleSelect}
+          >
+            <div>
               <TabContent>
                 <TabPane mountOnEnter unmountOnExit eventKey={1}>
                   <Dashboard />
                 </TabPane>
                 <TabPane mountOnEnter unmountOnExit eventKey={2}>
-                  <Weather />
+                  <Theater />
                 </TabPane>
                 <TabPane mountOnEnter unmountOnExit eventKey={3}>
-                  <Thermostat />
+                  <Weather />
                 </TabPane>
                 <TabPane mountOnEnter unmountOnExit eventKey={4}>
+                  <Thermostat />
+                </TabPane>
+                <TabPane mountOnEnter unmountOnExit eventKey={5}>
                   <Sensors />
                 </TabPane>
               </TabContent>
+              <Navbar
+                style={{ padding: 0, margin: 0, height: 20 }}
+                inverse
+                fluid
+                fixedTop
+              >
+                <Navbar.Header>
+                  <Navbar.Brand style={{ height: 30 }}>RoboDomo</Navbar.Brand>
+                </Navbar.Header>
+                <Nav style={{ height: 30 }}>
+                  <NavItem
+                    style={{ width: 128, textAlign: "center" }}
+                    eventKey={1}
+                  >
+                    <MdDashboard /> Dashboard
+                  </NavItem>
+                  <NavItem
+                    style={{ width: 128, textAlign: "center" }}
+                    eventKey={2}
+                  >
+                    <IoIosTv /> Theater
+                  </NavItem>
+                  <NavItem
+                    style={{ width: 128, textAlign: "center" }}
+                    eventKey={3}
+                  >
+                    <TiWeatherCloudy /> Weather
+                  </NavItem>
+                  <NavItem
+                    style={{ width: 128, textAlign: "center" }}
+                    eventKey={4}
+                  >
+                    <TiThermometer />
+                    Thermostat
+                  </NavItem>
+                  <NavItem
+                    style={{ width: 128, textAlign: "center" }}
+                    eventKey={5}
+                  >
+                    <IoIosAnalytics />
+                    Sensors
+                  </NavItem>
+                </Nav>
+              </Navbar>
             </div>
-            <div style={{ flexGrow: 0 }}>
-              <Nav bsStyle="pills">
-                <NavItem
-                  style={{ width: 128, textAlign: "center" }}
-                  eventKey={1}
-                >
-                  <MdDashboard size={24} />
-                  <br />
-                  Dashboard
-                </NavItem>
-                <NavItem
-                  style={{ width: 128, textAlign: "center" }}
-                  eventKey={2}
-                >
-                  <TiWeatherCloudy size={24} />
-                  <br />
-                  Weather
-                </NavItem>
-                <NavItem
-                  style={{ width: 128, textAlign: "center" }}
-                  eventKey={3}
-                >
-                  <TiThermometer size={24} />
-                  <br />
-                  Thermostat
-                </NavItem>
-                <NavItem
-                  style={{ width: 128, textAlign: "center" }}
-                  eventKey={4}
-                >
-                  <IoIosAnalytics size={24} />
-                  <br />
-                  Sensors
-                </NavItem>
-              </Nav>
-            </div>
-          </div>
-        </TabContainer>
-      </div>
+          </TabContainer>
+        </div>
+      </>
     );
   }
 }

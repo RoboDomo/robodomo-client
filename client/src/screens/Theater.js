@@ -3,40 +3,41 @@ import React, { Component } from "react";
 import Config from "Config";
 
 import { Tab, Tabs } from "react-bootstrap";
-import WeatherTab from "tabs/WeatherTab";
+import TheaterTab from "tabs/TheaterTab";
 
-export default class Weather extends Component {
+export default class Theater extends Component {
   constructor(props) {
     super(props);
     this.changeTab = this.changeTab.bind(this);
     this.state = {
-      activeTab: localStorage.getItem("weatherTabState") || "0"
+      activeTab: localStorage.getItem("theaterTabState") || "0"
     };
   }
   changeTab(eventKey) {
-    localStorage.setItem("weatherTabState", eventKey);
+    localStorage.setItem("theaterTabState", eventKey);
     this.setState({ activeTab: eventKey });
   }
   render() {
     const activeTab = this.state.activeTab;
     return (
       <Tabs
-        id="weather-tabs"
+        id="theater-tabs"
         onSelect={this.changeTab}
         activeKey={activeTab}
         bsStyle="pills"
         mountOnEnter
         unmountOnExit
       >
-        {Config.weather.locations.map(location => {
+        {Config.theaters.map(theater => {
+          console.log("theater", theater);
           return (
             <Tab
-              title={location.name}
-              eventKey={location.name}
-              key={location.name}
+              title={theater.title}
+              eventKey={theater.key}
+              key={theater.key}
               style={{ paddingLeft: 10, paddingRight: 10 }}
             >
-              <WeatherTab location={location} />
+              <TheaterTab theater={theater} />
             </Tab>
           );
         })}

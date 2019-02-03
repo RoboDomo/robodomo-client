@@ -15,6 +15,9 @@ button, or a tile with other controls (like thermostat with up/down setting butt
 I want a different dashboard for the TV room than for the bedroom.  Controls for the lights and ceiling fans are
 different for the two rooms.  
 
+Tiles should be designed with visibility in mind.  Consider a tablet on the wall next to your TV.  You want to be able
+to see the current time, temperature, etc., from the couch (some feet away from the tablet).
+
 3) Tabbed interface
 
 Each mode has a tabbed interface.  Each tab represents one instance of a group of things to display.  For example, each

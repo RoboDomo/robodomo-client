@@ -33,26 +33,34 @@ export default class ClockTile extends Component {
           </div>
           <div style={{ fontSize: 20 }}>{state.day}</div>
           <div style={{ fontSize: 20 }}>{state.date}</div>
+          <div style={{ fontSize: 8 }}>
+            {window.innerWidth} x {window.innerHeight}
+          </div>
         </div>
       </Tile>
     );
   }
-  componentDidMount() {
-    this.timer = setInterval(() => {
-      const d = new Date(),
-        hr = d.getHours(),
-        hour = hr > 12 ? hr - 12 : hr,
-        min = String(d.getMinutes()),
-        minutes = min.length === 1 ? "0" + min : min,
-        sec = String(d.getSeconds()),
-        seconds = sec.length === 1 ? "0" + sec : sec;
 
-      this.setState({
-        time: (hour || "12") + ":" + minutes,
-        seconds: seconds,
-        date: d.toLocaleDateString(),
-        day: dayNames[d.getDay()]
-      });
+  updateTime() {
+    const d = new Date(),
+      hr = d.getHours(),
+      hour = hr > 12 ? hr - 12 : hr,
+      min = String(d.getMinutes()),
+      minutes = min.length === 1 ? "0" + min : min,
+      sec = String(d.getSeconds()),
+      seconds = sec.length === 1 ? "0" + sec : sec;
+
+    this.setState({
+      time: (hour || "12") + ":" + minutes,
+      seconds: seconds,
+      date: d.toLocaleDateString(),
+      day: dayNames[d.getDay()]
+    });
+  }
+  componentDidMount() {
+    this.updateTime();
+    this.timer = setInterval(() => {
+      this.updateTime();
     }, 1000);
   }
 
