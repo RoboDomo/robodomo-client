@@ -23,6 +23,8 @@ import Thermostat from "screens/Thermostat";
 import { TiThermometer } from "react-icons/ti";
 import Sensors from "screens/Sensors";
 import { IoIosAnalytics } from "react-icons/io";
+import Autelis from "screens/Autelis";
+import { FaSwimmingPool } from "react-icons/fa";
 
 class App extends Component {
   constructor(props) {
@@ -41,7 +43,7 @@ class App extends Component {
   render() {
     return (
       <>
-        <div style={{ marginTop: 60 }}>
+        <div style={{ marginTop: 50 }}>
           <TabContainer
             id="mainTabs"
             activeKey={parseInt(this.state.activeTab, 10)}
@@ -64,48 +66,33 @@ class App extends Component {
                 <TabPane mountOnEnter unmountOnExit eventKey={5}>
                   <Sensors />
                 </TabPane>
+                <TabPane mountOnEnter unmountOnExit eventKey={6}>
+                  <Autelis />
+                </TabPane>
               </TabContent>
-              <Navbar
-                style={{ padding: 0, margin: 0, height: 20 }}
-                inverse
-                fluid
-                fixedTop
-              >
+              <Navbar inverse fluid fixedTop>
                 <Navbar.Header>
-                  <Navbar.Brand style={{ height: 30 }}>RoboDomo</Navbar.Brand>
+                  <Navbar.Brand>RoboDomo</Navbar.Brand>
                 </Navbar.Header>
-                <Nav style={{ height: 30 }}>
-                  <NavItem
-                    style={{ width: 128, textAlign: "center" }}
-                    eventKey={1}
-                  >
+                <Nav>
+                  <NavItem eventKey={1}>
                     <MdDashboard /> Dashboard
                   </NavItem>
-                  <NavItem
-                    style={{ width: 128, textAlign: "center" }}
-                    eventKey={2}
-                  >
+                  <NavItem eventKey={2}>
                     <IoIosTv /> Theater
                   </NavItem>
-                  <NavItem
-                    style={{ width: 128, textAlign: "center" }}
-                    eventKey={3}
-                  >
+                  <NavItem eventKey={3}>
                     <TiWeatherCloudy /> Weather
                   </NavItem>
-                  <NavItem
-                    style={{ width: 128, textAlign: "center" }}
-                    eventKey={4}
-                  >
+                  <NavItem eventKey={4}>
                     <TiThermometer />
                     Thermostat
                   </NavItem>
-                  <NavItem
-                    style={{ width: 128, textAlign: "center" }}
-                    eventKey={5}
-                  >
-                    <IoIosAnalytics />
-                    Sensors
+                  <NavItem eventKey={5}>
+                    <IoIosAnalytics /> Sensors
+                  </NavItem>
+                  <NavItem eventKey={6}>
+                    <FaSwimmingPool /> Pool/Spa
                   </NavItem>
                 </Nav>
               </Navbar>

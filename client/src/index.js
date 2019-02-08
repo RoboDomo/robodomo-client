@@ -11,7 +11,8 @@ import "bootswatch/slate/bootstrap.min.css";
 const meta = document.getElementById("meta-viewport");
 meta.setAttribute("content", "maximum-scale=0.5");
 meta.setAttribute("content", "width=1024");
-meta.setAttribute("content", "height=" + window.innerHeight);
+//meta.setAttribute("content", "height=" + window.innerHeight);
+meta.setAttribute("content", "height=768");
 
 MQTT.once("connect", () => {
   ReactDOM.render(

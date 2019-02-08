@@ -1,17 +1,5 @@
 // Client configuration settings
 
-//import DashboardScreen from "./webapp/screens/DashboadScreen";
-//import ThingsScreen from "./webapp/screens/ThingsScreen";
-//import ThermostatScreen from "./webapp/screens/ThermostatScreen";
-//import AutelisScreen from "./webapp/screens/AutelisScreen";
-//import WeatherScreen from "./webapp/screens/WeatherScreen";
-//import TiVoScreen from "./webapp/screens/TiVoScreen";
-//import LGTVScreen from "./webapp/screens/LGTVScreen";
-//import BraviaScreen from "./webapp/screens/BraviaScreen";
-//import DenonScreen from "./webapp/screens/DenonScreen";
-//import HarmonyScreen from "./webapp/screens/HarmonyScreen";
-//import NotFoundScreen from "./webapp/screens/NotFoundScreen";
-
 const lgtvFavorites = [
   "amazon",
   "hulu",
@@ -42,7 +30,7 @@ const braviaFavorites = [
 
 const bowser = require("bowser"),
   parser = bowser.getParser(window.navigator.userAgent);
-console.dir(parser.getResult());
+
 const screenSize = (function() {
   if (bowser.ipad) {
     return "normal";
@@ -127,12 +115,66 @@ export default {
         { name: "Harmony Hub", type: "harmony", device: "harmony-hub" },
         { name: "Tivo", type: "tivo", device: "tivo-bolt-3tb" },
         { name: "LG TV", type: "lgtv", device: "olede6p" },
-        { name: "Denon S910W", type: "denon", device: "denon-s910w" }
+        { name: "Denon AVR", type: "denon", device: "denon-s910w" },
+        { name: "Apple TV", type: "appletv", device: "appletv-theater" }
+      ],
+      activities: [
+        {
+          name: "TV",
+          default: "TiVo",
+          script: [
+            { topic: "lgtv/olede6p/set", message: "POWERON" },
+            { topic: "lgtv/olede6p/set", message: "HDMI1" },
+            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
+            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+          ]
+        },
+        {
+          name: "Apple TV",
+          default: "AppleTV",
+          script: [
+            { topic: "lgtv/olede6p/set", message: "POWERON" },
+            { topic: "lgtv/olede6p/set", message: "HDMI1" },
+            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
+            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+          ]
+        },
+        {
+          name: "Roku",
+          default: "Roku",
+          script: [
+            { topic: "lgtv/olede6p/set", message: "POWERON" },
+            { topic: "lgtv/olede6p/set", message: "HDMI1" },
+            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
+            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+          ]
+        },
+        {
+          // XBox is only available with a harmony hub to control it!
+          name: "XBox",
+          default: "XBox",
+          script: [
+            { topic: "lgtv/olede6p/set", message: "POWERON" },
+            { topic: "lgtv/olede6p/set", message: "HDMI1" },
+            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
+            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+          ]
+        },
+        {
+          name: "All Off",
+          default: null,
+          script: [{ topic: "lgtv/olede6p/set", message: "POWEROFF" }]
+        }
       ],
       buttons: [
-        { name: "Nest", type: "thermostat", device: "Hallway Thermostat" },
-        { name: "Celing Fan", type: "fan", device: "Celing Fan" },
-        { name: "Light", type: "dimmer", device: "Celing Fan Light" },
+        {
+          name: "Nest",
+          type: "thermostat",
+          device: "Falsetto/Hallway Thermostat",
+          weather: "92211"
+        },
+        { name: "Celing Fan", type: "fan", device: "Ceiling Fan" },
+        { name: "Light", type: "dimmer", device: "Ceiling Fan Light" },
         { name: "TV Break", type: "macro", device: "TV Break" },
         { name: "TV Resume", type: "macro", device: "TV Resume" },
         { name: "Bed Time", type: "macro", device: "Bed Time" }
@@ -141,10 +183,48 @@ export default {
     {
       title: "MBR",
       key: "mbr",
+      guide: "CA68543",
+      activities: [
+        {
+          name: "Watch TV",
+          default: "TiVo",
+          script: [
+            { topic: "lgtv/olede6p/set", message: "POWERON" },
+            { topic: "lgtv/olede6p/set", message: "HDMI1" },
+            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
+            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+          ]
+        },
+        {
+          name: "Watch Apple TV",
+          default: "AppleTV",
+          script: [
+            { topic: "lgtv/olede6p/set", message: "POWERON" },
+            { topic: "lgtv/olede6p/set", message: "HDMI1" },
+            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
+            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+          ]
+        },
+        {
+          name: "All Off",
+          default: null,
+          script: [{ topic: "lgtv/olede6p/set", message: "POWEROFF" }]
+        }
+      ],
       devices: [
         { name: "TV", type: "bravia", device: "sony-850c" },
         { name: "Denon X2100W", type: "denon", device: "denon-x2100w" },
-        { name: "TiVo", type: "tivo", device: "tivo-bolt" }
+        { name: "TiVo", type: "tivo", device: "tivo-bolt" },
+        { name: "Apple TV", type: "appletv", device: "appletv-mbr" }
+      ],
+      buttons: [
+        { name: "Nest", type: "thermostat", device: "Hallway Thermostat" },
+        { name: "Celing Fan", type: "fan", device: "Bedroom Fan" },
+        { name: "Light", type: "dimmer", device: "Bedroom Fan Light" },
+        { name: "Bathroom", type: "dimmer", device: "Bathroom Light" },
+        { name: "Kitchen Light", type: "switch", device: "Kitchen Sink Light" },
+        { name: "Good Night", type: "macro", device: "Good Night" },
+        { name: "Good Morning", type: "macro", device: "Good Morning" }
       ]
     }
   ],
@@ -344,6 +424,11 @@ export default {
       type: "motion"
     },
     {
+      name: "Bathroom Sensor",
+      topic: "smartthings/Bathroom Sensor/battery",
+      type: "battery"
+    },
+    {
       name: "Cart Door Sensor",
       topic: "smartthings/Cart Door Sensor/contact",
       type: "contact"
@@ -382,6 +467,21 @@ export default {
       name: "Thermostat",
       topic: "nest/Falsetto/Hallway Thermostat/status/humidity",
       type: "humidity"
+    },
+    {
+      name: "MBR Sensor",
+      topic: "smartthings/MBR Sensor/battery",
+      type: "battery"
+    },
+    {
+      name: "MBR Sensor",
+      topic: "smartthings/MBR Sensor/contact",
+      type: "contact"
+    },
+    {
+      name: "MBR Sensor",
+      topic: "smartthings/MBR Sensor/temperature",
+      type: "temperature"
     }
   ],
   smartthings: {

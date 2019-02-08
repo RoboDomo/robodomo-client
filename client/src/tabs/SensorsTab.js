@@ -8,11 +8,11 @@ import { Row, Col, Panel } from "react-bootstrap";
 
 const types = [
   "contact",
-  "battery",
   "motion",
+  "battery",
   "temperature",
-  "humidity",
-  "illuminance"
+  "illuminance",
+  "humidity"
 ];
 
 export default class SensorsTab extends Component {
@@ -39,20 +39,30 @@ export default class SensorsTab extends Component {
     });
   }
 
+  renderCard(type) {
+    return (
+      <Col sm={4} style={{ marginTop: 20 }}>
+        <Panel>
+          <Panel.Heading>{type.toUpperCase()}</Panel.Heading>
+          <Panel.Body>{this.renderType(type)}</Panel.Body>
+        </Panel>
+      </Col>
+    );
+  }
+
   render() {
+    let col = 0;
     return (
       <div style={{ padding: 20, marginTop: 10 }}>
         <Row>
-          {types.map(type => {
-            return (
-              <Col sm={24 / types.length} style={{ marginTop: 20 }}>
-                <Panel>
-                  <Panel.Heading>{type.toUpperCase()}</Panel.Heading>
-                  <Panel.Body>{this.renderType(type)}</Panel.Body>
-                </Panel>
-              </Col>
-            );
-          })}
+          {this.renderCard(types[col++])}
+          {this.renderCard(types[col++])}
+          {this.renderCard(types[col++])}
+        </Row>
+        <Row>
+          {this.renderCard(types[col++])}
+          {this.renderCard(types[col++])}
+          {this.renderCard(types[col++])}
         </Row>
       </div>
     );

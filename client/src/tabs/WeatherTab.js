@@ -143,8 +143,8 @@ export default class WeatherTab extends Component {
                 width: 100,
                 height: 100,
                 display: "inline-block",
-                margin: 2,
-                padding: 5,
+                marginRight: 2,
+                padding: 2,
                 border: "1px solid black",
                 textAlign: "center"
               }}
@@ -226,7 +226,8 @@ export default class WeatherTab extends Component {
                 margin: 2,
                 padding: 5,
                 border: "1px solid black",
-                textAlign: "center"
+                textAlign: "center",
+                fontSize: 12
               }}
             >
               {header}
@@ -254,7 +255,7 @@ export default class WeatherTab extends Component {
       const small = Config.screenSize === "small",
         state = this.state,
         header = (
-          <div style={{ fontSize: small ? 24 : 32, fontWeight: "bold" }}>
+          <div style={{ fontSize: 24, fontWeight: "bold" }}>
             {state.display_city} Weather
           </div>
         ),
@@ -282,7 +283,7 @@ export default class WeatherTab extends Component {
             }}
           >
             <div>
-              <Glyphicon style={{ fontSize: small ? 24 : 40 }} glyph="flag" />{" "}
+              <Glyphicon style={{ fontSize: 24 }} glyph="flag" />{" "}
               {now.wind_direction} {now.current_wind} MPH
             </div>
             <div style={{ fontSize: 14, textAlign: "right" }}>
@@ -305,7 +306,7 @@ export default class WeatherTab extends Component {
 
           <h4>Hourly Forecast</h4>
           {this.renderHourly(hourly)}
-          <h4>5 Day Forecast</h4>
+          <h5 style={{ marginTop: 2 }}>5 Day Forecast</h5>
           {this.renderDaily(daily)}
         </div>
       );
