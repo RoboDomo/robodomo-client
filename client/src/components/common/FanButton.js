@@ -1,38 +1,28 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import Config from "Config";
+
 import MQTT from "lib/MQTT";
-import Tile from "components/Tile";
-import { GiComputerFan } from "react-icons/gi";
-export default class FanTile extends Component {
+import RemoteButton from "components/common/RemoteButton";
+
+export default class FanButton extends Component {
   constructor(props) {
     super(props);
-
-    this.props = props;
-
     this.status_topic = Config.mqtt.smartthings + "/" + props.name + "/";
     this.status_topic_length = this.status_topic.length;
     this.set_topic = this.status_topic;
 
     this.onStateChange = this.onStateChange.bind(this);
-    this.onClick = this.onClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
     const state = this.state,
-      props = this.props;
-
-    if (!state || !state.switch) {
-      return (
-        <Tile width={1} height={1}>
-          <GiComputerFan size={24} style={{ marginBottom: 10 }} />
-          <div>...</div>
-        </Tile>
-      );
-    }
+      sw = state ? state.switch : "?";
 
     let value = "Off";
-    if (state.switch === "on") {
+    if (sw === "on") {
       const level = Number(state.level);
       if (level < 34) {
         value = "Low";
@@ -43,26 +33,15 @@ export default class FanTile extends Component {
       }
     }
     return (
-      <Tile width={1} height={1}>
-        <div
-          style={{
-            textAlign: "center",
-            color: state.switch === "on" ? "yellow" : undefined
-          }}
-          onClick={this.onClick}
-        >
-          <GiComputerFan size={24} style={{ marginBottom: 10 }} />
-          <div>{props.name}</div>
-          <div style={{ fontSize: 30 }}>{value}</div>
-        </div>
-      </Tile>
+      <div>
+        <RemoteButton onClick={this.handleClick}>{value}</RemoteButton>
+      </div>
     );
   }
 
-  onClick(e) {
+  handleClick() {
+    console.log(arguments);
     const state = this.state;
-
-    e.stopPropagation();
 
     let value = 25,
       level = Number(state.level);
@@ -83,7 +62,9 @@ export default class FanTile extends Component {
         switch: "on"
       });
       MQTT.publish(this.set_topic + "switch/set", "on");
-      MQTT.publish(this.set_topic + "level/set", value);
+      setTimeout(() => {
+        MQTT.publish(this.set_topic + "level/set", value);
+      }, 250);
     } else {
       this.setState({
         switch: "off"
@@ -109,3 +90,7 @@ export default class FanTile extends Component {
     MQTT.unsubscribe(this.status_topic + "level", this.onStateChange);
   }
 }
+
+FanButton.propTypes = {
+  name: PropTypes.string.isRequired
+};

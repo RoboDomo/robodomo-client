@@ -113,7 +113,7 @@ export default {
       guide: "CA68543",
       devices: [
         { name: "Harmony Hub", type: "harmony", device: "harmony-hub" },
-        { name: "Tivo", type: "tivo", device: "tivo-bolt-3tb" },
+        { name: "TiVo", type: "tivo", device: "tivo-bolt-3tb" },
         { name: "LG TV", type: "lgtv", device: "olede6p" },
         { name: "Denon AVR", type: "denon", device: "denon-s910w" },
         { name: "Apple TV", type: "appletv", device: "appletv-theater" }
@@ -121,27 +121,41 @@ export default {
       activities: [
         {
           name: "TV",
-          default: "TiVo",
+          defaultDevice: "TiVo",
+          inputs: {
+            lgtv: "hdmi1",
+            denon: "TV"
+          },
           script: [
             { topic: "lgtv/olede6p/set", message: "POWERON" },
             { topic: "lgtv/olede6p/set", message: "HDMI1" },
             { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
-            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+            { topic: "denon/denon-s910w/set/PW", message: "ON" },
+            { topic: "denon/denon-s910w/set/SI", message: "TV" }
           ]
         },
         {
           name: "Apple TV",
-          default: "AppleTV",
+          defaultDevice: "Apple TV",
+          inputs: {
+            lgtv: "hdmi1",
+            denon: "MPLAY"
+          },
           script: [
             { topic: "lgtv/olede6p/set", message: "POWERON" },
             { topic: "lgtv/olede6p/set", message: "HDMI1" },
             { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
-            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+            { topic: "denon/denon-s910w/set/PW", message: "ON" },
+            { topic: "denon/denon-s910w/set/SI", message: "MPLAY" }
           ]
         },
         {
           name: "Roku",
-          default: "Roku",
+          defaultDevice: "Roku",
+          inputs: {
+            lgtv: "hdmi2",
+            denon: "TV"
+          },
           script: [
             { topic: "lgtv/olede6p/set", message: "POWERON" },
             { topic: "lgtv/olede6p/set", message: "HDMI1" },
@@ -152,7 +166,11 @@ export default {
         {
           // XBox is only available with a harmony hub to control it!
           name: "XBox",
-          default: "XBox",
+          defaultDevice: "XBox",
+          inputs: {
+            lgtv: "hdmi2",
+            denon: "TV"
+          },
           script: [
             { topic: "lgtv/olede6p/set", message: "POWERON" },
             { topic: "lgtv/olede6p/set", message: "HDMI1" },
@@ -162,7 +180,7 @@ export default {
         },
         {
           name: "All Off",
-          default: null,
+          defaultDevice: null,
           script: [{ topic: "lgtv/olede6p/set", message: "POWEROFF" }]
         }
       ],
@@ -173,8 +191,11 @@ export default {
           device: "Falsetto/Hallway Thermostat",
           weather: "92211"
         },
-        { name: "Celing Fan", type: "fan", device: "Ceiling Fan" },
+        { type: "label", text: "Ceiling Fan" },
+        { name: "Ceiling Fan", type: "fan", device: "Ceiling Fan" },
+        { type: "label", text: "Ceiling Fan Light" },
         { name: "Light", type: "dimmer", device: "Ceiling Fan Light" },
+        { type: "label", text: "Macros" },
         { name: "TV Break", type: "macro", device: "TV Break" },
         { name: "TV Resume", type: "macro", device: "TV Resume" },
         { name: "Bed Time", type: "macro", device: "Bed Time" }
@@ -184,6 +205,12 @@ export default {
       title: "MBR",
       key: "mbr",
       guide: "CA68543",
+      devices: [
+        { name: "TV", type: "bravia", device: "sony-850c" },
+        { name: "Denon X2100W", type: "denon", device: "denon-x2100w" },
+        { name: "TiVo", type: "tivo", device: "tivo-bolt" },
+        { name: "Apple TV", type: "appletv", device: "appletv-mbr" }
+      ],
       activities: [
         {
           name: "Watch TV",
@@ -192,7 +219,7 @@ export default {
             { topic: "lgtv/olede6p/set", message: "POWERON" },
             { topic: "lgtv/olede6p/set", message: "HDMI1" },
             { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
-            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+            { topic: "denon/denon-x2100w/set", message: "SLEEP" }
           ]
         },
         {
@@ -211,15 +238,9 @@ export default {
           script: [{ topic: "lgtv/olede6p/set", message: "POWEROFF" }]
         }
       ],
-      devices: [
-        { name: "TV", type: "bravia", device: "sony-850c" },
-        { name: "Denon X2100W", type: "denon", device: "denon-x2100w" },
-        { name: "TiVo", type: "tivo", device: "tivo-bolt" },
-        { name: "Apple TV", type: "appletv", device: "appletv-mbr" }
-      ],
       buttons: [
         { name: "Nest", type: "thermostat", device: "Hallway Thermostat" },
-        { name: "Celing Fan", type: "fan", device: "Bedroom Fan" },
+        { name: "Ceiling Fan", type: "fan", device: "Bedroom Fan" },
         { name: "Light", type: "dimmer", device: "Bedroom Fan Light" },
         { name: "Bathroom", type: "dimmer", device: "Bathroom Light" },
         { name: "Kitchen Light", type: "switch", device: "Kitchen Sink Light" },

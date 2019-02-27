@@ -195,4 +195,10 @@ export default class TivoControl extends Component {
       </>
     );
   }
+  componentDidMount() {
+    console.log("TiVoControl did mount");
+  }
+  componentWillUnmount() {
+    console.log("TiVoControl will unmount");
+  }
 }

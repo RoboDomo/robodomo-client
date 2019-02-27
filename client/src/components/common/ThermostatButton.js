@@ -37,7 +37,7 @@ export default class ThermostatButton extends Component {
         <div style={{ textAlign: "center", fontWeight: "bold", fontSize: 24 }}>
           {new Date().toLocaleTimeString()}
         </div>
-        <div style={{ fontSize: 20, fontWeight: "bold" }}>
+        <div style={{ fontSize: 24, fontWeight: "bold" }}>
           <img
             style={{
               verticalAlign: "middle",
@@ -68,12 +68,22 @@ export default class ThermostatButton extends Component {
   }
 
   handleClickUp() {
-    //
-    console.log("UP");
+    if (this.state && this.state.target_temperature_f) {
+      const target_temperature = this.state.target_temperature_f + 1;
+      this.setState({
+        target_temperature_f: target_temperature
+      });
+      MQTT.publish(this.set_topic + "target_temperature_f", target_temperature);
+    }
   }
   handleClickDown() {
-    //
-    console.log("DOWN");
+    if (this.state && this.state.target_temperature_f) {
+      const target_temperature = this.state.target_temperature_f - 1;
+      this.setState({
+        target_temperature_f: target_temperature
+      });
+      MQTT.publish(this.set_topic + "target_temperature_f", target_temperature);
+    }
   }
   onStateChange(topic, newState) {
     const state = this.state || {},

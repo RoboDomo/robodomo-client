@@ -29,7 +29,7 @@ export default class Theater extends Component {
         unmountOnExit
       >
         {Config.theaters.map(theater => {
-          console.log("theater", theater);
+          //          console.log("theater", theater);
           return (
             <Tab
               title={theater.title}
