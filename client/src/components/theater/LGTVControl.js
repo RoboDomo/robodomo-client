@@ -37,6 +37,9 @@ const ignoredLaunchPoints = [
   "LG Remote Service"
 ];
 
+// If props.lgtv.tuner is set to true, then additional controls are rendered.
+// Number pad, for example, is not needed for smart TV apps, but are needed
+// for watching TV.
 export default class LGTVControl extends Component {
   constructor(props) {
     super(props);
