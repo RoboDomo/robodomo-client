@@ -20,6 +20,7 @@ import TiVoControl from "components/theater/TiVoControl";
 import AppleTVControl from "components/theater/AppleTVControl";
 import AudioControl from "components/theater/AudioControl";
 import LGTVControl from "components/theater/LGTVControl";
+import HarmonyRemoteControl from "components/theater/HarmonyRemoteControl";
 
 import MQTT from "lib/MQTT";
 
@@ -108,8 +109,6 @@ export default class TheaterTab extends Component {
     newState.activeDevice = device.name;
     localStorage.setItem(this.storageKey, JSON.stringify(newState));
     this.setState(newState);
-
-    console.log("select device", device, newState);
   }
 
   renderDevices() {
@@ -219,8 +218,10 @@ export default class TheaterTab extends Component {
     if (!this.state) {
       return <h1>All Off"</h1>;
     }
-    console.log("activeDevice", this.state.activeDevice);
+    //    console.log("activeDevice", this.state.activeDevice);
     switch (this.state.activeDevice) {
+      case "Harmony Hub":
+        return <HarmonyRemoteControl hub={this.deviceMap.harmony} />;
       case "TiVo":
         return <TiVoControl device={this.deviceMap.tivo.device} />;
       case "Apple TV":
@@ -348,6 +349,7 @@ export default class TheaterTab extends Component {
   }
 
   componentWillUnmount() {
+    console.log("will unmount");
     for (const device of this.devices) {
       switch (device.type) {
         case "lgtv":

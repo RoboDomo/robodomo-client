@@ -138,7 +138,7 @@ export default {
           name: "Apple TV",
           defaultDevice: "Apple TV",
           inputs: {
-            lgtv: "hdmi1",
+            lgtv: "hdmi2",
             denon: "MPLAY"
           },
           script: [
