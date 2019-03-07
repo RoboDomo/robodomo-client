@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Config from "Config";
-import MQTT from "lib/MQTT";
 
 import RemoteButton from "components/common/RemoteButton";
 import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
 
-export default ({ device, commands }) => {
-  if (!commands || !device) {
+export default ({ style, device, commands }) => {
+  if (!commands || !device || !commands.DirectionUp) {
     return null;
   }
   const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
@@ -22,6 +21,7 @@ export default ({ device, commands }) => {
   ) : (
     <RemoteButton bsStyle="none" />
   );
+
   const channelDown = commands.ChannelDown ? (
     <RemoteButton
       bsStyle="info"
@@ -34,7 +34,7 @@ export default ({ device, commands }) => {
     <RemoteButton bsStyle="none" />
   );
   return (
-    <>
+    <div style={style}>
       <Row>
         <ButtonGroup>
           <RemoteButton bsStyle="none" />
@@ -56,6 +56,7 @@ export default ({ device, commands }) => {
             <Glyphicon glyph="chevron-left" />
           </RemoteButton>
           <RemoteButton
+            bsStyle="primary"
             topic={command_topic + commands.Select.action.deviceId}
             message={commands.Select.name}
           >
@@ -81,6 +82,6 @@ export default ({ device, commands }) => {
           {channelDown}
         </ButtonGroup>
       </Row>
-    </>
+    </div>
   );
 };

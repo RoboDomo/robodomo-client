@@ -115,7 +115,7 @@ export default {
         { name: "Harmony Hub", type: "harmony", device: "harmony-hub" },
         { name: "TiVo", type: "tivo", device: "tivo-bolt-3tb" },
         { name: "LG TV", type: "lgtv", device: "olede6p" },
-        { name: "Denon AVR", type: "denon", device: "denon-s910w" },
+        { name: "AVR", type: "denon", device: "denon-s910w" },
         { name: "Apple TV", type: "appletv", device: "appletv-theater" }
       ],
       activities: [
@@ -123,13 +123,13 @@ export default {
           name: "TV",
           defaultDevice: "TiVo",
           inputs: {
-            lgtv: "hdmi1",
-            denon: "TV"
+            tv: "hdmi1",
+            avr: "TV"
           },
           script: [
             { topic: "lgtv/olede6p/set", message: "POWERON" },
             { topic: "lgtv/olede6p/set", message: "HDMI1" },
-            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
+            { topic: "tivo/tivo-bolt-3tb", message: "LIVETV" },
             { topic: "denon/denon-s910w/set/PW", message: "ON" },
             { topic: "denon/denon-s910w/set/SI", message: "TV" }
           ]
@@ -138,8 +138,8 @@ export default {
           name: "Apple TV",
           defaultDevice: "Apple TV",
           inputs: {
-            lgtv: "hdmi2",
-            denon: "MPLAY"
+            tv: "hdmi2",
+            avr: "MPLAY"
           },
           script: [
             { topic: "lgtv/olede6p/set", message: "POWERON" },
@@ -151,10 +151,10 @@ export default {
         },
         {
           name: "Roku",
-          defaultDevice: "Roku",
+          defaultDevice: "Harmony Hub",
           inputs: {
-            lgtv: "hdmi2",
-            denon: "TV"
+            tv: "hdmi4",
+            avr: "TV"
           },
           script: [
             { topic: "lgtv/olede6p/set", message: "POWERON" },
@@ -166,10 +166,10 @@ export default {
         {
           // XBox is only available with a harmony hub to control it!
           name: "XBox",
-          defaultDevice: "XBox",
+          defaultDevice: "Harmony Hub",
           inputs: {
-            lgtv: "hdmi2",
-            denon: "TV"
+            tv: "hdmi2",
+            avr: "DVD"
           },
           script: [
             { topic: "lgtv/olede6p/set", message: "POWERON" },

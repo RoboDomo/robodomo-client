@@ -1,3 +1,8 @@
+/**
+ * ThermostatButton
+ *
+ * Component for upper right side of Theater screen, to display and control thermostat
+ */
 import React, { Component } from "react";
 
 import Config from "Config";

@@ -22,7 +22,7 @@ export default class TivoControl extends Component {
             <RemoteButton topic={this.topic} message="CLEAR">
               Clear
             </RemoteButton>
-            <RemoteButton topic={this.topic} message="LIVE TV">
+            <RemoteButton topic={this.topic} message="LIVETV">
               Live TV
             </RemoteButton>
             <RemoteButton topic={this.topic} message="TIVO" bsStyle="primary">

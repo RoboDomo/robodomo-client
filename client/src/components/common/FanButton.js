@@ -40,7 +40,6 @@ export default class FanButton extends Component {
   }
 
   handleClick() {
-    console.log(arguments);
     const state = this.state;
 
     let value = 25,

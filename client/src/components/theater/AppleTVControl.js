@@ -114,6 +114,9 @@ export default class AppleTVControl extends Component {
         <Row style={style.row}>{this.renderNowPlaying()}</Row>
         <Row>
           <ButtonGroup>
+            <RemoteButton topic={this.set_topic} message="Stop">
+              Stop
+            </RemoteButton>
             <RemoteButton topic={this.set_topic} message="Menu">
               Menu
             </RemoteButton>
@@ -124,7 +127,12 @@ export default class AppleTVControl extends Component {
             >
               Home
             </RemoteButton>
-            <RemoteButton bsStyle="none" />
+            <RemoteButton topic={this.set_topic} message="Power">
+              Power
+            </RemoteButton>
+            <RemoteButton topic={this.set_topic} message="Reboot">
+              Reboot
+            </RemoteButton>
           </ButtonGroup>
         </Row>
         <Row style={style.row}>

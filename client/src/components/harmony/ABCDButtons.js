@@ -6,7 +6,7 @@ import RemoteButton from "components/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
 export default ({ style, device, commands }) => {
-  if (!device || !commands || !commands.Yellow) {
+  if (!device || !commands || !commands.A) {
     return null;
   }
   const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
@@ -16,31 +16,31 @@ export default ({ style, device, commands }) => {
       <ButtonGroup>
         <RemoteButton
           bsStyle="warning"
-          topic={command_topic + commands.Yellow.action.deviceId}
-          message={commands.Yellow.name}
+          topic={command_topic + commands.A.action.deviceId}
+          message={commands.A.name}
         >
-          Yellow
+          A
         </RemoteButton>
         <RemoteButton
-          bsStyle="info"
-          topic={command_topic + commands.Blue.action.deviceId}
-          message={commands.Blue.name}
+          bsStyle="primary"
+          topic={command_topic + commands.B.action.deviceId}
+          message={commands.B.name}
         >
-          Blue
+          B
         </RemoteButton>
         <RemoteButton
           bsStyle="danger"
-          topic={command_topic + commands.Red.action.deviceId}
-          message={commands.Red.name}
+          topic={command_topic + commands.C.action.deviceId}
+          message={commands.C.name}
         >
-          Red
+          C
         </RemoteButton>
         <RemoteButton
           bsStyle="success"
-          topic={command_topic + commands.Green.action.deviceId}
-          message={commands.Green.name}
+          topic={command_topic + commands.D.action.deviceId}
+          message={commands.D.name}
         >
-          Green
+          D
         </RemoteButton>
       </ButtonGroup>
     </Row>

@@ -1,19 +1,39 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Config from "Config";
-import MQTT from "lib/MQTT";
 
 import RemoteButton from "components/common/RemoteButton";
-import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
+import { Row, ButtonGroup } from "react-bootstrap";
 
-export default ({ device, commands }) => {
-  if (!device || !commands) {
+export default ({ style, device, commands }) => {
+  if (!device || !commands || !commands.Number1) {
     return null;
   }
   const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
 
+  const enterItem = commands.NumberEnter || commands.Dot;
+  const enterButton = enterItem ? (
+    <RemoteButton
+      topic={command_topic + enterItem.action.deviceId}
+      message={enterItem.name}
+    >
+      {commands.NumberEnter ? "Enter" : "."}
+    </RemoteButton>
+  ) : (
+    <RemoteButton bsStyle="none" />
+  );
+  const clearButton = commands.Clear ? (
+    <RemoteButton
+      topic={command_topic + commands.Clear.action.deviceId}
+      message={commands.Clear.name}
+    >
+      Clear
+    </RemoteButton>
+  ) : (
+    <RemoteButton bsStyle="none" />
+  );
   return (
-    <Row>
+    <Row style={style}>
       <ButtonGroup>
         <RemoteButton
           topic={command_topic + commands.Number1.action.deviceId}
@@ -78,19 +98,14 @@ export default ({ device, commands }) => {
       </ButtonGroup>
       <br />
       <ButtonGroup>
-        <RemoteButton bsStyle="none" />
+        {clearButton}
         <RemoteButton
           topic={command_topic + commands.Number0.action.deviceId}
           message={commands.Number0.name}
         >
           0
         </RemoteButton>
-        <RemoteButton
-          topic={command_topic + commands.NumberEnter.action.deviceId}
-          message={commands.NumberEnter.name}
-        >
-          Enter
-        </RemoteButton>
+        {enterButton}
       </ButtonGroup>
     </Row>
   );

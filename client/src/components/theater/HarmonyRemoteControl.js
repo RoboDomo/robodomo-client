@@ -3,12 +3,18 @@ import React, { useState, useEffect } from "react";
 import Config from "Config";
 import MQTT from "lib/MQTT";
 
-import RemoteButton from "components/common/RemoteButton";
-import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
+//import RemoteButton from "components/common/RemoteButton";
+//import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
 
-import Joystick from "components/harmony/Joystick";
+import XBoxButtons from "components/harmony/XBoxButtons";
+import RokuButtons from "components/harmony/RokuButtons";
+import TiVoButtons from "components/harmony/TiVoButtons";
+import AppleTVButtons from "components/harmony/AppleTVButtons";
+import JoystickButtons from "components/harmony/JoystickButtons";
 import ColoredButtons from "components/harmony/ColoredButtons";
-import NumericBasic from "components/harmony/NumericBasic";
+import ABCDButtons from "components/harmony/ABCDButtons";
+import NumberButtons from "components/harmony/NumberButtons";
+import TransportButtons from "components/harmony/TransportButtons";
 
 const topics = ["activities", "devices", "currentActivity", "startingActivity"];
 
@@ -17,7 +23,7 @@ const remap = (o, controlGroup) => {
     for (const control of controlGroup.function) {
       o[control.name] = control;
       try {
-        o[control.action] = JSON.parse(o[control.action]);
+        control.action = JSON.parse(control.action);
       } catch (e) {}
     }
   }
@@ -32,8 +38,7 @@ export default ({ hub }) => {
   const [devices, setDevices] = useState(null);
 
   const status_topic = Config.mqtt.harmony + "/" + hub.device + "/status/",
-    status_topic_length = status_topic.length,
-    set_topic = status_topic.replace("status", "set");
+    status_topic_length = status_topic.length;
 
   const handleStateChange = (topic, newState) => {
     const key = topic.substr(status_topic_length);
@@ -70,6 +75,9 @@ export default ({ hub }) => {
   }, []);
 
   // render
+  if (activities && startingActivity) {
+    return <h1>Starting {activities[startingActivity].label}...</h1>;
+  }
   if (activities && devices && currentActivity) {
     const current = activities[currentActivity];
     if (!current) {
@@ -85,15 +93,57 @@ export default ({ hub }) => {
     console.log("commands", commands);
     return (
       <>
-        <Joystick device={hub.device} commands={commands} />
-        <ColoredButtons device={hub.device} commands={commands} />
-        <NumericBasic device={hub.device} commands={commands} />
+        <RokuButtons
+          style={{ marginBottom: 4 }}
+          device={hub.device}
+          commands={commands}
+        />
+        <XBoxButtons
+          style={{ marginBottom: 4 }}
+          device={hub.device}
+          commands={commands}
+        />
+        <AppleTVButtons
+          style={{ marginBottom: 4 }}
+          device={hub.device}
+          commands={commands}
+        />
+        <TiVoButtons
+          style={{ marginBottom: 4 }}
+          device={hub.device}
+          commands={commands}
+        />
+        <ColoredButtons
+          style={{ marginBottom: 4 }}
+          device={hub.device}
+          commands={commands}
+        />
+        <ABCDButtons
+          style={{ marginBottom: 4 }}
+          device={hub.device}
+          commands={commands}
+        />
+        <JoystickButtons
+          style={{ marginBottom: 4 }}
+          device={hub.device}
+          commands={commands}
+        />
+        <NumberButtons
+          style={{ marginBottom: 4 }}
+          device={hub.device}
+          commands={commands}
+        />
+        <TransportButtons
+          style={{ marginBottom: 4 }}
+          device={hub.device}
+          commands={commands}
+        />
       </>
     );
     /*
     return (
       <div style={{ textAlign: "left" }}>
-        <NumericBasic topic={set_topic} controlGroup={current.controlGroup} />
+        <NumberButtons topic={set_topic} controlGroup={current.controlGroup} />
         <div>
           Current Activity {currentActivity} {current.label} {startingActivity}
         </div>
@@ -119,5 +169,5 @@ export default ({ hub }) => {
     );
     */
   }
-  return <div>Harmony Remote {hub.device}</div>;
+  return null;
 };
