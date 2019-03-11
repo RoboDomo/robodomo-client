@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useEffect, useRef, useReducer } from "react";
 
 import Config from "Config";
 
@@ -17,48 +17,90 @@ import MQTT from "lib/MQTT";
 
 import { FaAngleRight, FaAngleUp, FaAngleDown } from "react-icons/fa";
 
-const thermostatTopics = [
-  "device",
-  "name",
-  "structure_name",
-  "postal_code",
-  "away",
-  "ambient_temperature_f",
-  "target_temperature_f",
-  "hvac_state",
-  "has_leaf",
-  "humidity",
-  "time_to_target",
-  "hvac_mode"
-];
+export default ({ thermostat }) => {
+  const device = thermostat.device;
+  //  const [renderCount, setRenderCount] = useState(true);
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
-const weatherTopics = ["now", "forecast"];
+  const thermostat_status_topic = Config.mqtt.nest + "/" + device + "/status/",
+    thermostat_status_topic_length = thermostat_status_topic.length,
+    set_topic = thermostat_status_topic.replace("status", "set");
 
-export default class ThermostatTab extends Component {
-  constructor(props) {
-    super(props);
+  const weather_status_topic = useRef(null);
 
-    this.thermostat = props.config;
-    this.device = this.thermostat.device;
-    this.name = this.thermostat.name;
-    this.thermostat_status_topic =
-      Config.mqtt.nest + "/" + this.device + "/status/";
-    this.thermostat_status_topic_length = this.thermostat_status_topic.length;
-    this.set_topic = this.thermostat_status_topic.replace("status", "set");
+  const thermoState = useRef({}),
+    weatherState = useRef({});
 
-    this.state = null;
+  const thermostatTopics = [
+    "device",
+    "name",
+    "structure_name",
+    "postal_code",
+    "away",
+    "ambient_temperature_f",
+    "target_temperature_f",
+    "hvac_state",
+    "has_leaf",
+    "humidity",
+    "time_to_target",
+    "hvac_mode"
+  ];
+  const weatherTopics = ["now", "forecast"];
 
-    this.onStateChange = this.onStateChange.bind(this);
+  const onWeatherChange = (topic, newState) => {
+    const key = topic.substr(weather_status_topic.current.length);
+    weatherState.current[key] = newState;
+    console.log("weather change", weatherState.current);
+    forceUpdate();
+  };
 
-    this.setTargetTemperature = this.setTargetTemperature.bind(this);
-    this.adjustTemperature = this.adjustTemperature.bind(this);
-    this.hvacModeChange = this.hvacModeChange.bind(this);
-  }
-  render() {
-    const thermostat = this.state ? this.state.thermostat : {},
-      weather = this.state ? this.state.weather : {},
+  const onThermostatChange = (topic, newState) => {
+    const key = topic.substr(thermostat_status_topic_length);
+    thermoState.current[key] = newState;
+    forceUpdate();
+  };
+
+  useEffect(() => {
+    for (const topic of thermostatTopics) {
+      MQTT.subscribe(thermostat_status_topic + topic, onThermostatChange);
+    }
+    return () => {
+      for (const topic of thermostatTopics) {
+        MQTT.unsubscribe(thermostat_status_topic + topic, onThermostatChange);
+      }
+      if (weather_status_topic.current) {
+        const t = weather_status_topic.current;
+        for (const w of weatherTopics) {
+          MQTT.unsubscribe(t + w, onWeatherChange);
+        }
+      }
+    };
+  }, []);
+
+  const hvacModeChange = mode => {
+    MQTT.publish(set_topic + "/hvac_mode", mode);
+  };
+
+  const adjustTemperature = temp => {
+    const thermostat = thermoState.current;
+    if (thermostat) {
+      MQTT.publish(
+        set_topic + "/target_temperature_f",
+        thermostat.target_temperature_f + temp
+      );
+    }
+  };
+
+  const setTargetTemperature = temp => {
+    MQTT.publish(set_topic + "/target_temperature_f", temp);
+  };
+
+  const render = () => {
+    const thermostat = thermoState.current,
+      weather = weatherState.current,
       now = weather ? weather.now : {};
 
+    //    console.log("RENDER", thermostat, weatherState);
     if (!thermostat || !now) {
       return null;
     }
@@ -124,7 +166,7 @@ export default class ThermostatTab extends Component {
             />
             <br />
             <ToggleButtonGroup
-              onChange={this.hvacModeChange}
+              onChange={hvacModeChange}
               type="radio"
               size="lg"
               name="hvac"
@@ -167,39 +209,39 @@ export default class ThermostatTab extends Component {
             </ListGroupItem>
           </ListGroup>
           <ListGroup>
-            <ListGroupItem onClick={() => this.adjustTemperature(-2)}>
+            <ListGroupItem onClick={() => adjustTemperature(-2)}>
               <FaAngleDown /> Adjust{" "}
               <span style={{ float: "right" }}>-2 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem onClick={() => this.adjustTemperature(-1)}>
+            <ListGroupItem onClick={() => adjustTemperature(-1)}>
               <FaAngleDown /> Adjust{" "}
               <span style={{ float: "right" }}>-1 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem onClick={() => this.adjustTemperature(1)}>
+            <ListGroupItem onClick={() => adjustTemperature(1)}>
               <FaAngleUp /> Adjust{" "}
               <span style={{ float: "right" }}>+1 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem onClick={() => this.adjustTemperature(2)}>
+            <ListGroupItem onClick={() => adjustTemperature(2)}>
               <FaAngleUp /> Adjust{" "}
               <span style={{ float: "right" }}>+2 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem onClick={() => this.setTargetTemperature(82)}>
+            <ListGroupItem onClick={() => setTargetTemperature(82)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>82 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem onClick={() => this.setTargetTemperature(79)}>
+            <ListGroupItem onClick={() => setTargetTemperature(79)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>78 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem onClick={() => this.setTargetTemperature(75)}>
+            <ListGroupItem onClick={() => setTargetTemperature(75)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>75 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem onClick={() => this.setTargetTemperature(72)}>
+            <ListGroupItem onClick={() => setTargetTemperature(72)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>72 &deg;</span>
             </ListGroupItem>
-            <ListGroupItem onClick={() => this.setTargetTemperature(70)}>
+            <ListGroupItem onClick={() => setTargetTemperature(70)}>
               <FaAngleRight />
               Set <span style={{ float: "right" }}>70 &deg;</span>
             </ListGroupItem>
@@ -207,82 +249,16 @@ export default class ThermostatTab extends Component {
         </Col>
       </Row>
     );
-  }
-  onStateChange(topic, newState) {
-    const state = this.state || {};
+  };
 
-    if (topic.startsWith(Config.mqtt.nest)) {
-      const key = topic.substr(this.thermostat_status_topic_length),
-        thermostat = state.thermostat || {};
-
-      thermostat[key] = newState;
-      this.setState({ thermostat: thermostat });
-      if (!this.weather_status_topic && thermostat.postal_code) {
-        const t = (this.weather_status_topic =
-          Config.mqtt.weather + "/" + thermostat.postal_code + "/status/");
-        this.weather_status_topic_length = this.weather_status_topic.length;
-
-        weatherTopics.forEach(topic => {
-          MQTT.subscribe(t + topic, this.onStateChange);
-        });
-      }
-    } else {
-      const key = topic.substr(this.weather_status_topic_length),
-        weather = state.weather || {};
-
-      weather[key] = newState;
-      this.setState({ weather: weather });
+  if (!weather_status_topic.current && thermoState.current.postal_code) {
+    console.log("SUBSCRIBING!!!");
+    const t = (weather_status_topic.current = `${Config.mqtt.weather}/${
+      thermoState.current.postal_code
+    }/status/`);
+    for (const w of weatherTopics) {
+      MQTT.subscribe(t + w, onWeatherChange);
     }
   }
-
-  componentDidMount() {
-    const status_topic = this.thermostat_status_topic;
-
-    setTimeout(() => {
-      thermostatTopics.forEach(topic => {
-        MQTT.subscribe(status_topic + topic, this.onStateChange);
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    const status_topic = this.thermostat_status_topic;
-
-    if (this.weather_status_topic) {
-      const t =
-        Config.mqtt.weather +
-        "/" +
-        this.state.thermostat.postal_code +
-        "/status/";
-
-      weatherTopics.forEach(topic => {
-        MQTT.unsubscribe(t + topic, this.onStateChange);
-      });
-    }
-
-    thermostatTopics.forEach(topic => {
-      MQTT.unsubscribe(status_topic + topic, this.onStateChange);
-    });
-  }
-
-  hvacModeChange(mode) {
-    MQTT.publish(this.set_topic + "/hvac_mode", mode);
-    //    this.state.thermostat.hvac_mode = mode;
-    //    this.setState(this.state);
-  }
-
-  adjustTemperature(temp) {
-    const state = this.state,
-      thermostat = state ? state.thermostat : null;
-    if (thermostat) {
-      MQTT.publish(
-        this.set_topic + "/target_temperature_f",
-        thermostat.target_temperature_f + temp
-      );
-    }
-  }
-
-  setTargetTemperature(temp) {
-    MQTT.publish(this.set_topic + "/target_temperature_f", temp);
-  }
-}
+  return render();
+};

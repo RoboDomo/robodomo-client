@@ -3,7 +3,7 @@ import React from "react";
 import Config from "Config";
 
 import RemoteButton from "components/common/RemoteButton";
-import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
+import { Row, ButtonGroup } from "react-bootstrap";
 
 const isAppleTV = commands => {
   return commands.Back && commands.Home && commands.Menu && !commands.Eject;

@@ -30,7 +30,7 @@ export default () => {
             eventKey={thermostat.name}
             key={thermostat.name}
           >
-            <ThermostatTab config={thermostat} />
+            <ThermostatTab thermostat={thermostat} />
           </Tab>
         );
       })}
