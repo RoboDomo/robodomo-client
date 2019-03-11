@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-export default class Autelis extends Component {
-  render() {
-    return <div>Autelis</div>;
-  }
-}
+export default () => {
+  return <div>Autelis</div>;
+};
