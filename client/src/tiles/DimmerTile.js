@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import Config from "Config";
 import MQTT from "lib/MQTT";
@@ -6,80 +6,72 @@ import Tile from "components/Tile";
 
 import { TiAdjustBrightness } from "react-icons/ti";
 
-export default class DimmerTile extends Component {
-  constructor(props) {
-    super(props);
+export default ({ name }) => {
+  const status_topic = `${Config.mqtt.smartthings}/${name}/`,
+    status_topic_length = status_topic.length,
+    set_topic = status_topic;
 
-    this.status_topic = Config.mqtt.smartthings + "/" + props.name + "/";
-    this.status_topic_length = this.status_topic.length;
-    this.set_topic = this.status_topic;
+  const [level, setLevel] = useState(0);
+  const [power, setPower] = useState("off");
 
-    this.onStateChange = this.onStateChange.bind(this);
-    this.onClick = this.onClick.bind(this);
-  }
+  useEffect(() => {
+    const onStateChange = (topic, newState) => {
+      const key = topic.substr(status_topic_length);
+      switch (key) {
+        case "switch":
+          setPower(newState);
+          break;
+        case "level":
+          setLevel(newState);
+          break;
+        default:
+          console.log("invalid state", key);
+          break;
+      }
+    };
 
-  render() {
-    const state = this.state,
-      level = state ? this.state.level : 0,
-      props = this.props;
+    MQTT.subscribe(status_topic + "switch", onStateChange);
+    MQTT.subscribe(status_topic + "level", onStateChange);
 
-    if (!state) {
-      return (
-        <Tile width={1} height={1}>
-          ...
-        </Tile>
-      );
-    }
-    if (state.switch === "off") {
-      return (
-        <Tile width={1} height={1}>
-          <div style={{ textAlign: "center" }} onClick={this.onClick}>
-            <TiAdjustBrightness size={24} style={{ marginBottom: 10 }} />
-            <div style={{ fontWeight: "normal" }}>{props.name}</div>
-            <div style={{ fontSize: 30 }}>Off</div>
-          </div>
-        </Tile>
-      );
-    }
-    return (
-      <Tile width={1} height={1}>
-        <div
-          style={{ textAlign: "center", color: "yellow" }}
-          onClick={this.onClick}
-        >
-          <TiAdjustBrightness size={24} style={{ marginBottom: 10 }} />
-          <div style={{ fontWeight: "normal" }}>{props.name}</div>
-          <div style={{ fontSize: 30 }}>{level}%</div>
-        </div>
-      </Tile>
-    );
-  }
-  onStateChange(topic, newState) {
-    const newVal = {};
+    return () => {
+      MQTT.unsubscribe(status_topic + "switch", onStateChange);
+      MQTT.unsubscribe(status_topic + "level", onStateChange);
+    };
+  }, []);
 
-    newVal[topic.substr(this.status_topic_length)] = newState;
-    this.setState(newVal);
-  }
-
-  componentDidMount() {
-    MQTT.subscribe(this.status_topic + "switch", this.onStateChange);
-    MQTT.subscribe(this.status_topic + "level", this.onStateChange);
-  }
-
-  componentWillUnmount() {
-    MQTT.unsubscribe(this.status_topic + "switch", this.onStateChange);
-    MQTT.unsubscribe(this.status_topic + "level", this.onStateChange);
-  }
-
-  onClick(e) {
+  const onClick = e => {
     e.stopPropagation();
 
-    if (this.state.switch === "on") {
-      this.setState({ switch: "off" });
-      MQTT.publish(this.set_topic + "switch/set", "off");
+    if (power === "on") {
+      setPower("off");
+      MQTT.publish(set_topic + "switch/set", "off");
     } else {
-      this.setState({ switch: "on" });
-      MQTT.publish(this.set_topic + "switch/set", "on");
+      setPower("on");
+      MQTT.publish(set_topic + "switch/set", "on");
     }
-  }
-}
+  };
+
+  const style =
+    power === "off"
+      ? {
+          color: undefined,
+          value: "Off"
+        }
+      : {
+          color: "yellow",
+          value: `${level}%`
+        };
+
+  return (
+    <Tile width={1} height={1}>
+      <div
+        style={{ textAlign: "center", color: style.color }}
+        onClick={onClick}
+      >
+        <TiAdjustBrightness size={24} style={{ marginBottom: 10 }} />
+        <div style={{ fontWeight: "normal" }}>{name}</div>
+        <div style={{ fontSize: 30 }}>{style.value}</div>
+      </div>
+    </Tile>
+  );
+};
