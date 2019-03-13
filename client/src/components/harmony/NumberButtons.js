@@ -5,7 +5,7 @@ import Config from "Config";
 import RemoteButton from "components/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
-export default ({ style, device, commands }) => {
+const NumberButtons = ({ style, device, commands }) => {
   if (!device || !commands || !commands.Number1) {
     return null;
   }
@@ -110,3 +110,5 @@ export default ({ style, device, commands }) => {
     </Row>
   );
 };
+
+export default NumberButtons;

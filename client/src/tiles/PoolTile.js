@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import Config from "Config";
 import Tile from "components/Tile";
@@ -14,119 +14,95 @@ const topics = [
   "solarTemp"
 ];
 
-export default class PoolTile extends Component {
-  constructor(props) {
-    super(props);
+const PoolTile = ({ device }) => {
+  const [state, setState] = useState({ pump: "off" });
+  const controller = Config[device],
+    deviceMap = controller.deviceMap,
+    status_topic = Config.mqtt[device] + "/status/",
+    status_topic_length = status_topic.length;
 
-    this.controller = Config.autelis;
-    this.deviceMap = this.controller.deviceMap;
-    this.status_topic = Config.mqtt.autelis + "/status/";
-    this.status_topic_length = this.status_topic.length;
-    this.onStateChange = this.onStateChange.bind(this);
-  }
+  useEffect(() => {
+    const onStateChange = (topic, newState) => {
+      const newValue = {},
+        what = topic.substr(status_topic_length),
+        key = deviceMap.backward[what] || what;
 
-  render() {
-    try {
-      if (!this.state) {
+      newValue[key] = newState;
+      setState(prev => ({ ...prev, ...newValue }));
+    };
+    topics.forEach(topic => {
+      const device = deviceMap.forward[topic] || topic;
+      MQTT.subscribe(status_topic + device, onStateChange);
+    });
+    return () => {
+      topics.forEach(topic => {
+        const device = deviceMap.forward[topic] || topic;
+        MQTT.unsubscribe(status_topic + device, onStateChange);
+      });
+    };
+  }, []);
+
+  const renderPool = () => {
+    const renderControl = (ndx, text, big) => {
+      const thingState = (state[ndx] || "off").toLowerCase();
+
+      if (thingState === "off") {
         return null;
       }
-
-      const tileSize = Config.screenSize === "small" ? 1 : 2,
-        state = this.state;
-
-      function renderControl(ndx, text, big) {
-        const thingState = (state[ndx] || "off").toLowerCase();
-
-        if (thingState === "off") {
-          return null;
-        }
-        if (big) {
-          return <div style={{ fontSize: 30 }}>{text}</div>;
-        }
-
-        return <div>{text}</div>;
+      if (big) {
+        return <div style={{ fontSize: 30 }}>{text}</div>;
       }
 
-      const on = state.pump.toLowerCase() === "on",
-        backgroundColor = on
-          ? state.poolHeat === "enabled"
-            ? "red"
-            : "green"
-          : undefined,
-        color = on ? "white" : undefined;
+      return <div>{text}</div>;
+    };
 
-      function renderPool() {
-        if (on) {
-          return (
-            <div>
-              {renderControl("pump", `Pool ${state.poolTemp}°F`, true)}
-              {renderControl("pump", "Filter On")}
-              {renderControl("cleaner", "Cleaner On")}
-              {renderControl("waterfall", "Waterfall On")}
-              {renderControl("poolHeat", "Pool Heat " + state.poolSetpoint)}
-              {renderControl(
-                "solarHeat",
-                "Solar Heat " +
-                  (state.solarHeat === "enabled" || state.solarHeat === "on"
-                    ? state.solarTemp
-                    : "off")
-              )}
-            </div>
-          );
-        } else {
-          return (
-            <div>
-              <div style={{ fontSize: 30 * tileSize }}>{"Pool Off"}</div>
-            </div>
-          );
-        }
-      }
-
+    if (on) {
       return (
-        <Tile
-          backgroundColor={backgroundColor}
-          color={color}
-          width={tileSize}
-          height={1}
-          onClick={() => {
-            localStorage.setItem("autelis-radio", "pool");
-            window.location.hash = "poolcontrol";
-          }}
-        >
-          <div style={{ textAlign: "center" }}>{renderPool()}</div>
-        </Tile>
+        <div>
+          {renderControl("pump", `Pool ${state.poolTemp}°F`, true)}
+          {renderControl("pump", "Filter On")}
+          {renderControl("cleaner", "Cleaner On")}
+          {renderControl("waterfall", "Waterfall On")}
+          {renderControl("poolHeat", "Pool Heat " + state.poolSetpoint)}
+          {renderControl(
+            "solarHeat",
+            "Solar Heat " +
+              (state.solarHeat === "enabled" || state.solarHeat === "on"
+                ? state.solarTemp
+                : "off")
+          )}
+        </div>
       );
-    } catch (e) {
-      return null;
+    } else {
+      return (
+        <div>
+          <div style={{ fontSize: 60 }}>{"Pool Off"}</div>
+        </div>
+      );
     }
-  }
+  };
 
-  onStateChange(topic, newState) {
-    const newValue = {},
-      what = topic.substr(this.status_topic_length),
-      key = this.deviceMap.backward[what] || what;
+  const on = state.pump.toLowerCase() === "on",
+    backgroundColor = on
+      ? state.poolHeat === "enabled"
+        ? "red"
+        : "green"
+      : undefined,
+    color = on ? "white" : undefined;
 
-    newValue[key] = newState;
-    this.setState(newValue);
-  }
-
-  componentDidMount() {
-    const status_topic = this.status_topic,
-      deviceMap = this.deviceMap.forward;
-
-    topics.forEach(topic => {
-      const device = deviceMap[topic] || topic;
-      MQTT.subscribe(status_topic + device, this.onStateChange);
-    });
-  }
-
-  componentWillUnmount() {
-    const status_topic = Config.mqtt.autelis + "/status/",
-      deviceMap = this.deviceMap.forward;
-
-    topics.forEach(topic => {
-      const device = deviceMap[topic] || topic;
-      MQTT.unsubscribe(status_topic + device, this.onStateChange);
-    });
-  }
-}
+  return (
+    <Tile
+      backgroundColor={backgroundColor}
+      color={color}
+      width={2}
+      height={1}
+      onClick={() => {
+        localStorage.setItem("autelis-radio", "pool");
+        window.location.hash = "poolcontrol";
+      }}
+    >
+      <div style={{ textAlign: "center" }}>{renderPool()}</div>
+    </Tile>
+  );
+};
+export default PoolTile;

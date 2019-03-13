@@ -1,60 +1,53 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-export default class Tile extends Component {
-  constructor(props) {
-    super(props);
-    this.readOnly = props.readOnly || false;
-    this.backgroundColor = props.backgroundColor;
-    this.color = props.color;
-    this.width = props.width || 1;
-    this.height = props.height || 1;
-    this.onClick = this.onClick.bind(this);
-    this.timer = null;
-    this.state = {
-      pressed: false
-    };
-  }
-  render() {
-    const props = this.props,
-      pressed = this.state.pressed;
+const Tile = ({
+  readOnly, // cannot be pressed if true
+  backgroundColor, // background color of entire tile
+  color, // text color of rendering on tile
+  width, // width, in tiles (e.g. 1, 2)
+  height, // height, in tiles (e.g. 1, 2)
+  onClick, // if string, location.hash, if funciton, it is called
+  children
+}) => {
+  const [pressed, setPressed] = useState(false);
+  let timer = null;
 
-    return (
-      <div
-        style={{
-          backgroundColor: this.backgroundColor,
-          color: this.color,
-          width: this.width * 128,
-          height: this.height * 128,
-          border: pressed ? "4px inset white" : "4px outset white",
-          gridColumnEnd: "span " + this.width,
-          gridRowEnd: "span " + this.height,
-          fontWeight: "bold",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center"
-        }}
-        onClick={this.onClick}
-      >
-        {props.children}
-      </div>
-    );
-  }
-
-  onClick() {
-    if (this.readOnly || this.timer) {
+  const handleClick = () => {
+    if (readOnly || timer) {
       return;
     }
-    this.timer = setTimeout(() => {
-      this.timer = null;
-      this.setState({ pressed: false });
-      const ref = this.props.onClick;
-      if (typeof ref === "string") {
-        window.location.hash = ref;
-      } else if (typeof ref === "function") {
-        ref();
+    timer = setTimeout(() => {
+      timer = null;
+      setPressed(false);
+      if (typeof onClick === "string") {
+        window.location.hash = onClick;
+      } else if (typeof onClick === "function") {
+        onClick();
       }
     }, 500);
-    this.setState({ pressed: true });
-  }
-}
+    setPressed(true);
+  };
+
+  return (
+    <div
+      style={{
+        backgroundColor: backgroundColor,
+        color: color,
+        width: width * 128,
+        height: height * 128,
+        border: pressed ? "4px inset white" : "4px outset white",
+        gridColumnEnd: "span " + width,
+        gridRowEnd: "span " + height,
+        fontWeight: "bold",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+      onClick={handleClick}
+    >
+      {children}
+    </div>
+  );
+};
+export default Tile;

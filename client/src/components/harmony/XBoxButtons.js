@@ -5,10 +5,11 @@ import Config from "Config";
 import RemoteButton from "components/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
-export default ({ style, device, commands }) => {
+const XBoxButtons = ({ style, device, commands }) => {
   if (!device || !commands || !commands.GameX) {
     return null;
   }
+
   const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
   return (
     <div style={style}>
@@ -83,3 +84,4 @@ export default ({ style, device, commands }) => {
     </div>
   );
 };
+export default XBoxButtons;

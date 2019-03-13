@@ -5,12 +5,20 @@ import Config from "Config";
 import RemoteButton from "components/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
+// apple tv commands are similar to XBox (for example)
+// but XBox has eject, and ATV does not.
 const isAppleTV = commands => {
-  return commands.Back && commands.Home && commands.Menu && !commands.Eject;
+  return (
+    commands &&
+    commands.Back &&
+    commands.Home &&
+    commands.Menu &&
+    !commands.Eject
+  );
 };
 
-export default ({ style, device, commands }) => {
-  if (!commands || !device || !isAppleTV(commands)) {
+const AppleTVButtons = ({ style, device, commands }) => {
+  if (!device || !isAppleTV(commands)) {
     return null;
   }
   const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
@@ -59,3 +67,4 @@ export default ({ style, device, commands }) => {
     </Row>
   );
 };
+export default AppleTVButtons;

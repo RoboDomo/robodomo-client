@@ -257,8 +257,8 @@ export default {
         { type: "clock" },
         { type: "weather" },
         { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
-        { type: "pool" },
-        { type: "spa" },
+        { type: "pool", controller: "autelis" },
+        { type: "spa", controller: "autelis" },
         //        {
         //          type: "theater",
         //          denon: "denon-s910w",

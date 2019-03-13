@@ -5,7 +5,8 @@ import Config from "Config";
 import RemoteButton from "components/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
-export default ({ style, device, commands }) => {
+const RokuButtons = ({ style, device, commands }) => {
+  // Roku has "sleep" button, other players do not (that I know of)
   if (!device || !commands || (!commands.Sleep && !commands.Options)) {
     return null;
   }
@@ -38,3 +39,4 @@ export default ({ style, device, commands }) => {
     </div>
   );
 };
+export default RokuButtons;

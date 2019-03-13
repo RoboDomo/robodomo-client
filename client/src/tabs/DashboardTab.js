@@ -84,14 +84,14 @@ export default ({ dashboard }) => {
         );
       case "pool":
         return (
-          <PoolTile key={++key}>
+          <PoolTile key={++key} device={tile.controller}>
             <div>{tile.type}</div>
             <div>{tile.device}</div>
           </PoolTile>
         );
       case "spa":
         return (
-          <SpaTile key={++key}>
+          <SpaTile key={++key} device={tile.controller}>
             <div>{tile.type}</div>
             <div>{tile.device}</div>
           </SpaTile>

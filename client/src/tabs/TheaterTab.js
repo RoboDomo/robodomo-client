@@ -26,9 +26,7 @@ export default ({ style, theater }) => {
       const s = JSON.parse(localStorage.getItem(STORAGE_KEY));
       setCurrentActivity(s.currentActivity || s.activeActivity);
       setCurrentDevice(s.currentDevice || s.activeDevice);
-      console.log("persisted got", s);
     } catch (e) {
-      console.log("getPersisted", e.message, e.stack);
       setCurrentActivity(null);
       setCurrentDevice(null);
       persist();
@@ -41,7 +39,6 @@ export default ({ style, theater }) => {
         currentActivity: currentActivity,
         currentDevice: currentDevice
       };
-      console.log("PERSIST", o);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(o));
     } catch (e) {
       console.log("persist", e.message, e.stack);
@@ -55,9 +52,7 @@ export default ({ style, theater }) => {
   for (const device of devices) {
     deviceMap[device.type] = device;
   }
-  console.log("devices", devices, deviceMap);
   const handleDeviceClick = device => {
-    console.log("handleDeviceClick", device, theater.title);
     setCurrentDevice(device.name);
     persist();
   };
@@ -73,14 +68,11 @@ export default ({ style, theater }) => {
     setCurrentActivity(activity.name);
     setCurrentDevice(activity.defaultDevice);
     persist();
-    console.log("start activity", activitiesMap[activity]);
   };
 
   //  return null;
   //
   let tvType = "unknown";
-
-  console.log("POWER", power);
 
   let launchPoints = null,
     foregroundApp = null,
@@ -99,7 +91,6 @@ export default ({ style, theater }) => {
 
     // determine TV input (e.g. HDMI1, HDMI2, NetFlix, etc.)
     if (power !== "on") {
-      console.log("power != on", power);
       return;
     }
 
@@ -113,12 +104,10 @@ export default ({ style, theater }) => {
       lgtv.foregroundApp = foregroundApp;
       lgtv.launchPoints = launchPoints;
       lgtv.power = power;
-      console.log("lgtv", lgtv);
     }
 
     for (const activity of activities) {
       const inputs = activity.inputs || {};
-      console.log("inputs", inputs);
       if (inputs.tv === tvInput && inputs.avr === avrInput) {
         if (currentActivity !== activity.name) {
           setCurrentDevice(activity.defaultDevice);
@@ -132,7 +121,6 @@ export default ({ style, theater }) => {
   useEffect(() => {
     getPersisted();
     for (const device of devices) {
-      //          console.log("key", key, device);
       switch (device.type) {
         case "lgtv":
           tvType = "lgtv";
@@ -147,18 +135,15 @@ export default ({ style, theater }) => {
           );
           break;
         case "denon":
-          //          console.log("DENON", device.device);
           MQTT.subscribe(`denon/${device.device}/status/SI`, onMessage);
           break;
         default:
-          //          console.log("unknown device type", device);
           break;
       }
     }
 
     return () => {
       for (const device of devices) {
-        //          console.log("key", key, device);
         switch (device.type) {
           case "lgtv":
             MQTT.unsubscribe(`lgtv/${device.device}/status/power`, onMessage);
@@ -172,18 +157,15 @@ export default ({ style, theater }) => {
             );
             break;
           case "denon":
-            //          console.log("DENON", device.device);
             MQTT.unsubscribe(`denon/${device.device}/status/SI`, onMessage);
             break;
           default:
-            //          console.log("unknown device type", device);
             break;
         }
       }
     };
   }, []);
 
-  console.log("render");
   return (
     <Row style={{ marginTop: 20 }}>
       <Col sm={2}>

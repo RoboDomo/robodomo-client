@@ -5,7 +5,7 @@ import Config from "Config";
 import RemoteButton from "components/common/RemoteButton";
 import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
 
-export default ({ style, device, commands }) => {
+const TiVoButtons = ({ style, device, commands }) => {
   if (!commands || !device || !commands.TiVo) {
     return null;
   }
@@ -68,3 +68,4 @@ export default ({ style, device, commands }) => {
     </div>
   );
 };
+export default TiVoButtons;

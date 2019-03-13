@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useReducer } from "react";
+import React, { useEffect, useState } from "react";
 
 import Config from "Config";
 
@@ -7,8 +7,7 @@ import MQTT from "lib/MQTT";
 import { Row, Col, Panel } from "react-bootstrap";
 
 export default () => {
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
-  const currentState = useRef({});
+  const [sensors, setSensors] = useState({});
   const types = [
     "contact",
     "motion",
@@ -19,8 +18,9 @@ export default () => {
   ];
 
   const onStateChange = (topic, newState) => {
-    currentState.current[topic] = newState;
-    forceUpdate();
+    const s = {};
+    s[topic] = newState;
+    setSensors(prev => ({ ...prev, ...s }));
   };
 
   useEffect(() => {
@@ -44,9 +44,7 @@ export default () => {
       return (
         <div key={"type" + key++}>
           {sensor.name}
-          <span style={{ float: "right" }}>
-            {currentState.current[sensor.topic]}
-          </span>
+          <span style={{ float: "right" }}>{sensors[sensor.topic]}</span>
         </div>
       );
     });

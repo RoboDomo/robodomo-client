@@ -5,7 +5,7 @@ import Config from "Config";
 import RemoteButton from "components/common/RemoteButton";
 import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
 
-export default ({ style, device, commands }) => {
+const JoystickButtons = ({ style, device, commands }) => {
   if (!commands || !device || !commands.DirectionUp) {
     return null;
   }
@@ -85,3 +85,4 @@ export default ({ style, device, commands }) => {
     </div>
   );
 };
+export default JoystickButtons;

@@ -2,7 +2,6 @@ import React from "react";
 import { Badge, ListGroup, ListGroupItem } from "react-bootstrap";
 
 export default ({ devices, currentDevice, tvInput, avrInput, onClick }) => {
-  console.log("devices", devices, tvInput);
   tvInput = tvInput || "off";
   if (!devices.length || !tvInput) {
     return null;

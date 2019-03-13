@@ -1,8 +1,11 @@
-import React, { useEffect, useRef, useReducer } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import Config from "Config";
 
 import {
+  Glyphicon,
+  ButtonGroup,
+  Button,
   ToggleButton,
   ToggleButtonGroup,
   Row,
@@ -15,12 +18,10 @@ import Thermostat from "react-nest-thermostat";
 
 import MQTT from "lib/MQTT";
 
-import { FaAngleRight, FaAngleUp, FaAngleDown } from "react-icons/fa";
+import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 
 export default ({ thermostat }) => {
   const device = thermostat.device;
-  //  const [renderCount, setRenderCount] = useState(true);
-  const [, forceUpdate] = useReducer(x => x + 1, 0);
 
   const thermostat_status_topic = Config.mqtt.nest + "/" + device + "/status/",
     thermostat_status_topic_length = thermostat_status_topic.length,
@@ -28,8 +29,8 @@ export default ({ thermostat }) => {
 
   const weather_status_topic = useRef(null);
 
-  const thermoState = useRef({}),
-    weatherState = useRef({});
+  const [thermoState, setThermoState] = useState({}),
+    [weatherState, setWeatherState] = useState({});
 
   const thermostatTopics = [
     "device",
@@ -49,15 +50,16 @@ export default ({ thermostat }) => {
 
   const onWeatherChange = (topic, newState) => {
     const key = topic.substr(weather_status_topic.current.length);
-    weatherState.current[key] = newState;
-    console.log("weather change", weatherState.current);
-    forceUpdate();
+    const s = {};
+    s[key] = newState;
+    setWeatherState(prev => ({ ...prev, ...s }));
   };
 
   const onThermostatChange = (topic, newState) => {
     const key = topic.substr(thermostat_status_topic_length);
-    thermoState.current[key] = newState;
-    forceUpdate();
+    const s = {};
+    s[key] = newState;
+    setThermoState(prev => ({ ...prev, ...s }));
   };
 
   useEffect(() => {
@@ -82,7 +84,7 @@ export default ({ thermostat }) => {
   };
 
   const adjustTemperature = temp => {
-    const thermostat = thermoState.current;
+    const thermostat = thermoState;
     if (thermostat) {
       MQTT.publish(
         set_topic + "/target_temperature_f",
@@ -96,14 +98,72 @@ export default ({ thermostat }) => {
   };
 
   const render = () => {
-    const thermostat = thermoState.current,
-      weather = weatherState.current,
+    const thermostat = thermoState,
+      weather = weatherState,
       now = weather ? weather.now : {};
 
     //    console.log("RENDER", thermostat, weatherState);
     if (!thermostat || !now) {
       return null;
     }
+    const target = n => {
+      let icon,
+        disabled = false;
+      if (thermostat.target_temperature_f > n) {
+        icon = <Glyphicon glyph="chevron-down" />;
+      } else if (thermostat.target_temperature_f < n) {
+        icon = <Glyphicon glyph="chevron-up" />;
+      } else {
+        icon = <Glyphicon glyph="chevron-right" />;
+        disabled = true;
+      }
+      return (
+        <Button
+          block
+          disabled={disabled}
+          onClick={() => setTargetTemperature(n)}
+        >
+          {icon} Set to {n}&deg;
+        </Button>
+      );
+    };
+    const renderTargets = () => {
+      switch (thermoState.hvac_mode) {
+        case "Off":
+        default:
+          return null;
+        case "heat":
+          return (
+            <ButtonGroup block vertical>
+              {target(78)}
+              {target(77)}
+              {target(76)}
+              {target(75)}
+              {target(74)}
+              {target(73)}
+              {target(72)}
+              {target(71)}
+              {target(70)}
+              {target(69)}
+            </ButtonGroup>
+          );
+        case "cool":
+          return (
+            <ButtonGroup vertical>
+              {target(82)}
+              {target(81)}
+              {target(80)}
+              {target(79)}
+              {target(79)}
+              {target(77)}
+              {target(76)}
+              {target(75)}
+              {target(74)}
+              {target(73)}
+            </ButtonGroup>
+          );
+      }
+    };
     return (
       <Row style={{ marginTop: 6 }}>
         <Col sm={3}>
@@ -165,6 +225,32 @@ export default ({ thermostat }) => {
               leaf={thermostat.has_leaf}
             />
             <br />
+            <ButtonGroup>
+              <Button onClick={() => adjustTemperature(-3)}>
+                <FaAngleDown />
+                &nbsp; 3 &deg;
+              </Button>
+              <Button onClick={() => adjustTemperature(-2)}>
+                <FaAngleDown />
+                &nbsp; 2 &deg;
+              </Button>
+              <Button onClick={() => adjustTemperature(-1)}>
+                <FaAngleDown />
+                &nbsp; 1 &deg;
+              </Button>
+              <Button onClick={() => adjustTemperature(1)}>
+                <FaAngleUp />
+                &nbsp; 1 &deg;
+              </Button>
+              <Button onClick={() => adjustTemperature(2)}>
+                <FaAngleUp />
+                &nbsp; 2 &deg;
+              </Button>
+              <Button onClick={() => adjustTemperature(3)}>
+                <FaAngleUp />
+                &nbsp; 3 &deg;
+              </Button>
+            </ButtonGroup>
             <ToggleButtonGroup
               onChange={hvacModeChange}
               type="radio"
@@ -208,53 +294,16 @@ export default ({ thermostat }) => {
               </span>
             </ListGroupItem>
           </ListGroup>
-          <ListGroup>
-            <ListGroupItem onClick={() => adjustTemperature(-2)}>
-              <FaAngleDown /> Adjust{" "}
-              <span style={{ float: "right" }}>-2 &deg;</span>
-            </ListGroupItem>
-            <ListGroupItem onClick={() => adjustTemperature(-1)}>
-              <FaAngleDown /> Adjust{" "}
-              <span style={{ float: "right" }}>-1 &deg;</span>
-            </ListGroupItem>
-            <ListGroupItem onClick={() => adjustTemperature(1)}>
-              <FaAngleUp /> Adjust{" "}
-              <span style={{ float: "right" }}>+1 &deg;</span>
-            </ListGroupItem>
-            <ListGroupItem onClick={() => adjustTemperature(2)}>
-              <FaAngleUp /> Adjust{" "}
-              <span style={{ float: "right" }}>+2 &deg;</span>
-            </ListGroupItem>
-            <ListGroupItem onClick={() => setTargetTemperature(82)}>
-              <FaAngleRight />
-              Set <span style={{ float: "right" }}>82 &deg;</span>
-            </ListGroupItem>
-            <ListGroupItem onClick={() => setTargetTemperature(79)}>
-              <FaAngleRight />
-              Set <span style={{ float: "right" }}>78 &deg;</span>
-            </ListGroupItem>
-            <ListGroupItem onClick={() => setTargetTemperature(75)}>
-              <FaAngleRight />
-              Set <span style={{ float: "right" }}>75 &deg;</span>
-            </ListGroupItem>
-            <ListGroupItem onClick={() => setTargetTemperature(72)}>
-              <FaAngleRight />
-              Set <span style={{ float: "right" }}>72 &deg;</span>
-            </ListGroupItem>
-            <ListGroupItem onClick={() => setTargetTemperature(70)}>
-              <FaAngleRight />
-              Set <span style={{ float: "right" }}>70 &deg;</span>
-            </ListGroupItem>
-          </ListGroup>
+          {renderTargets()}
         </Col>
       </Row>
     );
   };
 
-  if (!weather_status_topic.current && thermoState.current.postal_code) {
+  if (!weather_status_topic.current && thermoState.postal_code) {
     console.log("SUBSCRIBING!!!");
     const t = (weather_status_topic.current = `${Config.mqtt.weather}/${
-      thermoState.current.postal_code
+      thermoState.postal_code
     }/status/`);
     for (const w of weatherTopics) {
       MQTT.subscribe(t + w, onWeatherChange);

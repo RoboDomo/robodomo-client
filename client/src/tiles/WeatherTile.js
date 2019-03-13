@@ -1,89 +1,91 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import Tile from "components/Tile";
 import Config from "Config";
 import MQTT from "lib/MQTT";
 import Glyphicon from "react-bootstrap/lib/Glyphicon";
 
-export default class WeatherTile extends Component {
-  constructor(props) {
-    super(props);
+const WeatherTile = () => {
+  const [displayCity, setDisplayCity] = useState("");
+  const [now, setNow] = useState({});
+  const location = Config.weather.locations[0];
 
-    this.location = Config.weather.locations[0];
+  useEffect(() => {
+    const status_topic =
+      Config.mqtt.weather + "/" + location.device + "/status/";
+    const onStateChange = (topic, newValue) => {
+      if (~topic.indexOf("now")) {
+        setNow(newValue);
+      } else if (~topic.indexOf("display_city")) {
+        setDisplayCity(newValue);
+      } else {
+        console.log("invalid topic/value", topic, newValue);
+      }
+    };
+    MQTT.subscribe(status_topic + "now", onStateChange);
+    MQTT.subscribe(status_topic + "display_city", onStateChange);
+    return () => {
+      MQTT.unsubscribe(status_topic + "now", onStateChange);
+      MQTT.unsubscribe(status_topic + "display_city", onStateChange);
+    };
+  }, []);
 
-    this.status_topic =
-      Config.mqtt.weather + "/" + this.location.device + "/status/";
-    this.status_topic_length = this.status_topic.length;
-
-    this.onStateChange = this.onStateChange.bind(this);
-    this.state = { now: null };
+  if (!now.icon) {
+    return (
+      <Tile
+        //backgroundColor="white"
+        //color="blac,cick"
+        width={2}
+        height={2}
+        onClick="weather"
+      >
+        {location.name}
+      </Tile>
+    );
   }
-  render() {
-    const tileSize = Config.screenSize === "small" ? 1 : 2,
-      now = this.state.now;
-    try {
-      return (
-        <Tile
-          //backgroundColor="white"
-          //color="blac,cick"
-          width={tileSize}
-          height={tileSize}
-          onClick="weather"
+  return (
+    <Tile
+      //backgroundColor="white"
+      //color="blac,cick"
+      width={2}
+      height={2}
+      onClick="weather"
+    >
+      <div style={{ textAlign: "center" }}>
+        <div>{displayCity}</div>
+        <div
+          style={{
+            fontSize: 48,
+            paddingRight: 10,
+            marginBottom: 10
+          }}
         >
-          <div style={{ textAlign: "center" }}>
-            <div>{this.state.display_city}</div>
-            <div
-              style={{
-                fontSize: 24 * tileSize,
-                paddingRight: 10,
-                marginBottom: 10
-              }}
-            >
-              <img
-                alt={now.icon}
-                style={{
-                  verticalAlign: "middle",
-                  width: 48 * tileSize,
-                  height: 48 * tileSize
-                }}
-                src={"/img/Weather/icons/black/" + now.icon + ".svg"}
-              />
-              <div style={{ display: "inline", paddingTop: 10 }}>
-                {now.current_temperature}&deg;F
-              </div>
-            </div>
-            <div
-              style={{
-                fontSize: 12 * tileSize,
-                marginTop: 5,
-                marginBottom: 10,
-                textAlign: "center"
-              }}
-            >
-              <Glyphicon style={{ fontSize: 16 * tileSize }} glyph="flag" />{" "}
-              {now.wind_direction} {now.current_wind} MPH
-            </div>
+          <img
+            alt={now.icon}
+            style={{
+              verticalAlign: "middle",
+              width: 96,
+              height: 96
+            }}
+            src={"/img/Weather/icons/black/" + now.icon + ".svg"}
+          />
+          <div style={{ display: "inline", paddingTop: 10 }}>
+            {now.current_temperature}&deg;F
           </div>
-        </Tile>
-      );
-    } catch (e) {
-      return null;
-    }
-  }
-
-  onStateChange(topic, newState) {
-    const newVal = {};
-
-    newVal[topic.substr(this.status_topic_length)] = newState;
-    this.setState(newVal);
-  }
-  componentDidMount() {
-    MQTT.subscribe(this.status_topic + "now", this.onStateChange);
-    MQTT.subscribe(this.status_topic + "display_city", this.onStateChange);
-  }
-
-  componentWillUnmount() {
-    MQTT.unsubscribe(this.status_topic + "now", this.onStateChange);
-    MQTT.unsubscribe(this.status_topic + "display_city", this.onStateChange);
-  }
-}
+        </div>
+        <div
+          style={{
+            fontSize: 24,
+            marginTop: 5,
+            marginBottom: 10,
+            textAlign: "center"
+          }}
+        >
+          <Glyphicon style={{ fontSize: 32 }} glyph="flag" />{" "}
+          {now.wind_direction} {now.current_wind} MPH
+        </div>
+      </div>
+    </Tile>
+  );
+};
+export default WeatherTile;

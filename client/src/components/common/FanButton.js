@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import Config from "Config";
@@ -6,47 +6,35 @@ import Config from "Config";
 import MQTT from "lib/MQTT";
 import RemoteButton from "components/common/RemoteButton";
 
-export default class FanButton extends Component {
-  constructor(props) {
-    super(props);
-    this.status_topic = Config.mqtt.smartthings + "/" + props.name + "/";
-    this.status_topic_length = this.status_topic.length;
-    this.set_topic = this.status_topic;
+const FanButton = ({ name }) => {
+  const [power, setPower] = useState("off");
+  const [level, setLevel] = useState(5);
 
-    this.onStateChange = this.onStateChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
+  const status_topic = Config.mqtt.smartthings + "/" + name + "/",
+    set_topic = status_topic;
 
-  render() {
-    const state = this.state,
-      sw = state ? state.switch : "?";
-
-    let value = "Off";
-    if (sw === "on") {
-      const level = Number(state.level);
-      if (level < 34) {
-        value = "Low";
-      } else if (level < 67) {
-        value = "Medium";
+  useEffect(() => {
+    const onStateChange = (topic, newState) => {
+      if (~topic.indexOf("switch")) {
+        setPower(newState);
+      } else if (~topic.indexOf("level")) {
+        setLevel(newState);
       } else {
-        value = "High";
+        console.log("invlaid topic/state", topic, newState);
       }
-    }
-    return (
-      <div>
-        <RemoteButton onClick={this.handleClick}>{value}</RemoteButton>
-      </div>
-    );
-  }
+    };
+    MQTT.subscribe(status_topic + "switch", onStateChange);
+    MQTT.subscribe(status_topic + "level", onStateChange);
+    return () => {
+      MQTT.unsubscribe(status_topic + "switch", onStateChange);
+      MQTT.unsubscribe(status_topic + "level", onStateChange);
+    };
+  }, []);
+  const handleClick = () => {
+    let value = 25;
 
-  handleClick() {
-    const state = this.state;
-
-    let value = 25,
-      level = Number(state.level);
-
-    if (state.switch === "off") {
-      level = 25;
+    if (power === "off") {
+      value = 25;
     } else if (level < 34) {
       value = 50;
     } else if (level < 67) {
@@ -56,40 +44,37 @@ export default class FanButton extends Component {
     }
 
     if (value) {
-      this.setState({
-        level: value,
-        switch: "on"
-      });
-      MQTT.publish(this.set_topic + "switch/set", "on");
+      setPower("on");
+      setLevel(value);
+      MQTT.publish(set_topic + "switch/set", "on");
       setTimeout(() => {
-        MQTT.publish(this.set_topic + "level/set", value);
+        MQTT.publish(set_topic + "level/set", value);
       }, 250);
     } else {
-      this.setState({
-        switch: "off"
-      });
-      MQTT.publish(this.set_topic + "switch/set", "off");
+      setPower("off");
+      MQTT.publish(set_topic + "switch/set", "off");
+    }
+  };
+
+  let value = "Off";
+  if (power === "on") {
+    if (level < 34) {
+      value = "Low";
+    } else if (level < 67) {
+      value = "Medium";
+    } else {
+      value = "High";
     }
   }
-
-  onStateChange(topic, newState) {
-    const newVal = {};
-
-    newVal[topic.substr(this.status_topic_length)] = newState;
-    this.setState(newVal);
-  }
-
-  componentDidMount() {
-    MQTT.subscribe(this.status_topic + "switch", this.onStateChange);
-    MQTT.subscribe(this.status_topic + "level", this.onStateChange);
-  }
-
-  componentWillUnmount() {
-    MQTT.unsubscribe(this.status_topic + "switch", this.onStateChange);
-    MQTT.unsubscribe(this.status_topic + "level", this.onStateChange);
-  }
-}
+  return (
+    <div>
+      <RemoteButton onClick={handleClick}>{value}</RemoteButton>
+    </div>
+  );
+};
 
 FanButton.propTypes = {
   name: PropTypes.string.isRequired
 };
+
+export default FanButton;
