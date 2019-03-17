@@ -30,7 +30,7 @@ const remap = (o, controlGroup) => {
   return o;
 };
 
-export default ({ hub }) => {
+const HarmonyRemoteControl = ({ hub }) => {
   // state
   const [currentActivity, setCurrentActivity] = useState(null);
   const [startingActivity, setStartingActivity] = useState(null);
@@ -140,34 +140,7 @@ export default ({ hub }) => {
         />
       </>
     );
-    /*
-    return (
-      <div style={{ textAlign: "left" }}>
-        <NumberButtons topic={set_topic} controlGroup={current.controlGroup} />
-        <div>
-          Current Activity {currentActivity} {current.label} {startingActivity}
-        </div>
-        <h1>Activities</h1>
-        {Object.keys(activities).map(key => {
-          const activity = activities[key];
-          return (
-            <li key={activity.id}>
-              {activity.id} {activity.label}
-            </li>
-          );
-        })}
-        <h1>Devices</h1>
-        {Object.keys(devices).map(key => {
-          const device = devices[key];
-          return (
-            <li key={device.id}>
-              {device.id} {device.label}
-            </li>
-          );
-        })}
-      </div>
-    );
-    */
   }
   return null;
 };
+export default HarmonyRemoteControl;

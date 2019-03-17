@@ -5,7 +5,7 @@ import Config from "Config";
 import { Tab, Tabs } from "react-bootstrap";
 import TheaterTab from "tabs/TheaterTab";
 
-export default () => {
+const Theater = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("theaterTabState") || "0"
   );
@@ -39,3 +39,4 @@ export default () => {
     </Tabs>
   );
 };
+export default Theater;

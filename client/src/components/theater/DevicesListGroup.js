@@ -1,7 +1,13 @@
 import React from "react";
 import { Badge, ListGroup, ListGroupItem } from "react-bootstrap";
 
-export default ({ devices, currentDevice, tvInput, avrInput, onClick }) => {
+const DevicesListGroup = ({
+  devices,
+  currentDevice,
+  tvInput,
+  avrInput,
+  onClick
+}) => {
   tvInput = tvInput || "off";
   if (!devices.length || !tvInput) {
     return null;
@@ -43,3 +49,5 @@ export default ({ devices, currentDevice, tvInput, avrInput, onClick }) => {
     </ListGroup>
   );
 };
+
+export default DevicesListGroup;

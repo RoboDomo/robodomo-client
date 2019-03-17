@@ -7,7 +7,7 @@ import DimmerButton from "components/common/DimmerButton";
 import MQTTButton from "components/common/MQTTButton";
 import ThermostatButton from "components/common/ThermostatButton";
 
-export default ({ theater }) => {
+const ButtonList = ({ theater }) => {
   if (!theater.buttons) {
     return null;
   }
@@ -62,3 +62,4 @@ export default ({ theater }) => {
     </div>
   );
 };
+export default ButtonList;

@@ -12,7 +12,7 @@ import ButtonList from "components/theater/ButtonList";
 
 import MQTT from "lib/MQTT";
 
-export default ({ style, theater }) => {
+const TheaterTab = ({ style, theater }) => {
   const [currentDevice, setCurrentDevice] = useState("None");
   const [currentActivity, setCurrentActivity] = useState("All Off");
 
@@ -213,3 +213,4 @@ export default ({ style, theater }) => {
     </Row>
   );
 };
+export default TheaterTab;

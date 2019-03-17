@@ -1,5 +1,6 @@
 import React from "react";
 
-export default () => {
+const Autelis = () => {
   return <div>Autelis</div>;
 };
+export default Autelis;

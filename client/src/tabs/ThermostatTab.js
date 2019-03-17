@@ -18,9 +18,7 @@ import Thermostat from "react-nest-thermostat";
 
 import MQTT from "lib/MQTT";
 
-import { FaAngleUp, FaAngleDown } from "react-icons/fa";
-
-export default ({ thermostat }) => {
+const ThermostatTab = ({ thermostat }) => {
   const device = thermostat.device;
 
   const thermostat_status_topic = Config.mqtt.nest + "/" + device + "/status/",
@@ -213,7 +211,7 @@ export default ({ thermostat }) => {
           </ListGroup>
         </Col>
         <Col sm={6}>
-          <div style={{ textAlign: "center", fontSize: 48 }}>
+          <div style={{ textAlign: "center" }}>
             <Thermostat
               style={{ textAlign: "center " }}
               width="400px"
@@ -224,30 +222,29 @@ export default ({ thermostat }) => {
               hvacMode={thermostat.hvac_state}
               leaf={thermostat.has_leaf}
             />
-            <br />
-            <ButtonGroup>
+            <ButtonGroup style={{ marginBottom: 8 }}>
               <Button onClick={() => adjustTemperature(-3)}>
-                <FaAngleDown />
+                <Glyphicon glyph="chevron-down" />
                 &nbsp; 3 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(-2)}>
-                <FaAngleDown />
+                <Glyphicon glyph="chevron-down" />
                 &nbsp; 2 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(-1)}>
-                <FaAngleDown />
+                <Glyphicon glyph="chevron-down" />
                 &nbsp; 1 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(1)}>
-                <FaAngleUp />
+                <Glyphicon glyph="chevron-up" />
                 &nbsp; 1 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(2)}>
-                <FaAngleUp />
+                <Glyphicon glyph="chevron-up" />
                 &nbsp; 2 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(3)}>
-                <FaAngleUp />
+                <Glyphicon glyph="chevron-up" />
                 &nbsp; 3 &deg;
               </Button>
             </ButtonGroup>
@@ -311,3 +308,4 @@ export default ({ thermostat }) => {
   }
   return render();
 };
+export default ThermostatTab;

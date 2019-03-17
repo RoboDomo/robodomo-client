@@ -4,7 +4,7 @@ import Config from "Config";
 import { Tab, Tabs } from "react-bootstrap";
 import ThermostatTab from "tabs/ThermostatTab";
 
-export default () => {
+const Thermostat = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("thermostatTabState") || "0"
   );
@@ -37,3 +37,4 @@ export default () => {
     </Tabs>
   );
 };
+export default Thermostat;

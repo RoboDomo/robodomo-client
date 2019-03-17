@@ -7,7 +7,7 @@ import React /* useState*/ from "react";
 import { Tab, Tabs } from "react-bootstrap";
 import SensorsTab from "tabs/SensorsTab";
 
-export default () => {
+const Sensors = () => {
   return (
     <Tabs id="weather-tabs" bsStyle="pills" mountOnEnter unmountOnExit>
       <Tab title="Sensors" eventKey={1} key={1}>
@@ -16,3 +16,4 @@ export default () => {
     </Tabs>
   );
 };
+export default Sensors;

@@ -4,7 +4,8 @@ import Config from "Config";
 import MQTT from "lib/MQTT";
 import Tile from "components/Tile";
 import { GiComputerFan } from "react-icons/gi";
-export default ({ name }) => {
+
+const FanTile = ({ name }) => {
   const status_topic = `${Config.mqtt.smartthings}/${name}/`,
     status_topic_length = status_topic.length,
     set_topic = status_topic;
@@ -90,3 +91,5 @@ export default ({ name }) => {
     </Tile>
   );
 };
+
+export default FanTile;

@@ -5,7 +5,7 @@ import Config from "Config";
 import { Tab, Tabs } from "react-bootstrap";
 import DashboardTab from "tabs/DashboardTab";
 
-export default () => {
+const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("dashboardTabState") || "1"
   );
@@ -36,3 +36,4 @@ export default () => {
     </Tabs>
   );
 };
+export default Dashboard;

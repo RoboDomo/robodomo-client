@@ -13,7 +13,7 @@ import TheaterTile from "tiles/TheaterTile";
 import ThermostatTile from "tiles/ThermostatTile";
 import WeatherTile from "tiles/WeatherTile";
 
-export default ({ dashboard }) => {
+const DashboardTab = ({ dashboard }) => {
   const tileDefinitions = dashboard.tiles;
 
   let key = 0;
@@ -121,3 +121,4 @@ export default ({ dashboard }) => {
     </div>
   );
 };
+export default DashboardTab;

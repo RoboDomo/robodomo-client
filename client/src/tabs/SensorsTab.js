@@ -6,7 +6,7 @@ import MQTT from "lib/MQTT";
 
 import { Row, Col, Panel } from "react-bootstrap";
 
-export default () => {
+const SensorsTab = () => {
   const [sensors, setSensors] = useState({});
   const types = [
     "contact",
@@ -77,3 +77,4 @@ export default () => {
     </div>
   );
 };
+export default SensorsTab;

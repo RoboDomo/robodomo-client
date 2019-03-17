@@ -1,7 +1,7 @@
 import React from "react";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 
-export default ({ activities, currentActivity, onClick }) => {
+const ActivitiesListGroup = ({ activities, currentActivity, onClick }) => {
   if (!activities.length) {
     return null;
   }
@@ -25,3 +25,4 @@ export default ({ activities, currentActivity, onClick }) => {
     </ListGroup>
   );
 };
+export default ActivitiesListGroup;

@@ -5,7 +5,7 @@ import Config from "Config";
 import { Tab, Tabs } from "react-bootstrap";
 import WeatherTab from "tabs/WeatherTab";
 
-export default () => {
+const Weather = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("weatherTabState") || "0"
   );
@@ -37,3 +37,4 @@ export default () => {
     </Tabs>
   );
 };
+export default Weather;

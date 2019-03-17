@@ -6,7 +6,7 @@ import Tile from "components/Tile";
 
 import { TiAdjustBrightness } from "react-icons/ti";
 
-export default ({ name }) => {
+const DimmerTile = ({ name }) => {
   const status_topic = `${Config.mqtt.smartthings}/${name}/`,
     status_topic_length = status_topic.length,
     set_topic = status_topic;
@@ -75,3 +75,5 @@ export default ({ name }) => {
     </Tile>
   );
 };
+
+export default DimmerTile;

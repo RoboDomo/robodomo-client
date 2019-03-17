@@ -3,7 +3,7 @@ import Config from "Config.js";
 
 import Tile from "components/Tile";
 
-export default () => {
+const ClockTile = () => {
   const [date, setDate] = useState(new Date());
 
   const dayNames = [
@@ -49,3 +49,5 @@ export default () => {
     </Tile>
   );
 };
+
+export default ClockTile;
