@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 
 import RemoteButton from "components/common/RemoteButton";
 import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
@@ -28,35 +28,57 @@ const appName = n => {
 };
 
 // appletv/device/set/command Pause
-export default class AppleTVControl extends Component {
-  constructor(props) {
-    super(props);
-    this.device = props.device;
-    this.topic = "appletv/" + this.device + "/status";
-    this.topic_length = this.topic.length;
-    this.set_topic = this.topic.replace("status", "set/command");
 
-    this.onInfoChange = this.onInfoChange.bind(this);
-    this.onTimeChange = this.onTimeChange.bind(this);
-    this.state = { elapsedTime: null };
-  }
+const AppleTVControl = ({ device }) => {
+  const topic = "appletv/" + device + "/status",
+    set_topic = topic.replace("status", "set/command");
 
-  renderPlaybackState() {
-    const state = this.state;
-    if (state.duration) {
+  const [elapsedTime, setElapsedTime] = useState(null);
+  const [info, setInfo] = useState(null);
+
+  useEffect(() => {
+    const onInfoChange = (topic, message) => {
+      if (!message) {
+        setElapsedTime(null);
+      } else {
+        let msg;
+        try {
+          msg = JSON.parse(message);
+        } catch (e) {
+          msg = message;
+        }
+        console.dir(msg);
+        setInfo(prev => ({ ...prev, ...msg }));
+      }
+    };
+
+    const onTimeChange = (topic, message) => {
+      setElapsedTime(message);
+    };
+
+    MQTT.subscribe(topic + "/info", onInfoChange);
+    MQTT.subscribe(topic + "/elapsedTime", onTimeChange);
+    return () => {
+      MQTT.unsubscribe(topic + "/info", onInfoChange);
+      MQTT.unsubscribe(topic + "/elapsedTime", onTimeChange);
+    };
+  });
+
+  const renderPlaybackState = () => {
+    if (info.duration) {
       return (
         <>
-          {state.playbackState.toUpperCase()} {formatTime(state.elapsedTime)} /{" "}
-          {formatTime(state.duration)}
+          {info.playbackState.toUpperCase()} {formatTime(elapsedTime)} /{" "}
+          {formatTime(info.duration)}
         </>
       );
     } else {
-      return <>{state.playbackState.toUpperCase()}</>;
+      return <>{info.playbackState.toUpperCase()}</>;
     }
-  }
-  renderNowPlaying() {
-    const state = this.state;
-    if (!state || !state.playbackState || state.elapsedTime == null) {
+  };
+
+  const renderNowPlaying = () => {
+    if (!info || !info.playbackState || elapsedTime == null) {
       return (
         <div style={{ height: 128 }}>
           <h1>Apple TV</h1>
@@ -64,137 +86,106 @@ export default class AppleTVControl extends Component {
         </div>
       );
     }
-    const app = appName(state.appDisplayName || state.appBundleIdentifier);
+    const app = appName(info.appDisplayName || info.appBundleIdentifier);
     return (
       <div style={{ height: 128 }}>
         <h1>{app}</h1>
         <h4>
-          {state.artist} {state.album} {state.title}
+          {info.artist} {info.album} {info.title}
           <br />
-          <div style={{ fontWeight: "bold" }}>{this.renderPlaybackState()}</div>
+          <div style={{ fontWeight: "bold" }}>{renderPlaybackState()}</div>
         </h4>
       </div>
     );
-  }
-  renderPlaybackControls() {
+  };
+
+  const renderPlaybackControls = () => {
     const playButton = (
-        <RemoteButton topic={this.set_topic} message="TogglePlayPause" mini>
+        <RemoteButton topic={set_topic} message="TogglePlayPause" mini>
           <Glyphicon glyph="play" />
         </RemoteButton>
       ),
       pauseButton = (
-        <RemoteButton topic={this.set_topic} message="TogglePlayPause" mini>
+        <RemoteButton topic={set_topic} message="TogglePlayPause" mini>
           <Glyphicon glyph="pause" />
         </RemoteButton>
       );
 
     return (
       <ButtonGroup>
-        <RemoteButton topic={this.set_topic} message="SkipBackward" mini>
+        <RemoteButton topic={set_topic} message="SkipBackward" mini>
           <Glyphicon glyph="fast-backward" />
         </RemoteButton>
-        <RemoteButton topic={this.set_topic} message="BeginRewind" mini>
+        <RemoteButton topic={set_topic} message="BeginRewind" mini>
           <Glyphicon glyph="backward" />
         </RemoteButton>
         {pauseButton}
         {playButton}
-        <RemoteButton topic={this.set_topic} message="BeginFastFoward" mini>
+        <RemoteButton topic={set_topic} message="BeginFastFoward" mini>
           <Glyphicon glyph="forward" />
         </RemoteButton>
-        <RemoteButton topic={this.set_topic} message="SkipForward" mini>
+        <RemoteButton topic={set_topic} message="SkipForward" mini>
           <Glyphicon glyph="fast-forward" />
         </RemoteButton>
       </ButtonGroup>
     );
-  }
+  };
 
-  render() {
-    return (
-      <>
-        <Row style={style.row}>{this.renderNowPlaying()}</Row>
-        <Row>
-          <ButtonGroup>
-            <RemoteButton topic={this.set_topic} message="Stop">
-              Stop
-            </RemoteButton>
-            <RemoteButton topic={this.set_topic} message="Menu">
-              Menu
-            </RemoteButton>
-            <RemoteButton
-              bsStyle="primary"
-              topic={this.set_topic}
-              message="Suspend"
-            >
-              Home
-            </RemoteButton>
-            <RemoteButton topic={this.set_topic} message="Power">
-              Power
-            </RemoteButton>
-            <RemoteButton topic={this.set_topic} message="Reboot">
-              Reboot
-            </RemoteButton>
-          </ButtonGroup>
-        </Row>
-        <Row style={style.row}>
-          <ButtonGroup>
-            <RemoteButton bsStyle="none" />
-            <RemoteButton topic={this.set_topic} message="Up">
-              <Glyphicon glyph="chevron-up" />
-            </RemoteButton>
-            <RemoteButton bsStyle="none" />
-          </ButtonGroup>
-        </Row>
-        <Row>
-          <ButtonGroup>
-            <RemoteButton topic={this.set_topic} message="Left">
-              <Glyphicon glyph="chevron-left" />
-            </RemoteButton>
-            <RemoteButton
-              bsStyle="primary"
-              topic={this.set_topic}
-              message="Select"
-            >
-              Select
-            </RemoteButton>
-            <RemoteButton topic={this.set_topic} message="Right">
-              <Glyphicon glyph="chevron-right" />
-            </RemoteButton>
-          </ButtonGroup>
-        </Row>
-        <Row>
-          <ButtonGroup>
-            <RemoteButton bsStyle="none" />
-            <RemoteButton topic={this.set_topic} message="Down">
-              <Glyphicon glyph="chevron-down" />
-            </RemoteButton>
-            <RemoteButton bsStyle="none" />
-          </ButtonGroup>
-        </Row>
-        <Row style={{ marginTop: 20 }}>{this.renderPlaybackControls()}</Row>
-      </>
-    );
-  }
-  onInfoChange(topic, message) {
-    if (!message) {
-      this.setState({ elapsedTime: null });
-    } else {
-      console.dir(JSON.parse(message));
-      this.setState(JSON.parse(message));
-    }
-  }
-
-  onTimeChange(topic, message) {
-    this.setState({
-      elapsedTime: message
-    });
-  }
-
-  componentDidMount() {
-    MQTT.subscribe(this.topic + "/info", this.onInfoChange);
-    MQTT.subscribe(this.topic + "/elapsedTime", this.onTimeChange);
-  }
-  componentWillUnmount() {
-    MQTT.unsubscribe(this.topic + "/info", this.onInfoChange);
-    MQTT.unsubscribe(this.topic + "/elapsedTime", this.onTimeChange);
-  }
-}
+  return (
+    <>
+      <Row style={style.row}>{renderNowPlaying()}</Row>
+      <Row>
+        <ButtonGroup>
+          <RemoteButton topic={set_topic} message="Stop">
+            Stop
+          </RemoteButton>
+          <RemoteButton topic={set_topic} message="Menu">
+            Menu
+          </RemoteButton>
+          <RemoteButton bsStyle="primary" topic={set_topic} message="Suspend">
+            Home
+          </RemoteButton>
+          <RemoteButton topic={set_topic} message="Power">
+            Power
+          </RemoteButton>
+          <RemoteButton topic={set_topic} message="Reboot">
+            Reboot
+          </RemoteButton>
+        </ButtonGroup>
+      </Row>
+      <Row style={style.row}>
+        <ButtonGroup>
+          <RemoteButton bsStyle="none" />
+          <RemoteButton topic={set_topic} message="Up">
+            <Glyphicon glyph="chevron-up" />
+          </RemoteButton>
+          <RemoteButton bsStyle="none" />
+        </ButtonGroup>
+      </Row>
+      <Row>
+        <ButtonGroup>
+          <RemoteButton topic={set_topic} message="Left">
+            <Glyphicon glyph="chevron-left" />
+          </RemoteButton>
+          <RemoteButton bsStyle="primary" topic={set_topic} message="Select">
+            Select
+          </RemoteButton>
+          <RemoteButton topic={set_topic} message="Right">
+            <Glyphicon glyph="chevron-right" />
+          </RemoteButton>
+        </ButtonGroup>
+      </Row>
+      <Row>
+        <ButtonGroup>
+          <RemoteButton bsStyle="none" />
+          <RemoteButton topic={set_topic} message="Down">
+            <Glyphicon glyph="chevron-down" />
+          </RemoteButton>
+          <RemoteButton bsStyle="none" />
+        </ButtonGroup>
+      </Row>
+      <Row style={{ marginTop: 20 }}>{renderPlaybackControls()}</Row>
+    </>
+  );
+};
+export default AppleTVControl;

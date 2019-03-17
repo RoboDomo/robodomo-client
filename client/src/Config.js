@@ -293,7 +293,7 @@ export default {
         { type: "clock" },
         { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
         { type: "weather" },
-        { type: "spa" },
+        { type: "spa", controller: "autelis" },
         {
           type: "garagedoor",
           title: "Garage Doors",

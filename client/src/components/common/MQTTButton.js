@@ -21,7 +21,7 @@ const MQTTButton = ({ name, children }) => {
           MQTT.publish(topic, message);
         }}
       >
-        {name}
+        {children}
       </RemoteButton>
     </div>
   );

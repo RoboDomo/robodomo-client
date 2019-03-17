@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 //import Config from "Config";
 
@@ -15,9 +15,6 @@ import MQTT from "lib/MQTT";
 export default ({ style, theater }) => {
   const [currentDevice, setCurrentDevice] = useState("None");
   const [currentActivity, setCurrentActivity] = useState("All Off");
-  let power = null,
-    tvInput = null,
-    avrInput = null;
 
   const STORAGE_KEY = `theater-${theater.title}`;
 
@@ -74,41 +71,53 @@ export default ({ style, theater }) => {
   //
   let tvType = "unknown";
 
-  let launchPoints = null,
-    foregroundApp = null,
-    lgtv = {};
+  const power = useRef(null);
+  const launchPoints = useRef([]);
+  const foregroundApp = useRef(null);
+  const tvInput = useRef("");
+  const [avrInput, setAVRInput] = useState(null);
+  const [lgtv, setLGTV] = useState({});
 
   const onMessage = (topic, message) => {
     if (~topic.indexOf("power")) {
-      power = message;
+      power.current = message;
     } else if (~topic.indexOf("foreground")) {
-      foregroundApp = message;
+      try {
+        foregroundApp.current = JSON.parse(message);
+      } catch (e) {
+        foregroundApp.current = message;
+      }
     } else if (~topic.indexOf("launchPoints")) {
-      launchPoints = message;
+      try {
+        launchPoints.current = JSON.parse(message);
+      } catch (e) {
+        launchPoints.current = message;
+      }
     } else if (~topic.indexOf("SI")) {
-      avrInput = message;
+      setAVRInput(message);
     }
 
     // determine TV input (e.g. HDMI1, HDMI2, NetFlix, etc.)
-    if (power !== "on") {
+    if (power.current !== "on") {
       return;
     }
 
     if (tvType === "lgtv") {
-      if (launchPoints && foregroundApp && foregroundApp.appId.length) {
-        tvInput = (launchPoints[foregroundApp.appId].title || "unknown")
-          .replace(/\s+/, "")
-          .toLowerCase();
-      }
-      lgtv = Object.assign({}, deviceMap.lgtv);
-      lgtv.foregroundApp = foregroundApp;
-      lgtv.launchPoints = launchPoints;
-      lgtv.power = power;
+      const lps = launchPoints.current,
+        fg = foregroundApp.current,
+        title = lps[fg.appId].title;
+      const lp = title || "unknown";
+      tvInput.current = lp.replace(/\s+/, "").toLowerCase();
+      const o = Object.assign({}, deviceMap.lgtv);
+      o.foregroundApp = foregroundApp.current;
+      o.launchPoints = launchPoints.current;
+      o.power = power.current;
+      setLGTV(prev => ({ ...prev, ...o }));
     }
 
     for (const activity of activities) {
       const inputs = activity.inputs || {};
-      if (inputs.tv === tvInput && inputs.avr === avrInput) {
+      if (inputs.tv === tvInput.current && inputs.avr === avrInput) {
         if (currentActivity !== activity.name) {
           setCurrentDevice(activity.defaultDevice);
           setCurrentActivity(activity.name);
@@ -177,7 +186,7 @@ export default ({ style, theater }) => {
         <DevicesListGroup
           devices={devices}
           currentDevice={currentDevice}
-          tvInut={tvInput}
+          tvInput={tvInput.current}
           avrInput={avrInput}
           onClick={handleDeviceClick}
         />
@@ -190,6 +199,8 @@ export default ({ style, theater }) => {
           <Col sm={7} style={{ textAlign: "center" }}>
             <TheaterDevice
               currentDevice={currentDevice}
+              tvInput={tvInput.current}
+              avrInput={avrInput}
               lgtv={lgtv}
               deviceMap={deviceMap}
             />

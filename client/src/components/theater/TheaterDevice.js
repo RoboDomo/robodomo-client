@@ -5,7 +5,13 @@ import TiVoControl from "components/theater/TiVoControl";
 import AppleTVControl from "components/theater/AppleTVControl";
 import LGTVControl from "components/theater/LGTVControl";
 
-export default ({ currentDevice, deviceMap, lgtv }) => {
+const TheaterDevice = ({
+  currentDevice,
+  deviceMap,
+  lgtv,
+  tvInput,
+  avrInput
+}) => {
   if (!currentDevice) {
     return <h1>All Off</h1>;
   }
@@ -18,8 +24,10 @@ export default ({ currentDevice, deviceMap, lgtv }) => {
     case "Apple TV":
       return <AppleTVControl device={deviceMap.appletv.device} />;
     case "LG TV":
-      return <LGTVControl lgtv={lgtv} />;
+      // TODO tvInput, avrInput props might change?  Use key...
+      return <LGTVControl lgtv={lgtv} tvInput={tvInput} avrInput={avrInput} />;
     default:
       return <h1>All Off</h1>;
   }
 };
+export default TheaterDevice;

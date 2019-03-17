@@ -24,7 +24,6 @@ const ThermostatButton = ({ thermostat, weather }) => {
 
   const thermostat_status_topic =
       Config.mqtt.nest + "/" + thermostat + "/status/",
-    thermostat_status_topic_length = thermostat_status_topic.length,
     set_topic = thermostat_status_topic.replace("status", "set");
 
   const onStateChange = (topic, newState) => {
