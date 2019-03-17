@@ -1,7 +1,8 @@
-import Config from "Config";
 import React, { Component } from "react";
 
 import { FormGroup, ControlLabel, Col, FormControl } from "react-bootstrap";
+
+import Config from "Config";
 
 const DisplayField = ({ label, value }) => {
   const html = { __html: value };

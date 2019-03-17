@@ -1,5 +1,3 @@
-import Config from "Config";
-
 import React, { useState, useRef } from "react";
 
 import {
@@ -9,6 +7,8 @@ import {
   Button,
   Glyphicon
 } from "react-bootstrap";
+
+import Config from "Config";
 
 const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
   const [val, setVal] = useState(Number(value));
