@@ -411,6 +411,12 @@ export default {
   nest: {
     thermostats: [
       { device: "Falsetto/Hallway Thermostat", name: "Hallway Thermostat" }
+    ],
+    protects: [
+      {
+        device: "Falsetto/Entryway Nest Protect",
+        name: "Entryway"
+      }
     ]
   },
   sensors: [

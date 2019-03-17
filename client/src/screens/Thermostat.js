@@ -3,6 +3,7 @@ import Config from "Config";
 
 import { Tab, Tabs } from "react-bootstrap";
 import ThermostatTab from "tabs/ThermostatTab";
+import ProtectTab from "tabs/ProtectTab";
 
 const Thermostat = () => {
   const [activeTab, setActiveTab] = useState(
@@ -31,6 +32,13 @@ const Thermostat = () => {
             key={thermostat.name}
           >
             <ThermostatTab thermostat={thermostat} />
+          </Tab>
+        );
+      })}
+      {Config.nest.protects.map(protect => {
+        return (
+          <Tab title={protect.name} eventKey={protect.name} key={protect.name}>
+            <ProtectTab sensor={protect} />
           </Tab>
         );
       })}
