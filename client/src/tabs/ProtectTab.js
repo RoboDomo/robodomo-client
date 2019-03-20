@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Glyphicon } from "react-bootstrap";
+import { Glyphicon, PageHeader } from "react-bootstrap";
 
 import MQTT from "lib/MQTT";
 
@@ -37,7 +37,9 @@ const ProtectTab = ({ sensor }) => {
   const [uiColor, setUiColor] = useState(undefined);
 
   const GOOD = <Glyphicon style={{ color: "green" }} glyph="ok" />,
-    BAD = <Glyphicon style={{ color: "red" }} glyph="remove" />;
+    BAD = <Glyphicon style={{ color: "red" }} glyph="remove" />,
+    HOME = <Glyphicon style={{ color: "green" }} glyph="home" />,
+    AWAY = <Glyphicon style={{ color: "red" }} glyph="road" />;
 
   useEffect(() => {
     const handleStateChange = (topic, message) => {
@@ -62,6 +64,7 @@ const ProtectTab = ({ sensor }) => {
         setUiColor(message);
       }
     };
+
     for (const topic of topics) {
       MQTT.subscribe(protect_status_topic + topic, handleStateChange);
     }
@@ -71,17 +74,21 @@ const ProtectTab = ({ sensor }) => {
       }
     };
   }, []);
+
   const style = { backgroundColor: uiColor, fontSize: 20, padding: 10 };
   return (
-    <div style={{ padding: 20 }}>
+    <div style={{ margin: 0, paddingLeft: 20 }}>
       <div style={style}>
-        <h1>{sensor.name} Nest Protect</h1>
-        <h2>Software Version: {softwareVersion}</h2>
+        <PageHeader>
+          {sensor.name} Nest Protect <small>{softwareVersion}</small>
+        </PageHeader>
         <div>
           {testActive ? "TEST ACTIVE" : "Last Manual Test: " + lastTest}
         </div>
       </div>
-      <h1>You are {away.toUpperCase()}</h1>
+      <h1>
+        {away === "home" ? HOME : AWAY} You are {away}
+      </h1>
       <div style={{ fontSize: 30 }}>
         <div>{online ? GOOD : BAD} Online</div>
         <div>{battery ? GOOD : BAD} Battery</div>

@@ -9,15 +9,14 @@ const Theater = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("theaterTabState") || "0"
   );
-  const changeTab = eventKey => {
-    localStorage.setItem("theaterTabState", eventKey);
-    setActiveTab(eventKey);
-  };
 
   return (
     <Tabs
       id="theater-tabs"
-      onSelect={changeTab}
+      onSelect={eventKey => {
+        localStorage.setItem("theaterTabState", eventKey);
+        setActiveTab(eventKey);
+      }}
       activeKey={activeTab}
       bsStyle="pills"
       mountOnEnter

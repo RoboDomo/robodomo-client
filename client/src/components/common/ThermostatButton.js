@@ -3,7 +3,7 @@
  *
  * Component for upper right side of Theater screen, to display and control thermostat
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Config from "Config";
 
@@ -15,7 +15,7 @@ import MQTT from "lib/MQTT";
 const ThermostatButton = ({ thermostat, weather }) => {
   const [timer, setTimer] = useState(null);
   const [date, setDate] = useState(new Date());
-  const [weather_status_topic, setWeatherStatusTopic] = useState(null);
+  const weather_status_topic = useRef(null);
   const [postalCode, setPostalCode] = useState(0);
   const [ambientTemperature, setAmbientTemperature] = useState(72);
   const [targetTemperature, setTargetTemperature] = useState(72);
@@ -26,7 +26,7 @@ const ThermostatButton = ({ thermostat, weather }) => {
       Config.mqtt.nest + "/" + thermostat + "/status/",
     set_topic = thermostat_status_topic.replace("status", "set");
 
-  const onStateChange = (topic, newState) => {
+  const handleStateChange = (topic, newState) => {
     if (~topic.indexOf("postal_code")) {
       setPostalCode(newState);
     } else if (~topic.indexOf("ambient_temperature_f")) {
@@ -43,39 +43,51 @@ const ThermostatButton = ({ thermostat, weather }) => {
   };
 
   useEffect(() => {
-    MQTT.subscribe(thermostat_status_topic + "postal_code", onStateChange);
+    MQTT.subscribe(thermostat_status_topic + "postal_code", handleStateChange);
     MQTT.subscribe(
       thermostat_status_topic + "ambient_temperature_f",
-      onStateChange
+      handleStateChange
     );
     MQTT.subscribe(
       thermostat_status_topic + "target_temperature_f",
-      onStateChange
+      handleStateChange
     );
-    MQTT.subscribe(thermostat_status_topic + "hvac_state", onStateChange);
-    let t = setInterval(() => {
+    MQTT.subscribe(thermostat_status_topic + "hvac_state", handleStateChange);
+    const t = setInterval(() => {
       setDate(new Date());
     }, 1000);
     setTimer(t);
 
     return () => {
-      if (weather_status_topic) {
-        MQTT.unsubscribe(weather_status_topic, onStateChange);
+      console.log("======> cleanup ", weather_status_topic.current);
+      if (weather_status_topic.current) {
+        console.log(
+          "============== unsubscribe weather",
+          weather_status_topic.current
+        );
+        MQTT.unsubscribe(weather_status_topic.current, handleStateChange);
+        weather_status_topic.current = null;
       }
       if (timer) {
         clearInterval(timer);
         setTimer(null);
       }
-      MQTT.unsubscribe(thermostat_status_topic + "postal_code", onStateChange);
+      MQTT.unsubscribe(
+        thermostat_status_topic + "postal_code",
+        handleStateChange
+      );
       MQTT.unsubscribe(
         thermostat_status_topic + "ambient_temperature_f",
-        onStateChange
+        handleStateChange
       );
       MQTT.unsubscribe(
         thermostat_status_topic + "target_temperature_f",
-        onStateChange
+        handleStateChange
       );
-      MQTT.unsubscribe(thermostat_status_topic + "hvac_state", onStateChange);
+      MQTT.unsubscribe(
+        thermostat_status_topic + "hvac_state",
+        handleStateChange
+      );
     };
   }, []);
 
@@ -95,11 +107,11 @@ const ThermostatButton = ({ thermostat, weather }) => {
     );
   };
 
-  if (!weather_status_topic && postalCode) {
+  if (!weather_status_topic.current && postalCode) {
     const t = Config.mqtt.weather + "/" + postalCode + "/status/now";
-    setWeatherStatusTopic(t);
-    console.log("weather", t);
-    MQTT.subscribe(t, onStateChange);
+    weather_status_topic.current = t;
+    console.log("====== subscribe weather", t);
+    MQTT.subscribe(t, handleStateChange);
   }
 
   // got these colors by inspecting the react-nest component

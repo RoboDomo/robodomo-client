@@ -73,7 +73,7 @@ const ThermostatTile = ({ device }) => {
           hvacMode={hvacState}
           leaf={hasLeaf}
         />
-        <Form horizontal style={{ marginTop: 10 }}>
+        <Form horizontal style={{ margin: 0 }}>
           <NumberInput
             key={targetTemperature}
             value={targetTemperature}

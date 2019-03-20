@@ -27,12 +27,7 @@ const DashboardTab = ({ dashboard }) => {
           </DimmerTile>
         );
       case "macro":
-        return (
-          <MacroTile key={++key} config={tile}>
-            <div>{tile.type}</div>
-            <div>{tile.device}</div>
-          </MacroTile>
-        );
+        return <MacroTile key={++key} label={tile.label} name={tile.name} />;
       case "switch":
         return (
           <SwitchTile key={++key} name={tile.device}>
@@ -77,7 +72,7 @@ const DashboardTab = ({ dashboard }) => {
         );
       case "theater":
         return (
-          <TheaterTile key={++key}>
+          <TheaterTile key={++key} title={tile.title}>
             <div>{tile.type}</div>
             <div>{tile.device}</div>
           </TheaterTile>

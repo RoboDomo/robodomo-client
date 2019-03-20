@@ -19,7 +19,7 @@ import Theater from "screens/Theater";
 import { IoIosTv } from "react-icons/io";
 import Weather from "screens/Weather";
 import { TiWeatherCloudy } from "react-icons/ti";
-import Thermostat from "screens/Thermostat";
+import Nest from "screens/Nest";
 import { TiThermometer } from "react-icons/ti";
 import Sensors from "screens/Sensors";
 import { IoIosAnalytics } from "react-icons/io";
@@ -55,7 +55,7 @@ const App = () => {
                 <Weather />
               </TabPane>
               <TabPane mountOnEnter unmountOnExit eventKey={4}>
-                <Thermostat />
+                <Nest />
               </TabPane>
               <TabPane mountOnEnter unmountOnExit eventKey={5}>
                 <Sensors />
@@ -80,7 +80,7 @@ const App = () => {
                 </NavItem>
                 <NavItem eventKey={4}>
                   <TiThermometer />
-                  Thermostat
+                  Nest
                 </NavItem>
                 <NavItem eventKey={5}>
                   <IoIosAnalytics /> Sensors

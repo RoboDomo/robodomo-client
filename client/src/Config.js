@@ -113,7 +113,12 @@ export default {
       guide: "CA68543",
       devices: [
         { name: "Harmony Hub", type: "harmony", device: "harmony-hub" },
-        { name: "TiVo", type: "tivo", device: "tivo-bolt-3tb" },
+        {
+          name: "TiVo",
+          type: "tivo",
+          device: "tivo-bolt-3tb",
+          guide: "CA68543"
+        },
         { name: "LG TV", type: "lgtv", device: "olede6p" },
         { name: "AVR", type: "denon", device: "denon-s910w" },
         { name: "Apple TV", type: "appletv", device: "appletv-theater" }
@@ -208,7 +213,7 @@ export default {
       devices: [
         { name: "TV", type: "bravia", device: "sony-850c" },
         { name: "Denon X2100W", type: "denon", device: "denon-x2100w" },
-        { name: "TiVo", type: "tivo", device: "tivo-bolt" },
+        { name: "TiVo", type: "tivo", device: "tivo-bolt", guide: "CA68543" },
         { name: "Apple TV", type: "appletv", device: "appletv-mbr" }
       ],
       activities: [
@@ -259,13 +264,10 @@ export default {
         { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
         { type: "pool", controller: "autelis" },
         { type: "spa", controller: "autelis" },
-        //        {
-        //          type: "theater",
-        //          denon: "denon-s910w",
-        //          tv: "olede6p",
-        //          settop: "hdmi1",
-        //          tivo: "tivo-bolt-3tb"
-        //        },
+        {
+          type: "theater",
+          title: "Theater"
+        },
         {
           type: "garagedoor",
           title: "Garage Doors",
@@ -360,6 +362,7 @@ export default {
   autelis: {
     device: "autelis",
     name: "Pool Control",
+    location: "92211",
     // the forward and backward hash maps define the relationship between
     // Autelis device names and ones we want to use/display.
     // For example, on my pool hardware, autelis aux1 controls the spa jets;

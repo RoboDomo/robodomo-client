@@ -86,7 +86,9 @@ const AppleTVControl = ({ device }) => {
         </div>
       );
     }
+
     const app = appName(info.appDisplayName || info.appBundleIdentifier);
+
     return (
       <div style={{ height: 128 }}>
         <h1>{app}</h1>

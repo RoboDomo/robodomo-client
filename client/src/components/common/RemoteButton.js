@@ -39,6 +39,7 @@ const RemoteButton = ({ bsStyle, topic, message, mini, children, onClick }) => {
       style={style}
       onClick={() => {
         if (topic && message) {
+          console.log("publish", topic, message);
           MQTT.publish(topic, message);
         } else if (onClick) {
           onClick();

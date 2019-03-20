@@ -1,3 +1,6 @@
+/**
+ * Screen to control Nest products (thermostat, nest protect)
+ */
 import React, { useState } from "react";
 import Config from "Config";
 
@@ -5,20 +8,18 @@ import { Tab, Tabs } from "react-bootstrap";
 import ThermostatTab from "tabs/ThermostatTab";
 import ProtectTab from "tabs/ProtectTab";
 
-const Thermostat = () => {
+const Nest = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem("thermostatTabState") || "0"
   );
 
-  const changeTab = eventKey => {
-    localStorage.setItem("thermostatTabState", eventKey);
-    setActiveTab(eventKey);
-  };
-
   return (
     <Tabs
       id="thermostat-tabs"
-      onSelect={changeTab}
+      onSelect={eventKey => {
+        localStorage.setItem("thermostatTabState", eventKey);
+        setActiveTab(eventKey);
+      }}
       activeKey={activeTab}
       bsStyle="pills"
       mountOnEnter
@@ -45,4 +46,4 @@ const Thermostat = () => {
     </Tabs>
   );
 };
-export default Thermostat;
+export default Nest;
