@@ -48,7 +48,16 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     set_topic = status_topic.replace("status", "set") + "command";
 
   const foregroundApp = lgtv.foregroundApp,
-    launchPoints = lgtv.launchPoints;
+    launchPoints = lgtv.launchPoints,
+    apps = {};
+
+  for (const index of Object.keys(launchPoints)) {
+    const info = launchPoints[index];
+    apps[info.title.replace(/\s+/g, "")] = info;
+    if (info.title.toLowerCase().indexOf("hdmi") !== -1) {
+      console.log("hdmi", info);
+    }
+  }
 
   const renderLaunchPoints = () => {
     if (!launchPoints) {
@@ -72,6 +81,7 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
         {Object.keys(lgtv.launchPoints).map(key => {
           const info = lgtv.launchPoints[key];
           if (~ignoredLaunchPoints.indexOf(info.title)) {
+            //            console.log("LGTV", info);
             return null;
           }
           const ttkey = `tt-${info.id}`,

@@ -132,11 +132,32 @@ export default {
             avr: "TV"
           },
           script: [
-            { topic: "lgtv/olede6p/set", message: "POWERON" },
-            { topic: "lgtv/olede6p/set", message: "HDMI1" },
-            { topic: "tivo/tivo-bolt-3tb", message: "LIVETV" },
-            { topic: "denon/denon-s910w/set/PW", message: "ON" },
-            { topic: "denon/denon-s910w/set/SI", message: "TV" }
+            {
+              text: "Turning on LG TV",
+              topic: "lgtv/olede6p/set/power",
+              message: "ON"
+            },
+            {
+              text: "Setting TV Input to HDMI 1",
+              topic: "lgtv/olede6p/set/commnad",
+              message: "LAUNCH-com.webos.app.hdmi1"
+              //              message: "launch-263354"
+            },
+            {
+              text: "Setting TiVo to Live TV",
+              topic: "tivo/tivo-bolt-3tb/set",
+              message: "LIVETV"
+            },
+            {
+              text: "Turning on AVR",
+              topic: "denon/denon-s910w/set/",
+              message: "PWON"
+            },
+            {
+              text: "Setting AVR to TV",
+              topic: "denon/denon-s910w/set/",
+              message: "SITV"
+            }
           ]
         },
         {
@@ -147,11 +168,26 @@ export default {
             avr: "MPLAY"
           },
           script: [
-            { topic: "lgtv/olede6p/set", message: "POWERON" },
-            { topic: "lgtv/olede6p/set", message: "HDMI1" },
-            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
-            { topic: "denon/denon-s910w/set/PW", message: "ON" },
-            { topic: "denon/denon-s910w/set/SI", message: "MPLAY" }
+            {
+              text: "Turning on LG TV",
+              topic: "lgtv/olede6p/set",
+              message: "POWERON"
+            },
+            {
+              text: "Setting LGTV Input to HDMI2",
+              topic: "lgtv/olede6p/set/command",
+              message: "LAUNCH-com.webos.app.hdmi2"
+            },
+            {
+              text: "Turning on AVR",
+              topic: "denon/denon-s910w/set/",
+              message: "PWON"
+            },
+            {
+              text: "Setting AVR Input to MPLAY",
+              topic: "denon/denon-s910w/set/",
+              message: "SIMPLAY"
+            }
           ]
         },
         {
@@ -162,7 +198,7 @@ export default {
             avr: "TV"
           },
           script: [
-            { topic: "lgtv/olede6p/set", message: "POWERON" },
+            { topic: "lgtv/olede6p/set/power", message: "ON" },
             { topic: "lgtv/olede6p/set", message: "HDMI1" },
             { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
             { topic: "roku/roku4-theater/set", message: "SLEEP" }

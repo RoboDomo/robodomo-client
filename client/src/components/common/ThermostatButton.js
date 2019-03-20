@@ -4,17 +4,17 @@
  * Component for upper right side of Theater screen, to display and control thermostat
  */
 import React, { useState, useEffect, useRef } from "react";
-
-import Config from "Config";
+import { Glyphicon } from "react-bootstrap";
 
 import RemoteButton from "components/common/RemoteButton";
-import { Glyphicon } from "react-bootstrap";
+import Clock from "components/common/Clock";
 
 import MQTT from "lib/MQTT";
 
+import Config from "Config";
+
 const ThermostatButton = ({ thermostat, weather }) => {
   const [timer, setTimer] = useState(null);
-  const [date, setDate] = useState(new Date());
   const weather_status_topic = useRef(null);
   const [postalCode, setPostalCode] = useState(0);
   const [ambientTemperature, setAmbientTemperature] = useState(72);
@@ -26,23 +26,29 @@ const ThermostatButton = ({ thermostat, weather }) => {
       Config.mqtt.nest + "/" + thermostat + "/status/",
     set_topic = thermostat_status_topic.replace("status", "set");
 
-  const handleStateChange = (topic, newState) => {
-    if (~topic.indexOf("postal_code")) {
-      setPostalCode(newState);
-    } else if (~topic.indexOf("ambient_temperature_f")) {
-      setAmbientTemperature(newState);
-    } else if (~topic.indexOf("target_temperature_f")) {
-      setTargetTemperature(newState);
-    } else if (~topic.indexOf("hvac_state")) {
-      setHVACState(newState);
-    } else if (~topic.indexOf("weather")) {
-      setNow(newState);
-    } else {
-      console.log("invalid topic/state", topic, newState);
-    }
-  };
-
   useEffect(() => {
+    const handleStateChange = (topic, newState) => {
+      if (~topic.indexOf("postal_code")) {
+        setPostalCode(newState);
+      } else if (~topic.indexOf("ambient_temperature_f")) {
+        setAmbientTemperature(newState);
+      } else if (~topic.indexOf("target_temperature_f")) {
+        setTargetTemperature(newState);
+      } else if (~topic.indexOf("hvac_state")) {
+        setHVACState(newState);
+      } else if (~topic.indexOf("weather")) {
+        setNow(newState);
+      } else {
+        console.log("invalid topic/state", topic, newState);
+      }
+
+      if (!weather_status_topic.current && postalCode) {
+        const t = Config.mqtt.weather + "/" + postalCode + "/status/now";
+        weather_status_topic.current = t;
+        MQTT.subscribe(t, handleStateChange);
+      }
+    };
+
     MQTT.subscribe(thermostat_status_topic + "postal_code", handleStateChange);
     MQTT.subscribe(
       thermostat_status_topic + "ambient_temperature_f",
@@ -53,18 +59,9 @@ const ThermostatButton = ({ thermostat, weather }) => {
       handleStateChange
     );
     MQTT.subscribe(thermostat_status_topic + "hvac_state", handleStateChange);
-    const t = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
-    setTimer(t);
 
     return () => {
-      console.log("======> cleanup ", weather_status_topic.current);
       if (weather_status_topic.current) {
-        console.log(
-          "============== unsubscribe weather",
-          weather_status_topic.current
-        );
         MQTT.unsubscribe(weather_status_topic.current, handleStateChange);
         weather_status_topic.current = null;
       }
@@ -89,7 +86,7 @@ const ThermostatButton = ({ thermostat, weather }) => {
         handleStateChange
       );
     };
-  }, []);
+  }, [postalCode]);
 
   const handleClickDown = () => {
     const target_temperature = targetTemperature - 1;
@@ -106,13 +103,6 @@ const ThermostatButton = ({ thermostat, weather }) => {
       target_temperature
     );
   };
-
-  if (!weather_status_topic.current && postalCode) {
-    const t = Config.mqtt.weather + "/" + postalCode + "/status/now";
-    weather_status_topic.current = t;
-    console.log("====== subscribe weather", t);
-    MQTT.subscribe(t, handleStateChange);
-  }
 
   // got these colors by inspecting the react-nest component
   let backgroundColor, color;
@@ -132,7 +122,7 @@ const ThermostatButton = ({ thermostat, weather }) => {
   return (
     <>
       <div style={{ textAlign: "center", fontWeight: "bold", fontSize: 24 }}>
-        {date.toLocaleTimeString()}
+        <Clock />
       </div>
       <div style={{ fontSize: 24, fontWeight: "bold" }}>
         <img

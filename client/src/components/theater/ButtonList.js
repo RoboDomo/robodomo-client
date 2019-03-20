@@ -11,6 +11,7 @@ const ButtonList = ({ theater }) => {
   if (!theater.buttons) {
     return null;
   }
+
   let key = 0;
   return (
     <div style={{ textAlign: "center" }}>

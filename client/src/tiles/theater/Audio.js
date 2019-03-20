@@ -8,7 +8,6 @@ import MQTT from "lib/MQTT";
 import Config from "Config";
 const Audio = ({ device }) => {
   const [mute, setMute] = useState(false);
-  const [volume, setVolume] = useState(0);
 
   const topic = `${Config.mqtt.denon}/${device}/status/`,
     set_topic = topic.replace("status", "set");
@@ -17,15 +16,11 @@ const Audio = ({ device }) => {
     const onMessage = (topic, message) => {
       if (~topic.indexOf("MU")) {
         setMute(message !== "OFF");
-      } else if (~topic.indexOf("MV")) {
-        setVolume(Number(message));
       }
     };
     MQTT.subscribe(topic + "MU", onMessage);
-    MQTT.subscribe(topic + "MV", onMessage);
     return () => {
       MQTT.unsubscribe(topic + "MU", onMessage);
-      MQTT.unsubscribe(topic + "MV", onMessage);
     };
   });
 

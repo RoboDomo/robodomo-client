@@ -20,8 +20,7 @@ const formatTime = (seconds, trim = true) => {
 };
 
 const AppleTV = ({ device }) => {
-  const topic = "appletv/" + device + "/status",
-    set_topic = topic.replace("status", "set/command");
+  const topic = "appletv/" + device + "/status";
 
   const [elapsedTime, setElapsedTime] = useState(null);
   const [info, setInfo] = useState(null);
@@ -69,31 +68,10 @@ const AppleTV = ({ device }) => {
     }
   };
 
-  const renderNowPlaying = () => {
-    if (!info || !info.playbackState || elapsedTime == null) {
-      return (
-        <div style={{ height: undefined }}>
-          <h1>Apple TV</h1>
-          <h4>Not Playing</h4>
-        </div>
-      );
-    }
-
-    return (
-      <div style={{ height: undefined }}>
-        <h1>{app}</h1>
-        <h4>
-          {info.artist} {info.album} {info.title}
-          <br />
-          <div style={{ fontWeight: "bold" }}>{renderPlaybackState()}</div>
-        </h4>
-      </div>
-    );
-  };
-
   if (!info) {
     return <div>Not Playing</div>;
   }
+
   const app = appName(info.appDisplayName || info.appBundleIdentifier);
   return (
     <div style={{ height: undefined, textAlign: "center", marginBottom: 4 }}>

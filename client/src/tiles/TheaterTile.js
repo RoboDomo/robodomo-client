@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ButtonGroup, Image, Glyphicon } from "react-bootstrap";
 
 import Tile from "components/Tile";
-import RemoteButton from "components/common/RemoteButton";
 import AppleTV from "./theater/AppleTV";
 import TiVo from "./theater/TiVo";
 import Audio from "./theater/Audio";
