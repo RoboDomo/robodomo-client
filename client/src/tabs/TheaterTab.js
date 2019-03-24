@@ -59,7 +59,7 @@ const TheaterTab = ({ style, theater }) => {
   useEffect(() => {
     const onMessage = (topic, message) => {
       if (~topic.indexOf("power")) {
-        setPower(true); // message === "on");
+        setPower(message === "on"); // message === "on");
       } else if (~topic.indexOf("foreground")) {
         try {
           foregroundApp.current = JSON.parse(message);
@@ -78,23 +78,25 @@ const TheaterTab = ({ style, theater }) => {
 
       // determine TV input (e.g. HDMI1, HDMI2, NetFlix, etc.)
       if (!power) {
-        console.log("POWER OFF");
+        setCurrentActivity("All Off");
+        setCurrentDevice("NONE");
         return;
       }
 
-      if (tvType === "lgtv") {
-        const lps = launchPoints.current,
-          fg = foregroundApp.current,
-          title = lps[fg.appId].title;
-        const lp = title || "unknown";
-        tvInput.current = lp.replace(/\s+/, "").toLowerCase();
-        const o = Object.assign({}, deviceMap.lgtv);
-        o.foregroundApp = foregroundApp.current;
-        o.launchPoints = launchPoints.current;
-        o.power = power;
-        setLGTV(prev => ({ ...prev, ...o }));
-      }
-
+      try {
+        if (tvType === "lgtv") {
+          const lps = launchPoints.current,
+            fg = foregroundApp.current,
+            title = lps[fg.appId].title;
+          const lp = title || "unknown";
+          tvInput.current = lp.replace(/\s+/, "").toLowerCase();
+          const o = Object.assign({}, deviceMap.lgtv);
+          o.foregroundApp = foregroundApp.current;
+          o.launchPoints = launchPoints.current;
+          o.power = power;
+          setLGTV(prev => ({ ...prev, ...o }));
+        }
+      } catch (e) {}
       for (const activity of activities) {
         const inputs = activity.inputs || {};
         if (inputs.tv === tvInput.current && inputs.avr === avrInput) {

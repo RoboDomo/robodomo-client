@@ -134,14 +134,13 @@ export default {
           script: [
             {
               text: "Turning on LG TV",
-              topic: "lgtv/olede6p/set/power",
-              message: "ON"
+              topic: "lgtv/olede6p/set/command",
+              message: "POWERON"
             },
             {
               text: "Setting TV Input to HDMI 1",
               topic: "lgtv/olede6p/set/commnad",
               message: "LAUNCH-com.webos.app.hdmi1"
-              //              message: "launch-263354"
             },
             {
               text: "Setting TiVo to Live TV",

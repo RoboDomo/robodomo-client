@@ -33,3 +33,11 @@ The config file defines all the devices, the dashboards, MQTT interaction, hosts
 
 Render a UI that is appropriate for the browser's dimensions.  Instead of tiles on Phone, we render lists.  And so on.
 
+# Design Decisions
+
+1) For a html5 UI framework, react-bootstrap was chosen.  A key function of the version supporting bootstrap 3,
+specifically, is the ability to mount tab content onenter and to unmount onexit.  This is vital to performance,
+especially on slower mobile type devices - having components mounted but not visible would mean a lot of extra MQTT
+subscriptions for information not used/rendered.  
+
+ 

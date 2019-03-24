@@ -21,7 +21,7 @@ const MQTTScript = ({ script, onComplete }) => {
       //      if (!scriptCopy.current) {
       //        return;
       //      }
-      currentCommand.current = scriptCopy.current.pop();
+      currentCommand.current = scriptCopy.current.shift();
       if (!currentCommand.current) {
         console.log("!currentCommand");
         complete();

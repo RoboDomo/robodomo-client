@@ -51,13 +51,12 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     launchPoints = lgtv.launchPoints,
     apps = {};
 
-  for (const index of Object.keys(launchPoints)) {
-    const info = launchPoints[index];
-    apps[info.title.replace(/\s+/g, "")] = info;
-    if (info.title.toLowerCase().indexOf("hdmi") !== -1) {
-      console.log("hdmi", info);
+  try {
+    for (const index of Object.keys(launchPoints)) {
+      const info = launchPoints[index];
+      apps[info.title.replace(/\s+/g, "")] = info;
     }
-  }
+  } catch (e) {}
 
   const renderLaunchPoints = () => {
     if (!launchPoints) {
@@ -111,6 +110,9 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
   };
 
   const renderNowPlaying = () => {
+    if (!foregroundApp) {
+      return null;
+    }
     const appId = foregroundApp.appId,
       app = launchPoints[appId];
 

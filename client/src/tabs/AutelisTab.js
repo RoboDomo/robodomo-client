@@ -189,7 +189,18 @@ const AutelisTab = () => {
       .replace(":00 ", " "),
     sunset = new Date(now.sunset * 1000)
       .toLocaleTimeString()
-      .replace(":00 ", " ");
+      .replace(":00 ", " "),
+    img = now.icon ? (
+      <img
+        alt={now.icon}
+        style={{
+          verticalAlign: "middle",
+          width: 64,
+          height: 64
+        }}
+        src={`/img/Weather/icons/black/${now.icon}.svg`}
+      />
+    ) : null;
 
   return (
     <div style={{ padding: 0 }}>
@@ -201,15 +212,7 @@ const AutelisTab = () => {
               <div style={{ textAlign: "center", padding: 4 }}>
                 <div>{city}</div>
                 <div style={{ fontSize: 48, marginBottom: 4 }}>
-                  <img
-                    alt={now.icon}
-                    style={{
-                      verticalAlign: "middle",
-                      width: 64,
-                      height: 64
-                    }}
-                    src={`/img/Weather/icons/black/${now.icon}.svg`}
-                  />
+                  {img}
                   {now.current_temperature}&deg;F
                 </div>
                 <div className="clearfix">
