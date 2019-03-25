@@ -162,8 +162,7 @@ const WeatherTab = ({ location }) => {
   }, []);
 
   try {
-    const small = Config.screenSize === "small",
-      header = (
+    const header = (
         <div style={{ fontSize: 24, fontWeight: "bold" }}>
           {display_city} Weather
         </div>
@@ -186,7 +185,7 @@ const WeatherTab = ({ location }) => {
         <h4>Current Conditions</h4>
         <div
           style={{
-            fontSize: small ? 24 : 30,
+            fontSize: 30,
             float: "right",
             marginTop: 5,
             marginBottom: 10
@@ -203,7 +202,7 @@ const WeatherTab = ({ location }) => {
         <div style={{ fontSize: 30, float: "left", marginBottom: 10 }}>
           <img
             alt={now.icon}
-            style={small ? styles.img_small : styles.img}
+            style={styles.img}
             src={`/img/Weather/icons/black/${now.icon}.svg`}
           />
           {now.current_temperature}&deg;F

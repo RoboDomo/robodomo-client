@@ -17,8 +17,6 @@ const ClockTile = () => {
     "Saturday"
   ];
 
-  const tileSize = Config.screenSize === "small" ? 1 : 2;
-
   useEffect(() => {
     const timer = setInterval(() => {
       setDate(new Date());
@@ -31,7 +29,7 @@ const ClockTile = () => {
   return (
     <Tile width={2} height={2} readOnly>
       <div style={{ textAlign: "center" }}>
-        <div style={{ fontSize: 20 * tileSize, width: "100%" }}>
+        <div style={{ fontSize: 40, width: "100%" }}>
           <Clock cb={d => setDate(d)} />
         </div>
         <div style={{ fontSize: 20 }}>{dayNames[date.getDay()]}</div>

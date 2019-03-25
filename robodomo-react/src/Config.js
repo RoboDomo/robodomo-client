@@ -31,17 +31,6 @@ const braviaFavorites = [
 const bowser = require("bowser"),
   parser = bowser.getParser(window.navigator.userAgent);
 
-const screenSize = (function() {
-  if (bowser.ipad) {
-    return "normal";
-  } else if (window.innerWidth <= 601) {
-    return "small";
-  } else if (window.innerWidth >= 1024) {
-    return "normal";
-  }
-  return bowser.mobile ? "small" : "normal";
-})();
-
 export default {
   name: "RoboDomo Home Automation System",
   version: "1.0.0",
@@ -65,46 +54,11 @@ export default {
     smartthings: "smartthings",
     macros: "macros"
   },
-  screenSize: screenSize,
   bowser: parser.getResult(),
   ui: {
-    panelType: "primary",
-    subPanelType: "default",
-    bsSize: screenSize === "small" ? "small" : "large",
     // these two add up to 12
-    labelCol: screenSize === "small" ? 3 : 4,
-    fieldCol: screenSize === "small" ? 9 : 8,
-    // style for remote buttons, denon buttons, etc.
-    buttonStyle:
-      screenSize === "small" &&
-      window.innerWidth < 600 &&
-      window.innerHeight < 600
-        ? {
-            width: 56,
-            height: 30
-          }
-        : {
-            width: 100,
-            height: 40
-          },
-    buttonSize: screenSize === "small" ? "small" : null,
-    controlButtonStyle: {
-      width: 100,
-      height: 40
-    },
-    miniButtonStyle:
-      screenSize === "small" &&
-      window.innerWidth < 600 &&
-      window.innerHeight < 600
-        ? {
-            width: 30,
-            height: 30
-          }
-        : {
-            width: 50,
-            height: 40
-          },
-    controlSpace: 20
+    labelCol: 4,
+    fieldCol: 8
   },
   theaters: [
     {
