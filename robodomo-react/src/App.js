@@ -5,7 +5,6 @@ import Phone from "Phone/MainScreen";
 import Config from "Config";
 
 const App = () => {
-  console.dir(Config.bowser);
   if (Config.bowser.platform.type === "mobile") {
     setTimeout(async () => {
       try {
