@@ -18,7 +18,7 @@ const Weather = () => {
       id="weather-tabs"
       onSelect={changeTab}
       activeKey={activeTab}
-      bsStyle="pills"
+      variant="pills"
       mountOnEnter
       unmountOnExit
     >

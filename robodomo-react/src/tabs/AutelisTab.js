@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Panel, Row, Col, Form } from "react-bootstrap";
+import { Card, Row, Col, Form } from "react-bootstrap";
 
 import MacroTile from "tiles/MacroTile";
 import ToggleField from "form/ToggleField";
@@ -206,9 +206,9 @@ const AutelisTab = () => {
     <div style={{ padding: 0 }}>
       <Row>
         <Col sm={3} style={{ padding: 2 }}>
-          <Panel>
-            <Panel.Heading>Weather</Panel.Heading>
-            <Panel.Body>
+          <Card>
+            <Card.Header>Weather</Card.Header>
+            <Card.Body>
               <div style={{ textAlign: "center", padding: 4 }}>
                 <div>{city}</div>
                 <div style={{ fontSize: 48, marginBottom: 4 }}>
@@ -223,13 +223,16 @@ const AutelisTab = () => {
                   <div>Sunset: {sunset}</div>
                 </div>
               </div>
-            </Panel.Body>
-          </Panel>
+            </Card.Body>
+          </Card>
         </Col>
         <Col sm={3} style={{ padding: 2 }}>
-          <Panel bsStyle={poolOn ? "success" : undefined}>
-            <Panel.Heading>Pool</Panel.Heading>
-            <Panel.Body>
+          <Card
+            bg={poolOn ? "success" : undefined}
+            text={poolOn ? "white" : undefined}
+          >
+            <Card.Header>Pool</Card.Header>
+            <Card.Body>
               <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
                 {renderPoolTemp()}
               </div>
@@ -280,13 +283,16 @@ const AutelisTab = () => {
                   }}
                 />
               </Form>
-            </Panel.Body>
-          </Panel>
+            </Card.Body>
+          </Card>
         </Col>
         <Col sm={3} style={{ padding: 2 }}>
-          <Panel bsStyle={spaOn ? "danger" : undefined}>
-            <Panel.Heading>Spa</Panel.Heading>
-            <Panel.Body>
+          <Card
+            bg={spaOn ? "danger" : undefined}
+            text={spaOn ? "white" : undefined}
+          >
+            <Card.Header>Spa</Card.Header>
+            <Card.Body>
               <div style={{ textAlign: "center", fontSize: 30 }}>
                 {renderSpaTemp()}
               </div>
@@ -338,13 +344,16 @@ const AutelisTab = () => {
                   }}
                 />
               </Form>
-            </Panel.Body>
-          </Panel>
+            </Card.Body>
+          </Card>
         </Col>
         <Col sm={3} style={{ padding: 2 }}>
-          <Panel bsStyle={solarOn ? "success" : undefined}>
-            <Panel.Heading>Solar</Panel.Heading>
-            <Panel.Body>
+          <Card
+            bg={solarOn ? "success" : undefined}
+            text={solarOn ? "white" : "primary"}
+          >
+            <Card.Header>Solar</Card.Header>
+            <Card.Body>
               <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
                 {renderSolarTemp()}
               </div>
@@ -377,8 +386,8 @@ const AutelisTab = () => {
                   }}
                 />
               </Form>
-            </Panel.Body>
-          </Panel>
+            </Card.Body>
+          </Card>
         </Col>
       </Row>
       <Row

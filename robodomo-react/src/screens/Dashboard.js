@@ -18,7 +18,7 @@ const Dashboard = () => {
       id="dashboard-tabs"
       onSelect={changeTab}
       activeKey={activeTab}
-      bsStyle="pills"
+      variant="pills"
       mountOnEnter
       unmountOnExit
     >

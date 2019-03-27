@@ -4,7 +4,7 @@
  * Component for upper right side of Theater screen, to display and control thermostat
  */
 import React, { useState, useEffect, useRef } from "react";
-import { Glyphicon } from "react-bootstrap";
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 import RemoteButton from "components/common/RemoteButton";
 import Clock from "components/common/Clock";
@@ -142,7 +142,7 @@ const ThermostatButton = ({ thermostat, weather }) => {
         Inside: {ambientTemperature}&deg;F
       </div>
       <RemoteButton onClick={handleClickUp}>
-        <Glyphicon glyph="chevron-up" />
+        <FaChevronUp />
       </RemoteButton>
       <div
         style={{
@@ -158,7 +158,7 @@ const ThermostatButton = ({ thermostat, weather }) => {
         {targetTemperature}&deg;F
       </div>
       <RemoteButton onClick={handleClickDown}>
-        <Glyphicon glyph="chevron-down" />
+        <FaChevronDown />
       </RemoteButton>
     </>
   );

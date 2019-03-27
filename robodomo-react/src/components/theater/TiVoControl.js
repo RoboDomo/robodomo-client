@@ -1,10 +1,31 @@
 import React from "react";
 
 import RemoteButton from "components/common//RemoteButton";
-import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
+import { Row, ButtonGroup } from "react-bootstrap";
+import {
+  FaChevronUp,
+  FaChevronDown,
+  FaChevronLeft,
+  FaChevronRight,
+  FaThumbsUp,
+  FaThumbsDown,
+  FaBackward,
+  FaFastBackward,
+  FaPause,
+  FaPlay,
+  FaStepForward,
+  FaForward,
+  FaFastForward,
+  FaDotCircle
+} from "react-icons/fa";
 
 const style = {
-  row: { marginTop: 4 }
+  row: {
+    marginTop: 4,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  }
 };
 
 const TiVoControl = ({ device }) => {
@@ -12,7 +33,13 @@ const TiVoControl = ({ device }) => {
 
   return (
     <>
-      <Row>
+      <Row
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+      >
         <ButtonGroup>
           <RemoteButton topic={topic} message="CLEAR">
             Clear
@@ -20,7 +47,7 @@ const TiVoControl = ({ device }) => {
           <RemoteButton topic={topic} message="LIVETV">
             Live TV
           </RemoteButton>
-          <RemoteButton topic={topic} message="TIVO" bsStyle="primary">
+          <RemoteButton topic={topic} message="TIVO" variant="primary">
             Tivo
           </RemoteButton>
           <RemoteButton topic={topic} message="GUIDE">
@@ -33,62 +60,62 @@ const TiVoControl = ({ device }) => {
       </Row>
       <Row style={style.row}>
         <ButtonGroup>
-          <RemoteButton topic={topic} message="THUMBSUP" bsStyle="success">
-            <Glyphicon glyph="thumbs-up" />
+          <RemoteButton topic={topic} message="THUMBSUP" variant="success">
+            <FaThumbsUp />
           </RemoteButton>
           <RemoteButton topic={topic} message="BACK">
             Back
           </RemoteButton>
-          <RemoteButton topic={topic} message="THUMBSDOWN" bsStyle="danger">
-            <Glyphicon glyph="thumbs-down" />
+          <RemoteButton topic={topic} message="THUMBSDOWN" variant="danger">
+            <FaThumbsDown />
           </RemoteButton>
         </ButtonGroup>
       </Row>
       <Row style={style.row}>
         <ButtonGroup>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
           <RemoteButton topic={topic} message="UP">
-            <Glyphicon glyph="chevron-up" />
+            <FaChevronUp />
           </RemoteButton>
-          <RemoteButton topic={topic} message="CHANNELUP" bsStyle="info">
+          <RemoteButton topic={topic} message="CHANNELUP" variant="info">
             +
           </RemoteButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
           <RemoteButton topic={topic} message="LEFT">
-            <Glyphicon glyph="chevron-left" />
+            <FaChevronLeft />
           </RemoteButton>
-          <RemoteButton topic={topic} message="SELECT" bsStyle="primary">
+          <RemoteButton topic={topic} message="SELECT" variant="primary">
             Select
           </RemoteButton>
           <RemoteButton topic={topic} message="RIGHT">
-            <Glyphicon glyph="chevron-right" />
+            <FaChevronRight />
           </RemoteButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
           <RemoteButton topic={topic} message="DOWN">
-            <Glyphicon glyph="chevron-down" />
+            <FaChevronDown />
           </RemoteButton>
-          <RemoteButton topic={topic} message="CHANNELDOWN" bsStyle="info">
+          <RemoteButton topic={topic} message="CHANNELDOWN" variant="info">
             -
           </RemoteButton>
         </ButtonGroup>
       </Row>
       <Row style={style.row}>
         <ButtonGroup>
-          <RemoteButton topic={topic} message="A" bsStyle="warning">
+          <RemoteButton topic={topic} message="A" variant="warning">
             A
           </RemoteButton>
-          <RemoteButton topic={topic} message="B" bsStyle="primary">
+          <RemoteButton topic={topic} message="B" variant="primary">
             B
           </RemoteButton>
-          <RemoteButton topic={topic} message="C" bsStyle="danger">
+          <RemoteButton topic={topic} message="C" variant="danger">
             C
           </RemoteButton>
-          <RemoteButton topic={topic} message="D" bsStyle="success">
+          <RemoteButton topic={topic} message="D" variant="success">
             D
           </RemoteButton>
         </ButtonGroup>
@@ -142,31 +169,31 @@ const TiVoControl = ({ device }) => {
           </RemoteButton>
         </ButtonGroup>
       </Row>
-      <Row style={{ marginTop: 10 }}>
+      <Row style={{ ...style.row, marginTop: 10 }}>
         <ButtonGroup>
           <RemoteButton topic={topic} message="REPLAY" mini>
-            <Glyphicon glyph="fast-backward" />
+            <FaFastBackward />
           </RemoteButton>
           <RemoteButton topic={topic} message="REVERSE" mini>
-            <Glyphicon glyph="backward" />
+            <FaBackward />
           </RemoteButton>
           <RemoteButton topic={topic} message="PAUSE" mini>
-            <Glyphicon glyph="pause" />
+            <FaPause />
           </RemoteButton>
           <RemoteButton topic={topic} message="PLAY" mini>
-            <Glyphicon glyph="play" />
+            <FaPlay />
           </RemoteButton>
           <RemoteButton topic={topic} message="SLOW" mini>
-            <Glyphicon glyph="step-forward" />
+            <FaStepForward />
           </RemoteButton>
           <RemoteButton topic={topic} message="FORWARD" mini>
-            <Glyphicon glyph="forward" />
+            <FaForward />
           </RemoteButton>
           <RemoteButton topic={topic} message="ADVANCE" mini>
-            <Glyphicon glyph="fast-forward" />
+            <FaFastForward />
           </RemoteButton>
-          <RemoteButton topic={topic} message="RECORD" mini bsStyle="danger">
-            <Glyphicon glyph="record" />
+          <RemoteButton topic={topic} message="RECORD" mini variant="danger">
+            <FaDotCircle />
           </RemoteButton>
         </ButtonGroup>
       </Row>

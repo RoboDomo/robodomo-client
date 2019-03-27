@@ -3,7 +3,8 @@ import React from "react";
 import Config from "Config";
 
 import RemoteButton from "components/common/RemoteButton";
-import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
+import { Row, ButtonGroup } from "react-bootstrap";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
 const TiVoButtons = ({ style, device, commands }) => {
   if (!commands || !device || !commands.TiVo) {
@@ -11,8 +12,8 @@ const TiVoButtons = ({ style, device, commands }) => {
   }
   const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
   return (
-    <div style={style}>
-      <Row style={{ marginBottom: 2 }}>
+    <div>
+      <Row style={style}>
         <ButtonGroup>
           <RemoteButton
             topic={command_topic + commands.Back.action.deviceId}
@@ -27,7 +28,7 @@ const TiVoButtons = ({ style, device, commands }) => {
             Live TV
           </RemoteButton>
           <RemoteButton
-            bsStyle="primary"
+            variant="primary"
             topic={command_topic + commands.TiVo.action.deviceId}
             message="TiVo"
           >
@@ -47,25 +48,26 @@ const TiVoButtons = ({ style, device, commands }) => {
           </RemoteButton>
         </ButtonGroup>
       </Row>
-      <Row>
+      <Row style={style}>
         <ButtonGroup>
           <RemoteButton
-            bsStyle="success"
+            variant="success"
             topic={command_topic + commands.ThumbsUp.action.deviceId}
             message={commands.ThumbsUp.name}
           >
-            <Glyphicon glyph="thumbs-up" />
+            <FaThumbsUp />
           </RemoteButton>
           <RemoteButton
-            bsStyle="danger"
+            variant="danger"
             topic={command_topic + commands.ThumbsDown.action.deviceId}
             message={commands.ThumbsDown.name}
           >
-            <Glyphicon glyph="thumbs-down" />
+            <FaThumbsDown />
           </RemoteButton>
         </ButtonGroup>
       </Row>
     </div>
   );
 };
+
 export default TiVoButtons;

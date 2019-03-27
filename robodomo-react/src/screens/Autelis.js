@@ -18,7 +18,7 @@ const Autelis = () => {
         setActiveTab(eventKey);
       }}
       activeKey={activeTab}
-      bsStyle="pills"
+      variant="pills"
       mountOnEnter
       unmountOnExit
     >
@@ -28,4 +28,5 @@ const Autelis = () => {
     </Tabs>
   );
 };
+
 export default Autelis;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import Tablet from "Tablet/MainScreen";
 import Phone from "Phone/MainScreen";

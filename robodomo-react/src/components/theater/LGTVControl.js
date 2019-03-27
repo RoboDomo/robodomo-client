@@ -5,11 +5,24 @@ import {
   Row,
   Col,
   ButtonGroup,
-  Glyphicon,
   Tooltip,
-  OverlayTrigger,
-  Thumbnail
+  OverlayTrigger
 } from "react-bootstrap";
+import {
+  FaChevronUp,
+  FaChevronDown,
+  FaChevronLeft,
+  FaChevronRight,
+  FaBackward,
+  FaFastBackward,
+  FaPause,
+  FaPlay,
+  FaStepForward,
+  FaForward,
+  FaFastForward,
+  FaDotCircle
+} from "react-icons/fa";
+
 import Config from "Config";
 
 //import MQTT from "lib/MQTT";
@@ -122,7 +135,9 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     return (
       <div style={{ textAlign: "center" }}>
         <div style={{ marginLeft: "auto", marginRight: "auto", width: 100 }}>
-          <Thumbnail src={app.icon}>{app.title}</Thumbnail>
+          <img alt={app.icon} src={app.icon}>
+            {app.title}
+          </img>
         </div>
       </div>
     );
@@ -131,16 +146,16 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
   const renderHDMI = () => {
     return (
       <ButtonGroup>
-        <RemoteButton bsStyle={tvInput === "hdmi1" ? "primary" : undefined}>
+        <RemoteButton variant={tvInput === "hdmi1" ? "primary" : undefined}>
           HDMI 1
         </RemoteButton>
-        <RemoteButton bsStyle={tvInput === "hdmi2" ? "primary" : undefined}>
+        <RemoteButton variant={tvInput === "hdmi2" ? "primary" : undefined}>
           HDMI 2
         </RemoteButton>
-        <RemoteButton bsStyle={tvInput === "hdmi3" ? "primary" : undefined}>
+        <RemoteButton variant={tvInput === "hdmi3" ? "primary" : undefined}>
           HDMI 3
         </RemoteButton>
-        <RemoteButton bsStyle={tvInput === "hdmi4" ? "primary" : undefined}>
+        <RemoteButton variant={tvInput === "hdmi4" ? "primary" : undefined}>
           HDMI 4
         </RemoteButton>
       </ButtonGroup>
@@ -227,33 +242,33 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
       <Row style={{ marginTop: 4 }}>{renderHDMI()}</Row>
       <Row style={{ margin: 10 }}>
         <ButtonGroup>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
           <RemoteButton topic={set_topic} message="UP">
-            <Glyphicon glyph="chevron-up" />
+            <FaChevronUp />
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="CHANNELUP" bsStyle="info">
+          <RemoteButton topic={set_topic} message="CHANNELUP" variant="info">
             +
           </RemoteButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
           <RemoteButton topic={set_topic} message="LEFT">
-            <Glyphicon glyph="chevron-left" />
+            <FaChevronLeft />
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="SELECT" bsStyle="primary">
+          <RemoteButton topic={set_topic} message="SELECT" variant="primary">
             Select
           </RemoteButton>
           <RemoteButton topic={set_topic} message="RIGHT">
-            <Glyphicon glyph="chevron-right" />
+            <FaChevronRight />
           </RemoteButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
           <RemoteButton topic={set_topic} message="DOWN">
-            <Glyphicon glyph="chevron-down" />
+            <FaChevronDown />
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="CHANNELDOWN" bsStyle="info">
+          <RemoteButton topic={set_topic} message="CHANNELDOWN" variant="info">
             -
           </RemoteButton>
         </ButtonGroup>
@@ -262,33 +277,33 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
       <Row style={{ marginTop: 4 }}>
         <ButtonGroup>
           <RemoteButton topic={set_topic} message="REPLAY" mini>
-            <Glyphicon glyph="fast-backward" />
+            <FaFastBackward />
           </RemoteButton>
           <RemoteButton topic={set_topic} message="REVERSE" mini>
-            <Glyphicon glyph="backward" />
+            <FaBackward />
           </RemoteButton>
           <RemoteButton topic={set_topic} message="PAUSE" mini>
-            <Glyphicon glyph="pause" />
+            <FaPause />
           </RemoteButton>
           <RemoteButton topic={set_topic} message="PLAY" mini>
-            <Glyphicon glyph="play" />
+            <FaPlay />
           </RemoteButton>
           <RemoteButton topic={set_topic} message="SLOW" mini>
-            <Glyphicon glyph="step-forward" />
+            <FaStepForward />
           </RemoteButton>
           <RemoteButton topic={set_topic} message="FORWARD" mini>
-            <Glyphicon glyph="forward" />
+            <FaForward />
           </RemoteButton>
           <RemoteButton topic={set_topic} message="ADVANCE" mini>
-            <Glyphicon glyph="fast-forward" />
+            <FaFastForward />
           </RemoteButton>
           <RemoteButton
             topic={set_topic}
             message="RECORD"
             mini
-            bsStyle="danger"
+            variant="danger"
           >
-            <Glyphicon glyph="record" />
+            <FaDotCircle />
           </RemoteButton>
         </ButtonGroup>
       </Row>

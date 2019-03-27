@@ -1,7 +1,8 @@
 //import React, { useState } from "react";
 import React, { useState, useEffect } from "react";
 
-import { ButtonGroup, Glyphicon } from "react-bootstrap";
+import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
+import { ButtonGroup } from "react-bootstrap";
 import RemoteButton from "components/common/RemoteButton";
 
 import MQTT from "lib/MQTT";
@@ -56,35 +57,41 @@ const AudioControl = ({ device }) => {
       <ButtonGroup vertical>
         <div>Master Volume</div>
         <RemoteButton
-          bsStyle={mute ? "danger" : "default"}
+          variant={mute ? "danger" : "primary"}
           topic={set_topic}
           message={mute ? "MUOFF" : "MUON"}
           name="mute"
         >
-          <Glyphicon glyph="volume-off" />
+          <FaVolumeMute />
         </RemoteButton>
         <RemoteButton topic={set_topic} message="MVUP" name="volume-up">
-          <Glyphicon glyph="volume-up" />
+          <FaVolumeUp />
         </RemoteButton>
-        <div>{format(volume)}</div>
+        <div style={{ textAlign: "center", width: "100%" }}>
+          {format(volume)}
+        </div>
         <RemoteButton topic={set_topic} message="MVDOWN" name="volume-down">
-          <Glyphicon glyph="volume-down" />
+          <FaVolumeDown />
         </RemoteButton>
       </ButtonGroup>
 
       <ButtonGroup vertical>
         <div style={{ marginTop: 16 }}>Center Channel</div>
         <RemoteButton topic={set_topic} message="CVC UP" name="center-up">
-          <Glyphicon glyph="volume-up" />
+          <FaVolumeUp />
         </RemoteButton>
-        <div>{format(center - 500)}</div>
+        <div style={{ textAlign: "center", width: "100%" }}>
+          {format(center - 500)}
+        </div>
         <RemoteButton topic={set_topic} message="CVC DOWN" name="center-down">
-          <Glyphicon glyph="volume-down" />
+          <FaVolumeDown />
         </RemoteButton>
       </ButtonGroup>
 
       <ButtonGroup vertical>
-        <div style={{ marginTop: 16 }}>{dolby}</div>
+        <div style={{ textAlign: "center", width: "100%", marginTop: 16 }}>
+          {dolby}
+        </div>
         <RemoteButton topic={set_topic} message="MSAUTO" name="auto">
           Auto
         </RemoteButton>

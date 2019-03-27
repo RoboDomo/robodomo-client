@@ -1,5 +1,5 @@
 import React from "react";
-import { Badge, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Badge, ListGroup } from "react-bootstrap";
 
 const DevicesListGroup = ({
   devices,
@@ -15,27 +15,31 @@ const DevicesListGroup = ({
 
   return (
     <ListGroup>
-      <h5>Devices</h5>
+      <ListGroup.Item variant="dark">Devices</ListGroup.Item>
       {devices.map(device => {
         let deviceName = device.name;
         if (deviceName === "LG TV" && ~tvInput.indexOf("hdmi")) {
           deviceName = (
             <>
               {deviceName}
-              <Badge pullRight>{tvInput.toUpperCase()}</Badge>
+              <Badge variant="secondary" className="float-right">
+                {tvInput.toUpperCase()}
+              </Badge>
             </>
           );
         } else if (deviceName === "AVR" && avrInput) {
           deviceName = (
             <>
               {deviceName}
-              <Badge pullRight>{avrInput.toUpperCase()}</Badge>
+              <Badge variant="secondary" className="float-right">
+                {avrInput.toUpperCase()}
+              </Badge>
             </>
           );
         }
+
         return (
-          <ListGroupItem
-            as="button"
+          <ListGroup.Item
             active={currentDevice === device.name}
             onClick={() => {
               onClick(device);
@@ -43,7 +47,7 @@ const DevicesListGroup = ({
             key={device.name}
           >
             {deviceName}
-          </ListGroupItem>
+          </ListGroup.Item>
         );
       })}
     </ListGroup>

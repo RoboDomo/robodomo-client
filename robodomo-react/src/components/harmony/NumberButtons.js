@@ -20,7 +20,7 @@ const NumberButtons = ({ style, device, commands }) => {
       {commands.NumberEnter ? "Enter" : "."}
     </RemoteButton>
   ) : (
-    <RemoteButton bsStyle="none" />
+    <RemoteButton variant="none" />
   );
   const clearButton = commands.Clear ? (
     <RemoteButton
@@ -30,7 +30,7 @@ const NumberButtons = ({ style, device, commands }) => {
       Clear
     </RemoteButton>
   ) : (
-    <RemoteButton bsStyle="none" />
+    <RemoteButton variant="none" />
   );
   return (
     <Row style={style}>

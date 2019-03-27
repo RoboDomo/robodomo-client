@@ -15,28 +15,28 @@ const ColoredButtons = ({ style, device, commands }) => {
     <Row style={style}>
       <ButtonGroup>
         <RemoteButton
-          bsStyle="warning"
+          variant="warning"
           topic={command_topic + commands.Yellow.action.deviceId}
           message={commands.Yellow.name}
         >
           Yellow
         </RemoteButton>
         <RemoteButton
-          bsStyle="info"
+          variant="info"
           topic={command_topic + commands.Blue.action.deviceId}
           message={commands.Blue.name}
         >
           Blue
         </RemoteButton>
         <RemoteButton
-          bsStyle="danger"
+          variant="danger"
           topic={command_topic + commands.Red.action.deviceId}
           message={commands.Red.name}
         >
           Red
         </RemoteButton>
         <RemoteButton
-          bsStyle="success"
+          variant="success"
           topic={command_topic + commands.Green.action.deviceId}
           message={commands.Green.name}
         >

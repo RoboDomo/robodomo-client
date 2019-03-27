@@ -21,7 +21,7 @@ const Nest = () => {
         setActiveTab(eventKey);
       }}
       activeKey={activeTab}
-      bsStyle="pills"
+      variant="pills"
       mountOnEnter
       unmountOnExit
     >
