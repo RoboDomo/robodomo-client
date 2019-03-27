@@ -236,7 +236,7 @@ const AutelisTab = () => {
               <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
                 {renderPoolTemp()}
               </div>
-              <Form horizontal>
+              <Form>
                 <ToggleField
                   label="Pool"
                   name="pump"
@@ -296,7 +296,7 @@ const AutelisTab = () => {
               <div style={{ textAlign: "center", fontSize: 30 }}>
                 {renderSpaTemp()}
               </div>
-              <Form horizontal>
+              <Form>
                 <ToggleField
                   label="Spa"
                   name="spa"
@@ -357,7 +357,7 @@ const AutelisTab = () => {
               <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
                 {renderSolarTemp()}
               </div>
-              <Form horizontal>
+              <Form>
                 <ToggleField
                   label="Solar"
                   toggled={solarHeat}

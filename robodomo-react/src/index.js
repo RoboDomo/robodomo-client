@@ -10,7 +10,7 @@ import "bootswatch/dist/slate/bootstrap.min.css";
 
 import Config from "Config";
 
-console.log("platform", Config.bowser);
+console.log("platform", Config.bowser.platform.type);
 //const mobile = Config.bowser.platform.type === "mobile";
 //if (!mobile) {
 //  const meta = document.getElementById("meta-viewport"),

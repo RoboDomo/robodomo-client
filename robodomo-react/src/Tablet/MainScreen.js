@@ -43,6 +43,7 @@ const MainScreen = () => {
           montOnEnter
           unmountOnExit
           activeKey={parseInt(activeTab, 10)}
+          onSelect={() => {}}
         >
           <TabContent>
             <TabPane mountOnEnter unmountOnExit eventKey={1}>

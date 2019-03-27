@@ -117,7 +117,6 @@ const ThermostatTab = ({ thermostat }) => {
         icon = <FaChevronRight />;
         disabled = true;
       }
-      console.log("icon", icon);
       return (
         <Button
           block
@@ -135,7 +134,7 @@ const ThermostatTab = ({ thermostat }) => {
           return null;
         case "heat":
           return (
-            <ButtonGroup block vertical style={{ width: "100%" }}>
+            <ButtonGroup vertical style={{ width: "100%" }}>
               {target(78)}
               {target(77)}
               {target(76)}
@@ -150,7 +149,7 @@ const ThermostatTab = ({ thermostat }) => {
           );
         case "cool":
           return (
-            <ButtonGroup block vertical style={{ width: "100%" }}>
+            <ButtonGroup vertical style={{ width: "100%" }}>
               {target(82)}
               {target(81)}
               {target(80)}
@@ -303,7 +302,6 @@ const ThermostatTab = ({ thermostat }) => {
   };
 
   if (!weather_status_topic.current && thermoState.postal_code) {
-    console.log("SUBSCRIBING!!!");
     const t = (weather_status_topic.current = `${Config.mqtt.weather}/${
       thermoState.postal_code
     }/status/`);
