@@ -19,10 +19,14 @@ const ButtonList = ({ theater }) => {
         {theater.buttons.map(button => {
           switch (button.type) {
             case "label":
-              return <div key={key++}>{button.text}</div>;
+              return (
+                <div key={key++} style={{ textAlign: "center", width: "100%" }}>
+                  {button.text}
+                </div>
+              );
             case "thermostat":
               return (
-                <div key={key++} style={{ marginBottom: 8 }}>
+                <div key={key++} style={{ textAlign: "center", width: "100%" }}>
                   <ThermostatButton
                     thermostat={button.device}
                     weather={button.weather}
@@ -31,29 +35,29 @@ const ButtonList = ({ theater }) => {
               );
             case "macro":
               return (
-                <div key={key++}>
+                <div key={key++} style={{ textAlign: "center", width: "100%" }}>
                   <MQTTButton name={button.name} device={button.device}>
-                    <span>{button.name}</span>
+                    <span style={{ whiteSpace: "nowrap" }}>{button.name}</span>
                   </MQTTButton>
                 </div>
               );
             case "fan":
               return (
-                <div key={key++}>
+                <div key={key++} style={{ textAlign: "center", width: "100%" }}>
                   <FanButton name={button.device} />
                 </div>
               );
             case "dimmer":
               return (
-                <div key={key++}>
+                <div key={key++} style={{ textAlign: "center", width: "100%" }}>
                   <DimmerButton name={button.device} />
                 </div>
               );
             default:
               return (
-                <div key={key++}>
+                <div key={key++} style={{ textAlign: "center", width: "100%" }}>
                   <RemoteButton>
-                    <span>{button.name}</span>
+                    <span style={{ whiteSpace: "nowrap" }}>{button.name}</span>
                   </RemoteButton>
                 </div>
               );

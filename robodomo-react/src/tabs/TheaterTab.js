@@ -186,6 +186,7 @@ const TheaterTab = ({ style, theater }) => {
           currentActivity={currentActivity}
           onClick={handleActivityClick}
         />
+        <div style={{ height: 10 }} />
         <DevicesListGroup
           devices={devices}
           currentDevice={currentDevice}
@@ -195,7 +196,7 @@ const TheaterTab = ({ style, theater }) => {
         />
       </Col>
       <Col sm={10}>
-        <Row>
+        <Row style={{ width: "100%", textAlign: "center" }}>
           <Col sm={2} style={{ textAlign: "center" }}>
             <AudioControl device={denon.current} />
           </Col>

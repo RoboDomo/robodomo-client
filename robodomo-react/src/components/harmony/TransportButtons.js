@@ -8,13 +8,24 @@ import React from "react";
 import Config from "Config";
 
 import RemoteButton from "components/common/RemoteButton";
-import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
+import { Row, ButtonGroup } from "react-bootstrap";
+
+import {
+  FaBackward,
+  FaFastBackward,
+  FaPause,
+  FaPlay,
+  FaStepForward,
+  FaForward,
+  FaFastForward,
+  FaDotCircle
+} from "react-icons/fa";
 
 const TransportButtons = ({ style, device, commands }) => {
   if (!commands || !device || !commands.Pause) {
     return null;
   }
-  const makeButton = (commands, device, kind, glyph) => {
+  const makeButton = (commands, device, kind, Icon) => {
     if (!commands[kind]) {
       return null;
     }
@@ -22,11 +33,11 @@ const TransportButtons = ({ style, device, commands }) => {
     return (
       <RemoteButton
         mini
-        bsStyle={kind === "Record" ? "danger" : undefined}
+        variant={kind === "Record" ? "danger" : undefined}
         topic={command_topic + commands[kind].action.deviceId}
         message={commands[kind].name}
       >
-        <Glyphicon glyph={glyph} />
+        {Icon}
       </RemoteButton>
     );
   };
@@ -35,14 +46,14 @@ const TransportButtons = ({ style, device, commands }) => {
     <div style={style}>
       <Row>
         <ButtonGroup>
-          {makeButton(commands, device, "SkipBackward", "fast-backward")}
-          {makeButton(commands, device, "Rewind", "backward")}
-          {makeButton(commands, device, "Pause", "pause")}
-          {makeButton(commands, device, "Play", "play")}
-          {makeButton(commands, device, "FrameAdvance", "step-forward")}
-          {makeButton(commands, device, "FastForward", "forward")}
-          {makeButton(commands, device, "SkipForward", "fast-forward")}
-          {makeButton(commands, device, "Record", "record")}
+          {makeButton(commands, device, "SkipBackward", <FaFastBackward />)}
+          {makeButton(commands, device, "Rewind", <FaBackward />)}
+          {makeButton(commands, device, "Pause", <FaPause />)}
+          {makeButton(commands, device, "Play", <FaPlay />)}
+          {makeButton(commands, device, "FrameAdvance", <FaStepForward />)}
+          {makeButton(commands, device, "FastForward", <FaForward />)}
+          {makeButton(commands, device, "SkipForward", <FaFastForward />)}
+          {makeButton(commands, device, "Record", <FaDotCircle />)}
         </ButtonGroup>
       </Row>
     </div>

@@ -3,7 +3,8 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Glyphicon, PageHeader } from "react-bootstrap";
+import { Badge } from "react-bootstrap";
+import { FaCheck, FaWindowClose, FaHome, FaRoad } from "react-icons/fa";
 
 import MQTT from "lib/MQTT";
 
@@ -36,10 +37,10 @@ const ProtectTab = ({ sensor }) => {
   const [softwareVersion, setSoftwareVersion] = useState("");
   const [uiColor, setUiColor] = useState(undefined);
 
-  const GOOD = <Glyphicon style={{ color: "green" }} glyph="ok" />,
-    BAD = <Glyphicon style={{ color: "red" }} glyph="remove" />,
-    HOME = <Glyphicon style={{ color: "green" }} glyph="home" />,
-    AWAY = <Glyphicon style={{ color: "red" }} glyph="road" />;
+  const GOOD = <FaCheck style={{ color: "green" }} />,
+    BAD = <FaWindowClose style={{ color: "red" }} />,
+    HOME = <FaHome style={{ color: "green" }} />,
+    AWAY = <FaRoad style={{ color: "red" }} />;
 
   useEffect(() => {
     const handleStateChange = (topic, message) => {
@@ -79,9 +80,10 @@ const ProtectTab = ({ sensor }) => {
   return (
     <div style={{ margin: 0, paddingLeft: 20 }}>
       <div style={style}>
-        <PageHeader>
-          {sensor.name} Nest Protect <small>{softwareVersion}</small>
-        </PageHeader>
+        <h1>
+          {sensor.name} Nest Protect{" "}
+          <Badge variant="secondary">{softwareVersion}</Badge>
+        </h1>
         <div>
           {testActive ? "TEST ACTIVE" : "Last Manual Test: " + lastTest}
         </div>

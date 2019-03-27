@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from "react";
 import Config from "Config";
 
 import {
-  Glyphicon,
   ButtonGroup,
   Button,
   ToggleButton,
@@ -13,6 +12,8 @@ import {
   ListGroup,
   ListGroupItem
 } from "react-bootstrap";
+
+import { FaChevronUp, FaChevronDown, FaChevronRight } from "react-icons/fa";
 
 import Thermostat from "react-nest-thermostat";
 
@@ -100,21 +101,23 @@ const ThermostatTab = ({ thermostat }) => {
       weather = weatherState,
       now = weather ? weather.now : {};
 
-    //    console.log("RENDER", thermostat, weatherState);
     if (!thermostat || !now) {
       return null;
     }
+
     const target = n => {
-      let icon,
+      let icon = <FaChevronRight />,
         disabled = false;
+
       if (thermostat.target_temperature_f > n) {
-        icon = <Glyphicon glyph="chevron-down" />;
+        icon = <FaChevronDown />;
       } else if (thermostat.target_temperature_f < n) {
-        icon = <Glyphicon glyph="chevron-up" />;
+        icon = <FaChevronUp />;
       } else {
-        icon = <Glyphicon glyph="chevron-right" />;
+        icon = <FaChevronRight />;
         disabled = true;
       }
+      console.log("icon", icon);
       return (
         <Button
           block
@@ -132,7 +135,7 @@ const ThermostatTab = ({ thermostat }) => {
           return null;
         case "heat":
           return (
-            <ButtonGroup block vertical>
+            <ButtonGroup block vertical style={{ width: "100%" }}>
               {target(78)}
               {target(77)}
               {target(76)}
@@ -147,7 +150,7 @@ const ThermostatTab = ({ thermostat }) => {
           );
         case "cool":
           return (
-            <ButtonGroup vertical>
+            <ButtonGroup block vertical style={{ width: "100%" }}>
               {target(82)}
               {target(81)}
               {target(80)}
@@ -168,7 +171,9 @@ const ThermostatTab = ({ thermostat }) => {
           <ListGroup>
             <ListGroupItem>
               Presence
-              <span style={{ float: "right" }}>{thermostat.away}</span>
+              <span style={{ float: "right" }}>
+                {thermostat.away.toUpperCase()}
+              </span>
             </ListGroupItem>
             <ListGroupItem>
               Ambient Temperature
@@ -224,27 +229,27 @@ const ThermostatTab = ({ thermostat }) => {
             />
             <ButtonGroup style={{ marginBottom: 8 }}>
               <Button onClick={() => adjustTemperature(-3)}>
-                <Glyphicon glyph="chevron-down" />
+                <FaChevronDown />
                 &nbsp; 3 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(-2)}>
-                <Glyphicon glyph="chevron-down" />
+                <FaChevronDown />
                 &nbsp; 2 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(-1)}>
-                <Glyphicon glyph="chevron-down" />
+                <FaChevronDown />
                 &nbsp; 1 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(1)}>
-                <Glyphicon glyph="chevron-up" />
+                <FaChevronUp />
                 &nbsp; 1 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(2)}>
-                <Glyphicon glyph="chevron-up" />
+                <FaChevronUp />
                 &nbsp; 2 &deg;
               </Button>
               <Button onClick={() => adjustTemperature(3)}>
-                <Glyphicon glyph="chevron-up" />
+                <FaChevronUp />
                 &nbsp; 3 &deg;
               </Button>
             </ButtonGroup>
@@ -265,10 +270,10 @@ const ThermostatTab = ({ thermostat }) => {
                 Cool
               </ToggleButton>
               <ToggleButton
-                style={{ width: 85, fontSize: 14 }}
+                style={{ width: 110, fontSize: 14 }}
                 value="heat-cool"
               >
-                Heat-Cool
+                Heat/Cool
               </ToggleButton>
               <ToggleButton style={{ width: 85, fontSize: 14 }} value="Eco">
                 Eco

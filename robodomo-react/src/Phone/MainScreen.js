@@ -15,6 +15,7 @@ import { TiWeatherCloudy } from "react-icons/ti";
 import { TiThermometer } from "react-icons/ti";
 import { IoIosAnalytics } from "react-icons/io";
 import { FaSwimmingPool } from "react-icons/fa";
+
 /**
  * Phone Top Level App (Main) Screen
  */
@@ -22,10 +23,8 @@ const MainScreen = () => {
   console.log("height", window.outerHeight);
   return (
     <div style={{ marginTop: 50 }}>
-      <Navbar fluid inverse fixedTop>
-        <Navbar.Header>
-          <Navbar.Brand>RoboDomo</Navbar.Brand>
-        </Navbar.Header>
+      <Navbar fluid inverse fixed="top">
+        <Navbar.Brand>RoboDomo</Navbar.Brand>
       </Navbar>
       <ListGroup style={{ height: "100%" }}>
         <ListGroupItem>Dashboards</ListGroupItem>
@@ -35,8 +34,8 @@ const MainScreen = () => {
         <ListGroupItem>Sensors</ListGroupItem>
         <ListGroupItem>Pool/Spa</ListGroupItem>
       </ListGroup>
-      <Navbar inverse fluid fixedBottom>
-        <Nav bsStyle="pills" style={{ textAlign: "center" }}>
+      <Navbar inverse fluid fixed="bottom">
+        <Nav variant="pills" style={{ textAlign: "center" }}>
           <NavItem eventKey={1} href="#" style={{ margin: 8 }}>
             <MdDashboard />
           </NavItem>
@@ -59,7 +58,6 @@ const MainScreen = () => {
       </Navbar>
     </div>
   );
-  return <div>Phone</div>;
 };
 
 export default MainScreen;

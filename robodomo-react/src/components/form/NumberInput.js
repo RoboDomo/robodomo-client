@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 
-import { Button, Glyphicon } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const NumberInput = ({ value, step = 1, min, max, onValueChange }) => {
   const timer = useRef(null);
@@ -27,13 +28,13 @@ const NumberInput = ({ value, step = 1, min, max, onValueChange }) => {
   return (
     <div>
       <Button
-        bsStyle="primary"
+        variant="primary"
         onClick={e => {
           e.stopPropagation();
           change(val - step);
         }}
       >
-        <Glyphicon glyph="chevron-left" />
+        <FaChevronLeft />
       </Button>
       <input
         type="text"
@@ -42,13 +43,13 @@ const NumberInput = ({ value, step = 1, min, max, onValueChange }) => {
         readOnly
       />
       <Button
-        bsStyle="primary"
+        variant="primary"
         onClick={e => {
           e.stopPropagation();
           change(val + step);
         }}
       >
-        <Glyphicon glyph="chevron-right" />
+        <FaChevronRight />
       </Button>
     </div>
   );

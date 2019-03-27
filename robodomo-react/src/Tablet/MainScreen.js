@@ -12,8 +12,7 @@ import {
   TabContainer,
   TabContent,
   TabPane,
-  Nav,
-  NavItem
+  Nav
 } from "react-bootstrap";
 
 import Dashboard from "screens/Dashboard";
@@ -40,60 +39,66 @@ const MainScreen = () => {
       <div style={{ marginTop: 50 }}>
         <TabContainer
           id="mainTabs"
+          variant="pills"
+          montOnEnter
+          unmountOnExit
           activeKey={parseInt(activeTab, 10)}
-          onSelect={tab => {
-            localStorage.setItem(LOCALSTORAGE_KEY, tab);
-            setActiveTab(tab);
-          }}
         >
-          <div>
-            <TabContent>
-              <TabPane mountOnEnter unmountOnExit eventKey={1}>
-                <Dashboard />
-              </TabPane>
-              <TabPane mountOnEnter unmountOnExit eventKey={2}>
-                <Theater />
-              </TabPane>
-              <TabPane mountOnEnter unmountOnExit eventKey={3}>
-                <Weather />
-              </TabPane>
-              <TabPane mountOnEnter unmountOnExit eventKey={4}>
-                <Nest />
-              </TabPane>
-              <TabPane mountOnEnter unmountOnExit eventKey={5}>
-                <Sensors />
-              </TabPane>
-              <TabPane mountOnEnter unmountOnExit eventKey={6}>
-                <Autelis />
-              </TabPane>
-            </TabContent>
-            <Navbar inverse fluid fixedTop>
-              <Navbar.Header>
-                <Navbar.Brand>RoboDomo</Navbar.Brand>
-              </Navbar.Header>
-              <Nav>
-                <NavItem eventKey={1}>
+          <TabContent>
+            <TabPane mountOnEnter unmountOnExit eventKey={1}>
+              <Dashboard />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={2}>
+              <Theater />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={3}>
+              <Weather />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={4}>
+              <Nest />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={5}>
+              <Sensors />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={6}>
+              <Autelis />
+            </TabPane>
+          </TabContent>
+          <Navbar
+            fixed="top"
+            bg="primary"
+            variant="dark"
+            onSelect={tab => {
+              localStorage.setItem(LOCALSTORAGE_KEY, tab);
+              setActiveTab(tab);
+              console.log("eventKey");
+            }}
+          >
+            <Navbar.Brand>RoboDomo</Navbar.Brand>
+            <Nav className="mr-auto" defaultActiveKey={activeTab}>
+              <Nav.Item>
+                <Nav.Link eventKey={1}>
                   <MdDashboard /> Dashboard
-                </NavItem>
-                <NavItem eventKey={2}>
-                  <IoIosTv /> Theater
-                </NavItem>
-                <NavItem eventKey={3}>
-                  <TiWeatherCloudy /> Weather
-                </NavItem>
-                <NavItem eventKey={4}>
-                  <TiThermometer />
-                  Nest
-                </NavItem>
-                <NavItem eventKey={5}>
-                  <IoIosAnalytics /> Sensors
-                </NavItem>
-                <NavItem eventKey={6}>
-                  <FaSwimmingPool /> Pool/Spa
-                </NavItem>
-              </Nav>
-            </Navbar>
-          </div>
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Link eventKey={2}>
+                <IoIosTv /> Theater
+              </Nav.Link>
+              <Nav.Link eventKey={3}>
+                <TiWeatherCloudy /> Weather
+              </Nav.Link>
+              <Nav.Link eventKey={4}>
+                <TiThermometer />
+                Nest
+              </Nav.Link>
+              <Nav.Link eventKey={5}>
+                <IoIosAnalytics /> Sensors
+              </Nav.Link>
+              <Nav.Link eventKey={6}>
+                <FaSwimmingPool /> Pool/Spa
+              </Nav.Link>
+            </Nav>
+          </Navbar>
         </TabContainer>
       </div>
     </div>

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Tile from "components/Tile";
 import Config from "Config";
 import MQTT from "lib/MQTT";
-import Glyphicon from "react-bootstrap/lib/Glyphicon";
+import { FaFlag } from "react-icons/fa";
 
 const WeatherTile = () => {
   const [displayCity, setDisplayCity] = useState("");
@@ -81,8 +81,8 @@ const WeatherTile = () => {
             textAlign: "center"
           }}
         >
-          <Glyphicon style={{ fontSize: 32 }} glyph="flag" />{" "}
-          {now.wind_direction} {now.current_wind} MPH
+          <FaFlag style={{ fontSize: 32 }} /> {now.wind_direction}{" "}
+          {now.current_wind} MPH
         </div>
       </div>
     </Tile>

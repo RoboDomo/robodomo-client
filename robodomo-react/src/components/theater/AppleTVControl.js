@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from "react";
 
 import RemoteButton from "components/common/RemoteButton";
-import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
+import { Row, ButtonGroup } from "react-bootstrap";
+import {
+  FaChevronUp,
+  FaChevronDown,
+  FaChevronLeft,
+  FaChevronRight,
+  FaBackward,
+  FaPause,
+  FaPlay,
+  FaForward,
+  FaFastForward
+} from "react-icons/fa";
 
 import MQTT from "lib/MQTT";
 
-const style = {
-  row: { marginTop: 4 }
+const rowStyle = {
+  marginTop: 4,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
 };
 
 const formatTime = (seconds, trim = true) => {
@@ -104,30 +118,30 @@ const AppleTVControl = ({ device }) => {
   const renderPlaybackControls = () => {
     const playButton = (
         <RemoteButton topic={set_topic} message="TogglePlayPause" mini>
-          <Glyphicon glyph="play" />
+          <FaPlay />
         </RemoteButton>
       ),
       pauseButton = (
         <RemoteButton topic={set_topic} message="TogglePlayPause" mini>
-          <Glyphicon glyph="pause" />
+          <FaPause />
         </RemoteButton>
       );
 
     return (
       <ButtonGroup>
         <RemoteButton topic={set_topic} message="SkipBackward" mini>
-          <Glyphicon glyph="fast-backward" />
+          <FaForward />
         </RemoteButton>
         <RemoteButton topic={set_topic} message="BeginRewind" mini>
-          <Glyphicon glyph="backward" />
+          <FaBackward />
         </RemoteButton>
         {pauseButton}
         {playButton}
         <RemoteButton topic={set_topic} message="BeginFastFoward" mini>
-          <Glyphicon glyph="forward" />
+          <FaForward />
         </RemoteButton>
         <RemoteButton topic={set_topic} message="SkipForward" mini>
-          <Glyphicon glyph="fast-forward" />
+          <FaFastForward />
         </RemoteButton>
       </ButtonGroup>
     );
@@ -135,8 +149,8 @@ const AppleTVControl = ({ device }) => {
 
   return (
     <>
-      <Row style={style.row}>{renderNowPlaying()}</Row>
-      <Row>
+      <Row style={rowStyle}>{renderNowPlaying()}</Row>
+      <Row style={rowStyle}>
         <ButtonGroup>
           <RemoteButton topic={set_topic} message="Stop">
             Stop
@@ -144,7 +158,7 @@ const AppleTVControl = ({ device }) => {
           <RemoteButton topic={set_topic} message="Menu">
             Menu
           </RemoteButton>
-          <RemoteButton bsStyle="primary" topic={set_topic} message="Suspend">
+          <RemoteButton variant="primary" topic={set_topic} message="Suspend">
             Home
           </RemoteButton>
           <RemoteButton topic={set_topic} message="Power">
@@ -155,38 +169,40 @@ const AppleTVControl = ({ device }) => {
           </RemoteButton>
         </ButtonGroup>
       </Row>
-      <Row style={style.row}>
+      <Row style={rowStyle}>
         <ButtonGroup>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
           <RemoteButton topic={set_topic} message="Up">
-            <Glyphicon glyph="chevron-up" />
+            <FaChevronUp />
           </RemoteButton>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
         </ButtonGroup>
       </Row>
-      <Row>
+      <Row style={rowStyle}>
         <ButtonGroup>
           <RemoteButton topic={set_topic} message="Left">
-            <Glyphicon glyph="chevron-left" />
+            <FaChevronLeft />
           </RemoteButton>
-          <RemoteButton bsStyle="primary" topic={set_topic} message="Select">
+          <RemoteButton variant="primary" topic={set_topic} message="Select">
             Select
           </RemoteButton>
           <RemoteButton topic={set_topic} message="Right">
-            <Glyphicon glyph="chevron-right" />
+            <FaChevronRight />
           </RemoteButton>
         </ButtonGroup>
       </Row>
-      <Row>
+      <Row style={rowStyle}>
         <ButtonGroup>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
           <RemoteButton topic={set_topic} message="Down">
-            <Glyphicon glyph="chevron-down" />
+            <FaChevronDown />
           </RemoteButton>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
         </ButtonGroup>
       </Row>
-      <Row style={{ marginTop: 20 }}>{renderPlaybackControls()}</Row>
+      <Row style={{ ...rowStyle, marginTop: 20 }}>
+        {renderPlaybackControls()}
+      </Row>
     </>
   );
 };

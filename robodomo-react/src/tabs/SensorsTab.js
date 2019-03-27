@@ -4,7 +4,7 @@ import Config from "Config";
 
 import MQTT from "lib/MQTT";
 
-import { Row, Col, Panel } from "react-bootstrap";
+import { Row, Col, Card } from "react-bootstrap";
 
 const SensorsTab = () => {
   const [sensors, setSensors] = useState({});
@@ -53,10 +53,10 @@ const SensorsTab = () => {
   const renderCard = type => {
     return (
       <Col sm={4} style={{ marginTop: 20 }}>
-        <Panel>
-          <Panel.Heading>{type.toUpperCase()}</Panel.Heading>
-          <Panel.Body>{renderType(type)}</Panel.Body>
-        </Panel>
+        <Card>
+          <Card.Header>{type.toUpperCase()}</Card.Header>
+          <Card.Body>{renderType(type)}</Card.Body>
+        </Card>
       </Col>
     );
   };

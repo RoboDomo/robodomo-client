@@ -3,7 +3,14 @@ import React from "react";
 import Config from "Config";
 
 import RemoteButton from "components/common/RemoteButton";
-import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
+import { Row, ButtonGroup } from "react-bootstrap";
+
+import {
+  FaChevronUp,
+  FaChevronDown,
+  FaChevronLeft,
+  FaChevronRight
+} from "react-icons/fa";
 
 const JoystickButtons = ({ style, device, commands }) => {
   if (!commands || !device || !commands.DirectionUp) {
@@ -12,51 +19,51 @@ const JoystickButtons = ({ style, device, commands }) => {
   const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
   const channelUp = commands.ChannelUp ? (
     <RemoteButton
-      bsStyle="info"
+      variant="info"
       topic={command_topic + commands.ChannelUp.action.deviceId}
       message={commands.ChannelUp.name}
     >
       +
     </RemoteButton>
   ) : (
-    <RemoteButton bsStyle="none" />
+    <RemoteButton variant="none" />
   );
 
   const channelDown = commands.ChannelDown ? (
     <RemoteButton
-      bsStyle="info"
+      variant="info"
       topic={command_topic + commands.ChannelDown.action.deviceId}
       message={commands.ChannelDown.name}
     >
       -
     </RemoteButton>
   ) : (
-    <RemoteButton bsStyle="none" />
+    <RemoteButton variant="none" />
   );
   return (
-    <div style={style}>
-      <Row>
+    <div>
+      <Row style={style}>
         <ButtonGroup>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
           <RemoteButton
             topic={command_topic + commands.DirectionUp.action.deviceId}
             message={commands.DirectionUp.name}
           >
-            <Glyphicon glyph="chevron-up" />
+            <FaChevronUp />
           </RemoteButton>
           {channelUp}
         </ButtonGroup>
       </Row>
-      <Row>
+      <Row style={style}>
         <ButtonGroup>
           <RemoteButton
             topic={command_topic + commands.DirectionLeft.action.deviceId}
             message={commands.DirectionLeft.name}
           >
-            <Glyphicon glyph="chevron-left" />
+            <FaChevronLeft />
           </RemoteButton>
           <RemoteButton
-            bsStyle="primary"
+            variant="primary"
             topic={command_topic + commands.Select.action.deviceId}
             message={commands.Select.name}
           >
@@ -66,18 +73,18 @@ const JoystickButtons = ({ style, device, commands }) => {
             topic={command_topic + commands.DirectionRight.action.deviceId}
             message={commands.DirectionRight.name}
           >
-            <Glyphicon glyph="chevron-right" />
+            <FaChevronRight />
           </RemoteButton>
         </ButtonGroup>
       </Row>
-      <Row>
+      <Row style={style}>
         <ButtonGroup>
-          <RemoteButton bsStyle="none" />
+          <RemoteButton variant="none" />
           <RemoteButton
             topic={command_topic + commands.DirectionDown.action.deviceId}
             message={commands.DirectionDown.name}
           >
-            <Glyphicon glyph="chevron-down" />
+            <FaChevronDown />
           </RemoteButton>
           {channelDown}
         </ButtonGroup>

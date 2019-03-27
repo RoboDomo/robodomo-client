@@ -3,9 +3,6 @@ import React, { useState, useEffect } from "react";
 import Config from "Config";
 import MQTT from "lib/MQTT";
 
-//import RemoteButton from "components/common/RemoteButton";
-//import { Row, ButtonGroup, Glyphicon } from "react-bootstrap";
-
 import XBoxButtons from "components/harmony/XBoxButtons";
 import RokuButtons from "components/harmony/RokuButtons";
 import TiVoButtons from "components/harmony/TiVoButtons";
@@ -30,6 +27,12 @@ const remap = (o, controlGroup) => {
   return o;
 };
 
+const rowStyle = {
+  marginTop: 4,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center"
+};
 const HarmonyRemoteControl = ({ hub }) => {
   // state
   const [currentActivity, setCurrentActivity] = useState(null);
@@ -93,48 +96,32 @@ const HarmonyRemoteControl = ({ hub }) => {
     console.log("commands", commands);
     return (
       <>
-        <RokuButtons
-          style={{ marginBottom: 4 }}
-          device={hub.device}
-          commands={commands}
-        />
-        <XBoxButtons
-          style={{ marginBottom: 4 }}
-          device={hub.device}
-          commands={commands}
-        />
+        <RokuButtons style={rowStyle} device={hub.device} commands={commands} />
+        <XBoxButtons style={rowStyle} device={hub.device} commands={commands} />
         <AppleTVButtons
-          style={{ marginBottom: 4 }}
+          style={rowStyle}
           device={hub.device}
           commands={commands}
         />
-        <TiVoButtons
-          style={{ marginBottom: 4 }}
-          device={hub.device}
-          commands={commands}
-        />
+        <TiVoButtons style={rowStyle} device={hub.device} commands={commands} />
         <ColoredButtons
-          style={{ marginBottom: 4 }}
+          style={rowStyle}
           device={hub.device}
           commands={commands}
         />
-        <ABCDButtons
-          style={{ marginBottom: 4 }}
-          device={hub.device}
-          commands={commands}
-        />
+        <ABCDButtons style={rowStyle} device={hub.device} commands={commands} />
         <JoystickButtons
-          style={{ marginBottom: 4 }}
+          style={rowStyle}
           device={hub.device}
           commands={commands}
         />
         <NumberButtons
-          style={{ marginBottom: 4 }}
+          style={rowStyle}
           device={hub.device}
           commands={commands}
         />
         <TransportButtons
-          style={{ marginBottom: 4 }}
+          style={rowStyle}
           device={hub.device}
           commands={commands}
         />

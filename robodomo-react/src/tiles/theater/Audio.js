@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ButtonGroup, Glyphicon } from "react-bootstrap";
+import { ButtonGroup } from "react-bootstrap";
+import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
 
 import RemoteButton from "components/common/RemoteButton";
 
@@ -29,19 +30,19 @@ const Audio = ({ device }) => {
       <ButtonGroup>
         <RemoteButton
           mini
-          bsStyle={mute ? "danger" : "default"}
+          variant={mute ? "danger" : "default"}
           topic={set_topic + "MU"}
           message={mute ? "MUOFF" : "MUON"}
         >
-          <Glyphicon glyph="volume-off" />
+          <FaVolumeMute />
         </RemoteButton>
 
         <RemoteButton mini topic={set_topic} message="MVDOWN">
-          <Glyphicon glyph="volume-down" />
+          <FaVolumeDown />
         </RemoteButton>
 
         <RemoteButton mini topic={set_topic} message="MVUP">
-          <Glyphicon glyph="volume-up" />
+          <FaVolumeUp />
         </RemoteButton>
       </ButtonGroup>
       <ButtonGroup>

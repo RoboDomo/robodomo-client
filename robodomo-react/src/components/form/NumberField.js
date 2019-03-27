@@ -1,13 +1,8 @@
 import React, { useState, useRef } from "react";
 
-import {
-  FormGroup,
-  ControlLabel,
-  Row,
-  Col,
-  Button,
-  Glyphicon
-} from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
+
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 //import DelayedTask from "lib/DelayedTask";
 
@@ -46,22 +41,25 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
 
   return (
     <Row style={{ padding: 0, margin: 0 }}>
-      <FormGroup style={{ marginBottom: 8, marginTop: 0 }}>
-        <Col
+      <Form.Group as={Row} style={{ marginBottom: 8, marginTop: 0 }}>
+        <Form.Label
+          column
           sm={Config.ui.labelCol}
-          componentClass={ControlLabel}
           style={{ whiteSpace: "nowrap", marginTop: 0 }}
         >
           {label}
-        </Col>
-        <Col sm={Config.ui.fieldCol} style={{ textAlign: "right" }}>
+        </Form.Label>
+        <Col
+          sm={Config.ui.fieldCol}
+          style={{ textAlign: "right", whiteSpace: "nowrap" }}
+        >
           <Button
-            bsStyle="primary"
+            variant="primary"
             onClick={() => {
               change(val - step);
             }}
           >
-            <Glyphicon glyph="chevron-left" />
+            <FaChevronLeft />
           </Button>
           <input
             type="text"
@@ -74,15 +72,15 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
             readOnly
           />
           <Button
-            bsStyle="primary"
+            variant="primary"
             onClick={() => {
               change(val + step);
             }}
           >
-            <Glyphicon glyph="chevron-right" />
+            <FaChevronRight />
           </Button>
         </Col>
-      </FormGroup>
+      </Form.Group>
     </Row>
   );
 };

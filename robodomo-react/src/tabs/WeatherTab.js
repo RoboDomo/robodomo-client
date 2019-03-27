@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Config from "Config";
 
-import Glyphicon from "react-bootstrap/lib/Glyphicon";
+import { FaFlag } from "react-icons/fa";
 
 import MQTT from "lib/MQTT";
 
@@ -192,8 +192,8 @@ const WeatherTab = ({ location }) => {
           }}
         >
           <div>
-            <Glyphicon style={{ fontSize: 24 }} glyph="flag" />{" "}
-            {now.wind_direction} {now.current_wind} MPH
+            <FaFlag style={{ fontSize: 24 }} /> {now.wind_direction}{" "}
+            {now.current_wind} MPH
           </div>
           <div style={{ fontSize: 14, textAlign: "right" }}>
             Sunrise: {sunrise} / Sunset: {sunset}

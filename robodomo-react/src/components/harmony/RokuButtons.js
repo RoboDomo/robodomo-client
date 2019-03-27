@@ -22,7 +22,7 @@ const RokuButtons = ({ style, device, commands }) => {
             Back
           </RemoteButton>
           <RemoteButton
-            bsStyle="primary"
+            variant="primary"
             topic={command_topic + commands.Home.action.deviceId}
             message={commands.Home.name}
           >

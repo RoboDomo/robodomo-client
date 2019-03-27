@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Config from "Config.js";
 
 import Tile from "components/Tile";
 import Clock from "components/common/Clock";

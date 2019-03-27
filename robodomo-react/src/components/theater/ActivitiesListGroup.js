@@ -8,7 +8,7 @@ const ActivitiesListGroup = ({ activities, currentActivity, onClick }) => {
 
   return (
     <ListGroup>
-      <h5 style={{ marginTop: 0 }}>Activities</h5>
+      <ListGroup.Item variant="dark">Activities</ListGroup.Item>
       {activities.map(activity => {
         return (
           <ListGroupItem
@@ -18,7 +18,7 @@ const ActivitiesListGroup = ({ activities, currentActivity, onClick }) => {
             }}
             key={activity.name}
           >
-            {activity.name}
+            <div style={{ textAlign: "center" }}>{activity.name}</div>
           </ListGroupItem>
         );
       })}
