@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import RemoteButton from "components/common/RemoteButton";
+import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 import {
   FaChevronUp,

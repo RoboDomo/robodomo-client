@@ -1,11 +1,11 @@
 import React from "react";
 import { ButtonGroup } from "react-bootstrap";
 
-import RemoteButton from "components/common/RemoteButton";
-import FanButton from "components/common/FanButton";
-import DimmerButton from "components/common/DimmerButton";
-import MQTTButton from "components/common/MQTTButton";
-import ThermostatButton from "components/common/ThermostatButton";
+import RemoteButton from "common/RemoteButton";
+import FanButton from "common/FanButton";
+import DimmerButton from "common/DimmerButton";
+import MQTTButton from "common/MQTTButton";
+import ThermostatButton from "common/ThermostatButton";
 
 const ButtonList = ({ theater }) => {
   if (!theater.buttons) {

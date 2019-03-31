@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Config from "Config";
 
 import MQTT from "lib/MQTT";
-import RemoteButton from "components/common/RemoteButton";
+import RemoteButton from "common/RemoteButton";
 
 const FanButton = ({ name }) => {
   const [power, setPower] = useState("off");

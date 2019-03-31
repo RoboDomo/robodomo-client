@@ -2,7 +2,7 @@ import React from "react";
 
 import Config from "Config";
 
-import RemoteButton from "components/common/RemoteButton";
+import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
 // apple tv commands are similar to XBox (for example)

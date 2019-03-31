@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ButtonGroup } from "react-bootstrap";
 import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
 
-import RemoteButton from "components/common/RemoteButton";
+import RemoteButton from "common/RemoteButton";
 
 import MQTT from "lib/MQTT";
 
