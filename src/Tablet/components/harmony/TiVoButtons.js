@@ -2,7 +2,7 @@ import React from "react";
 
 import Config from "Config";
 
-import RemoteButton from "components/common/RemoteButton";
+import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 

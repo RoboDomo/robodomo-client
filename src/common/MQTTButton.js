@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import Config from "Config";
 
 import MQTT from "lib/MQTT";
-import RemoteButton from "components/common/RemoteButton";
+import RemoteButton from "common/RemoteButton";
 
 const MQTTButton = ({ name, children }) => {
   const topic = Config.mqtt.macros + "/run";
