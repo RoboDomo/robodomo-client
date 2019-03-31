@@ -249,7 +249,7 @@ export default {
       key: "theater",
       tiles: [
         { type: "clock" },
-        { type: "weather" },
+        { type: "weather", location: "92211" },
         { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
         { type: "pool", controller: "autelis" },
         { type: "spa", controller: "autelis" },
@@ -283,7 +283,7 @@ export default {
       tiles: [
         { type: "clock" },
         { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
-        { type: "weather" },
+        { type: "weather", location: "92211" },
         { type: "spa", controller: "autelis" },
         {
           type: "garagedoor",
@@ -307,7 +307,7 @@ export default {
       tiles: [
         { type: "clock" },
         { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
-        { type: "weather" },
+        { type: "weather", location: "92211" },
         {
           type: "garagedoor",
           title: "Garage Doors",

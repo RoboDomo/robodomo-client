@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Badge, ListGroup } from "react-bootstrap";
 
 import Config from "Config";
 import MQTT from "lib/MQTT";
-import Tile from "components/Tile";
 import { TiLightbulb } from "react-icons/ti";
 
-const SwitchTile = ({ name }) => {
+const SwitchItem = ({ name }) => {
   const [state, setState] = useState("off");
   const status_topic = Config.mqtt.smartthings + "/" + name + "/",
     set_topic = status_topic;
@@ -33,24 +33,32 @@ const SwitchTile = ({ name }) => {
   };
   if (state === "off") {
     return (
-      <Tile width={1} height={1}>
-        <div style={{ textAlign: "center" }} onClick={onClick}>
-          <TiLightbulb size={24} style={{ marginBottom: 10 }} />
-          <div style={{ fontWeight: "normal" }}>{name}</div>
-          <div style={{ fontSize: 30 }}>Off</div>
-        </div>
-      </Tile>
+      <ListGroup.Item onClick={onClick}>
+        <TiLightbulb size={24} style={{ marginBottom: 10 }} />
+        <span style={{ fontSize: 20, fontWeight: "normal" }}>{name}</span>
+        <Badge
+          variant="secondary"
+          className="float-right"
+          style={{ fontSize: 20, marginLeft: 10 }}
+        >
+          Off
+        </Badge>
+      </ListGroup.Item>
     );
   }
   return (
-    <Tile width={1} height={1}>
-      <div style={{ textAlign: "center", color: "yellow" }} onClick={onClick}>
-        <TiLightbulb size={24} style={{ marginBottom: 10 }} />
-        <div style={{ fontWeight: "normal" }}>{name}</div>
-        <div style={{ fontSize: 30 }}>On</div>
-      </div>
-    </Tile>
+    <ListGroup.Item style={{ color: "yellow" }} onClick={onClick}>
+      <TiLightbulb size={24} style={{ marginBottom: 10 }} />
+      <span style={{ fontSize: 20, fontWeight: "normal" }}>{name}</span>
+      <Badge
+        variant="secondary"
+        className="float-right"
+        style={{ fontSize: 20, marginLeft: 10 }}
+      >
+        On
+      </Badge>
+    </ListGroup.Item>
   );
 };
 
-export default SwitchTile;
+export default SwitchItem;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Tile from "components/Tile";
-import Clock from "components/common/Clock";
+import Clock from "common/Clock";
 
 const ClockTile = () => {
   const [date, setDate] = useState(new Date());

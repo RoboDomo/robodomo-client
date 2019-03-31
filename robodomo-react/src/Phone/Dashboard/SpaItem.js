@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { ListGroup, Badge } from "react-bootstrap";
 
 import Config from "Config";
-import Tile from "components/Tile";
 import MQTT from "lib/MQTT";
 
 const topics = ["spaHeat", "spaTemp", "spa", "jet", "blower", "spaLight"];
-
-const SpaTile = ({ device }) => {
+const SpaItem = ({ device }) => {
   const [state, setState] = useState({});
 
   const controller = Config[device],
@@ -50,8 +49,7 @@ const SpaTile = ({ device }) => {
       isOn("jet") ||
       isOn("blower") ||
       isOn("spaLight"),
-    backgroundColor = on ? "red" : undefined,
-    color = on ? "white" : undefined;
+    variant = on ? "danger" : undefined;
 
   const renderControl = (ndx, text, big) => {
     const thing = state[ndx];
@@ -66,40 +64,23 @@ const SpaTile = ({ device }) => {
     return <div>{text}</div>;
   };
 
-  const renderSpa = () => {
-    if (on) {
-      return (
-        <div>
-          {renderControl("spa", `Spa ${state.spaTemp}°F`, true)}
-          {renderControl("spaHeat", "Heat On")}
-          {renderControl("jet", "Jets On")}
-          {renderControl("blower", "Blower On")}
-          {renderControl("spaLight", "Light On")}
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <div style={{ fontSize: 60 }}>{"Spa Off"}</div>
-        </div>
-      );
-    }
-  };
-
-  return (
-    <Tile
-      width={2}
-      height={1}
-      onClick={() => {
-        localStorage.setItem("autelis-radio", "spa");
-        window.location.hash = "poolcontrol";
-      }}
-      backgroundColor={backgroundColor}
-      color={color}
-    >
-      <div style={{ textAlign: "center" }}>{renderSpa()}</div>
-    </Tile>
-  );
+  if (on) {
+    return (
+      <ListGroup.Item variant={variant}>
+        {renderControl("spa", `Spa ${state.spaTemp}°F`, true)}
+        {renderControl("spaHeat", "Heat On")}
+        {renderControl("jet", "Jets On")}
+        {renderControl("blower", "Blower On")}
+        {renderControl("spaLight", "Light On")}
+      </ListGroup.Item>
+    );
+  } else {
+    return (
+      <ListGroup.Item>
+        <div style={{ fontSize: 40 }}>{"Spa Off"}</div>
+      </ListGroup.Item>
+    );
+  }
 };
 
-export default SpaTile;
+export default SpaItem;

@@ -16,6 +16,8 @@ import { TiThermometer } from "react-icons/ti";
 import { IoIosAnalytics } from "react-icons/io";
 import { FaSwimmingPool } from "react-icons/fa";
 
+import Dashboard from "Dashboard/Dashboard";
+
 const LOCALSTORAGE_KEY = "phoneTabState";
 /**
  * Phone Top Level App (Main) Screen
@@ -33,9 +35,12 @@ const MainScreen = () => {
         variant="pills"
         mountOnEnter
         unmountOnExit
+        onSelect={() => {}}
       >
         <TabContent>
-          <TabPane eventKey={1}>1</TabPane>
+          <TabPane eventKey={1}>
+            <Dashboard />
+          </TabPane>
           <TabPane eventKey={2}>2</TabPane>
           <TabPane eventKey={3}>3</TabPane>
           <TabPane eventKey={4}>4</TabPane>
@@ -56,7 +61,7 @@ const MainScreen = () => {
           console.log("eventKey");
         }}
       >
-        <Nav className="mr-auto" defaultActiveKey={activeTab}>
+        <Nav justify variant="tabs" defaultActiveKey={activeTab}>
           <Nav.Item>
             <Nav.Link eventKey={1} href="#" style={{ margin: 8 }}>
               <MdDashboard />

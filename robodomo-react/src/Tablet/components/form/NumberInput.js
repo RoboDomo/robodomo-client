@@ -3,7 +3,7 @@ import React, { useState, useRef } from "react";
 import { Button } from "react-bootstrap";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const NumberInput = ({ value, step = 1, min, max, onValueChange }) => {
+const NumberInput = ({ value, step = 1, min, max, onValueChange, style }) => {
   const timer = useRef(null);
   const [val, setVal] = useState(Number(value));
   const change = value => {
@@ -26,7 +26,7 @@ const NumberInput = ({ value, step = 1, min, max, onValueChange }) => {
     }, 500);
   };
   return (
-    <div>
+    <div style={{ ...style, whiteSpace: "nowrap" }}>
       <Button
         variant="primary"
         onClick={e => {

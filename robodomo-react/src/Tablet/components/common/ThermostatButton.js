@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 import RemoteButton from "components/common/RemoteButton";
-import Clock from "components/common/Clock";
+import Clock from "common/Clock";
 
 import MQTT from "lib/MQTT";
 

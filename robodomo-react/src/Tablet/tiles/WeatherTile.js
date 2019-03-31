@@ -32,25 +32,13 @@ const WeatherTile = () => {
 
   if (!now.icon) {
     return (
-      <Tile
-        //backgroundColor="white"
-        //color="blac,cick"
-        width={2}
-        height={2}
-        onClick="weather"
-      >
+      <Tile width={2} height={2} onClick="weather">
         {location.name}
       </Tile>
     );
   }
   return (
-    <Tile
-      //backgroundColor="white"
-      //color="blac,cick"
-      width={2}
-      height={2}
-      onClick="weather"
-    >
+    <Tile width={2} height={2} onClick="weather">
       <div style={{ textAlign: "center" }}>
         <div>{displayCity}</div>
         <div
