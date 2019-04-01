@@ -200,4 +200,5 @@ const TiVoControl = ({ device }) => {
     </>
   );
 };
+
 export default TiVoControl;

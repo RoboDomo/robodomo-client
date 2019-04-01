@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Tabs, Tab } from "react-bootstrap";
 
-import AutelisTab from "tabs/AutelisTab";
+import AutelisTab from "Autelis/AutelisTab";
 
 import Config from "Config";
 

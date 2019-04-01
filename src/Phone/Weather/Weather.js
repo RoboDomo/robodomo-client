@@ -3,17 +3,17 @@ import { Tab, Tabs } from "react-bootstrap";
 
 import Config from "Config";
 
-import DashboardTab from "Dashboard/DashboardTab";
+import WeatherTab from "Weather/WeatherTab";
 
-const LOCALSTORAGE_KEY = "phoneDashboardTab";
+const LOCALSTORAGE_KEY = "phoneWeatherTab";
 
-const Dashboard = () => {
+const Weather = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem(LOCALSTORAGE_KEY) || "1"
   );
   return (
     <Tabs
-      id="dashboard-tabs"
+      id="weather-tabs"
       activeKey={activeTab}
       onSelect={tab => {
         localStorage.setItem(LOCALSTORAGE_KEY, tab);
@@ -23,14 +23,14 @@ const Dashboard = () => {
       mountOnEnter
       unmountOnExit
     >
-      {Config.dashboards.map(dashboard => {
+      {Config.weather.locations.map(location => {
         return (
           <Tab
-            eventKey={dashboard.key}
-            key={dashboard.key}
-            title={dashboard.title}
+            eventKey={location.name}
+            key={location.name}
+            title={location.name}
           >
-            <DashboardTab dashboard={dashboard} />
+            <WeatherTab location={location} />
           </Tab>
         );
       })}
@@ -38,4 +38,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Weather;

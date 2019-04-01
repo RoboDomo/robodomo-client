@@ -3,17 +3,17 @@ import { Tab, Tabs } from "react-bootstrap";
 
 import Config from "Config";
 
-import DashboardTab from "Dashboard/DashboardTab";
+import TheaterTab from "Theater/TheaterTab";
 
-const LOCALSTORAGE_KEY = "phoneDashboardTab";
+const LOCALSTORAGE_KEY = "phoneTheaterTab";
 
-const Dashboard = () => {
+const Theater = () => {
   const [activeTab, setActiveTab] = useState(
     localStorage.getItem(LOCALSTORAGE_KEY) || "1"
   );
   return (
     <Tabs
-      id="dashboard-tabs"
+      id="theater-tabs"
       activeKey={activeTab}
       onSelect={tab => {
         localStorage.setItem(LOCALSTORAGE_KEY, tab);
@@ -23,14 +23,10 @@ const Dashboard = () => {
       mountOnEnter
       unmountOnExit
     >
-      {Config.dashboards.map(dashboard => {
+      {Config.theaters.map(theater => {
         return (
-          <Tab
-            eventKey={dashboard.key}
-            key={dashboard.key}
-            title={dashboard.title}
-          >
-            <DashboardTab dashboard={dashboard} />
+          <Tab eventKey={theater.key} key={theater.key} title={theater.title}>
+            <TheaterTab theater={theater} />
           </Tab>
         );
       })}
@@ -38,4 +34,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Theater;

@@ -25,7 +25,7 @@ const TiVoButtons = ({ style, device, commands }) => {
             topic={command_topic + commands.Live.action.deviceId}
             message={commands.Live.name}
           >
-            Live TV
+            LiveTV
           </RemoteButton>
           <RemoteButton
             variant="primary"

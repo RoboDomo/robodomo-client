@@ -1,4 +1,3 @@
-//import React, { useState } from "react";
 import React, { useState, useEffect } from "react";
 
 import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
@@ -105,4 +104,5 @@ const AudioControl = ({ device }) => {
     </>
   );
 };
+
 export default AudioControl;

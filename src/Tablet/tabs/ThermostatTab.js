@@ -311,4 +311,5 @@ const ThermostatTab = ({ thermostat }) => {
   }
   return render();
 };
+
 export default ThermostatTab;

@@ -5,8 +5,7 @@ import {
   Nav,
   TabContainer,
   TabContent,
-  TabPane,
-  NavItem
+  TabPane
 } from "react-bootstrap";
 
 import { MdDashboard } from "react-icons/md";
@@ -17,8 +16,19 @@ import { IoIosAnalytics } from "react-icons/io";
 import { FaSwimmingPool } from "react-icons/fa";
 
 import Dashboard from "Dashboard/Dashboard";
+import Theater from "Theater/Theater";
+import Weather from "Weather/Weather";
+import Nest from "Nest/Nest";
+import Sensors from "Sensors/Sensors";
+import Autelis from "Autelis/Autelis";
 
 const LOCALSTORAGE_KEY = "phoneTabState";
+
+const style = {
+  nav: {
+    width: window.innerWidth / 6 - 8
+  }
+};
 /**
  * Phone Top Level App (Main) Screen
  */
@@ -41,17 +51,28 @@ const MainScreen = () => {
           <TabPane eventKey={1}>
             <Dashboard />
           </TabPane>
-          <TabPane eventKey={2}>2</TabPane>
-          <TabPane eventKey={3}>3</TabPane>
-          <TabPane eventKey={4}>4</TabPane>
-          <TabPane eventKey={5}>5</TabPane>
-          <TabPane eventKey={6}>6</TabPane>
+          <TabPane eventKey={2}>
+            <Theater />
+          </TabPane>
+          <TabPane eventKey={3}>
+            <Weather />
+          </TabPane>
+          <TabPane eventKey={4}>
+            <Nest />
+          </TabPane>
+          <TabPane eventKey={5}>
+            <Sensors />
+          </TabPane>
+          <TabPane eventKey={6}>
+            <Autelis />
+          </TabPane>
         </TabContent>
       </TabContainer>
       <Navbar bg="dark" variant="dark" fixed="top">
         <Navbar.Brand>RoboDomo</Navbar.Brand>
       </Navbar>
       <Navbar
+        className="justify-content-between"
         bg="dark"
         variant="dark"
         fixed="bottom"
@@ -61,34 +82,34 @@ const MainScreen = () => {
           console.log("eventKey");
         }}
       >
-        <Nav justify variant="tabs" defaultActiveKey={activeTab}>
-          <Nav.Item>
-            <Nav.Link eventKey={1} href="#" style={{ margin: 8 }}>
+        <Nav justify fill variant="tabs" defaultActiveKey={activeTab}>
+          <Nav.Item style={style.nav}>
+            <Nav.Link eventKey={1} style={{ margin: 0 }}>
               <MdDashboard />
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey={2} href="#" style={{ margin: 8 }}>
+          <Nav.Item style={style.nav}>
+            <Nav.Link eventKey={2} style={{ margin: 0 }}>
               <IoIosTv />
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey={3} href="#" style={{ margin: 8 }}>
+          <Nav.Item style={style.nav}>
+            <Nav.Link eventKey={3} style={{ margin: 0 }}>
               <TiWeatherCloudy />
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey={4} href="#" style={{ margin: 8 }}>
+          <Nav.Item style={style.nav}>
+            <Nav.Link eventKey={4} style={{ margin: 0 }}>
               <TiThermometer />
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey={5} href="#" style={{ margin: 8 }}>
+          <Nav.Item style={style.nav}>
+            <Nav.Link eventKey={5} style={{ margin: 0 }}>
               <IoIosAnalytics />
             </Nav.Link>
           </Nav.Item>
-          <Nav.Item>
-            <Nav.Link eventKey={6} href="#" style={{ margin: 8 }}>
+          <Nav.Item style={style.nav}>
+            <Nav.Link eventKey={6} style={{ margin: 0 }}>
               <FaSwimmingPool />
             </Nav.Link>
           </Nav.Item>

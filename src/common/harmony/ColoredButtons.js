@@ -6,6 +6,7 @@ import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
 const ColoredButtons = ({ style, device, commands }) => {
+  console.log("ColoredButtons", device, commands);
   if (!device || !commands || !commands.Yellow) {
     return null;
   }

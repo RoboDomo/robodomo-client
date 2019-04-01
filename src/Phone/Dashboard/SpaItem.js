@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { ListGroup, Badge } from "react-bootstrap";
 
 import Config from "Config";
@@ -58,7 +58,15 @@ const SpaItem = ({ device }) => {
       return null;
     }
     if (big) {
-      return <div style={{ fontSize: 30 }}>{text}</div>;
+      return (
+        <Badge
+          variant="secondary"
+          className="float-right"
+          style={{ fontSize: 30 }}
+        >
+          {text}
+        </Badge>
+      );
     }
 
     return <div>{text}</div>;

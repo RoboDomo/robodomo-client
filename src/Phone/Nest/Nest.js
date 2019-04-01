@@ -1,14 +1,11 @@
-/**
- * Screen to control Nest products (thermostat, nest protect)
- */
 import React, { useState } from "react";
 import Config from "Config";
 
 import { Tab, Tabs } from "react-bootstrap";
-import ThermostatTab from "tabs/ThermostatTab";
-import ProtectTab from "tabs/ProtectTab";
+import ThermostatTab from "Nest/ThermostatTab";
+import ProtectTab from "Nest/ProtectTab";
 
-const LOCALSTORAGE_KEY = "nestTabState";
+const LOCALSTORAGE_KEY = "nestPhoneTabState";
 
 const Nest = () => {
   const [activeTab, setActiveTab] = useState(

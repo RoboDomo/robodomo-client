@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ListGroup } from "react-bootstrap";
 
 import ClockItem from "Dashboard/ClockItem";
@@ -15,7 +15,6 @@ import MacroItem from "Dashboard/MacroItem";
 
 const DashboardTab = ({ dashboard }) => {
   const renderTile = tile => {
-    console.log("renderTile", tile);
     switch (tile.type) {
       case "theater":
         return <TheaterItem title={tile.title} />;
@@ -38,7 +37,6 @@ const DashboardTab = ({ dashboard }) => {
       case "switch":
         return <SwitchItem name={tile.device} />;
       case "macro":
-        console.warn("macro tile", tile);
         return <MacroItem name={tile.name} label={tile.label} />;
       default:
         return (
@@ -55,7 +53,6 @@ const DashboardTab = ({ dashboard }) => {
     <div style={{ overflow: "scroll", height: "100vh", paddingBottom: 200 }}>
       <ListGroup>
         {dashboard.tiles.map(tile => {
-          console.log("tile", tile);
           return <span key={key++}>{renderTile(tile)}</span>;
         })}
       </ListGroup>

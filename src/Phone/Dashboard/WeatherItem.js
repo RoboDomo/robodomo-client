@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ListGroup, Image } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { ListGroup } from "react-bootstrap";
 
 import Config from "Config";
 

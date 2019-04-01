@@ -1,40 +1,38 @@
 import React from "react";
-import {
-  ToggleButtonGroup,
-  ToggleButton,
-  Form,
-  Row,
-  Col
-} from "react-bootstrap";
-
-import Config from "Config";
+import { ButtonToolbar, ButtonGroup, Button } from "react-bootstrap";
 
 const ToggleField = ({ name, label, toggled, onToggle }) => {
-  const defaultValue = toggled ? 1 : 2;
   return (
-    <Form.Group as={Row} style={{ marginBottom: 8 }}>
-      <Form.Label column sm={Config.ui.labelCol}>
-        <span style={{ whiteSpace: "nowrap" }}>{label}</span>
-      </Form.Label>
-      <Col
-        sm={Config.ui.fieldCol}
-        style={{ textAlign: "right", paddingRight: 30 }}
-      >
-        <ToggleButtonGroup
-          onChange={() => {
-            if (onToggle) {
-              onToggle(!toggled);
-            }
-          }}
-          type="radio"
-          name={name}
-          value={defaultValue}
-        >
-          <ToggleButton value={1}>On</ToggleButton>
-          <ToggleButton value={2}>Off</ToggleButton>
-        </ToggleButtonGroup>
-      </Col>
-    </Form.Group>
+    <div style={{ display: "flex" }}>
+      <div style={{ marginTop: 8, flex: 1 }}>{label}</div>
+      <div className="float-right" style={{ whiteSpace: "nowrap" }}>
+        <ButtonToolbar>
+          <ButtonGroup>
+            <Button
+              variant={toggled ? "dark" : undefined}
+              onClick={() => {
+                if (onToggle && !toggled) {
+                  onToggle(true);
+                }
+              }}
+            >
+              On
+            </Button>
+            <Button
+              variant={toggled ? undefined : "dark"}
+              onClick={() => {
+                if (onToggle && toggled) {
+                  onToggle(false);
+                }
+              }}
+            >
+              Off
+            </Button>
+          </ButtonGroup>
+        </ButtonToolbar>
+      </div>
+    </div>
   );
 };
+
 export default ToggleField;

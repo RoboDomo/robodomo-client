@@ -1,12 +1,10 @@
 import React, { useState, useRef } from "react";
 
-import { Form, Row, Col, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 //import DelayedTask from "lib/DelayedTask";
-
-import Config from "Config";
 
 const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
   const [val, setVal] = useState(Number(value));
@@ -40,48 +38,37 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
   };
 
   return (
-    <Row style={{ padding: 0, margin: 0 }}>
-      <Form.Group as={Row} style={{ marginBottom: 8, marginTop: 0 }}>
-        <Form.Label
-          column
-          sm={Config.ui.labelCol}
-          style={{ whiteSpace: "nowrap", marginTop: 0 }}
+    <div style={{ display: "flex" }}>
+      <div style={{ marginTop: 8, flex: 1 }}>{label}</div>
+      <div className="float-right" style={{ whiteSpace: "nowrap" }}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            change(val - step);
+          }}
         >
-          {label}
-        </Form.Label>
-        <Col
-          sm={Config.ui.fieldCol}
-          style={{ textAlign: "right", whiteSpace: "nowrap" }}
+          <FaChevronLeft />
+        </Button>
+        <input
+          type="text"
+          style={{
+            width: 40,
+            textAlign: "center",
+            height: 38
+          }}
+          value={val}
+          readOnly
+        />
+        <Button
+          variant="primary"
+          onClick={() => {
+            change(val + step);
+          }}
         >
-          <Button
-            variant="primary"
-            onClick={() => {
-              change(val - step);
-            }}
-          >
-            <FaChevronLeft />
-          </Button>
-          <input
-            type="text"
-            style={{
-              width: 40,
-              textAlign: "center",
-              height: 38
-            }}
-            value={val}
-            readOnly
-          />
-          <Button
-            variant="primary"
-            onClick={() => {
-              change(val + step);
-            }}
-          >
-            <FaChevronRight />
-          </Button>
-        </Col>
-      </Form.Group>
-    </Row>
+          <FaChevronRight />
+        </Button>
+      </div>
+    </div>
   );
 };
 export default NumberField;

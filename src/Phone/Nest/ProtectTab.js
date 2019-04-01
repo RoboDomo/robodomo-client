@@ -1,7 +1,3 @@
-/**
- * Tab to display/conrol Nest Protect (CO2/Fire detector)
- */
-
 import React, { useState, useEffect } from "react";
 import { Badge } from "react-bootstrap";
 import { FaCheck, FaWindowClose, FaHome, FaRoad } from "react-icons/fa";
@@ -76,14 +72,14 @@ const ProtectTab = ({ sensor }) => {
     };
   }, []);
 
-  const style = { backgroundColor: uiColor, fontSize: 20, padding: 10 };
+  const style = { backgroundColor: uiColor, fontSize: 16, padding: 10 };
   return (
     <div style={{ margin: 0, paddingLeft: 20 }}>
       <div style={style}>
-        <h1>
+        <h3>
           {sensor.name} Nest Protect{" "}
           <Badge variant="secondary">{softwareVersion}</Badge>
-        </h1>
+        </h3>
         <div>
           {testActive ? "TEST ACTIVE" : "Last Manual Test: " + lastTest}
         </div>

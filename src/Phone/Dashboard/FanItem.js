@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Badge, ListGroup } from "react-bootstrap";
 
 import Config from "Config";

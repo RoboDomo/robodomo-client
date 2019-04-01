@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import NumberInput from "Tablet/components/form/NumberInput";
 
 import { ListGroup } from "react-bootstrap";

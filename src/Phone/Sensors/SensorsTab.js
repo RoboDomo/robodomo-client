@@ -4,7 +4,7 @@ import Config from "Config";
 
 import MQTT from "lib/MQTT";
 
-import { Row, Col, Card } from "react-bootstrap";
+import { Badge, Card } from "react-bootstrap";
 
 const SensorsTab = () => {
   const [sensors, setSensors] = useState({});
@@ -44,7 +44,9 @@ const SensorsTab = () => {
       return (
         <div key={"type" + key++}>
           {sensor.name}
-          <span style={{ float: "right" }}>{sensors[sensor.topic]}</span>
+          <Badge variant="secondary" className="float-right">
+            {sensors[sensor.topic]}
+          </Badge>
         </div>
       );
     });
@@ -52,28 +54,30 @@ const SensorsTab = () => {
 
   const renderCard = type => {
     return (
-      <Col sm={4} style={{ marginTop: 20 }}>
+      <div style={{ padding: 10, marginTop: 10, fontSize: 18 }}>
         <Card>
           <Card.Header>{type.toUpperCase()}</Card.Header>
           <Card.Body>{renderType(type)}</Card.Body>
         </Card>
-      </Col>
+      </div>
     );
   };
 
   let col = 0;
   return (
-    <div style={{ padding: 20, marginTop: 10 }}>
-      <Row>
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-      </Row>
-      <Row>
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-      </Row>
+    <div
+      style={{
+        overflow: "scroll",
+        height: "100vh",
+        paddingBottom: 300
+      }}
+    >
+      {renderCard(types[col++])}
+      {renderCard(types[col++])}
+      {renderCard(types[col++])}
+      {renderCard(types[col++])}
+      {renderCard(types[col++])}
+      {renderCard(types[col++])}
     </div>
   );
 };

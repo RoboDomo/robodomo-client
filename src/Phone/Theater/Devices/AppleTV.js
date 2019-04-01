@@ -43,7 +43,7 @@ const appName = n => {
 
 // appletv/device/set/command Pause
 
-const AppleTVControl = ({ device }) => {
+const AppleTV = ({ device }) => {
   const topic = "appletv/" + device + "/status",
     set_topic = topic.replace("status", "set/command");
 
@@ -61,7 +61,6 @@ const AppleTVControl = ({ device }) => {
         } catch (e) {
           msg = message;
         }
-        console.dir(msg);
         setInfo(prev => ({ ...prev, ...msg }));
       }
     };
@@ -94,7 +93,7 @@ const AppleTVControl = ({ device }) => {
   const renderNowPlaying = () => {
     if (!info || !info.playbackState || elapsedTime == null) {
       return (
-        <div style={{ height: 128 }}>
+        <div style={{ height: 170 }}>
           <h1>Apple TV</h1>
           <h4>Not Playing</h4>
         </div>
@@ -104,10 +103,11 @@ const AppleTVControl = ({ device }) => {
     const app = appName(info.appDisplayName || info.appBundleIdentifier);
 
     return (
-      <div style={{ height: 128 }}>
-        <h1>{app}</h1>
+      <div style={{ height: 170, textAlign: "center" }}>
+        <h3>{app}</h3>
         <h4>
-          {info.artist} {info.album} {info.title}
+          {info.artist} {info.album} <br />
+          {info.title}
           <br />
           <div style={{ fontWeight: "bold" }}>{renderPlaybackState()}</div>
         </h4>
@@ -207,4 +207,4 @@ const AppleTVControl = ({ device }) => {
   );
 };
 
-export default AppleTVControl;
+export default AppleTV;

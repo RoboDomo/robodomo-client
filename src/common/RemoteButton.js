@@ -11,11 +11,13 @@
 import React from "react";
 
 import { Button } from "react-bootstrap";
+
 import MQTT from "lib/MQTT";
 
 const RemoteButton = ({ variant, topic, message, mini, children, onClick }) => {
+  const w = Math.min(window.screen.availWidth / 5 - 4, 100);
   const style = {
-    width: mini ? 50 : 100,
+    width: mini ? 46 : w,
     height: 40,
     fontSize: 14
   };
