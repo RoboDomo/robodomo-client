@@ -5,7 +5,7 @@ import React /* useState*/ from "react";
 //import Config from "Config";
 
 import { Tab, Tabs } from "react-bootstrap";
-import SensorsTab from "Sensors/SensorsTab";
+import SensorsTab from "./SensorsTab";
 
 const Sensors = () => {
   return (

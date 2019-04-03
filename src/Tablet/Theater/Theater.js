@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Config from "Config";
 
 import { Tab, Tabs } from "react-bootstrap";
-import TheaterTab from "tabs/TheaterTab";
+import TheaterTab from "./TheaterTab";
 
 const Theater = () => {
   const [activeTab, setActiveTab] = useState(

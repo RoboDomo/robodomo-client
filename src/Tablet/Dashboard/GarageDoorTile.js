@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Config from "Config";
 import MQTT from "lib/MQTT";
-import Tile from "components/Tile";
+import Tile from "./Tile";
 
 const GarageDoorTile = ({ config }) => {
   const devices = Array.isArray(config.devices)

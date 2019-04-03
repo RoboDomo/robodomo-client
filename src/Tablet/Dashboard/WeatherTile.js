@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Tile from "components/Tile";
+import Tile from "./Tile";
 import Config from "Config";
 import MQTT from "lib/MQTT";
 import { FaFlag } from "react-icons/fa";

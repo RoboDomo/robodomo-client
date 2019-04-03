@@ -7,7 +7,7 @@ import React from "react";
 
 import Config from "Config";
 import MQTT from "lib/MQTT";
-import Tile from "components/Tile";
+import Tile from "./Tile";
 import { FaRunning } from "react-icons/fa";
 
 const MacroTile = ({ label, name }) => {

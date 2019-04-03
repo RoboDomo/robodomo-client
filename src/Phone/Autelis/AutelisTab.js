@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { ListGroup, Card, Form } from "react-bootstrap";
 
 import MacroItem from "Dashboard/MacroItem";
-import ToggleField from "form/ToggleField";
-import NumberField from "form/NumberField";
+import ToggleField from "common/form/ToggleField";
+import NumberField from "common/form/NumberField";
 import Clock from "common/Clock";
 
 import Config from "Config";

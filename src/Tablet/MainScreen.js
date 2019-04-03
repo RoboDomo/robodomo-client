@@ -15,17 +15,17 @@ import {
   Nav
 } from "react-bootstrap";
 
-import Dashboard from "screens/Dashboard";
+import Dashboard from "Dashboard/Dashboard";
 import { MdDashboard } from "react-icons/md";
-import Theater from "screens/Theater";
+import Theater from "Theater/Theater";
 import { IoIosTv } from "react-icons/io";
-import Weather from "screens/Weather";
+import Weather from "Weather/Weather";
 import { TiWeatherCloudy } from "react-icons/ti";
-import Nest from "screens/Nest";
+import Nest from "Nest/Nest";
 import { TiThermometer } from "react-icons/ti";
-import Sensors from "screens/Sensors";
+import Sensors from "Sensors/Sensors";
 import { IoIosAnalytics } from "react-icons/io";
-import Autelis from "screens/Autelis";
+import Autelis from "Autelis/Autelis";
 import { FaSwimmingPool } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
 

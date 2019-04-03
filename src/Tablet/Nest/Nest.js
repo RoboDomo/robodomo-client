@@ -5,8 +5,8 @@ import React, { useState } from "react";
 import Config from "Config";
 
 import { Tab, Tabs } from "react-bootstrap";
-import ThermostatTab from "tabs/ThermostatTab";
-import ProtectTab from "tabs/ProtectTab";
+import ThermostatTab from "./ThermostatTab";
+import ProtectTab from "./ProtectTab";
 
 const LOCALSTORAGE_KEY = "nestTabState";
 
