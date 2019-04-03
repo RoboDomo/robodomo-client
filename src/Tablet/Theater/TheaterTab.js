@@ -4,11 +4,11 @@ import React, { useState, useEffect, useRef } from "react";
 
 import { Row, Col } from "react-bootstrap";
 
-import AudioControl from "components/theater/AudioControl";
-import ActivitiesListGroup from "components/theater/ActivitiesListGroup";
-import DevicesListGroup from "components/theater/DevicesListGroup";
-import TheaterDevice from "components/theater/TheaterDevice";
-import ButtonList from "components/theater/ButtonList";
+import AudioControl from "./AudioControl";
+import ActivitiesListGroup from "./ActivitiesListGroup";
+import DevicesListGroup from "./DevicesListGroup";
+import TheaterDevice from "./TheaterDevice";
+import ButtonList from "./ButtonList";
 
 import MQTT from "lib/MQTT";
 import MQTTScript from "lib/MQTTScript";

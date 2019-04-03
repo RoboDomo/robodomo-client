@@ -1,17 +1,17 @@
 import React from "react";
 
-import Tile from "components/Tile";
-import ClockTile from "tiles/ClockTile";
-import DimmerTile from "tiles/DimmerTile";
-import FanTile from "tiles/FanTile";
-import GarageDoorTile from "tiles/GarageDoorTile";
-import MacroTile from "tiles/MacroTile";
-import PoolTile from "tiles/PoolTile";
-import SpaTile from "tiles/SpaTile";
-import SwitchTile from "tiles/SwitchTile";
-import TheaterTile from "tiles/TheaterTile";
-import ThermostatTile from "tiles/ThermostatTile";
-import WeatherTile from "tiles/WeatherTile";
+import Tile from "./Tile";
+import ClockTile from "./ClockTile";
+import DimmerTile from "./DimmerTile";
+import FanTile from "./FanTile";
+import GarageDoorTile from "./GarageDoorTile";
+import MacroTile from "./MacroTile";
+import PoolTile from "./PoolTile";
+import SpaTile from "./SpaTile";
+import SwitchTile from "./SwitchTile";
+import TheaterTile from "./TheaterTile";
+import ThermostatTile from "./ThermostatTile";
+import WeatherTile from "./WeatherTile";
 
 const DashboardTab = ({ dashboard }) => {
   const tileDefinitions = dashboard.tiles;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NumberInput from "Tablet/components/form/NumberInput";
+import NumberInput from "common/form/NumberInput";
 
 import { ListGroup } from "react-bootstrap";
 

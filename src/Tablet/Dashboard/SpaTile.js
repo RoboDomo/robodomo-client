@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Config from "Config";
-import Tile from "components/Tile";
+import Tile from "./Tile";
 import MQTT from "lib/MQTT";
 
 const topics = ["spaHeat", "spaTemp", "spa", "jet", "blower", "spaLight"];

@@ -1,9 +1,9 @@
 import React from "react";
 
-import HarmonyRemoteControl from "components/theater/HarmonyRemoteControl";
-import TiVoControl from "components/theater/TiVoControl";
-import AppleTVControl from "components/theater/AppleTVControl";
-import LGTVControl from "components/theater/LGTVControl";
+import HarmonyRemoteControl from "./HarmonyRemoteControl";
+import TiVoControl from "./TiVoControl";
+import AppleTVControl from "./AppleTVControl";
+import LGTVControl from "./LGTVControl";
 
 const TheaterDevice = ({
   currentDevice,

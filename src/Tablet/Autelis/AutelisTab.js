@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row, Col, Form } from "react-bootstrap";
 
-import MacroTile from "tiles/MacroTile";
-import ToggleField from "form/ToggleField";
-import NumberField from "form/NumberField";
+import MacroTile from "Dashboard/MacroTile";
+import ToggleField from "common/form/ToggleField";
+import NumberField from "common/form/NumberField";
 import Clock from "common/Clock";
 
 import Config from "Config";

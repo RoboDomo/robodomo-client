@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import Config from "Config";
 import MQTT from "lib/MQTT";
-import Tile from "Tile";
-import NumberInput from "form/NumberInput";
+import Tile from "./Tile";
+import NumberInput from "common/form/NumberInput";
 import Thermostat from "react-nest-thermostat";
 import { Form } from "react-bootstrap";
 

@@ -3,37 +3,38 @@ import React, { useState } from "react";
 import Config from "Config";
 
 import { Tab, Tabs } from "react-bootstrap";
-import DashboardTab from "tabs/DashboardTab";
+import WeatherTab from "./WeatherTab";
 
-const Dashboard = () => {
+const Weather = () => {
   const [activeTab, setActiveTab] = useState(
-    localStorage.getItem("dashboardTabState") || "1"
+    localStorage.getItem("weatherTabState") || "0"
   );
   const changeTab = eventKey => {
-    localStorage.setItem("dashboardTabState", eventKey);
+    localStorage.setItem("weatherTabState", eventKey);
     setActiveTab(eventKey);
   };
   return (
     <Tabs
-      id="dashboard-tabs"
+      id="weather-tabs"
       onSelect={changeTab}
       activeKey={activeTab}
       variant="pills"
       mountOnEnter
       unmountOnExit
     >
-      {Config.dashboards.map(dashboard => {
+      {Config.weather.locations.map(location => {
         return (
           <Tab
-            eventKey={dashboard.key}
-            key={dashboard.key}
-            title={dashboard.title}
+            title={location.name}
+            eventKey={location.name}
+            key={location.name}
+            style={{ paddingLeft: 10, paddingRight: 10 }}
           >
-            <DashboardTab dashboard={dashboard} />
+            <WeatherTab location={location} />
           </Tab>
         );
       })}
     </Tabs>
   );
 };
-export default Dashboard;
+export default Weather;

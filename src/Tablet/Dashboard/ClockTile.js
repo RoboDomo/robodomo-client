@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Tile from "components/Tile";
+import Tile from "./Tile";
 import Clock from "common/Clock";
 
 const ClockTile = () => {

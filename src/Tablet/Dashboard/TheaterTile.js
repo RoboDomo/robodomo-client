@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 
-import Tile from "components/Tile";
-import AppleTV from "./theater/AppleTV";
-import TiVo from "./theater/TiVo";
-import Audio from "./theater/Audio";
+import Tile from "./Tile";
+import AppleTV from "./Theater/AppleTV";
+import TiVo from "./Theater/TiVo";
+import Audio from "./Theater/Audio";
 
 import MQTT from "lib/MQTT";
 
