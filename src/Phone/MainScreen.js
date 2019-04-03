@@ -8,12 +8,10 @@ import {
   TabPane
 } from "react-bootstrap";
 
-import { MdDashboard } from "react-icons/md";
-import { IoIosTv } from "react-icons/io";
-import { TiWeatherCloudy } from "react-icons/ti";
-import { TiThermometer } from "react-icons/ti";
-import { IoIosAnalytics } from "react-icons/io";
 import { FaSwimmingPool } from "react-icons/fa";
+import { MdDashboard, MdMenu } from "react-icons/md";
+import { IoIosTv, IoIosAnalytics } from "react-icons/io";
+import { TiWeatherCloudy, TiThermometer } from "react-icons/ti";
 
 import Dashboard from "Dashboard/Dashboard";
 import Theater from "Theater/Theater";
@@ -26,7 +24,7 @@ const LOCALSTORAGE_KEY = "phoneTabState";
 
 const style = {
   nav: {
-    width: window.innerWidth / 6 - 8
+    width: window.innerWidth / 7 - 8
   }
 };
 /**
@@ -66,6 +64,7 @@ const MainScreen = () => {
           <TabPane eventKey={6}>
             <Autelis />
           </TabPane>
+          <TabPane eventKey={7}>SmartThings</TabPane>
         </TabContent>
       </TabContainer>
       <Navbar bg="dark" variant="dark" fixed="top">
@@ -111,6 +110,11 @@ const MainScreen = () => {
           <Nav.Item style={style.nav}>
             <Nav.Link eventKey={6} style={{ margin: 0 }}>
               <FaSwimmingPool />
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item style={style.nav}>
+            <Nav.Link eventKey={7} style={{ margin: 0 }}>
+              <MdMenu />
             </Nav.Link>
           </Nav.Item>
         </Nav>

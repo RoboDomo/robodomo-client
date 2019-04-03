@@ -27,6 +27,7 @@ import Sensors from "screens/Sensors";
 import { IoIosAnalytics } from "react-icons/io";
 import Autelis from "screens/Autelis";
 import { FaSwimmingPool } from "react-icons/fa";
+import { MdMenu } from "react-icons/md";
 
 const LOCALSTORAGE_KEY = "mainTabState";
 
@@ -64,6 +65,9 @@ const MainScreen = () => {
             <TabPane mountOnEnter unmountOnExit eventKey={6}>
               <Autelis />
             </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={7}>
+              SmartThings
+            </TabPane>
           </TabContent>
           <Navbar
             fixed="top"
@@ -97,6 +101,9 @@ const MainScreen = () => {
               </Nav.Link>
               <Nav.Link eventKey={6}>
                 <FaSwimmingPool /> Pool/Spa
+              </Nav.Link>
+              <Nav.Link eventKey={7}>
+                <MdMenu /> SmartThings
               </Nav.Link>
             </Nav>
           </Navbar>
