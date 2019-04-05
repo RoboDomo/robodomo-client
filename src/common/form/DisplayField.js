@@ -1,24 +1,14 @@
-import React, { Component } from "react";
-
-import { FormGroup, ControlLabel, Col, FormControl } from "react-bootstrap";
-
-import Config from "Config";
+import React from "react";
 
 const DisplayField = ({ label, value }) => {
   const html = { __html: value };
   return (
-    <FormGroup style={{ marginRight: 0, marginBottom: 0 }}>
-      <Col
-        sm={Config.ui.labelCol}
-        componentClass={ControlLabel}
-        style={{ whiteSpace: "nowrap", float: "left" }}
-      >
-        {label}
-      </Col>
-      <Col sm={Config.ui.FieldCol} style={{ textAlign: "right" }}>
-        <FormControl.Static dangerouslySetInnerHTML={html} />
-      </Col>
-    </FormGroup>
+    <div style={{ display: "flex", marginTop: 10 }}>
+      <div style={{ flex: 1, whiteSpace: "nowrap" }}>{label}</div>
+      <div style={{ whiteSpace: "nowrap" }} dangerouslySetInnerHTML={html} />
+    </div>
   );
 };
+
+//
 export default DisplayField;

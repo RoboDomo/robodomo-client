@@ -211,4 +211,6 @@ const TheaterTab = ({ style, theater }) => {
     </Row>
   );
 };
+
+//
 export default TheaterTab;

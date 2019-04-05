@@ -15,18 +15,19 @@ import {
   Nav
 } from "react-bootstrap";
 
-import Dashboard from "Dashboard/Dashboard";
+import Dashboard from "Tablet/Dashboard/Dashboard";
 import { MdDashboard } from "react-icons/md";
-import Theater from "Theater/Theater";
+import Theater from "Tablet/Theater/Theater";
 import { IoIosTv } from "react-icons/io";
-import Weather from "Weather/Weather";
+import Weather from "Tablet/Weather/Weather";
 import { TiWeatherCloudy } from "react-icons/ti";
-import Nest from "Nest/Nest";
+import Nest from "Tablet/Nest/Nest";
 import { TiThermometer } from "react-icons/ti";
-import Sensors from "Sensors/Sensors";
+import Sensors from "Tablet/Sensors/Sensors";
 import { IoIosAnalytics } from "react-icons/io";
-import Autelis from "Autelis/Autelis";
+import Autelis from "Tablet/Autelis/Autelis";
 import { FaSwimmingPool } from "react-icons/fa";
+import SmartThings from "Tablet/SmartThings/SmartThings";
 import { MdMenu } from "react-icons/md";
 
 const LOCALSTORAGE_KEY = "mainTabState";
@@ -66,7 +67,7 @@ const MainScreen = () => {
               <Autelis />
             </TabPane>
             <TabPane mountOnEnter unmountOnExit eventKey={7}>
-              SmartThings
+              <SmartThings />
             </TabPane>
           </TabContent>
           <Navbar

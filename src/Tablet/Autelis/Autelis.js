@@ -24,7 +24,11 @@ const Autelis = () => {
       mountOnEnter
       unmountOnExit
     >
-      <Tab title={Config.autelis.device} eventKey="autelis" key="autelis">
+      <Tab
+        title={Config.autelis.device.toUpperCase()}
+        eventKey="autelis"
+        key="autelis"
+      >
         <AutelisTab />
       </Tab>
     </Tabs>

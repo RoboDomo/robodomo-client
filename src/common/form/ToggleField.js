@@ -3,8 +3,8 @@ import { ButtonToolbar, ButtonGroup, Button } from "react-bootstrap";
 
 const ToggleField = ({ name, label, toggled, onToggle }) => {
   return (
-    <div style={{ display: "flex" }}>
-      <div style={{ marginTop: 8, flex: 1 }}>{label}</div>
+    <div style={{ display: "flex", marginTop: 10 }}>
+      <div style={{ marginTop: 12, flex: 1 }}>{label}</div>
       <div className="float-right" style={{ whiteSpace: "nowrap" }}>
         <ButtonToolbar>
           <ButtonGroup>
@@ -12,7 +12,7 @@ const ToggleField = ({ name, label, toggled, onToggle }) => {
               variant={toggled ? "dark" : undefined}
               onClick={() => {
                 if (onToggle && !toggled) {
-                  onToggle(true);
+                  onToggle(name, true);
                 }
               }}
             >
@@ -22,7 +22,7 @@ const ToggleField = ({ name, label, toggled, onToggle }) => {
               variant={toggled ? undefined : "dark"}
               onClick={() => {
                 if (onToggle && toggled) {
-                  onToggle(false);
+                  onToggle(name, false);
                 }
               }}
             >

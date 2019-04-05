@@ -194,7 +194,7 @@ const AutelisTab = () => {
       <img
         alt={now.icon}
         style={{
-          verticalAlign: "middle",
+          paddingBottom: 10,
           width: 64,
           height: 64
         }}
@@ -203,8 +203,8 @@ const AutelisTab = () => {
     ) : null;
 
   return (
-    <div style={{ padding: 0 }}>
-      <Row>
+    <div style={{ margin: 8 }}>
+      <Row style={{ padding: 16 }}>
         <Col sm={3} style={{ padding: 2 }}>
           <Card>
             <Card.Header>Weather</Card.Header>

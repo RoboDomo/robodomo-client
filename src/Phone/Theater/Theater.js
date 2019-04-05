@@ -3,7 +3,7 @@ import { Tab, Tabs } from "react-bootstrap";
 
 import Config from "Config";
 
-import TheaterTab from "Theater/TheaterTab";
+import TheaterTab from "./TheaterTab";
 
 const LOCALSTORAGE_KEY = "phoneTheaterTab";
 

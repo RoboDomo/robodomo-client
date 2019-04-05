@@ -3,7 +3,7 @@ import { Tab, Tabs } from "react-bootstrap";
 
 import Config from "Config";
 
-import DashboardTab from "Dashboard/DashboardTab";
+import DashboardTab from "./DashboardTab";
 
 const LOCALSTORAGE_KEY = "phoneDashboardTab";
 

@@ -13,12 +13,12 @@ import { MdDashboard, MdMenu } from "react-icons/md";
 import { IoIosTv, IoIosAnalytics } from "react-icons/io";
 import { TiWeatherCloudy, TiThermometer } from "react-icons/ti";
 
-import Dashboard from "Dashboard/Dashboard";
-import Theater from "Theater/Theater";
-import Weather from "Weather/Weather";
-import Nest from "Nest/Nest";
-import Sensors from "Sensors/Sensors";
-import Autelis from "Autelis/Autelis";
+import Dashboard from "Phone/Dashboard/Dashboard";
+import Theater from "Phone/Theater/Theater";
+import Weather from "Phone/Weather/Weather";
+import Nest from "Phone/Nest/Nest";
+import Sensors from "Phone/Sensors/Sensors";
+import Autelis from "Phone/Autelis/Autelis";
 
 const LOCALSTORAGE_KEY = "phoneTabState";
 

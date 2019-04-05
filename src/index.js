@@ -7,10 +7,13 @@ import MQTT from "lib/MQTT";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootswatch/dist/slate/bootstrap.min.css";
+import "bootstrap-slider/dist/css/bootstrap-slider.css";
+import "react-bootstrap-toggle/dist/bootstrap2-toggle.css";
 
 import Config from "Config";
 
 console.log("platform", Config.bowser.platform.type);
+
 //const mobile = Config.bowser.platform.type === "mobile";
 //if (!mobile) {
 //  const meta = document.getElementById("meta-viewport"),

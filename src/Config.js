@@ -554,35 +554,28 @@ export default {
         type: "dimmer",
         rooms: ["Bathroom", "Bedroom"]
       },
+      { name: "Bedroom Lamp", type: "switch", rooms: ["Bedroom"] },
+      { name: "Bedroom Fan", type: "fan", rooms: ["Bedroom"] },
+      { name: "Bedroom Light", type: "dimmer", rooms: ["Bedroom"] },
+      { name: "Porch Light", type: "switch", rooms: ["Outside"] },
+      { name: "Outside Light", type: "switch", rooms: ["Outside"] },
+      { name: "Outdoor Lights", type: "switch", rooms: ["Outside"] },
+
+      { name: "Michael's iPhone", type: "presence", rooms: ["*"] },
+      { name: "Sliding Door", type: "contact", rooms: ["*"] },
+      {
+        name: "Front Door",
+        type: "motion",
+        rooms: ["Theater", "Bedroom", "Outside"]
+      },
       {
         name: "Bathroom Sensor",
         type: "motion",
         rooms: ["Bathroom", "Bedroom"]
       },
-      { name: "Bedroom Lamp", type: "switch", rooms: ["Bedroom"] },
-      { name: "Bedroom Fan", type: "fan", rooms: ["Bedroom"] },
-      { name: "Bedroom Light", type: "dimmer", rooms: ["Bedroom"] },
-      { name: "Goodnight Button", type: "button", rooms: ["Bedroom"] },
-      { name: "Nest Presence Device", type: "presence", rooms: ["*"] },
-      { name: "Michael's iPhone", type: "presence", rooms: ["*"] },
-      { name: "Porch Light", type: "switch", rooms: ["Outside"] },
-      { name: "Outside Light", type: "switch", rooms: ["Outside"] },
-      { name: "Outdoor Lights", type: "switch", rooms: ["Outside"] },
-      {
-        name: "Front Door",
-        type: "Motion",
-        rooms: ["Theater", "Bedroom", "Outside"]
-      },
-      {
-        name: "Front Door",
-        type: "Motion",
-        rooms: ["Theater", "Bedroom", "Outside"]
-      },
-      { name: "Slider", type: "Acceleration", rooms: ["*"] },
-      { name: "Slider", type: "Temperature", rooms: ["*"] },
-      { name: "Slider", type: "threeAxis", rooms: ["*"] },
-      { name: "Slider", type: "contact", rooms: ["*"] },
-      { name: "Bathroom Sensor", type: "motion", rooms: ["*"] }
+      { name: "Sliding Door", type: "acceleration", rooms: ["*"] },
+      { name: "Sliding Door", type: "temperature", rooms: ["*"] },
+      { name: "Sliding Door", type: "threeAxis", rooms: ["*"] }
     ]
   },
   tvguide: {

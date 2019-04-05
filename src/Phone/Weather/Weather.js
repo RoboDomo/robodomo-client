@@ -3,7 +3,7 @@ import { Tab, Tabs } from "react-bootstrap";
 
 import Config from "Config";
 
-import WeatherTab from "Weather/WeatherTab";
+import WeatherTab from "./WeatherTab";
 
 const LOCALSTORAGE_KEY = "phoneWeatherTab";
 
