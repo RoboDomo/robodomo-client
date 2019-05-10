@@ -35,6 +35,7 @@ export default {
   name: "RoboDomo Home Automation System",
   version: "1.0.0",
   location: "RoboDomo",
+  // configuraiton for MQTT Host and topics
   mqtt: {
     // host is the host running mqtt server
     host: "ha",
@@ -42,6 +43,8 @@ export default {
     // you would configure this for mosquitto, for example, in mosquitto.conf
     // between host and port, we're looking at something like mqtt://ha:80
     port: 80,
+    // topics - roughly one per microservice
+    appletv: "appletv",
     denon: "denon",
     nest: "nest",
     weather: "weather",
@@ -66,16 +69,38 @@ export default {
       key: "theater",
       guide: "CA68543",
       devices: [
-        { name: "Harmony Hub", type: "harmony", device: "harmony-hub" },
+        {
+          name: "Harmony Hub",
+          title: "Theater Harmony Hub",
+          type: "harmony",
+          device: "harmony-hub"
+        },
         {
           name: "TiVo",
+          title: "TiVo Bolt+ 3TB",
           type: "tivo",
           device: "tivo-bolt-3tb",
           guide: "CA68543"
         },
-        { name: "LG TV", type: "lgtv", device: "olede6p" },
-        { name: "AVR", type: "denon", device: "denon-s910w" },
-        { name: "Apple TV", type: "appletv", device: "appletv-theater" }
+        {
+          name: "LG TV",
+          title: "LG OLEDE8P",
+          type: "lgtv",
+          favorites: lgtvFavorites,
+          device: "olede6p"
+        },
+        {
+          name: "AVR",
+          title: "Denon S910W",
+          type: "denon",
+          device: "denon-s910w"
+        },
+        {
+          name: "Apple TV",
+          title: "Theater Apple TV",
+          type: "appletv",
+          device: "appletv-theater"
+        }
       ],
       activities: [
         {
@@ -200,19 +225,41 @@ export default {
       key: "mbr",
       guide: "CA68543",
       devices: [
-        { name: "TV", type: "bravia", device: "sony-850c" },
-        { name: "Denon X2100W", type: "denon", device: "denon-x2100w" },
-        { name: "TiVo", type: "tivo", device: "tivo-bolt", guide: "CA68543" },
-        { name: "Apple TV", type: "appletv", device: "appletv-mbr" }
+        {
+          name: "Sony TV",
+          title: "Sony 850c",
+          type: "bravia",
+          favorites: braviaFavorites,
+          device: "sony-850c"
+        },
+        {
+          name: "AVR",
+          title: "Denon X2100W",
+          type: "denon",
+          device: "denon-x2100w"
+        },
+        {
+          name: "TiVo",
+          title: "TiVo Bolt",
+          type: "tivo",
+          device: "tivo-bolt",
+          guide: "CA68543"
+        },
+        {
+          name: "Apple TV",
+          title: "MBR Apple TV",
+          type: "appletv",
+          device: "appletv-mbr"
+        }
       ],
       activities: [
         {
           name: "Watch TV",
           default: "TiVo",
           script: [
-            { topic: "lgtv/olede6p/set", message: "POWERON" },
-            { topic: "lgtv/olede6p/set", message: "HDMI1" },
-            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
+            { topic: "bravia/sony-850c/set", message: "POWERON" },
+            { topic: "bravia/sony-850c/set", message: "HDMI1" },
+            { topic: "tivo/tivo-bolt", message: "LIVE TV" },
             { topic: "denon/denon-x2100w/set", message: "SLEEP" }
           ]
         },
@@ -233,7 +280,12 @@ export default {
         }
       ],
       buttons: [
-        { name: "Nest", type: "thermostat", device: "Hallway Thermostat" },
+        {
+          name: "Nest",
+          type: "thermostat",
+          device: "Falsetto/Hallway Thermostat",
+          weather: "92211"
+        },
         { name: "Ceiling Fan", type: "fan", device: "Bedroom Fan" },
         { name: "Light", type: "dimmer", device: "Bedroom Fan Light" },
         { name: "Bathroom", type: "dimmer", device: "Bathroom Light" },
@@ -297,6 +349,9 @@ export default {
         { device: "Kitchen Sink Light", type: "switch" },
         { device: "Kitchen Lights", type: "dimmer" },
         { device: "Entryway Lights", type: "switch" },
+        { device: "Hall Bath Fan", type: "switch" },
+        { device: "Hall Bath Dimmer", type: "switch" },
+        { device: "Hall Bath Lights", type: "switch" },
         { type: "macro", name: "Good Night", label: "Good Night" },
         { type: "macro", name: "Good Morning", label: "Good Morning" }
       ]
@@ -308,6 +363,8 @@ export default {
         { type: "clock" },
         { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
         { type: "weather", location: "92211" },
+        { type: "pool", controller: "autelis" },
+        { type: "spa", controller: "autelis" },
         {
           type: "garagedoor",
           title: "Garage Doors",

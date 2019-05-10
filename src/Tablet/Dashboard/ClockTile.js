@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Tile from "./Tile";
 import Clock from "common/Clock";
@@ -16,20 +16,16 @@ const ClockTile = () => {
     "Saturday"
   ];
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setDate(new Date());
-    }, 1000);
-    return () => {
-      clearInterval(timer);
-    };
-  });
-
   return (
     <Tile width={2} height={2} readOnly>
       <div style={{ textAlign: "center" }}>
-        <div style={{ fontSize: 40, width: "100%" }}>
-          <Clock cb={d => setDate(d)} />
+        <div style={{ fontSize: 64, width: "100%" }}>
+          <Clock
+            cb={d => setDate(d)}
+            ampm={false}
+            military={false}
+            seconds="small"
+          />
         </div>
         <div style={{ fontSize: 20 }}>{dayNames[date.getDay()]}</div>
         <div style={{ fontSize: 20 }}>{date.toLocaleDateString()}</div>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Card, Row, Col, Form } from "react-bootstrap";
+import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 
 import MacroTile from "Dashboard/MacroTile";
-import ToggleField from "common/form/ToggleField";
 import NumberField from "common/form/NumberField";
 import Clock from "common/Clock";
 
@@ -62,76 +61,76 @@ const AutelisTab = () => {
     "solarTemp"
   ];
 
+  const handleWeatherChange = (topic, message) => {
+    if (~topic.indexOf("now")) {
+      setNow(message);
+    } else if (~topic.indexOf("display_city")) {
+      setCity(message);
+    } else {
+      console.log("can't weather change", topic, message);
+    }
+  };
+
+  const handleStateChange = (topic, message) => {
+    const key = backward[topic.substr(status_topic.length)];
+    const isOn = m => m === "true" || m === "on" || m === "enabled";
+
+    switch (key) {
+      case "pump":
+        setPump(isOn(message));
+        break;
+      case "spa":
+        setSpa(isOn(message));
+        break;
+      case "cleaner":
+        setCleaner(isOn(message));
+        break;
+      case "waterfall":
+        setWaterfall(isOn(message));
+        break;
+      case "poolLight":
+        setPoolLight(isOn(message));
+        break;
+      case "jet":
+        setJets(isOn(message));
+        break;
+      case "blower":
+        setBlower(isOn(message));
+        break;
+      case "spaLight":
+        setSpaLight(isOn(message));
+        break;
+      case "spaHeat":
+        setSpaHeat(isOn(message));
+        break;
+      case "poolHeat":
+        setPoolHeat(isOn(message));
+        break;
+      case "solarHeat":
+        setSolarHeat(isOn(message));
+        break;
+      case "solarTemp":
+        setSolarTemp(Number(message));
+        break;
+      case "spaTemp":
+        setSpaTemp(Number(message));
+        break;
+      case "poolTemp":
+        setPoolTemp(Number(message));
+        break;
+      case "spaSetpoint":
+        setSpaSetpoint(Number(message));
+        break;
+      case "poolSetpoint":
+        setPoolSetpoint(Number(message));
+        break;
+      default:
+        console.log("====> Unhandled state change", topic, message, key);
+        break;
+    }
+  };
+
   useEffect(() => {
-    const handleWeatherChange = (topic, message) => {
-      if (~topic.indexOf("now")) {
-        setNow(message);
-      } else if (~topic.indexOf("display_city")) {
-        setCity(message);
-      } else {
-        console.log("can't weather change", topic, message);
-      }
-    };
-
-    const handleStateChange = (topic, message) => {
-      const key = backward[topic.substr(status_topic.length)];
-      const isOn = m => m === "true" || m === "on" || m === "enabled";
-
-      switch (key) {
-        case "pump":
-          setPump(isOn(message));
-          break;
-        case "spa":
-          setSpa(isOn(message));
-          break;
-        case "cleaner":
-          setCleaner(isOn(message));
-          break;
-        case "waterfall":
-          setWaterfall(isOn(message));
-          break;
-        case "poolLight":
-          setPoolLight(isOn(message));
-          break;
-        case "jet":
-          setJets(isOn(message));
-          break;
-        case "blower":
-          setBlower(isOn(message));
-          break;
-        case "spaLight":
-          setSpaLight(isOn(message));
-          break;
-        case "spaHeat":
-          setSpaHeat(isOn(message));
-          break;
-        case "poolHeat":
-          setPoolHeat(isOn(message));
-          break;
-        case "solarHeat":
-          setSolarHeat(isOn(message));
-          break;
-        case "solarTemp":
-          setSolarTemp(Number(message));
-          break;
-        case "spaTemp":
-          setSpaTemp(Number(message));
-          break;
-        case "poolTemp":
-          setPoolTemp(Number(message));
-          break;
-        case "spaSetpoint":
-          setSpaSetpoint(Number(message));
-          break;
-        case "poolSetpoint":
-          setPoolSetpoint(Number(message));
-          break;
-        default:
-          console.log("====> Unhandled state change", topic, message, key);
-          break;
-      }
-    };
-
     MQTT.subscribe(weather_topic + "now", handleWeatherChange);
     MQTT.subscribe(weather_topic + "display_city", handleWeatherChange);
     for (const key of topics) {
@@ -152,6 +151,9 @@ const AutelisTab = () => {
    */
   const control = (what, state) => {
     const key = forward[what] || what;
+    if (!forward[what]) {
+      console.log("forward", what, forward);
+    }
     if (typeof state !== "number") {
       state = state ? "on" : "off";
     }
@@ -165,25 +167,6 @@ const AutelisTab = () => {
     spaOn = spa && pump,
     solarOn = solarHeat && pump;
 
-  const renderPoolTemp = () => {
-    if (poolOn) {
-      return <span>{poolTemp}&deg;F</span>;
-    }
-    return "Pool Off";
-  };
-  const renderSpaTemp = () => {
-    if (spaOn) {
-      return <span>{spaTemp}&deg;F</span>;
-    }
-    return "Spa Off";
-  };
-  const renderSolarTemp = () => {
-    if (solarOn) {
-      return <span>{solarTemp}&deg;F</span>;
-    }
-    return "Solar Off";
-  };
-
   const sunrise = new Date(now.sunrise * 1000)
       .toLocaleTimeString()
       .replace(":00 ", " "),
@@ -194,7 +177,7 @@ const AutelisTab = () => {
       <img
         alt={now.icon}
         style={{
-          paddingBottom: 10,
+          paddingBottom: 0,
           width: 64,
           height: 64
         }}
@@ -202,209 +185,807 @@ const AutelisTab = () => {
       />
     ) : null;
 
-  return (
-    <div style={{ margin: 8 }}>
-      <Row style={{ padding: 16 }}>
-        <Col sm={3} style={{ padding: 2 }}>
-          <Card>
-            <Card.Header>Weather</Card.Header>
-            <Card.Body>
-              <div style={{ textAlign: "center", padding: 4 }}>
-                <div>{city}</div>
-                <div style={{ fontSize: 48, marginBottom: 4 }}>
-                  {img}
-                  {now.current_temperature}&deg;F
-                </div>
-                <div className="clearfix">
-                  <div style={{ fontSize: 30, marginBottom: 4 }}>
-                    <Clock />
-                  </div>
-                  <div>Sunrise: {sunrise}</div>
-                  <div>Sunset: {sunset}</div>
-                </div>
-              </div>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col sm={3} style={{ padding: 2 }}>
-          <Card
-            bg={poolOn ? "success" : undefined}
-            text={poolOn ? "white" : undefined}
-          >
-            <Card.Header>Pool</Card.Header>
-            <Card.Body>
-              <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
-                {renderPoolTemp()}
-              </div>
-              <Form>
-                <ToggleField
-                  label="Pool"
-                  name="pump"
-                  toggled={!spa && pump}
-                  onToggle={toggleState => {
-                    setPump(toggleState);
-                    control("pump", toggleState);
-                  }}
-                />
-                <ToggleField
-                  label="Light"
-                  name="poolLight"
-                  toggled={poolLight}
-                  onToggle={toggleState => {
-                    setPoolLight(toggleState);
-                    control("poolLight", toggleState);
-                  }}
-                />
-                <ToggleField
-                  label="Waterfall"
-                  name="waterfall"
-                  toggled={waterfall}
-                  onToggle={toggleState => {
-                    setWaterfall(toggleState);
-                    control("waterfall", toggleState);
-                  }}
-                />
-                <ToggleField
-                  label="Heat"
-                  name="poolHeat"
-                  toggled={poolHeat}
-                  onToggle={toggleState => {
-                    setPoolHeat(toggleState);
-                    control("poolHeat", toggleState);
-                  }}
-                />
-                <NumberField
-                  label="Set Point"
-                  name="poolSetpoint"
-                  value={poolSetpoint}
-                  onValueChange={newValue => {
-                    setPoolSetpoint(newValue);
-                    control("poolSetpoint", newValue);
-                  }}
-                />
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col sm={3} style={{ padding: 2 }}>
-          <Card
-            bg={spaOn ? "danger" : undefined}
-            text={spaOn ? "white" : undefined}
-          >
-            <Card.Header>Spa</Card.Header>
-            <Card.Body>
-              <div style={{ textAlign: "center", fontSize: 30 }}>
-                {renderSpaTemp()}
-              </div>
-              <Form>
-                <ToggleField
-                  label="Spa"
-                  name="spa"
-                  toggled={spaOn}
-                  onToggle={toggleState => {
-                    setSpa(toggleState);
-                    control("spa", toggleState);
-                  }}
-                />
-                <ToggleField
-                  label="Jets"
-                  name="jet"
-                  toggled={jets}
-                  onToggle={toggleState => {
-                    setJets(toggleState);
-                    control("jet", toggleState);
-                  }}
-                />
-                <ToggleField
-                  label="Blower"
-                  name="blower"
-                  toggled={blower}
-                  onToggle={toggleState => {
-                    setBlower(toggleState);
-                    control("blower", toggleState);
-                  }}
-                />
-                <ToggleField
-                  label="Light"
-                  name="spaLight"
-                  toggled={spaLight}
-                  onToggle={toggleState => {
-                    setSpaLight(toggleState);
-                    control("spaLight", toggleState);
-                  }}
-                />
-                <ToggleField label="Heat" name="spaHeat" toggled={spaHeat} />
-                <NumberField
-                  label="Set Point"
-                  name="spaSetpoint"
-                  value={spaSetpoint}
-                  onValueChange={newValue => {
-                    setSpaSetpoint(newValue);
-                    control("spaSetpoint", newValue);
-                  }}
-                />
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-        <Col sm={3} style={{ padding: 2 }}>
-          <Card
-            bg={solarOn ? "success" : undefined}
-            text={solarOn ? "white" : "primary"}
-          >
-            <Card.Header>Solar</Card.Header>
-            <Card.Body>
-              <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
-                {renderSolarTemp()}
-              </div>
-              <Form>
-                <ToggleField
-                  label="Solar"
-                  toggled={solarHeat}
-                  name="solar"
-                  onToggle={toggleState => {
-                    setSolarHeat(toggleState);
-                    control("solarHeat", toggleState);
-                  }}
-                />
-                <ToggleField
-                  label="Cleaner"
-                  toggled={cleaner}
-                  name="cleaner"
-                  onToggle={toggleState => {
-                    setCleaner(toggleState);
-                    control("cleaner", toggleState);
-                  }}
-                />
-                <ToggleField
-                  label="Pump"
-                  toggled={pump}
-                  name="pump"
-                  onToggle={toggleState => {
-                    setPump(toggleState);
-                    control("pump", toggleState);
-                  }}
-                />
-              </Form>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-      <Row
+  const renderWeather = () => {
+    return (
+      <div style={{ fontSize: 36, display: "flex", justifyContent: "end" }}>
+        <div style={{ flex: 0.3 }}>
+          <Clock />
+        </div>
+        <div style={{ fontSize: 18, flex: 0.3 }}>
+          <div>Sunrise: {sunrise}</div>
+          <div>Sunset: {sunset}</div>
+        </div>
+        <div style={{ fontSize: 38, flex: 1 }}>
+          {city} {img} {now.current_temperature}&deg;F
+        </div>
+      </div>
+    );
+  };
+
+  const renderMainSwitch = () => {
+    const renderOffButton = () => {
+      return (
+        <Button
+          variant={!poolOn && !spaOn ? "dark" : undefined}
+          onClick={() => {
+            if (poolOn) {
+              control("pump", false);
+            } else if (spaOn) {
+              control("spa", false);
+            }
+            if (cleaner) {
+              control("cleaner", false);
+            }
+            if (solarOn) {
+              control("solarHeat", false);
+            }
+          }}
+        >
+          OFF
+        </Button>
+      );
+    };
+
+    const renderPoolButton = () => {
+      return (
+        <Button
+          variant={poolOn ? "success" : undefined}
+          onClick={() => {
+            if (!poolOn) {
+              if (!pump) {
+                control("pump", true);
+              }
+              control("spa", false);
+            }
+          }}
+        >
+          POOL
+        </Button>
+      );
+    };
+
+    const renderSpaButton = () => {
+      return (
+        <Button
+          variant={spaOn ? "danger" : undefined}
+          onClick={() => {
+            if (!spaOn) {
+              if (!pump) {
+                control("pump", true);
+              }
+              control("spa", true);
+            }
+          }}
+        >
+          SPA
+        </Button>
+      );
+    };
+
+    const renderTemp = () => {
+      if (poolOn) {
+        return <>Pool {poolTemp}&deg;F</>;
+      } else if (spaOn) {
+        return <>Spa {spaTemp}&deg;F</>;
+      } else {
+        return <>All Off</>;
+      }
+    };
+
+    return (
+      <div
         style={{
-          textAlign: "center",
-          marginTop: 10,
-          display: "flex",
-          justifyContent: "center"
+          display: "flex"
         }}
       >
-        <MacroTile label="Warm Spa" name="Warm Spa" width={1} />
-        <MacroTile label="Enter Spa" name="Enter Spa" width={1} />
-        <MacroTile label="Exit Spa" name="Exit Spa" width={1} />
-        <MacroTile label="Spa Off" name="Spa Off" width={1} />
-      </Row>
-    </div>
-  );
+        <ButtonGroup style={{ flex: 1 }}>
+          {renderOffButton()}
+          {renderPoolButton()}
+          {renderSpaButton()}
+        </ButtonGroup>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 44
+          }}
+        >
+          {renderTemp()}
+        </div>
+      </div>
+    );
+  };
+
+  const renderSolar = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8
+        }}
+      >
+        <ButtonGroup style={{ flex: 1 }}>
+          <Button
+            variant={solarOn ? "success" : undefined}
+            onClick={() => {
+              if (!solarOn) {
+                control("solarHeat", true);
+              }
+            }}
+          >
+            On
+          </Button>
+          <Button
+            variant={!solarOn ? "dark" : undefined}
+            onClick={() => {
+              if (solarOn) {
+                control("solarHeat", false);
+              }
+            }}
+          >
+            Off
+          </Button>
+        </ButtonGroup>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 36
+          }}
+        >
+          Solar {solarTemp}&deg;F
+        </div>
+      </div>
+    );
+  };
+
+  const renderCleaner = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8
+        }}
+      >
+        <ButtonGroup style={{ flex: 1 }}>
+          <Button
+            variant={cleaner ? "success" : undefined}
+            onClick={() => {
+              if (!cleaner) {
+                control("cleaner", true);
+              }
+            }}
+          >
+            On
+          </Button>
+          <Button
+            variant={!cleaner ? "dark" : undefined}
+            onClick={() => {
+              if (cleaner) {
+                control("cleaner", false);
+              }
+            }}
+          >
+            Off
+          </Button>
+        </ButtonGroup>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 36
+          }}
+        >
+          Cleaner
+        </div>
+      </div>
+    );
+  };
+
+  const renderWaterfall = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8
+        }}
+      >
+        <ButtonGroup style={{ flex: 1 }}>
+          <Button
+            variant={waterfall ? "success" : undefined}
+            onClick={() => {
+              if (!waterfall) {
+                control("waterfall", true);
+              }
+            }}
+          >
+            On
+          </Button>
+          <Button
+            variant={!waterfall ? "dark" : undefined}
+            onClick={() => {
+              if (waterfall) {
+                control("waterfall", false);
+              }
+            }}
+          >
+            Off
+          </Button>
+        </ButtonGroup>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Waterfall
+        </div>
+      </div>
+    );
+  };
+
+  const renderPoolLight = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8
+        }}
+      >
+        <ButtonGroup style={{ flex: 1 }}>
+          <Button
+            variant={poolLight ? "success" : undefined}
+            onClick={() => {
+              if (!poolLight) {
+                control("poolLight", true);
+              }
+            }}
+          >
+            On
+          </Button>
+          <Button
+            variant={!poolLight ? "dark" : undefined}
+            onClick={() => {
+              if (poolLight) {
+                control("poolLight", false);
+              }
+            }}
+          >
+            Off
+          </Button>
+        </ButtonGroup>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Pool Light
+        </div>
+      </div>
+    );
+  };
+
+  const renderPoolHeater = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8
+        }}
+      >
+        <div style={{ flex: 0.6, display: "flex" }}>
+          <ButtonGroup style={{ flex: 1 }}>
+            <Button
+              variant={poolHeat ? "danger" : undefined}
+              onClick={() => {
+                if (!poolHeat) {
+                  if (spa) {
+                    control("spa", spa);
+                  }
+                  control("poolHeat", true);
+                }
+              }}
+            >
+              On
+            </Button>
+            <Button
+              variant={!poolHeat ? "dark" : undefined}
+              onClick={() => {
+                if (poolHeat) {
+                  control("poolHeat", false);
+                }
+              }}
+            >
+              Off
+            </Button>
+          </ButtonGroup>
+        </div>
+        <div syle={{ flex: 0.2 }}>
+          <NumberField
+            name="poolSetpoint"
+            value={poolSetpoint}
+            onValueChange={newValue => {
+              setPoolSetpoint(newValue);
+              control("poolSetpoint", newValue);
+            }}
+          />
+        </div>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Pool Heat
+        </div>
+      </div>
+    );
+  };
+
+  const renderSpaHeater = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8
+        }}
+      >
+        <div style={{ flex: 0.6, display: "flex" }}>
+          <ButtonGroup style={{ flex: 1 }}>
+            <Button
+              variant={spaHeat ? "danger" : undefined}
+              onClick={() => {
+                if (!spaHeat) {
+                  if (!spa) {
+                    control("spa", true);
+                  }
+                  control("spaHeat", true);
+                }
+              }}
+            >
+              On
+            </Button>
+            <Button
+              variant={!spaHeat ? "dark" : undefined}
+              onClick={() => {
+                if (spaHeat) {
+                  control("spaHeat", false);
+                }
+              }}
+            >
+              Off
+            </Button>
+          </ButtonGroup>
+        </div>
+        <div syle={{ flex: 0.2 }}>
+          <NumberField
+            name="spaSetPoint"
+            value={spaSetpoint}
+            onValueChange={newValue => {
+              setPoolSetpoint(newValue);
+              control("spaSetpoint", newValue);
+            }}
+          />
+        </div>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Spa Heat
+        </div>
+      </div>
+    );
+  };
+
+  const renderSpaLight = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8
+        }}
+      >
+        <ButtonGroup style={{ flex: 1 }}>
+          <Button
+            variant={spaLight ? "success" : undefined}
+            onClick={() => {
+              if (!spaLight) {
+                control("spaLight", true);
+              }
+            }}
+          >
+            On
+          </Button>
+          <Button
+            variant={!spaLight ? "dark" : undefined}
+            onClick={() => {
+              if (spaLight) {
+                control("spaLight", false);
+              }
+            }}
+          >
+            Off
+          </Button>
+        </ButtonGroup>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Spa Light
+        </div>
+      </div>
+    );
+  };
+
+  const renderJets = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8
+        }}
+      >
+        <ButtonGroup style={{ flex: 1 }}>
+          <Button
+            variant={jets ? "success" : undefined}
+            onClick={() => {
+              if (!jets) {
+                control("jet", true);
+              }
+            }}
+          >
+            On
+          </Button>
+          <Button
+            variant={!jets ? "dark" : undefined}
+            onClick={() => {
+              if (jets) {
+                control("jet", false);
+              }
+            }}
+          >
+            Off
+          </Button>
+        </ButtonGroup>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Jets
+        </div>
+      </div>
+    );
+  };
+
+  const renderBlower = () => {
+    return (
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8
+        }}
+      >
+        <ButtonGroup style={{ flex: 1 }}>
+          <Button
+            variant={blower ? "success" : undefined}
+            onClick={() => {
+              if (!blower) {
+                control("blower", true);
+              }
+            }}
+          >
+            On
+          </Button>
+          <Button
+            variant={!blower ? "dark" : undefined}
+            onClick={() => {
+              if (blower) {
+                control("blower", false);
+              }
+            }}
+          >
+            Off
+          </Button>
+        </ButtonGroup>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Blower
+        </div>
+      </div>
+    );
+  };
+
+  const render = () => {
+    return (
+      <>
+        <div style={{ margin: 8 }}>
+          <div style={{ marginLeft: 60 }}>
+            {renderWeather()}
+            {renderMainSwitch()}
+            {renderSolar()}
+            {renderCleaner()}
+          </div>
+          <Row style={{ marginTop: 10 }}>
+            <Col sm={6}>
+              {renderPoolHeater()}
+              {renderPoolLight()}
+              {renderWaterfall()}
+            </Col>
+            <Col sm={6}>
+              {renderSpaHeater()}
+              {renderSpaLight()}
+              {renderJets()}
+              {renderBlower()}
+            </Col>
+          </Row>
+          <Row
+            style={{
+              textAlign: "center",
+              marginTop: 10,
+              display: "flex",
+              justifyContent: "center"
+            }}
+          >
+            <MacroTile label="Warm Spa" name="Warm Spa" width={1} />
+            <MacroTile label="Enter Spa" name="Enter Spa" width={1} />
+            <MacroTile label="Exit Spa" name="Exit Spa" width={1} />
+            <MacroTile label="Spa Off" name="Spa Off" width={1} />
+          </Row>
+        </div>
+      </>
+    );
+  };
+
+  /*
+  const renderPoolTemp = () => {
+    if (poolOn) {
+      return <span>{poolTemp}&deg;F</span>;
+    }
+    return "Pool Off";
+  };
+
+  const renderSpaTemp = () => {
+    if (spaOn) {
+      return <span>{spaTemp}&deg;F</span>;
+    }
+    return "Spa Off";
+  };
+
+  const renderSolarTemp = () => {
+    if (solarOn) {
+      return <span>{solarTemp}&deg;F</span>;
+    }
+    return "Solar Off";
+  };
+  */
+  /*
+  const renderPoolControls = () => {
+    return (
+      <Card
+        bg={poolOn ? "success" : undefined}
+        text={poolOn ? "white" : undefined}
+      >
+        <Card.Header>Pool</Card.Header>
+        <Card.Body>
+          <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
+            {renderPoolTemp()}
+          </div>
+          <Form>
+            <ToggleField
+              label="Pool"
+              name="pump"
+              toggled={!spa && pump}
+              onToggle={toggleState => {
+                setPump(toggleState);
+                control("pump", toggleState);
+              }}
+            />
+            <ToggleField
+              label="Light"
+              name="poolLight"
+              toggled={poolLight}
+              onToggle={toggleState => {
+                setPoolLight(toggleState);
+                control("poolLight", toggleState);
+              }}
+            />
+            <ToggleField
+              label="Waterfall"
+              name="waterfall"
+              toggled={waterfall}
+              onToggle={toggleState => {
+                setWaterfall(toggleState);
+                control("waterfall", toggleState);
+              }}
+            />
+            <ToggleField
+              label="Heat"
+              name="poolHeat"
+              toggled={poolHeat}
+              onToggle={toggleState => {
+                setPoolHeat(toggleState);
+                control("poolHeat", toggleState);
+              }}
+            />
+            <NumberField
+              label="Set Point"
+              name="poolSetpoint"
+              value={poolSetpoint}
+              onValueChange={newValue => {
+                setPoolSetpoint(newValue);
+                control("poolSetpoint", newValue);
+              }}
+            />
+          </Form>
+        </Card.Body>
+      </Card>
+    );
+  };
+
+  const renderSpaControls = () => {
+    return (
+      <Card
+        bg={spaOn ? "danger" : undefined}
+        text={spaOn ? "white" : undefined}
+      >
+        <Card.Header>Spa</Card.Header>
+        <Card.Body>
+          <div style={{ textAlign: "center", fontSize: 30 }}>
+            {renderSpaTemp()}
+          </div>
+          <Form>
+            <ToggleField
+              label="Spa"
+              name="spa"
+              toggled={spaOn}
+              onToggle={toggleState => {
+                setSpa(toggleState);
+                control("spa", toggleState);
+              }}
+            />
+            <ToggleField
+              label="Jets"
+              name="jet"
+              toggled={jets}
+              onToggle={toggleState => {
+                setJets(toggleState);
+                control("jet", toggleState);
+              }}
+            />
+            <ToggleField
+              label="Blower"
+              name="blower"
+              toggled={blower}
+              onToggle={toggleState => {
+                setBlower(toggleState);
+                control("blower", toggleState);
+              }}
+            />
+            <ToggleField
+              label="Light"
+              name="spaLight"
+              toggled={spaLight}
+              onToggle={toggleState => {
+                setSpaLight(toggleState);
+                control("spaLight", toggleState);
+              }}
+            />
+            <ToggleField label="Heat" name="spaHeat" toggled={spaHeat} />
+            <NumberField
+              label="Set Point"
+              name="spaSetpoint"
+              value={spaSetpoint}
+              onValueChange={newValue => {
+                setSpaSetpoint(newValue);
+                control("spaSetpoint", newValue);
+              }}
+            />
+          </Form>
+        </Card.Body>
+      </Card>
+    );
+  };
+
+  const renderSolarControls = () => {
+    return (
+      <Card
+        bg={solarOn ? "success" : undefined}
+        text={solarOn ? "white" : "primary"}
+      >
+        <Card.Header>Solar</Card.Header>
+        <Card.Body>
+          <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
+            {renderSolarTemp()}
+          </div>
+          <Form>
+            <ToggleField
+              label="Solar"
+              toggled={solarHeat}
+              name="solar"
+              onToggle={toggleState => {
+                setSolarHeat(toggleState);
+                control("solarHeat", toggleState);
+              }}
+            />
+            <ToggleField
+              label="Cleaner"
+              toggled={cleaner}
+              name="cleaner"
+              onToggle={toggleState => {
+                setCleaner(toggleState);
+                control("cleaner", toggleState);
+              }}
+            />
+            <ToggleField
+              label="Pump"
+              toggled={pump}
+              name="pump"
+              onToggle={toggleState => {
+                setPump(toggleState);
+                control("pump", toggleState);
+              }}
+            />
+          </Form>
+        </Card.Body>
+      </Card>
+    );
+  };
+  */
+  /*
+  const xrender = () => {
+    return (
+      <div style={{ margin: 8 }}>
+        <div style={{ textAlign: "center" }}>{renderMainSwitch()}</div>
+        <Row style={{ padding: 16 }}>
+          <Col sm={3} style={{ padding: 2 }}>
+            {renderWeather()}
+          </Col>
+          <Col sm={3} style={{ padding: 2 }}>
+            {renderPoolControls()}
+          </Col>
+          <Col sm={3} style={{ padding: 2 }}>
+            {renderSpaControls()}
+          </Col>
+          <Col sm={3} style={{ padding: 2 }}>
+            {renderSolarControls()}
+          </Col>
+        </Row>
+        <Row
+          style={{
+            textAlign: "center",
+            marginTop: 10,
+            display: "flex",
+            justifyContent: "center"
+          }}
+        >
+          <MacroTile label="Warm Spa" name="Warm Spa" width={1} />
+          <MacroTile label="Enter Spa" name="Enter Spa" width={1} />
+          <MacroTile label="Exit Spa" name="Exit Spa" width={1} />
+          <MacroTile label="Spa Off" name="Spa Off" width={1} />
+        </Row>
+      </div>
+    );
+  };
+  */
+  return render();
 };
 
 export default AutelisTab;

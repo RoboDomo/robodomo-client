@@ -5,13 +5,14 @@ const ActivitiesListGroup = ({ activities, currentActivity, onClick }) => {
   if (!activities.length) {
     return null;
   }
-
+  // <ListGroup.Item variant="dark">Activities</ListGroup.Item>
   return (
-    <ListGroup>
-      <ListGroup.Item variant="dark">Activities</ListGroup.Item>
+    <ListGroup variant="flush">
+      <div style={{ fontWeight: "bold", textAlign: "center" }}>Activities</div>
       {activities.map(activity => {
         return (
           <ListGroupItem
+            style={{ height: 44 }}
             active={currentActivity === activity.name}
             onClick={() => {
               onClick(activity);

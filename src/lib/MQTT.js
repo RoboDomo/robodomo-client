@@ -51,14 +51,8 @@ class MQTT extends EventEmitter {
     this.emit("message", topic, message);
   }
 
-  onConnectionLost({ errorCode, errorMessage }) {
-    console.log(
-      "mqtt",
-      "onConnectionLost",
-      errorCode,
-      errorMessage,
-      this.subscriptions
-    );
+  onConnectionLost(e) {
+    console.log("mqtt", "onConnectionLost", e, this.subscriptions);
     this.emit("connectionlost");
     setTimeout(this.connect, RETRY_TIME);
   }

@@ -113,7 +113,7 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
               <OverlayTrigger key={okey} overlay={overlay}>
                 <img
                   alt={info.title}
-                  style={{ maxWidth: 48, minHeight: 48 }}
+                  style={{ maxWidth: 36, minHeight: 36 }}
                   src={info.icon}
                 />
               </OverlayTrigger>
@@ -165,12 +165,12 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
   };
 
   const renderKeypad = () => {
-    if (!lgtv.tuner) {
-      return null;
-    }
+    //    if (!lgtv.tuner) {
+    //      return null;
+    //    }
     return (
       <>
-        <Row style={{ marginTop: 4 }}>
+        <div style={{ marginTop: 4 }}>
           <RemoteButton topic={set_topic} message="Back">
             Back
           </RemoteButton>
@@ -180,8 +180,8 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
           <RemoteButton topic={set_topic} message="Guide">
             Guide
           </RemoteButton>
-        </Row>
-        <Row style={{ marginTop: 4 }}>
+        </div>
+        <div style={{ marginTop: 4 }}>
           <ButtonGroup>
             <RemoteButton topic={set_topic} message="NUM1">
               1
@@ -229,20 +229,17 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
               Enter
             </RemoteButton>
           </ButtonGroup>
-        </Row>
+        </div>
       </>
     );
   };
+
   return (
-    <>
-      <Row style={{ margin: "auto", marginTop: 4, marginBottom: 10 }}>
-        <Col sm={12}>
-          <div style={{ width: 48 * 10 }}>{renderLaunchPoints()}</div>
-        </Col>
-      </Row>
-      <Row>{renderNowPlaying()}</Row>
-      <Row style={{ marginTop: 4 }}>{renderHDMI()}</Row>
-      <Row style={{ margin: 10 }}>
+    <div style={{ textAlign: "center" }}>
+      <div style={{ width: 48 * 10 }}>{renderLaunchPoints()}</div>
+      <div>{renderNowPlaying()}</div>
+      <div style={{ marginTop: 4 }}>{renderHDMI()}</div>
+      <div style={{ margin: 10 }}>
         <ButtonGroup>
           <RemoteButton variant="none" />
           <RemoteButton topic={set_topic} message="UP">
@@ -274,9 +271,9 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
             -
           </RemoteButton>
         </ButtonGroup>
-      </Row>
-      <Row>{renderKeypad()}</Row>
-      <Row style={{ marginTop: 4 }}>
+      </div>
+      <div>{renderKeypad()}</div>
+      <div style={{ marginTop: 4 }}>
         <ButtonGroup>
           <RemoteButton topic={set_topic} message="REPLAY" mini>
             <FaFastBackward />
@@ -308,8 +305,8 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
             <FaDotCircle />
           </RemoteButton>
         </ButtonGroup>
-      </Row>
-    </>
+      </div>
+    </div>
   );
 };
 

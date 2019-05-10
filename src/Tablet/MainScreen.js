@@ -38,7 +38,7 @@ const MainScreen = () => {
   );
   return (
     <div style={{ width: 1024, height: 768, margin: "auto" }}>
-      <div style={{ marginTop: 50 }}>
+      <div style={{ marginTop: 56 }}>
         <TabContainer
           id="mainTabs"
           variant="pills"
@@ -80,7 +80,13 @@ const MainScreen = () => {
               console.log("eventKey");
             }}
           >
-            <Navbar.Brand>RoboDomo</Navbar.Brand>
+            <Navbar.Brand
+              onClick={() => {
+                window.location.reload();
+              }}
+            >
+              RoboDomo
+            </Navbar.Brand>
             <Nav className="mr-auto" defaultActiveKey={activeTab}>
               <Nav.Item>
                 <Nav.Link eventKey={1}>

@@ -25,25 +25,27 @@ const AudioControl = ({ device }) => {
     return n;
   };
 
-  useEffect(() => {
-    const onMessage = (topic, message) => {
-      if (~topic.indexOf("MU")) {
-        setMute(message !== "OFF");
-      } else if (~topic.indexOf("MV")) {
-        setVolume(Number(message));
-      } else if (~topic.indexOf("MS")) {
-        setDolby(message);
-      } else if (~topic.indexOf("CVC")) {
-        setCenter(Number(message.length === 2 ? message + "0" : message));
-      }
-    };
+  const onMessage = (topic, message) => {
+    if (~topic.indexOf("MU")) {
+      setMute(message !== "OFF");
+    } else if (~topic.indexOf("MV")) {
+      setVolume(Number(message));
+    } else if (~topic.indexOf("MS")) {
+      setDolby(message);
+    } else if (~topic.indexOf("CVC")) {
+      setCenter(Number(message.length === 2 ? message + "0" : message));
+    }
+  };
 
+  useEffect(() => {
+    console.log("->>>>>> AUDIOCONTROL SUBSCRIBE");
     MQTT.subscribe(topic + "MU", onMessage);
     MQTT.subscribe(topic + "MV", onMessage);
     MQTT.subscribe(topic + "MS", onMessage);
     MQTT.subscribe(topic + "CVC", onMessage);
 
     return () => {
+      console.log("->>>>>> AUDIOCONTROL UNSUBSCRIBE");
       MQTT.unsubscribe(topic + "MU", onMessage);
       MQTT.unsubscribe(topic + "MV", onMessage);
       MQTT.unsubscribe(topic + "MS", onMessage);

@@ -20,6 +20,7 @@ const AppleTV = ({ device }) => {
 
   useEffect(() => {
     const onInfoChange = (topic, message) => {
+      console.warn("onInfoChange", topic, message);
       if (!message) {
         setElapsedTime(null);
       } else {

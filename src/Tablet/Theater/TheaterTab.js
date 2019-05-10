@@ -14,12 +14,15 @@ import MQTT from "lib/MQTT";
 import MQTTScript from "lib/MQTTScript";
 
 const TheaterTab = ({ style, theater }) => {
+  const subscribed = useRef(false);
   const [power, setPower] = useState(false);
   const [currentDevice, setCurrentDevice] = useState("None");
   const [currentActivity, setCurrentActivity] = useState("All Off");
   const [startingActivity, setStartingActivity] = useState(null);
   const [avrInput, setAVRInput] = useState(null);
   const [lgtv, setLGTV] = useState({});
+
+  const tvType = useRef(null);
 
   // devices
   const denon = useRef(null);
@@ -33,6 +36,7 @@ const TheaterTab = ({ style, theater }) => {
     }
   }
   const handleDeviceClick = device => {
+    console.log("handleClick device", device);
     setCurrentDevice(device.name);
   };
 
@@ -50,16 +54,19 @@ const TheaterTab = ({ style, theater }) => {
     console.log("handleClick", activity.name, activity.script);
   };
 
-  let tvType = "unknown";
-
   const tvInput = useRef("");
   const launchPoints = useRef([]);
   const foregroundApp = useRef(null);
 
   useEffect(() => {
-    const onMessage = (topic, message) => {
+    const handleMessage = (topic, message) => {
       if (~topic.indexOf("power")) {
-        setPower(message === "on"); // message === "on");
+        //        console.log("SET POWER ", message, message === "on");
+        if (message === true || message === false) {
+          setPower(message);
+        } else {
+          setPower(message === "on"); // message === "on");
+        }
       } else if (~topic.indexOf("foreground")) {
         try {
           foregroundApp.current = JSON.parse(message);
@@ -75,85 +82,121 @@ const TheaterTab = ({ style, theater }) => {
       } else if (~topic.indexOf("SI")) {
         setAVRInput(message);
       }
+    }; // handleMessage
 
-      // determine TV input (e.g. HDMI1, HDMI2, NetFlix, etc.)
-      if (!power) {
-        setCurrentActivity("All Off");
-        setCurrentDevice("NONE");
-        return;
-      }
-
-      try {
-        if (tvType === "lgtv") {
-          const lps = launchPoints.current,
-            fg = foregroundApp.current,
-            title = lps[fg.appId].title;
-          const lp = title || "unknown";
-          tvInput.current = lp.replace(/\s+/, "").toLowerCase();
-          const o = Object.assign({}, deviceMap.lgtv);
-          o.foregroundApp = foregroundApp.current;
-          o.launchPoints = launchPoints.current;
-          o.power = power;
-          setLGTV(prev => ({ ...prev, ...o }));
-        }
-      } catch (e) {}
-      for (const activity of activities) {
-        const inputs = activity.inputs || {};
-        if (inputs.tv === tvInput.current && inputs.avr === avrInput) {
-          if (currentActivity !== activity.name) {
-            setCurrentDevice(activity.defaultDevice);
-            setCurrentActivity(activity.name);
-            break;
-          }
-        }
-      }
-    }; // onMessage
-
-    for (const device of devices) {
-      switch (device.type) {
-        case "lgtv":
-          tvType = "lgtv";
-          MQTT.subscribe(`lgtv/${device.device}/status/power`, onMessage);
-          MQTT.subscribe(
-            `lgtv/${device.device}/status/foregroundApp`,
-            onMessage
-          );
-          MQTT.subscribe(
-            `lgtv/${device.device}/status/launchPoints`,
-            onMessage
-          );
-          break;
-        case "denon":
-          MQTT.subscribe(`denon/${device.device}/status/SI`, onMessage);
-          break;
-        default:
-          break;
-      }
-    }
-
-    return () => {
+    if (!subscribed.current) {
+      console.warn("about to subscribe");
       for (const device of devices) {
         switch (device.type) {
           case "lgtv":
-            MQTT.unsubscribe(`lgtv/${device.device}/status/power`, onMessage);
-            MQTT.unsubscribe(
+            tvType.current = "lgtv";
+            MQTT.subscribe(`lgtv/${device.device}/status/power`, handleMessage);
+            MQTT.subscribe(
               `lgtv/${device.device}/status/foregroundApp`,
-              onMessage
+              handleMessage
             );
-            MQTT.unsubscribe(
+            MQTT.subscribe(
               `lgtv/${device.device}/status/launchPoints`,
-              onMessage
+              handleMessage
             );
             break;
           case "denon":
-            MQTT.unsubscribe(`denon/${device.device}/status/SI`, onMessage);
+            MQTT.subscribe(`denon/${device.device}/status/SI`, handleMessage);
+            break;
+          case "bravia":
+            tvType.current = "bravia";
+            console.log("----> subscribe bravia");
+            MQTT.subscribe(
+              `bravia/${device.device}/status/power`,
+              handleMessage
+            );
             break;
           default:
             break;
         }
       }
+      subscribed.current = true;
+    }
+
+    return () => {
+      if (subscribed.current) {
+        console.warn("about to unsubscribe");
+        for (const device of devices) {
+          switch (device.type) {
+            case "bravia":
+              console.log("-----> unsubscribe bravia");
+              MQTT.unsubscribe(
+                `bravia/${device.device}/status/power`,
+                handleMessage
+              );
+              break;
+            case "lgtv":
+              MQTT.unsubscribe(
+                `lgtv/${device.device}/status/power`,
+                handleMessage
+              );
+              MQTT.unsubscribe(
+                `lgtv/${device.device}/status/foregroundApp`,
+                handleMessage
+              );
+              MQTT.unsubscribe(
+                `lgtv/${device.device}/status/launchPoints`,
+                handleMessage
+              );
+              break;
+            case "denon":
+              MQTT.unsubscribe(
+                `denon/${device.device}/status/SI`,
+                handleMessage
+              );
+              break;
+            default:
+              break;
+          }
+        }
+        subscribed.current = false;
+      }
     };
-  }, [power, currentDevice, currentActivity, avrInput]);
+  }, []); // power, currentDevice, avrInput]);
+
+  useEffect(() => {
+    console.warn("useEffect 2", power);
+    // determine TV input (e.g. HDMI1, HDMI2, NetFlix, etc.)
+    if (!power) {
+      console.log("POWER IS OFF");
+      //        setCurrentActivity("All Off");
+      //        setCurrentDevice("NONE");
+      return;
+    }
+
+    try {
+      if (tvType.current === "lgtv") {
+        const lps = launchPoints.current,
+          fg = foregroundApp.current,
+          title = lps[fg.appId].title;
+        const lp = title || "unknown";
+        tvInput.current = lp.replace(/\s+/, "").toLowerCase();
+        const o = Object.assign({}, deviceMap.lgtv);
+        o.foregroundApp = foregroundApp.current;
+        o.launchPoints = launchPoints.current;
+        o.power = power;
+        setLGTV(prev => ({ ...prev, ...o }));
+      } else {
+      }
+    } catch (e) {}
+
+    for (const activity of activities) {
+      const inputs = activity.inputs || {};
+      //        console.log("inputs", inputs.tv, tvInput.current, inputs.avr, avrInput);
+      if (inputs.tv === tvInput.current && inputs.avr === avrInput) {
+        if (currentActivity !== activity.name) {
+          setCurrentDevice(activity.defaultDevice);
+          setCurrentActivity(activity.name);
+          break;
+        }
+      }
+    }
+  }, [power, currentDevice, avrInput]);
 
   const renderDevice = () => {
     if (startingActivity) {
@@ -179,14 +222,14 @@ const TheaterTab = ({ style, theater }) => {
   };
 
   return (
-    <Row style={{ marginTop: 20 }}>
+    <Row style={{ marginTop: 4 }}>
       <Col sm={2}>
         <ActivitiesListGroup
           activities={activities}
           currentActivity={currentActivity}
           onClick={handleActivityClick}
         />
-        <div style={{ height: 10 }} />
+        <div style={{ height: 4 }} />
         <DevicesListGroup
           devices={devices}
           currentDevice={currentDevice}

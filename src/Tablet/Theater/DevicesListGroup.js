@@ -13,24 +13,38 @@ const DevicesListGroup = ({
     return null;
   }
 
+  //<ListGroup.Item variant="dark">Devices</ListGroup.Item>
   return (
     <ListGroup>
-      <ListGroup.Item variant="dark">Devices</ListGroup.Item>
+      <div style={{ fontWeight: "bold", textAlign: "center" }}>Devices</div>
       {devices.map(device => {
+        const deviceType = device.type;
         let deviceName = device.name;
-        if (deviceName === "LG TV" && ~tvInput.indexOf("hdmi")) {
+
+        if (deviceType === "bravia" || deviceType === "lgtv") {
+          if (~tvInput.indexOf("hdmi")) {
+            deviceName = (
+              <>
+                {device.name}
+                <Badge variant="secondary" className="float-right">
+                  {tvInput.toUpperCase()}
+                </Badge>
+              </>
+            );
+          } else {
+            deviceName = (
+              <>
+                {device.name}
+                <Badge variant="secondary" className="float-right">
+                  {"OFF"}
+                </Badge>
+              </>
+            );
+          }
+        } else if (deviceType === "denon" && avrInput) {
           deviceName = (
             <>
-              {deviceName}
-              <Badge variant="secondary" className="float-right">
-                {tvInput.toUpperCase()}
-              </Badge>
-            </>
-          );
-        } else if (deviceName === "AVR" && avrInput) {
-          deviceName = (
-            <>
-              {deviceName}
+              {device.name}
               <Badge variant="secondary" className="float-right">
                 {avrInput.toUpperCase()}
               </Badge>

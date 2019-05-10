@@ -30,6 +30,9 @@ const AppleTV = ({ device }) => {
       if (!message) {
         setElapsedTime(null);
       } else {
+        if (message.position) {
+          setElapsedTime(message.position);
+        }
         let msg;
         try {
           msg = JSON.parse(message);
@@ -56,11 +59,12 @@ const AppleTV = ({ device }) => {
     if (!info) {
       return null;
     }
-    if (info.duration) {
+    console.log("info", info);
+    if (info.totalTime) {
       return (
         <>
           {info.playbackState.toUpperCase()} {formatTime(elapsedTime)} /{" "}
-          {formatTime(info.duration)}
+          {formatTime(info.totalTime)}
         </>
       );
     } else {
@@ -75,7 +79,7 @@ const AppleTV = ({ device }) => {
   const app = appName(info.appDisplayName || info.appBundleIdentifier);
   return (
     <div style={{ height: undefined, textAlign: "center", marginBottom: 4 }}>
-      <div style={{ fontSize: 24 }}>{app}</div>
+      <div style={{ fontSize: 16 }}>{app}</div>
       <div>
         {info.title}
         <br />

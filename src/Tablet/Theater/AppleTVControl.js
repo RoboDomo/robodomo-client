@@ -17,7 +17,6 @@ import {
 import MQTT from "lib/MQTT";
 
 const rowStyle = {
-  marginTop: 4,
   display: "flex",
   alignItems: "center",
   justifyContent: "center"
@@ -50,26 +49,28 @@ const AppleTVControl = ({ device }) => {
   const [elapsedTime, setElapsedTime] = useState(null);
   const [info, setInfo] = useState(null);
 
-  useEffect(() => {
-    const onInfoChange = (topic, message) => {
-      if (!message) {
-        setElapsedTime(null);
-      } else {
-        let msg;
-        try {
-          msg = JSON.parse(message);
-        } catch (e) {
-          msg = message;
-        }
-        console.dir(msg);
-        setInfo(prev => ({ ...prev, ...msg }));
+  const onInfoChange = (topic, message) => {
+    if (!message) {
+      setElapsedTime(null);
+      setInfo(null);
+    } else {
+      let msg;
+      try {
+        msg = JSON.parse(message);
+      } catch (e) {
+        msg = message;
       }
-    };
+      console.log("info", info);
+      console.log("message", message);
+      setInfo(prev => ({ ...prev, ...msg }));
+    }
+  };
 
-    const onTimeChange = (topic, message) => {
-      setElapsedTime(message);
-    };
+  const onTimeChange = (topic, message) => {
+    setElapsedTime(message);
+  };
 
+  useEffect(() => {
     MQTT.subscribe(topic + "/info", onInfoChange);
     MQTT.subscribe(topic + "/elapsedTime", onTimeChange);
     return () => {
@@ -78,12 +79,12 @@ const AppleTVControl = ({ device }) => {
     };
   }, []);
 
-  const renderPlaybackState = () => {
-    if (info.duration) {
+  const renderPlayState = () => {
+    if (info.totalTime) {
       return (
         <>
           {info.playbackState.toUpperCase()} {formatTime(elapsedTime)} /{" "}
-          {formatTime(info.duration)}
+          {formatTime(info.totalTime)}
         </>
       );
     } else {
@@ -92,7 +93,8 @@ const AppleTVControl = ({ device }) => {
   };
 
   const renderNowPlaying = () => {
-    if (!info || !info.playbackState || elapsedTime == null) {
+    console.log("info", info);
+    if (!info || !info.title) {
       return (
         <div style={{ height: 128 }}>
           <h1>Apple TV</h1>
@@ -102,14 +104,15 @@ const AppleTVControl = ({ device }) => {
     }
 
     const app = appName(info.appDisplayName || info.appBundleIdentifier);
-
     return (
-      <div style={{ height: 128 }}>
-        <h1>{app}</h1>
+      <div>
+        <h2>{app}</h2>
         <h4>
-          {info.artist} {info.album} {info.title}
+          {info.title}
           <br />
-          <div style={{ fontWeight: "bold" }}>{renderPlaybackState()}</div>
+          {info.artist} {info.album}
+          <br />
+          <div style={{ fontWeight: "bold" }}>{renderPlayState()}</div>
         </h4>
       </div>
     );
@@ -117,12 +120,12 @@ const AppleTVControl = ({ device }) => {
 
   const renderPlaybackControls = () => {
     const playButton = (
-        <RemoteButton topic={set_topic} message="TogglePlayPause" mini>
+        <RemoteButton topic={set_topic} message="Play" mini>
           <FaPlay />
         </RemoteButton>
       ),
       pauseButton = (
-        <RemoteButton topic={set_topic} message="TogglePlayPause" mini>
+        <RemoteButton topic={set_topic} message="Pause" mini>
           <FaPause />
         </RemoteButton>
       );
@@ -137,7 +140,7 @@ const AppleTVControl = ({ device }) => {
         </RemoteButton>
         {pauseButton}
         {playButton}
-        <RemoteButton topic={set_topic} message="BeginFastFoward" mini>
+        <RemoteButton topic={set_topic} message="BeginForward" mini>
           <FaForward />
         </RemoteButton>
         <RemoteButton topic={set_topic} message="SkipForward" mini>
@@ -149,8 +152,8 @@ const AppleTVControl = ({ device }) => {
 
   return (
     <>
-      <Row style={rowStyle}>{renderNowPlaying()}</Row>
-      <Row style={rowStyle}>
+      <Row style={{ ...rowStyle, marginTop: 4 }}> {renderNowPlaying()}</Row>
+      <Row style={{ ...rowStyle, marginTop: 4 }}>
         <ButtonGroup>
           <RemoteButton topic={set_topic} message="Stop">
             Stop
@@ -164,12 +167,9 @@ const AppleTVControl = ({ device }) => {
           <RemoteButton topic={set_topic} message="Power">
             Power
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="Reboot">
-            Reboot
-          </RemoteButton>
         </ButtonGroup>
       </Row>
-      <Row style={rowStyle}>
+      <Row style={{ ...rowStyle, marginTop: 4 }}>
         <ButtonGroup>
           <RemoteButton variant="none" />
           <RemoteButton topic={set_topic} message="Up">
