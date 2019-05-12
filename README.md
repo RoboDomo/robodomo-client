@@ -40,4 +40,19 @@ specifically, is the ability to mount tab content onenter and to unmount onexit.
 especially on slower mobile type devices - having components mounted but not visible would mean a lot of extra MQTT
 subscriptions for information not used/rendered.  
 
- 
+# Quick Start
+
+To get RoboDomo and this client up and running, you will need to:
+1) Set up MQTT broker.  We recommend using Mosca Docker container.
+2) Set up MongoDB.  This will be used as backing store for Mosca.  Use Docker container.
+3) Set up Smartthings MQTT Bridge.  Instructions are in the MQTT Bridge repo.  This is required only if you want to
+control SmartThings devices.  Use the Docker image for MQTT Bridge as well.
+4) Start additional RoboDomo microservices (Docker) for devices you want to control.
+5) Edit Config.js to match your setup and to design the Dashboards and macros you want to present in the UI.
+6) in this repository, npm install and then npm start.  This will run the React development server
+7) Point your browser at this host, port 3000.
+
+There is a [docker scripts](https://github.com/RoboDomo/docker-scripts) repository for RoboDomo.  These are handy
+scripts for setting up and installing the MQTT broker, MQTT bridge, and the various microservices.  It's relatively fast
+to edit those scripts to suit your needs (mostly MQTT host name env variable and devices env variable), and use those.
+
