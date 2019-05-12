@@ -128,12 +128,12 @@ export default {
             },
             {
               text: "Turning on AVR",
-              topic: "denon/denon-s910w/set/",
+              topic: "denon/denon-s910w/set",
               message: "PWON"
             },
             {
               text: "Setting AVR to TV",
-              topic: "denon/denon-s910w/set/",
+              topic: "denon/denon-s910w/set",
               message: "SITV"
             }
           ]
@@ -200,7 +200,10 @@ export default {
         {
           name: "All Off",
           defaultDevice: null,
-          script: [{ topic: "lgtv/olede6p/set", message: "POWEROFF" }]
+          script: [
+            { topic: "lgtv/olede6p/set", message: "POWEROFF" },
+            { topic: "denon/denon-s910w/set", message: "PWSTANDBY" }
+          ]
         }
       ],
       buttons: [

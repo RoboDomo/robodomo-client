@@ -27,7 +27,7 @@ import RemoteButton from "common/RemoteButton";
 
 import Config from "Config";
 
-//import MQTT from "lib/MQTT";
+import MQTT from "lib/MQTT";
 
 const ignoredLaunchPoints = [
   "HDMI1",
@@ -66,6 +66,7 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     launchPoints = lgtv.launchPoints,
     apps = {};
 
+  console.log("launchPoints", launchPoints);
   try {
     for (const index of Object.keys(launchPoints)) {
       const info = launchPoints[index];
@@ -109,11 +110,15 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
             <div
               style={{ marginRight: 10, marginBottom: 10, float: "left" }}
               key={info.id}
+              onClick={() => {
+                console.log("click", info);
+                MQTT.publish(`${set_topic}`, `LAUNCH-${info.id}`);
+              }}
             >
               <OverlayTrigger key={okey} overlay={overlay}>
                 <img
                   alt={info.title}
-                  style={{ maxWidth: 36, minHeight: 36 }}
+                  style={{ maxWidth: 40, minHeight: 40 }}
                   src={info.icon}
                 />
               </OverlayTrigger>
@@ -148,16 +153,32 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
   const renderHDMI = () => {
     return (
       <ButtonGroup>
-        <RemoteButton variant={tvInput === "hdmi1" ? "primary" : undefined}>
+        <RemoteButton
+          topic={set_topic}
+          message="LAUNCH-com.webos.app.hdmi1"
+          variant={tvInput === "hdmi1" ? "success" : undefined}
+        >
           HDMI 1
         </RemoteButton>
-        <RemoteButton variant={tvInput === "hdmi2" ? "primary" : undefined}>
+        <RemoteButton
+          topic={set_topic}
+          message="LAUNCH-com.webos.app.hdmi2"
+          variant={tvInput === "hdmi2" ? "success" : undefined}
+        >
           HDMI 2
         </RemoteButton>
-        <RemoteButton variant={tvInput === "hdmi3" ? "primary" : undefined}>
+        <RemoteButton
+          topic={set_topic}
+          message="LAUNCH-com.webos.app.hdmi3"
+          variant={tvInput === "hdmi3" ? "success" : undefined}
+        >
           HDMI 3
         </RemoteButton>
-        <RemoteButton variant={tvInput === "hdmi4" ? "primary" : undefined}>
+        <RemoteButton
+          topic={set_topic}
+          message="LAUNCH-com.webos.app.hdmi4"
+          variant={tvInput === "hdmi4" ? "success" : undefined}
+        >
           HDMI 4
         </RemoteButton>
       </ButtonGroup>
@@ -171,61 +192,64 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     return (
       <>
         <div style={{ marginTop: 4 }}>
-          <RemoteButton topic={set_topic} message="Back">
+          <RemoteButton topic={set_topic} message="KEY_BACK">
             Back
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="Guide">
+          <RemoteButton topic={set_topic} message="KEY_MENU">
+            Menu
+          </RemoteButton>
+          <RemoteButton topic={set_topic} message="KEY_HOME">
             Home
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="Guide">
+          <RemoteButton topic={set_topic} message="KEY_GUIDE">
             Guide
           </RemoteButton>
         </div>
         <div style={{ marginTop: 4 }}>
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="NUM1">
+            <RemoteButton topic={set_topic} message="KEY_NUM1">
               1
             </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM2">
+            <RemoteButton topic={set_topic} message="KEY_NUM2">
               2
             </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM3">
+            <RemoteButton topic={set_topic} message="KEY_NUM3">
               3
             </RemoteButton>
           </ButtonGroup>
           <br />
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="NUM4">
+            <RemoteButton topic={set_topic} message="KEY_NUM4">
               4
             </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM5">
+            <RemoteButton topic={set_topic} message="KEY_NUM5">
               5
             </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM6">
+            <RemoteButton topic={set_topic} message="KEY_NUM6">
               6
             </RemoteButton>
           </ButtonGroup>
           <br />
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="NUM7">
+            <RemoteButton topic={set_topic} message="KEY_NUM7">
               7
             </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM8">
+            <RemoteButton topic={set_topic} message="KEY_NUM8">
               8
             </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM9">
+            <RemoteButton topic={set_topic} message="KEY_NUM9">
               9
             </RemoteButton>
           </ButtonGroup>
           <br />
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="CLEAR">
+            <RemoteButton topic={set_topic} message="KEY_CLEAR">
               .
             </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM0">
+            <RemoteButton topic={set_topic} message="KEY_NUM0">
               0
             </RemoteButton>
-            <RemoteButton topic={set_topic} message="ENTER">
+            <RemoteButton topic={set_topic} message="KEY_ENTER">
               Enter
             </RemoteButton>
           </ButtonGroup>
@@ -242,32 +266,40 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
       <div style={{ margin: 10 }}>
         <ButtonGroup>
           <RemoteButton variant="none" />
-          <RemoteButton topic={set_topic} message="UP">
+          <RemoteButton topic={set_topic} message="KEY_UP">
             <FaChevronUp />
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="CHANNELUP" variant="info">
+          <RemoteButton
+            topic={set_topic}
+            message="KEY_CHANNELUP"
+            variant="info"
+          >
             +
           </RemoteButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton topic={set_topic} message="LEFT">
+          <RemoteButton topic={set_topic} message="KEY_LEFT">
             <FaChevronLeft />
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="SELECT" variant="primary">
+          <RemoteButton topic={set_topic} message="KEY_ENTER" variant="primary">
             Select
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="RIGHT">
+          <RemoteButton topic={set_topic} message="KEY_RIGHT">
             <FaChevronRight />
           </RemoteButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
           <RemoteButton variant="none" />
-          <RemoteButton topic={set_topic} message="DOWN">
+          <RemoteButton topic={set_topic} message="KEY_DOWN">
             <FaChevronDown />
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="CHANNELDOWN" variant="info">
+          <RemoteButton
+            topic={set_topic}
+            message="KEY_CHANNELDOWN"
+            variant="info"
+          >
             -
           </RemoteButton>
         </ButtonGroup>

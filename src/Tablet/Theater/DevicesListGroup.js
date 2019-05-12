@@ -22,7 +22,7 @@ const DevicesListGroup = ({
         let deviceName = device.name;
 
         if (deviceType === "bravia" || deviceType === "lgtv") {
-          if (~tvInput.indexOf("hdmi")) {
+          if (true || ~tvInput.indexOf("hdmi")) {
             deviceName = (
               <>
                 {device.name}
@@ -35,9 +35,8 @@ const DevicesListGroup = ({
             deviceName = (
               <>
                 {device.name}
-                <Badge variant="secondary" className="float-right">
-                  {"OFF"}
-                </Badge>
+                <br />
+                {tvInput.toUpperCase()}
               </>
             );
           }

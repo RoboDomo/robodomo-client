@@ -45,7 +45,13 @@ class MQTT extends EventEmitter {
     localStorage.setItem(topic, message);
     this.cache[topic] = message;
     if (this.listenerCount(topic)) {
-      console.log("message", topic, message.substr(0, 20));
+      console.log(
+        "%cMQTT message <<< %c" + topic + " %c" + message.substr(0, 20),
+        "font-weight: bold;",
+        "color:red; font-weight: bold",
+        "color:blue; font-weight: bold"
+      );
+      //      console.warn("MQTT <<<", topic, message.substr(0, 20));
       this.emitMessage(topic, message);
     }
     this.emit("message", topic, message);
@@ -94,8 +100,22 @@ class MQTT extends EventEmitter {
     if (typeof message !== "string") {
       message = JSON.stringify(message);
       this.mqtt.publish(topic, message);
+      console.log(
+        "%cMQTT message >>> %c" + topic + " %c" + message,
+        "font-weight: bold;",
+        "color:red; font-weight: bold",
+        "color:blue; font-weight: bold"
+      );
+      //      console.log("%cMQTT >>>", message, "backround:blue");
     } else {
       this.mqtt.publish(topic, String(message));
+      console.log(
+        "%cMQTT >>> message %c" + topic + " %c" + String(message),
+        "font-weight: bold;",
+        "color:red; font-weight: bold",
+        "color:blue; font-weight: bold"
+      );
+      //      console.warn("MQTT >>>", String(message));
     }
   }
 }

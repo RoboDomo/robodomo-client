@@ -2,6 +2,7 @@ import React from "react";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 
 const ActivitiesListGroup = ({ activities, currentActivity, onClick }) => {
+  console.log("list currentActivity", currentActivity);
   if (!activities.length) {
     return null;
   }
@@ -13,6 +14,7 @@ const ActivitiesListGroup = ({ activities, currentActivity, onClick }) => {
         return (
           <ListGroupItem
             style={{ height: 44 }}
+            variant={currentActivity === activity.name ? "success" : undefined}
             active={currentActivity === activity.name}
             onClick={() => {
               onClick(activity);
