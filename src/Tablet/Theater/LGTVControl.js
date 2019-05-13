@@ -150,6 +150,25 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     );
   };
 
+  const renderControlButtons = () => {
+    return (
+      <div style={{ marginTop: 4 }}>
+        <RemoteButton topic={set_topic} message="KEY_BACK">
+          Back
+        </RemoteButton>
+        <RemoteButton topic={set_topic} message="KEY_MENU">
+          Menu
+        </RemoteButton>
+        <RemoteButton topic={set_topic} message="KEY_HOME">
+          Home
+        </RemoteButton>
+        <RemoteButton topic={set_topic} message="KEY_GUIDE">
+          Guide
+        </RemoteButton>
+      </div>
+    );
+  };
+
   const renderHDMI = () => {
     return (
       <ButtonGroup>
@@ -191,20 +210,6 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     //    }
     return (
       <>
-        <div style={{ marginTop: 4 }}>
-          <RemoteButton topic={set_topic} message="KEY_BACK">
-            Back
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="KEY_MENU">
-            Menu
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="KEY_HOME">
-            Home
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="KEY_GUIDE">
-            Guide
-          </RemoteButton>
-        </div>
         <div style={{ marginTop: 4 }}>
           <ButtonGroup>
             <RemoteButton topic={set_topic} message="KEY_NUM1">
@@ -263,6 +268,7 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
       <div style={{ width: 48 * 10 }}>{renderLaunchPoints()}</div>
       <div>{renderNowPlaying()}</div>
       <div style={{ marginTop: 4 }}>{renderHDMI()}</div>
+      <div style={{ marginTop: 4 }}>{renderControlButtons()}</div>
       <div style={{ margin: 10 }}>
         <ButtonGroup>
           <RemoteButton variant="none" />
