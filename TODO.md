@@ -10,6 +10,8 @@
 2) Add Smart TV Actitivy.
 3) Break out TVs / API / etc. into hooks or actions.
 4) Allow UI to scroll activities and devices lists if too many to display on screen.
+5) Clicking on TV activity with TV activity already started...  
+6) TV activity - show currently playing, favorites.
 
 ### LG TV
 1) Show currently playing

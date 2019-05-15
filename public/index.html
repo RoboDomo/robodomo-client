@@ -40,6 +40,15 @@ html, body {
     </style>
   </head>
   <body>
+    <script type="text/javascript"> 
+      document.addEventListener('click', function(e) { 
+          console.log(document.activeElement.toString())
+        if(document.activeElement.toString() == '[object HTMLButtonElement]'){ 
+          console.log("blur")
+          document.activeElement.blur(); 
+        } 
+      }); 
+    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
 <!--    <div id="outer-root" style="width: 1024px; height: 768px; margin: auto">-->
       <div id="root"></div>

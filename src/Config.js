@@ -112,6 +112,11 @@ export default {
           },
           script: [
             {
+              text: "Starting Harmony Activity",
+              topic: "harmony/harmony-hub/set/activity",
+              message: "35943301"
+            },
+            {
               text: "Turning on LG TV",
               topic: "lgtv/olede6p/set/command",
               message: "POWERON"
@@ -146,6 +151,11 @@ export default {
             avr: "MPLAY"
           },
           script: [
+            {
+              text: "Starting Harmony Activity",
+              topic: "harmony/harmony-hub/set/activity",
+              message: "35943341"
+            },
             {
               text: "Turning on LG TV",
               topic: "lgtv/olede6p/set",
@@ -202,7 +212,7 @@ export default {
           defaultDevice: null,
           script: [
             { topic: "lgtv/olede6p/set", message: "POWEROFF" },
-            { topic: "denon/denon-s910w/set", message: "PWSTANDBY" }
+            { topic: "denon/denon-s910w/set", message: "PWOFF" }
           ]
         }
       ],
