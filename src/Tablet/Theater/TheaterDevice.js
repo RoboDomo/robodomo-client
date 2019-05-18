@@ -6,13 +6,7 @@ import AppleTVControl from "./AppleTVControl";
 import LGTVControl from "./LGTVControl";
 import BraviaControl from "./BraviaControl";
 
-const TheaterDevice = ({
-  currentDevice,
-  deviceMap,
-  lgtv,
-  tvInput,
-  avrInput
-}) => {
+const TheaterDevice = ({ currentDevice, avr, tv, deviceMap }) => {
   if (!currentDevice) {
     return <h1>All Off</h1>;
   }
@@ -30,18 +24,18 @@ const TheaterDevice = ({
       return <AppleTVControl device={deviceMap.appletv.device} />;
     case "LG TV":
       // TODO tvInput, avrInput props might change?  Use key...
-      return <LGTVControl lgtv={lgtv} tvInput={tvInput} avrInput={avrInput} />;
+      return <LGTVControl config={deviceMap.lgtv} />;
     case "Sony TV":
-      console.log("deviceMap", deviceMap);
       return (
         <BraviaControl
           bravia={deviceMap.bravia}
-          tvInput={tvInput}
-          avrInput={avrInput}
+          tvInput={tv.input}
+          avrInput={avr.input}
         />
       );
     default:
       return <h1>All Off</h1>;
   }
 };
+//
 export default TheaterDevice;

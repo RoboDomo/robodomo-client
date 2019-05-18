@@ -1,12 +1,6 @@
 import React from "react";
 
-import {
-  Row,
-  Col,
-  ButtonGroup,
-  Tooltip,
-  OverlayTrigger
-} from "react-bootstrap";
+import { ButtonGroup, Tooltip, OverlayTrigger } from "react-bootstrap";
 
 import {
   FaChevronUp,
@@ -23,9 +17,10 @@ import {
   FaDotCircle
 } from "react-icons/fa";
 
-import RemoteButton from "common/RemoteButton";
+import ActionButton from "common/ActionButton";
 
 import Config from "Config";
+import useLGTV from "common/hooks/useLGTV";
 
 import MQTT from "lib/MQTT";
 
@@ -57,7 +52,12 @@ const ignoredLaunchPoints = [
 // If props.lgtv.tuner is set to true, then additional controls are rendered.
 // Number pad, for example, is not needed for smart TV apps, but are needed
 // for watching TV.
-const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
+const LGTVControl = ({ config }) => {
+  const lgtv = useLGTV(config),
+    tvInput = lgtv.input,
+    dispatch = lgtv.dispatch;
+
+  console.log("useLGTV", config, lgtv);
   const status_topic = Config.mqtt.lgtv + "/" + lgtv.device + "/status/",
     //    status_topic_length = status_topic.length,
     set_topic = status_topic.replace("status", "set") + "command";
@@ -66,7 +66,6 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     launchPoints = lgtv.launchPoints,
     apps = {};
 
-  console.log("launchPoints", launchPoints);
   try {
     for (const index of Object.keys(launchPoints)) {
       const info = launchPoints[index];
@@ -80,14 +79,14 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     }
     if (lgtv.tuner) {
       return (
-        <Row style={{ marginTop: 4 }}>
+        <div style={{ marginTop: 4 }}>
           <ButtonGroup>
-            <RemoteButton>Netflix</RemoteButton>
-            <RemoteButton>Prime</RemoteButton>
-            <RemoteButton>YouTube</RemoteButton>
-            <RemoteButton>CBS</RemoteButton>
+            <ActionButton>Netflix</ActionButton>
+            <ActionButton>Prime</ActionButton>
+            <ActionButton>YouTube</ActionButton>
+            <ActionButton>CBS</ActionButton>
           </ButtonGroup>
-        </Row>
+        </div>
       );
     }
 
@@ -95,6 +94,7 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
       <>
         {Object.keys(lgtv.launchPoints).map(key => {
           const info = lgtv.launchPoints[key];
+          //          console.log("key", key, "info", info)
           if (~ignoredLaunchPoints.indexOf(info.title)) {
             //            console.log("LGTV", info);
             return null;
@@ -130,9 +130,10 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
   };
 
   const renderNowPlaying = () => {
-    if (!foregroundApp) {
+    if (!foregroundApp || !launchPoints) {
       return null;
     }
+
     const appId = foregroundApp.appId,
       app = launchPoints[appId];
 
@@ -150,57 +151,75 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     );
   };
 
+  const renderHDMI = () => {
+    const button = n => {
+      const hdmi = "hdmi" + n;
+      return (
+        <ActionButton
+          dispatch={dispatch}
+          action={hdmi}
+          variant={tvInput === hdmi ? "success" : undefined}
+        >
+          HDMI {n}
+        </ActionButton>
+      );
+    };
+    return (
+      <ButtonGroup>
+        {button(1)}
+        {button(2)}
+        {button(3)}
+        {button(4)}
+      </ButtonGroup>
+    );
+  };
+
   const renderControlButtons = () => {
     return (
       <div style={{ marginTop: 4 }}>
-        <RemoteButton topic={set_topic} message="KEY_BACK">
+        <ActionButton dispatch={dispatch} action="back">
           Back
-        </RemoteButton>
-        <RemoteButton topic={set_topic} message="KEY_MENU">
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="menu">
           Menu
-        </RemoteButton>
-        <RemoteButton topic={set_topic} message="KEY_HOME">
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="home">
           Home
-        </RemoteButton>
-        <RemoteButton topic={set_topic} message="KEY_GUIDE">
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="guide">
           Guide
-        </RemoteButton>
+        </ActionButton>
       </div>
     );
   };
 
-  const renderHDMI = () => {
+  const renderJoystick = () => {
+    const button = (action, label, variant) => {
+      return (
+        <ActionButton variant={variant} dispatch={dispatch} action={action}>
+          {label}
+        </ActionButton>
+      );
+    };
+
     return (
-      <ButtonGroup>
-        <RemoteButton
-          topic={set_topic}
-          message="LAUNCH-com.webos.app.hdmi1"
-          variant={tvInput === "hdmi1" ? "success" : undefined}
-        >
-          HDMI 1
-        </RemoteButton>
-        <RemoteButton
-          topic={set_topic}
-          message="LAUNCH-com.webos.app.hdmi2"
-          variant={tvInput === "hdmi2" ? "success" : undefined}
-        >
-          HDMI 2
-        </RemoteButton>
-        <RemoteButton
-          topic={set_topic}
-          message="LAUNCH-com.webos.app.hdmi3"
-          variant={tvInput === "hdmi3" ? "success" : undefined}
-        >
-          HDMI 3
-        </RemoteButton>
-        <RemoteButton
-          topic={set_topic}
-          message="LAUNCH-com.webos.app.hdmi4"
-          variant={tvInput === "hdmi4" ? "success" : undefined}
-        >
-          HDMI 4
-        </RemoteButton>
-      </ButtonGroup>
+      <>
+        <ButtonGroup>
+          <ActionButton variant="none" />
+          {button("up", <FaChevronUp />)};{button("channelup", "+", "info")};
+        </ButtonGroup>
+        <br />
+        <ButtonGroup>
+          {button("left", <FaChevronLeft />)};{button("select", "Select")};
+          {button("right", <FaChevronRight />)};
+        </ButtonGroup>
+        <br />
+        <ButtonGroup>
+          <ActionButton variant="none" />
+          {button("down", <FaChevronDown />)};
+          {button("channeldown", "-", "info")};
+        </ButtonGroup>
+      </>
     );
   };
 
@@ -208,58 +227,74 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
     //    if (!lgtv.tuner) {
     //      return null;
     //    }
+    const button = n => {
+      let label = "" + n;
+      if (n === "clear") {
+        label = ".";
+      } else if (n === "enter") {
+        label = "Enter";
+      }
+      return (
+        <ActionButton dispatch={dispatch} action={"" + n}>
+          {label}
+        </ActionButton>
+      );
+    };
     return (
       <>
         <div style={{ marginTop: 4 }}>
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="KEY_NUM1">
-              1
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="KEY_NUM2">
-              2
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="KEY_NUM3">
-              3
-            </RemoteButton>
+            {button(1)}
+            {button(2)}
+            {button(3)}
           </ButtonGroup>
           <br />
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="KEY_NUM4">
-              4
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="KEY_NUM5">
-              5
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="KEY_NUM6">
-              6
-            </RemoteButton>
+            {button(4)}
+            {button(5)}
+            {button(6)}
           </ButtonGroup>
           <br />
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="KEY_NUM7">
-              7
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="KEY_NUM8">
-              8
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="KEY_NUM9">
-              9
-            </RemoteButton>
+            {button(7)}
+            {button(8)}
+            {button(9)}
           </ButtonGroup>
           <br />
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="KEY_CLEAR">
-              .
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="KEY_NUM0">
-              0
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="KEY_ENTER">
-              Enter
-            </RemoteButton>
+            {button("clear")}
+            {button(0)}
+            {button("enter")}
           </ButtonGroup>
         </div>
       </>
+    );
+  };
+
+  const renderTransport = () => {
+    const button = (action, label, variant) => {
+      return (
+        <ActionButton
+          variant={variant}
+          dispatch={dispatch}
+          action={action}
+          mini
+        >
+          {label}
+        </ActionButton>
+      );
+    };
+    return (
+      <ButtonGroup>
+        {button("replay", <FaFastBackward />)}
+        {button("reverse", <FaBackward />)}
+        {button("pause", <FaPause />)}
+        {button("play", <FaPlay />)}
+        {button("slow", <FaStepForward />)}
+        {button("forward", <FaForward />)}
+        {button("advance", <FaFastForward />)}
+        {button("record", <FaDotCircle />, "danger")}
+      </ButtonGroup>
     );
   };
 
@@ -269,81 +304,9 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
       <div>{renderNowPlaying()}</div>
       <div style={{ marginTop: 4 }}>{renderHDMI()}</div>
       <div style={{ marginTop: 4 }}>{renderControlButtons()}</div>
-      <div style={{ margin: 10 }}>
-        <ButtonGroup>
-          <RemoteButton variant="none" />
-          <RemoteButton topic={set_topic} message="KEY_UP">
-            <FaChevronUp />
-          </RemoteButton>
-          <RemoteButton
-            topic={set_topic}
-            message="KEY_CHANNELUP"
-            variant="info"
-          >
-            +
-          </RemoteButton>
-        </ButtonGroup>
-        <br />
-        <ButtonGroup>
-          <RemoteButton topic={set_topic} message="KEY_LEFT">
-            <FaChevronLeft />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="KEY_ENTER" variant="primary">
-            Select
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="KEY_RIGHT">
-            <FaChevronRight />
-          </RemoteButton>
-        </ButtonGroup>
-        <br />
-        <ButtonGroup>
-          <RemoteButton variant="none" />
-          <RemoteButton topic={set_topic} message="KEY_DOWN">
-            <FaChevronDown />
-          </RemoteButton>
-          <RemoteButton
-            topic={set_topic}
-            message="KEY_CHANNELDOWN"
-            variant="info"
-          >
-            -
-          </RemoteButton>
-        </ButtonGroup>
-      </div>
+      <div style={{ margin: 10 }}>{renderJoystick()}</div>
       <div>{renderKeypad()}</div>
-      <div style={{ marginTop: 4 }}>
-        <ButtonGroup>
-          <RemoteButton topic={set_topic} message="REPLAY" mini>
-            <FaFastBackward />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="REVERSE" mini>
-            <FaBackward />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="PAUSE" mini>
-            <FaPause />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="PLAY" mini>
-            <FaPlay />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="SLOW" mini>
-            <FaStepForward />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="FORWARD" mini>
-            <FaForward />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="ADVANCE" mini>
-            <FaFastForward />
-          </RemoteButton>
-          <RemoteButton
-            topic={set_topic}
-            message="RECORD"
-            mini
-            variant="danger"
-          >
-            <FaDotCircle />
-          </RemoteButton>
-        </ButtonGroup>
-      </div>
+      <div style={{ marginTop: 4 }}> {renderTransport()} </div>
     </div>
   );
 };

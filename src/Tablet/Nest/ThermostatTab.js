@@ -154,7 +154,7 @@ const ThermostatTab = ({ thermostat }) => {
               {target(81)}
               {target(80)}
               {target(79)}
-              {target(79)}
+              {target(78)}
               {target(77)}
               {target(76)}
               {target(75)}

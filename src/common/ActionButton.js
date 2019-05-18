@@ -1,5 +1,5 @@
 /**
- * <RemoteButton>
+ * <ActionButton>
  *
  * RemoteButton implements a button for a remote control.  When pressed, it will
  * send props.message to props.topic via MQTT by default.  If props.onClick is present,
@@ -12,9 +12,14 @@ import React from "react";
 
 import { Button } from "react-bootstrap";
 
-import MQTT from "lib/MQTT";
-
-const RemoteButton = ({ variant, topic, message, mini, children, onClick }) => {
+const ActionButton = ({
+  variant,
+  dispatch,
+  action,
+  mini,
+  children,
+  onClick
+}) => {
   const w = Math.min(window.screen.availWidth / 5 - 4, 100);
   const style = {
     width: mini ? 46 : w,
@@ -40,9 +45,10 @@ const RemoteButton = ({ variant, topic, message, mini, children, onClick }) => {
     <Button
       variant={variant}
       style={style}
-      onClick={() => {
-        if (topic && message) {
-          MQTT.publish(topic, message);
+      onClick={e => {
+        e.preventDefault();
+        if (dispatch && action) {
+          dispatch({ type: action });
         } else if (onClick) {
           onClick();
         }
@@ -52,4 +58,4 @@ const RemoteButton = ({ variant, topic, message, mini, children, onClick }) => {
     </Button>
   );
 };
-export default RemoteButton;
+export default ActionButton;

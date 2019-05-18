@@ -9,6 +9,7 @@ class MQTT extends EventEmitter {
     super();
     this.connect = this.connect.bind(this);
     this.cache = {};
+    this.setMaxListeners(50);
   }
 
   connect() {

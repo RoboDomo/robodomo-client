@@ -2,7 +2,6 @@ import React from "react";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 
 const ActivitiesListGroup = ({ activities, currentActivity, onClick }) => {
-  console.log("list currentActivity", currentActivity);
   if (!activities.length) {
     return null;
   }

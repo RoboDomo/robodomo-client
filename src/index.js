@@ -19,6 +19,7 @@ console.log(
   window.innerWidth,
   window.innerHeight
 );
+
 const mobile = Config.bowser.platform.type === "mobile",
   meta = document.getElementById("meta-viewport");
 if (!mobile && meta && Config.bowser.platform.model !== "iPad") {
@@ -46,4 +47,4 @@ MQTT.connect();
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 // uncomment this for production:
-//serviceWorker.unregister();
+serviceWorker.unregister();
