@@ -3,11 +3,8 @@ import MQTT from "lib/MQTT";
 import Config from "Config";
 
 const useDenon = config => {
-  //  console.log("useDenon", config);
-  //  const hostname = config.device;
   const [power, setPower] = useState(null);
   const [input, setInput] = useState(null);
-  //  const [mute, setMute] = useState(null);
   const [masterVolume, setMasterVolume] = useState(null);
   const [centerVolume, setCenterVolume] = useState(null);
   const [surroundMode, setSurroundMode] = useState(null);
@@ -17,13 +14,11 @@ const useDenon = config => {
 
   const mute = useRef(null);
   const reducer = useRef((state, action) => {
-    //    console.warn("reducer state", state, action, mute.current, config.debug);
     switch (action.type.toLowerCase()) {
       case "mute":
         const mu = mute.current ? "MUOFF" : "MUON";
         MQTT.publish(set_topic, mu);
         mute.current = !mute;
-        //        setMute(!mute);
         break;
       case "masterup":
         MQTT.publish(set_topic, "MVUP");
@@ -55,28 +50,10 @@ const useDenon = config => {
       default:
         break;
     }
-
-    //    console.log("state", state);
     return state;
-    //    return { count: state.count + 1 };
-    //    return state;
-    //    return [
-    //      ...state,
-    //      {
-    //         newstate
-    //      }
-    //    ];
   });
 
-  const initialState = {
-    count: 0
-  };
   const [, d] = useReducer(reducer.current);
-  //  const [, d] = useReducer(reducer.current, initialState);
-  //  useEffect(() => {
-  //    console.log("useEffect", mute.current);
-  //  }, [mute, masterVolume]);
-
   useEffect(() => {
     const handleMessage = (topic, message) => {
       if (~topic.indexOf("SI")) {
@@ -85,9 +62,7 @@ const useDenon = config => {
         setPower(message.toUpperCase() === "ON");
       } else if (~topic.indexOf("MU")) {
         const st = message.toUpperCase() === "ON";
-        //        console.warn("MU", message, st);
         mute.current = st;
-        //        setMute(st);
       } else if (~topic.indexOf("MV")) {
         setMasterVolume(Number(message));
       } else if (~topic.indexOf("CVC")) {

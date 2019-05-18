@@ -25,8 +25,6 @@ const TheaterTab = ({ style, theater }) => {
   const tvType = useRef(null);
 
   // devices
-  let config = null;
-  //  const denon = useRef(null);
   const devices = theater.devices || [],
     deviceMap = {};
 
@@ -35,14 +33,11 @@ const TheaterTab = ({ style, theater }) => {
     if (device.type === "denon") {
       //      console.log("thaterTab", device);
       avr.current = useDenon({ ...device, debug: "TheaterTab" });
-      config = device;
     }
   }
   if (!avr.current) {
     return null;
   }
-  const [state, dispatch] = useReducer(avr.reducer, null);
-  //    avr.reducer;
   const tv = useLGTV(deviceMap.lgtv);
 
   const handleDeviceClick = device => {
@@ -63,8 +58,6 @@ const TheaterTab = ({ style, theater }) => {
     setStartingActivity(activity);
     console.log("handleClick", activity.name, activity.script);
   };
-
-  //  const launchPoints = useRef([]);
 
   useEffect(() => {
     for (const device of devices) {
