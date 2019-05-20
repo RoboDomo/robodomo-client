@@ -5,6 +5,7 @@ import TiVoControl from "./TiVoControl";
 import AppleTVControl from "./AppleTVControl";
 import LGTVControl from "./LGTVControl";
 import BraviaControl from "./BraviaControl";
+import DenonControl from "./DenonControl";
 
 const TheaterDevice = ({ currentDevice, avr, tv, deviceMap }) => {
   if (!currentDevice) {
@@ -19,7 +20,9 @@ const TheaterDevice = ({ currentDevice, avr, tv, deviceMap }) => {
     case "Harmony Hub":
       return <HarmonyRemoteControl hub={deviceMap.harmony} />;
     case "TiVo":
-      return <TiVoControl device={deviceMap.tivo.device} />;
+      return <TiVoControl config={deviceMap.tivo} />;
+    case "AVR":
+      return <DenonControl config={deviceMap.denon} />;
     case "Apple TV":
       return <AppleTVControl device={deviceMap.appletv.device} />;
     case "LG TV":

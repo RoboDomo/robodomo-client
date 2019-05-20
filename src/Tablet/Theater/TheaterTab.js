@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useReducer, useRef } from "react";
-
-//import Config from "Config";
+import React, { useState, useEffect, useRef } from "react";
 
 import { Row, Col } from "react-bootstrap";
 
@@ -10,7 +8,6 @@ import DevicesListGroup from "./DevicesListGroup";
 import TheaterDevice from "./TheaterDevice";
 import ButtonList from "./ButtonList";
 
-import MQTT from "lib/MQTT";
 import MQTTScript from "lib/MQTTScript";
 
 import useLGTV from "common/hooks/useLGTV";
@@ -22,7 +19,7 @@ const TheaterTab = ({ style, theater }) => {
   const [startingActivity, setStartingActivity] = useState(null);
 
   const avr = useRef(null);
-  const tvType = useRef(null);
+  const tv = useRef(null);
 
   // devices
   const devices = theater.devices || [],
@@ -30,15 +27,20 @@ const TheaterTab = ({ style, theater }) => {
 
   for (const device of devices) {
     deviceMap[device.type] = device;
-    if (device.type === "denon") {
-      //      console.log("thaterTab", device);
-      avr.current = useDenon({ ...device, debug: "TheaterTab" });
+    switch (device.type) {
+      case "denon":
+        avr.current = useDenon({ ...device, debug: "TheaterTab" });
+        break;
+      case "lgtv":
+        tv.current = useLGTV({ ...device, debug: "TheaterTab" });
+        break;
+      default:
+        break;
     }
   }
   if (!avr.current) {
     return null;
   }
-  const tv = useLGTV(deviceMap.lgtv);
 
   const handleDeviceClick = device => {
     console.log("handleClick device", device);
@@ -63,7 +65,6 @@ const TheaterTab = ({ style, theater }) => {
     for (const device of devices) {
       switch (device.type) {
         case "bravia":
-          tvType.current = "bravia";
           console.log("----> subscribe bravia");
           //          MQTT.subscribe(`bravia/${device.device}/status/power`, handleMessage);
           break;
@@ -121,7 +122,7 @@ const TheaterTab = ({ style, theater }) => {
     for (const activity of activities) {
       const inputs = activity.inputs || {};
       //        console.log("inputs", inputs.tv, tvInput, inputs.avr, avrInput);
-      if (inputs.tv === tv.input && inputs.avr === avr.current.input) {
+      if (inputs.tv === tv.current.input && inputs.avr === avr.current.input) {
         if (currentActivity !== activity.name) {
           setCurrentDevice(prev => activity.defaultDevice);
           setCurrentActivity(prev => activity.name);
@@ -146,12 +147,12 @@ const TheaterTab = ({ style, theater }) => {
     }
   }, [
     //uutvPower,
-    tv.power,
+    tv.current.power,
     avr.current.power,
     currentActivity,
     currentDevice,
     //    tvInput,
-    tv.input,
+    tv.current.input,
     avr.current.input
     //    foregroundApp
   ]);
@@ -172,7 +173,7 @@ const TheaterTab = ({ style, theater }) => {
       <TheaterDevice
         currentDevice={currentDevice}
         avr={avr.current}
-        tv={tv}
+        tv={tv.current}
         deviceMap={deviceMap}
       />
     );
@@ -190,7 +191,7 @@ const TheaterTab = ({ style, theater }) => {
         <DevicesListGroup
           devices={devices}
           currentDevice={currentDevice}
-          tvInput={tv.input}
+          tvInput={tv.current.input}
           avrInput={avr.current.input}
           onClick={handleDeviceClick}
         />

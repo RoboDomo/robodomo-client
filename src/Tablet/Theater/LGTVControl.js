@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ButtonGroup, Tooltip, OverlayTrigger } from "react-bootstrap";
+import { Image, ButtonGroup, Tooltip, OverlayTrigger } from "react-bootstrap";
 
 import {
   FaChevronUp,
@@ -57,7 +57,6 @@ const LGTVControl = ({ config }) => {
     tvInput = lgtv.input,
     dispatch = lgtv.dispatch;
 
-  console.log("useLGTV", config, lgtv);
   const status_topic = Config.mqtt.lgtv + "/" + lgtv.device + "/status/",
     //    status_topic_length = status_topic.length,
     set_topic = status_topic.replace("status", "set") + "command";
@@ -106,9 +105,18 @@ const LGTVControl = ({ config }) => {
                 {info.title}
               </Tooltip>
             );
+          const appId = foregroundApp.appId,
+            app = launchPoints[appId];
+          const border = app === info ? "6px inset white" : "6px outset white";
+          console.log("foregroundApp", foregroundApp.appId, info);
           return (
             <div
-              style={{ marginRight: 10, marginBottom: 10, float: "left" }}
+              style={{
+                marginRight: 10,
+                marginBottom: 10,
+                float: "left",
+                border: border
+              }}
               key={info.id}
               onClick={() => {
                 console.log("click", info);
@@ -116,7 +124,8 @@ const LGTVControl = ({ config }) => {
               }}
             >
               <OverlayTrigger key={okey} overlay={overlay}>
-                <img
+                <Image
+                  fluid
                   alt={info.title}
                   style={{ maxWidth: 40, minHeight: 40 }}
                   src={info.icon}
@@ -130,22 +139,22 @@ const LGTVControl = ({ config }) => {
   };
 
   const renderNowPlaying = () => {
-    if (!foregroundApp || !launchPoints) {
+    if (true || !foregroundApp || !launchPoints) {
       return null;
     }
 
     const appId = foregroundApp.appId,
       app = launchPoints[appId];
 
-    if (!app || true) {
+    if (!app) {
       return null;
     }
+    console.log("app.icon", app.icon, app.title);
     return (
       <div style={{ textAlign: "center" }}>
         <div style={{ marginLeft: "auto", marginRight: "auto", width: 100 }}>
-          <img alt={app.icon} src={app.icon}>
-            {app.title}
-          </img>
+          <img alt={app.icon} src={app.icon} />
+          {app.title}
         </div>
       </div>
     );

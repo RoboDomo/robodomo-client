@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+//import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
 import { ButtonGroup } from "react-bootstrap";
 import ActionButton from "common/ActionButton";
-
-//import useDenon from "common/hooks/useDenon";
 
 //import MQTT from "lib/MQTT";
 
@@ -21,14 +20,21 @@ const AudioControl = ({ avr }) => {
   //    set_topic = topic.replace("status", "set");
 
   const format = n => {
-    n = String(n / 10);
-    if (n.indexOf(".") === -1) {
-      n += ".0";
+    if (n === null) {
+      return 0;
     }
-    return n;
+    if (typeof n === "number") {
+      if (n > 99) {
+        return n / 10;
+      }
+      return n;
+    }
+    if (n.length === 3) {
+      return Number(n) / 10;
+    }
+    return Number(n);
   };
 
-  //  const avr = useDenon({ ...config, debug: "AudioControl" });
   if (!avr) {
     return null;
   }
@@ -58,7 +64,7 @@ const AudioControl = ({ avr }) => {
         <div style={{ marginTop: 16 }}>Center Channel</div>
         {button("centerup", <FaVolumeUp />)}
         <div style={{ textAlign: "center", width: "100%" }}>
-          {format(avr.centerVolume - 500)}
+          {format(avr.centerVolume)}
         </div>
         {button("centerdown", <FaVolumeDown />)}
       </ButtonGroup>

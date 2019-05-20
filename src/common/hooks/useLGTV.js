@@ -90,8 +90,6 @@ const useLGTV = config => {
 
   const handleLaunchPoints = (topic, message) => {
     try {
-      const lp = JSON.parse(message);
-      console.log("lp", lp);
       setLaunchPoints(JSON.parse(message));
     } catch (e) {
       setLaunchPoints(message);
@@ -102,13 +100,20 @@ const useLGTV = config => {
     if (!launchPoints) {
       return;
     }
+    if (
+      !foregroundApp ||
+      !foregroundApp.appId ||
+      !launchPoints[foregroundApp.appId]
+    ) {
+      setInput("OFF");
+      return;
+    }
     const title = launchPoints[foregroundApp.appId].title;
     const lp = title || "unknown";
     setInput(power ? lp.replace(/\s+/, "").toLowerCase() : "OFF");
   });
 
   useEffect(() => {
-    console.log("SUB SUB SUB");
     MQTT.subscribe(`lgtv/${hostname}/status/power`, handlePower);
     MQTT.subscribe(
       `lgtv/${hostname}/status/foregroundApp`,

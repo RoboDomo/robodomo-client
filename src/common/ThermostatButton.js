@@ -14,7 +14,6 @@ import MQTT from "lib/MQTT";
 import Config from "Config";
 
 const ThermostatButton = ({ thermostat, weather }) => {
-  const [timer, setTimer] = useState(null);
   const weather_status_topic = useRef(null);
   const [postalCode, setPostalCode] = useState(0);
   const [ambientTemperature, setAmbientTemperature] = useState(72);
@@ -26,29 +25,23 @@ const ThermostatButton = ({ thermostat, weather }) => {
       Config.mqtt.nest + "/" + thermostat + "/status/",
     set_topic = thermostat_status_topic.replace("status", "set");
 
+  const handleStateChange = (topic, newState) => {
+    if (~topic.indexOf("postal_code")) {
+      setPostalCode(newState);
+    } else if (~topic.indexOf("ambient_temperature_f")) {
+      setAmbientTemperature(newState);
+    } else if (~topic.indexOf("target_temperature_f")) {
+      setTargetTemperature(newState);
+    } else if (~topic.indexOf("hvac_state")) {
+      setHVACState(newState);
+    } else if (~topic.indexOf("weather")) {
+      setNow(newState);
+    } else {
+      console.log("invalid topic/state", topic, newState);
+    }
+  };
+
   useEffect(() => {
-    const handleStateChange = (topic, newState) => {
-      if (~topic.indexOf("postal_code")) {
-        setPostalCode(newState);
-      } else if (~topic.indexOf("ambient_temperature_f")) {
-        setAmbientTemperature(newState);
-      } else if (~topic.indexOf("target_temperature_f")) {
-        setTargetTemperature(newState);
-      } else if (~topic.indexOf("hvac_state")) {
-        setHVACState(newState);
-      } else if (~topic.indexOf("weather")) {
-        setNow(newState);
-      } else {
-        console.log("invalid topic/state", topic, newState);
-      }
-
-      if (!weather_status_topic.current && postalCode) {
-        const t = Config.mqtt.weather + "/" + postalCode + "/status/now";
-        weather_status_topic.current = t;
-        MQTT.subscribe(t, handleStateChange);
-      }
-    };
-
     MQTT.subscribe(thermostat_status_topic + "postal_code", handleStateChange);
     MQTT.subscribe(
       thermostat_status_topic + "ambient_temperature_f",
@@ -61,14 +54,6 @@ const ThermostatButton = ({ thermostat, weather }) => {
     MQTT.subscribe(thermostat_status_topic + "hvac_state", handleStateChange);
 
     return () => {
-      if (weather_status_topic.current) {
-        MQTT.unsubscribe(weather_status_topic.current, handleStateChange);
-        weather_status_topic.current = null;
-      }
-      if (timer) {
-        clearInterval(timer);
-        setTimer(null);
-      }
       MQTT.unsubscribe(
         thermostat_status_topic + "postal_code",
         handleStateChange
@@ -85,6 +70,20 @@ const ThermostatButton = ({ thermostat, weather }) => {
         thermostat_status_topic + "hvac_state",
         handleStateChange
       );
+    };
+  }, []); // postalCode, ambientTemperature, targetTemperature, hvacState]);
+
+  useEffect(() => {
+    if (!weather_status_topic.current && postalCode) {
+      const t = Config.mqtt.weather + "/" + postalCode + "/status/now";
+      weather_status_topic.current = t;
+      MQTT.subscribe(t, handleStateChange);
+    }
+    return () => {
+      if (weather_status_topic.current) {
+        MQTT.unsubscribe(weather_status_topic.current, handleStateChange);
+        weather_status_topic.current = null;
+      }
     };
   }, [postalCode]);
 

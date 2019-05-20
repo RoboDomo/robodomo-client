@@ -60,7 +60,6 @@ const AppleTVControl = ({ device }) => {
       } catch (e) {
         msg = message;
       }
-      console.log("info", info);
       console.log("message", message);
       setInfo(prev => ({ ...prev, ...msg }));
     }

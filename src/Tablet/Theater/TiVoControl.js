@@ -1,6 +1,6 @@
 import React from "react";
 
-import RemoteButton from "common//RemoteButton";
+import ActionButton from "common//ActionButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 import {
   FaChevronUp,
@@ -19,6 +19,8 @@ import {
   FaDotCircle
 } from "react-icons/fa";
 
+import useTiVo from "common/hooks/useTiVo";
+
 const style = {
   row: {
     marginTop: 4,
@@ -28,11 +30,13 @@ const style = {
   }
 };
 
-const TiVoControl = ({ device }) => {
-  const topic = "tivo/" + device + "/set";
+const TiVoControl = ({ config }) => {
+  const tivo = useTiVo(config),
+    dispatch = tivo.dispatch;
 
   return (
     <>
+      <h4>Channel: {tivo.channel}</h4>
       <Row
         style={{
           display: "flex",
@@ -41,160 +45,169 @@ const TiVoControl = ({ device }) => {
         }}
       >
         <ButtonGroup>
-          <RemoteButton topic={topic} message="CLEAR">
+          <ActionButton dispatch={dispatch} action="clear">
             Clear
-          </RemoteButton>
-          <RemoteButton topic={topic} message="LIVETV">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="livetv">
             Live TV
-          </RemoteButton>
-          <RemoteButton topic={topic} message="TIVO" variant="primary">
-            Tivo
-          </RemoteButton>
-          <RemoteButton topic={topic} message="GUIDE">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="tivo" variant="primary">
+            TiVo
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="guide">
             Guide
-          </RemoteButton>
-          <RemoteButton topic={topic} message="INFO">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="info">
             Info
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
       </Row>
       <Row style={style.row}>
         <ButtonGroup>
-          <RemoteButton topic={topic} message="THUMBSUP" variant="success">
+          <ActionButton dispatch={dispatch} action="thumbsup" variant="success">
             <FaThumbsUp />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="BACK">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="back">
             Back
-          </RemoteButton>
-          <RemoteButton topic={topic} message="THUMBSDOWN" variant="danger">
+          </ActionButton>
+          <ActionButton
+            dispatch={dispatch}
+            action="thumbsdown"
+            variant="danger"
+          >
             <FaThumbsDown />
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
       </Row>
       <Row style={style.row}>
         <ButtonGroup>
-          <RemoteButton variant="none" />
-          <RemoteButton topic={topic} message="UP">
+          <ActionButton variant="none" />
+          <ActionButton dispatch={dispatch} action="up">
             <FaChevronUp />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="CHANNELUP" variant="info">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="channelup" variant="info">
             +
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton topic={topic} message="LEFT">
+          <ActionButton dispatch={dispatch} action="left">
             <FaChevronLeft />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="SELECT" variant="primary">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="select" variant="primary">
             Select
-          </RemoteButton>
-          <RemoteButton topic={topic} message="RIGHT">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="right">
             <FaChevronRight />
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton variant="none" />
-          <RemoteButton topic={topic} message="DOWN">
+          <ActionButton variant="none" />
+          <ActionButton dispatch={dispatch} action="down">
             <FaChevronDown />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="CHANNELDOWN" variant="info">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="channeldown" variant="info">
             -
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
       </Row>
       <Row style={style.row}>
         <ButtonGroup>
-          <RemoteButton topic={topic} message="A" variant="warning">
+          <ActionButton dispatch={dispatch} action="a" variant="warning">
             A
-          </RemoteButton>
-          <RemoteButton topic={topic} message="B" variant="primary">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="b" variant="primary">
             B
-          </RemoteButton>
-          <RemoteButton topic={topic} message="C" variant="danger">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="c" variant="danger">
             C
-          </RemoteButton>
-          <RemoteButton topic={topic} message="D" variant="success">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="d" variant="success">
             D
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
       </Row>
       <Row style={style.row}>
         <ButtonGroup>
-          <RemoteButton topic={topic} message="NUM1">
+          <ActionButton dispatch={dispatch} action="num1">
             1
-          </RemoteButton>
-          <RemoteButton topic={topic} message="NUM2">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="num2">
             2
-          </RemoteButton>
-          <RemoteButton topic={topic} message="NUM3">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="num3">
             3
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton topic={topic} message="NUM4">
+          <ActionButton dispatch={dispatch} action="num4">
             4
-          </RemoteButton>
-          <RemoteButton topic={topic} message="NUM5">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="num5">
             5
-          </RemoteButton>
-          <RemoteButton topic={topic} message="NUM6">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="num6">
             6
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton topic={topic} message="NUM7">
+          <ActionButton dispatch={dispatch} action="num7">
             7
-          </RemoteButton>
-          <RemoteButton topic={topic} message="NUM8">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="num8">
             8
-          </RemoteButton>
-          <RemoteButton topic={topic} message="NUM9">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="num9">
             9
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton topic={topic} message="CLEAR">
+          <ActionButton dispatch={dispatch} action="clear">
             .
-          </RemoteButton>
-          <RemoteButton topic={topic} message="NUM0">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="num0">
             0
-          </RemoteButton>
-          <RemoteButton topic={topic} message="ENTER">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="enter">
             Enter
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
       </Row>
       <Row style={{ ...style.row, marginTop: 10 }}>
         <ButtonGroup>
-          <RemoteButton topic={topic} message="REPLAY" mini>
+          <ActionButton dispatch={dispatch} action="replay" mini>
             <FaFastBackward />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="REVERSE" mini>
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="reverse" mini>
             <FaBackward />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="PAUSE" mini>
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="pause" mini>
             <FaPause />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="PLAY" mini>
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="play" mini>
             <FaPlay />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="SLOW" mini>
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="slow" mini>
             <FaStepForward />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="FORWARD" mini>
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="forward" mini>
             <FaForward />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="ADVANCE" mini>
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="advance" mini>
             <FaFastForward />
-          </RemoteButton>
-          <RemoteButton topic={topic} message="RECORD" mini variant="danger">
+          </ActionButton>
+          <ActionButton
+            dispatch={dispatch}
+            action="record"
+            mini
+            variant="danger"
+          >
             <FaDotCircle />
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
       </Row>
     </>
