@@ -1,45 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import Config from "Config";
 import Tile from "./Tile";
-import MQTT from "lib/MQTT";
 
-const topics = ["spaHeat", "spaTemp", "spa", "jet", "blower", "spaLight"];
+import useAutelis from "common/hooks/useAutelis";
 
 const SpaTile = ({ device }) => {
-  const [state, setState] = useState({});
-
-  const controller = Config[device],
-    deviceMap = controller.deviceMap,
-    status_topic = Config.mqtt[device] + "/status/",
-    status_topic_length = status_topic.length;
-
-  useEffect(() => {
-    const onStateChange = (topic, newState) => {
-      const newValue = {},
-        what = topic.substr(status_topic_length),
-        key = deviceMap.backward[what] || what;
-
-      newValue[key] = newState;
-      setState(prev => ({ ...prev, ...newValue }));
-    };
-    topics.forEach(topic => {
-      const device = deviceMap.forward[topic] || topic;
-      MQTT.subscribe(status_topic + device, onStateChange);
-    });
-    return () => {
-      topics.forEach(topic => {
-        const device = deviceMap.forward[topic] || topic;
-        MQTT.unsubscribe(status_topic + device, onStateChange);
-      });
-    };
-  }, []);
+  const autelis = useAutelis();
 
   const isOn = thing => {
-    const control = state[thing];
+    const control = autelis[thing];
 
     if (!control) {
       return false;
+    }
+    if (control === true) {
+      return control;
     }
     return control.toLowerCase() === "on";
   };
@@ -54,9 +29,9 @@ const SpaTile = ({ device }) => {
     color = on ? "white" : undefined;
 
   const renderControl = (ndx, text, big) => {
-    const thing = state[ndx];
+    const thing = autelis[ndx];
     //        if (thing && state.spa !== 'on' ||  thing.toLowerCase() === 'off' ) {
-    if (!thing || thing.toLowerCase() === "off") {
+    if (!thing) {
       return null;
     }
     if (big) {
@@ -70,7 +45,7 @@ const SpaTile = ({ device }) => {
     if (on) {
       return (
         <div>
-          {renderControl("spa", `Spa ${state.spaTemp}°F`, true)}
+          {renderControl("spa", `Spa ${autelis.spaTemp}°F`, true)}
           {renderControl("spaHeat", "Heat On")}
           {renderControl("jet", "Jets On")}
           {renderControl("blower", "Blower On")}

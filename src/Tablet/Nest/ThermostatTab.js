@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 import Config from "Config";
 
@@ -31,7 +31,7 @@ const ThermostatTab = ({ thermostat }) => {
   const [thermoState, setThermoState] = useState(null);
 
   const weather = useWeather(thermoState ? thermoState.postal_code : null),
-    { now, display_city, forecast } = weather;
+    { now } = weather;
 
   const thermostatTopics = [
     "device",

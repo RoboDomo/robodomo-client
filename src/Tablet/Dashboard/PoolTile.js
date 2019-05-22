@@ -1,54 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
-import Config from "Config";
 import Tile from "./Tile";
-import MQTT from "lib/MQTT";
 
-const topics = [
-  "pump",
-  "cleaner",
-  "poolTemp",
-  "poolHeat",
-  "poolSetpoint",
-  "solarHeat",
-  "solarTemp"
-];
+import useAutelis from "common/hooks/useAutelis";
 
 const PoolTile = ({ device }) => {
-  const [state, setState] = useState({ pump: "off" });
-  const controller = Config[device],
-    deviceMap = controller.deviceMap,
-    status_topic = Config.mqtt[device] + "/status/",
-    status_topic_length = status_topic.length;
-
-  useEffect(() => {
-    const onStateChange = (topic, newState) => {
-      const newValue = {},
-        what = topic.substr(status_topic_length),
-        key = deviceMap.backward[what] || what;
-
-      newValue[key] = newState;
-      setState(prev => ({ ...prev, ...newValue }));
-    };
-    topics.forEach(topic => {
-      const device = deviceMap.forward[topic] || topic;
-      MQTT.subscribe(status_topic + device, onStateChange);
-    });
-    return () => {
-      topics.forEach(topic => {
-        const device = deviceMap.forward[topic] || topic;
-        MQTT.unsubscribe(status_topic + device, onStateChange);
-      });
-    };
-  }, []);
+  const autelis = useAutelis();
 
   const renderPool = () => {
     const renderControl = (ndx, text, big) => {
-      const thingState = (state[ndx] || "off").toLowerCase();
+      const thingState = autelis[ndx];
 
-      if (thingState === "off") {
+      if (!thingState) {
         return null;
       }
+
       if (big) {
         return <div style={{ fontSize: 30 }}>{text}</div>;
       }
@@ -59,17 +25,14 @@ const PoolTile = ({ device }) => {
     if (on) {
       return (
         <div>
-          {renderControl("pump", `Pool ${state.poolTemp}°F`, true)}
+          {renderControl("pump", `Pool ${autelis.poolTemp}°F`, true)}
           {renderControl("pump", "Filter On")}
           {renderControl("cleaner", "Cleaner On")}
           {renderControl("waterfall", "Waterfall On")}
-          {renderControl("poolHeat", "Pool Heat " + state.poolSetpoint)}
+          {renderControl("poolHeat", "Pool Heat " + autelis.poolSetpoint)}
           {renderControl(
             "solarHeat",
-            "Solar Heat " +
-              (state.solarHeat === "enabled" || state.solarHeat === "on"
-                ? state.solarTemp
-                : "off")
+            "Solar Heat " + (autelis.solarHeat ? autelis.solarTemp : "off")
           )}
         </div>
       );
@@ -82,9 +45,9 @@ const PoolTile = ({ device }) => {
     }
   };
 
-  const on = state.pump.toLowerCase() === "on",
+  const on = autelis.pump,
     backgroundColor = on
-      ? state.poolHeat === "enabled"
+      ? autelis.poolHeat === "enabled"
         ? "red"
         : "green"
       : undefined,
@@ -105,4 +68,6 @@ const PoolTile = ({ device }) => {
     </Tile>
   );
 };
+
+//
 export default PoolTile;

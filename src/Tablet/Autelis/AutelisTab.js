@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+//import React, { useState, useEffect } from "react";
+import React from "react";
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 
 import MacroTile from "Dashboard/MacroTile";
@@ -6,145 +7,37 @@ import NumberField from "common/form/NumberField";
 import Clock from "common/Clock";
 
 import Config from "Config";
-import MQTT from "lib/MQTT";
 
+import useAutelis from "common/hooks/useAutelis";
 import useWeather from "common/hooks/useWeather";
 
 const AutelisTab = () => {
-  const autelis = Config.autelis,
-    location = autelis.location,
-    forward = autelis.deviceMap.forward,
-    backward = autelis.deviceMap.backward;
+  const controller = Config.autelis,
+    location = controller.location;
 
-  const status_topic = Config.mqtt.autelis + "/status/",
-    set_topic = status_topic.replace("status", "set");
+  const autelis = useAutelis(),
+    {
+      dispatch,
+      pump,
+      cleaner,
+      solarHeat,
+      solarTemp,
+      waterfall,
+      poolLight,
+      poolTemp,
+      poolHeat,
+      poolSetpoint,
+      spaLight,
+      spa,
+      spaTemp,
+      spaHeat,
+      spaSetpoint,
+      jets,
+      blower
+    } = autelis;
 
   const weather = useWeather(location),
-    { now, display_city, forecast } = weather;
-
-  // general
-  const [pump, setPump] = useState(false);
-  const [cleaner, setCleaner] = useState(false);
-  const [solarHeat, setSolarHeat] = useState(false);
-  const [solarTemp, setSolarTemp] = useState(60);
-  // pool
-  const [waterfall, setWaterfall] = useState(false);
-  const [poolLight, setPoolLight] = useState(false);
-  const [poolTemp, setPoolTemp] = useState(60);
-  const [poolHeat, setPoolHeat] = useState(false);
-  const [poolSetpoint, setPoolSetpoint] = useState(60);
-  // spa
-  const [spaLight, setSpaLight] = useState(false);
-  const [spa, setSpa] = useState(false);
-  const [spaTemp, setSpaTemp] = useState(60);
-  const [spaHeat, setSpaHeat] = useState(false);
-  const [spaSetpoint, setSpaSetpoint] = useState(60);
-  const [jets, setJets] = useState(false);
-  const [blower, setBlower] = useState(false);
-
-  const topics = [
-    "pump",
-    "spa",
-    "spaTemp",
-    "poolTemp",
-    "poolSetpoint",
-    "spaSetpoint",
-    "cleaner",
-    "waterfall",
-    "poolLight",
-    "spaLight",
-    "jet",
-    "blower",
-    "spaHeat",
-    "poolHeat",
-    "solarHeat",
-    "solarTemp"
-  ];
-
-  const handleStateChange = (topic, message) => {
-    const key = backward[topic.substr(status_topic.length)];
-    const isOn = m => m === "true" || m === "on" || m === "enabled";
-
-    switch (key) {
-      case "pump":
-        setPump(isOn(message));
-        break;
-      case "spa":
-        setSpa(isOn(message));
-        break;
-      case "cleaner":
-        setCleaner(isOn(message));
-        break;
-      case "waterfall":
-        setWaterfall(isOn(message));
-        break;
-      case "poolLight":
-        setPoolLight(isOn(message));
-        break;
-      case "jet":
-        setJets(isOn(message));
-        break;
-      case "blower":
-        setBlower(isOn(message));
-        break;
-      case "spaLight":
-        setSpaLight(isOn(message));
-        break;
-      case "spaHeat":
-        setSpaHeat(isOn(message));
-        break;
-      case "poolHeat":
-        setPoolHeat(isOn(message));
-        break;
-      case "solarHeat":
-        setSolarHeat(isOn(message));
-        break;
-      case "solarTemp":
-        setSolarTemp(Number(message));
-        break;
-      case "spaTemp":
-        setSpaTemp(Number(message));
-        break;
-      case "poolTemp":
-        setPoolTemp(Number(message));
-        break;
-      case "spaSetpoint":
-        setSpaSetpoint(Number(message));
-        break;
-      case "poolSetpoint":
-        setPoolSetpoint(Number(message));
-        break;
-      default:
-        console.log("====> Unhandled state change", topic, message, key);
-        break;
-    }
-  };
-
-  useEffect(() => {
-    for (const key of topics) {
-      MQTT.subscribe(status_topic + forward[key], handleStateChange);
-    }
-
-    return () => {
-      for (const key of topics) {
-        MQTT.unsubscribe(status_topic + forward[key], handleStateChange);
-      }
-    };
-  }, []);
-
-  /**
-   * Send message to control a device
-   */
-  const control = (what, state) => {
-    const key = forward[what] || what;
-    if (!forward[what]) {
-      console.log("forward", what, forward);
-    }
-    if (typeof state !== "number") {
-      state = state ? "on" : "off";
-    }
-    MQTT.publish(set_topic + key, state);
-  };
+    { now, display_city } = weather;
 
   //
   // RENDER
@@ -195,15 +88,15 @@ const AutelisTab = () => {
           variant={!poolOn && !spaOn ? "dark" : undefined}
           onClick={() => {
             if (poolOn) {
-              control("pump", false);
+              dispatch({ type: "pump", value: false });
             } else if (spaOn) {
-              control("spa", false);
+              dispatch({ type: "spa", value: false });
             }
             if (cleaner) {
-              control("cleaner", false);
+              dispatch({ type: "cleaner", value: false });
             }
             if (solarOn) {
-              control("solarHeat", false);
+              dispatch({ type: "solarHeat", value: false });
             }
           }}
         >
@@ -219,9 +112,9 @@ const AutelisTab = () => {
           onClick={() => {
             if (!poolOn) {
               if (!pump) {
-                control("pump", true);
+                dispatch({ type: "pump", value: true });
               }
-              control("spa", false);
+              dispatch({ type: "spa", value: false });
             }
           }}
         >
@@ -237,9 +130,9 @@ const AutelisTab = () => {
           onClick={() => {
             if (!spaOn) {
               if (!pump) {
-                control("pump", true);
+                dispatch({ type: "pump", value: true });
               }
-              control("spa", true);
+              dispatch({ type: "spa", value: true });
             }
           }}
         >
@@ -295,7 +188,7 @@ const AutelisTab = () => {
             variant={solarOn ? "success" : undefined}
             onClick={() => {
               if (!solarOn) {
-                control("solarHeat", true);
+                dispatch({ type: "solarHeat", value: true });
               }
             }}
           >
@@ -305,7 +198,7 @@ const AutelisTab = () => {
             variant={!solarOn ? "dark" : undefined}
             onClick={() => {
               if (solarOn) {
-                control("solarHeat", false);
+                dispatch({ type: "solarHeat", value: false });
               }
             }}
           >
@@ -338,7 +231,7 @@ const AutelisTab = () => {
             variant={cleaner ? "success" : undefined}
             onClick={() => {
               if (!cleaner) {
-                control("cleaner", true);
+                dispatch({ type: "cleaner", value: true });
               }
             }}
           >
@@ -348,7 +241,7 @@ const AutelisTab = () => {
             variant={!cleaner ? "dark" : undefined}
             onClick={() => {
               if (cleaner) {
-                control("cleaner", false);
+                dispatch({ type: "cleaner", value: false });
               }
             }}
           >
@@ -390,7 +283,7 @@ const AutelisTab = () => {
             variant={waterfall ? "success" : undefined}
             onClick={() => {
               if (!waterfall) {
-                control("waterfall", true);
+                dispatch({ type: "waterfall", value: true });
               }
             }}
           >
@@ -400,7 +293,7 @@ const AutelisTab = () => {
             variant={!waterfall ? "dark" : undefined}
             onClick={() => {
               if (waterfall) {
-                control("waterfall", false);
+                dispatch({ type: "waterfall", value: false });
               }
             }}
           >
@@ -433,7 +326,7 @@ const AutelisTab = () => {
             variant={poolLight ? "success" : undefined}
             onClick={() => {
               if (!poolLight) {
-                control("poolLight", true);
+                dispatch({ type: "poolLight", value: true });
               }
             }}
           >
@@ -443,7 +336,7 @@ const AutelisTab = () => {
             variant={!poolLight ? "dark" : undefined}
             onClick={() => {
               if (poolLight) {
-                control("poolLight", false);
+                dispatch({ type: "poolLight", value: false });
               }
             }}
           >
@@ -477,10 +370,10 @@ const AutelisTab = () => {
               variant={poolHeat ? "danger" : undefined}
               onClick={() => {
                 if (!poolHeat) {
-                  if (spa) {
-                    control("spa", spa);
+                  if (spaHeat) {
+                    dispatch({ type: "spaHeat", value: false });
                   }
-                  control("poolHeat", true);
+                  dispatch({ type: "poolHeat", value: true });
                 }
               }}
             >
@@ -490,7 +383,7 @@ const AutelisTab = () => {
               variant={!poolHeat ? "dark" : undefined}
               onClick={() => {
                 if (poolHeat) {
-                  control("poolHeat", false);
+                  dispatch({ type: "poolHeat", value: false });
                 }
               }}
             >
@@ -503,8 +396,9 @@ const AutelisTab = () => {
             name="poolSetpoint"
             value={poolSetpoint}
             onValueChange={newValue => {
-              setPoolSetpoint(newValue);
-              control("poolSetpoint", newValue);
+              dispatch({ type: "poolSetpoint", value: newValue });
+              //              setPoolSetpoint(newValue);
+              //              control("poolSetpoint", newValue);
             }}
           />
         </div>
@@ -527,9 +421,9 @@ const AutelisTab = () => {
               onClick={() => {
                 if (!spaHeat) {
                   if (!spa) {
-                    control("spa", true);
+                    dispatch({ type: "spa", value: true });
                   }
-                  control("spaHeat", true);
+                  dispatch({ type: "spaHeat", value: true });
                 }
               }}
             >
@@ -539,7 +433,7 @@ const AutelisTab = () => {
               variant={!spaHeat ? "dark" : undefined}
               onClick={() => {
                 if (spaHeat) {
-                  control("spaHeat", false);
+                  dispatch({ type: "spaHeat", value: false });
                 }
               }}
             >
@@ -552,8 +446,9 @@ const AutelisTab = () => {
             name="spaSetPoint"
             value={spaSetpoint}
             onValueChange={newValue => {
-              setPoolSetpoint(newValue);
-              control("spaSetpoint", newValue);
+              dispatch({ type: "spaSetpoint", value: newValue });
+              //              setPoolSetpoint(newValue);
+              //              control("spaSetpoint", newValue);
             }}
           />
         </div>
@@ -583,7 +478,7 @@ const AutelisTab = () => {
             variant={spaLight ? "success" : undefined}
             onClick={() => {
               if (!spaLight) {
-                control("spaLight", true);
+                dispatch({ type: "spaLight", value: true });
               }
             }}
           >
@@ -593,7 +488,7 @@ const AutelisTab = () => {
             variant={!spaLight ? "dark" : undefined}
             onClick={() => {
               if (spaLight) {
-                control("spaLight", false);
+                dispatch({ type: "spaLight", value: false });
               }
             }}
           >
@@ -626,7 +521,7 @@ const AutelisTab = () => {
             variant={jets ? "success" : undefined}
             onClick={() => {
               if (!jets) {
-                control("jet", true);
+                dispatch({ type: "jet", value: true });
               }
             }}
           >
@@ -636,7 +531,7 @@ const AutelisTab = () => {
             variant={!jets ? "dark" : undefined}
             onClick={() => {
               if (jets) {
-                control("jet", false);
+                dispatch({ type: "jet", value: false });
               }
             }}
           >
@@ -669,7 +564,7 @@ const AutelisTab = () => {
             variant={blower ? "success" : undefined}
             onClick={() => {
               if (!blower) {
-                control("blower", true);
+                dispatch({ type: "blower", value: true });
               }
             }}
           >
@@ -679,7 +574,7 @@ const AutelisTab = () => {
             variant={!blower ? "dark" : undefined}
             onClick={() => {
               if (blower) {
-                control("blower", false);
+                dispatch({ type: "blower", value: false });
               }
             }}
           >
@@ -740,237 +635,6 @@ const AutelisTab = () => {
     );
   };
 
-  /*
-  const renderPoolTemp = () => {
-    if (poolOn) {
-      return <span>{poolTemp}&deg;F</span>;
-    }
-    return "Pool Off";
-  };
-
-  const renderSpaTemp = () => {
-    if (spaOn) {
-      return <span>{spaTemp}&deg;F</span>;
-    }
-    return "Spa Off";
-  };
-
-  const renderSolarTemp = () => {
-    if (solarOn) {
-      return <span>{solarTemp}&deg;F</span>;
-    }
-    return "Solar Off";
-  };
-  */
-  /*
-  const renderPoolControls = () => {
-    return (
-      <Card
-        bg={poolOn ? "success" : undefined}
-        text={poolOn ? "white" : undefined}
-      >
-        <Card.Header>Pool</Card.Header>
-        <Card.Body>
-          <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
-            {renderPoolTemp()}
-          </div>
-          <Form>
-            <ToggleField
-              label="Pool"
-              name="pump"
-              toggled={!spa && pump}
-              onToggle={toggleState => {
-                setPump(toggleState);
-                control("pump", toggleState);
-              }}
-            />
-            <ToggleField
-              label="Light"
-              name="poolLight"
-              toggled={poolLight}
-              onToggle={toggleState => {
-                setPoolLight(toggleState);
-                control("poolLight", toggleState);
-              }}
-            />
-            <ToggleField
-              label="Waterfall"
-              name="waterfall"
-              toggled={waterfall}
-              onToggle={toggleState => {
-                setWaterfall(toggleState);
-                control("waterfall", toggleState);
-              }}
-            />
-            <ToggleField
-              label="Heat"
-              name="poolHeat"
-              toggled={poolHeat}
-              onToggle={toggleState => {
-                setPoolHeat(toggleState);
-                control("poolHeat", toggleState);
-              }}
-            />
-            <NumberField
-              label="Set Point"
-              name="poolSetpoint"
-              value={poolSetpoint}
-              onValueChange={newValue => {
-                setPoolSetpoint(newValue);
-                control("poolSetpoint", newValue);
-              }}
-            />
-          </Form>
-        </Card.Body>
-      </Card>
-    );
-  };
-
-  const renderSpaControls = () => {
-    return (
-      <Card
-        bg={spaOn ? "danger" : undefined}
-        text={spaOn ? "white" : undefined}
-      >
-        <Card.Header>Spa</Card.Header>
-        <Card.Body>
-          <div style={{ textAlign: "center", fontSize: 30 }}>
-            {renderSpaTemp()}
-          </div>
-          <Form>
-            <ToggleField
-              label="Spa"
-              name="spa"
-              toggled={spaOn}
-              onToggle={toggleState => {
-                setSpa(toggleState);
-                control("spa", toggleState);
-              }}
-            />
-            <ToggleField
-              label="Jets"
-              name="jet"
-              toggled={jets}
-              onToggle={toggleState => {
-                setJets(toggleState);
-                control("jet", toggleState);
-              }}
-            />
-            <ToggleField
-              label="Blower"
-              name="blower"
-              toggled={blower}
-              onToggle={toggleState => {
-                setBlower(toggleState);
-                control("blower", toggleState);
-              }}
-            />
-            <ToggleField
-              label="Light"
-              name="spaLight"
-              toggled={spaLight}
-              onToggle={toggleState => {
-                setSpaLight(toggleState);
-                control("spaLight", toggleState);
-              }}
-            />
-            <ToggleField label="Heat" name="spaHeat" toggled={spaHeat} />
-            <NumberField
-              label="Set Point"
-              name="spaSetpoint"
-              value={spaSetpoint}
-              onValueChange={newValue => {
-                setSpaSetpoint(newValue);
-                control("spaSetpoint", newValue);
-              }}
-            />
-          </Form>
-        </Card.Body>
-      </Card>
-    );
-  };
-
-  const renderSolarControls = () => {
-    return (
-      <Card
-        bg={solarOn ? "success" : undefined}
-        text={solarOn ? "white" : "primary"}
-      >
-        <Card.Header>Solar</Card.Header>
-        <Card.Body>
-          <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
-            {renderSolarTemp()}
-          </div>
-          <Form>
-            <ToggleField
-              label="Solar"
-              toggled={solarHeat}
-              name="solar"
-              onToggle={toggleState => {
-                setSolarHeat(toggleState);
-                control("solarHeat", toggleState);
-              }}
-            />
-            <ToggleField
-              label="Cleaner"
-              toggled={cleaner}
-              name="cleaner"
-              onToggle={toggleState => {
-                setCleaner(toggleState);
-                control("cleaner", toggleState);
-              }}
-            />
-            <ToggleField
-              label="Pump"
-              toggled={pump}
-              name="pump"
-              onToggle={toggleState => {
-                setPump(toggleState);
-                control("pump", toggleState);
-              }}
-            />
-          </Form>
-        </Card.Body>
-      </Card>
-    );
-  };
-  */
-  /*
-  const xrender = () => {
-    return (
-      <div style={{ margin: 8 }}>
-        <div style={{ textAlign: "center" }}>{renderMainSwitch()}</div>
-        <Row style={{ padding: 16 }}>
-          <Col sm={3} style={{ padding: 2 }}>
-            {renderWeather()}
-          </Col>
-          <Col sm={3} style={{ padding: 2 }}>
-            {renderPoolControls()}
-          </Col>
-          <Col sm={3} style={{ padding: 2 }}>
-            {renderSpaControls()}
-          </Col>
-          <Col sm={3} style={{ padding: 2 }}>
-            {renderSolarControls()}
-          </Col>
-        </Row>
-        <Row
-          style={{
-            textAlign: "center",
-            marginTop: 10,
-            display: "flex",
-            justifyContent: "center"
-          }}
-        >
-          <MacroTile label="Warm Spa" name="Warm Spa" width={1} />
-          <MacroTile label="Enter Spa" name="Enter Spa" width={1} />
-          <MacroTile label="Exit Spa" name="Exit Spa" width={1} />
-          <MacroTile label="Spa Off" name="Spa Off" width={1} />
-        </Row>
-      </div>
-    );
-  };
-  */
   return render();
 };
 

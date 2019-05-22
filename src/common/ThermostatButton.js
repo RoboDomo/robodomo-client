@@ -3,7 +3,7 @@
  *
  * Component for upper right side of Theater screen, to display and control thermostat
  */
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 import RemoteButton from "common/RemoteButton";
@@ -16,7 +16,6 @@ import Config from "Config";
 import useWeather from "common/hooks/useWeather";
 
 const ThermostatButton = ({ thermostat }) => {
-  const weather_status_topic = useRef(null);
   const [postalCode, setPostalCode] = useState(0);
   const [ambientTemperature, setAmbientTemperature] = useState(72);
   const [targetTemperature, setTargetTemperature] = useState(72);

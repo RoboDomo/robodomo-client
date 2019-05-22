@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from "react";
-
-import Config from "Config";
+import React from "react";
 
 import { FaFlag } from "react-icons/fa";
-
-import MQTT from "lib/MQTT";
 
 import useWeather from "common/hooks/useWeather";
 
@@ -32,10 +28,6 @@ const styles = {
 const dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const WeatherTab = ({ location }) => {
-  const device = location.device,
-    status_topic = `${Config.mqtt.weather}/${device}/status/`,
-    status_topic_length = status_topic.length;
-
   const weather = useWeather(location.device);
 
   const renderHourly = hourly => {

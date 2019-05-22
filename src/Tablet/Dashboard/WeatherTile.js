@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Tile from "./Tile";
 import Config from "Config";
-import MQTT from "lib/MQTT";
 import { FaFlag } from "react-icons/fa";
 
 import useWeather from "common/hooks/useWeather";
