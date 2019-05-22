@@ -5,30 +5,13 @@ import Config from "Config";
 import MQTT from "lib/MQTT";
 import { FaFlag } from "react-icons/fa";
 
+import useWeather from "common/hooks/useWeather";
+
 const WeatherTile = () => {
-  const [displayCity, setDisplayCity] = useState("");
-  const [now, setNow] = useState({});
   const location = Config.weather.locations[0];
 
-  useEffect(() => {
-    const status_topic =
-      Config.mqtt.weather + "/" + location.device + "/status/";
-    const onStateChange = (topic, newValue) => {
-      if (~topic.indexOf("now")) {
-        setNow(newValue);
-      } else if (~topic.indexOf("display_city")) {
-        setDisplayCity(newValue);
-      } else {
-        console.log("invalid topic/value", topic, newValue);
-      }
-    };
-    MQTT.subscribe(status_topic + "now", onStateChange);
-    MQTT.subscribe(status_topic + "display_city", onStateChange);
-    return () => {
-      MQTT.unsubscribe(status_topic + "now", onStateChange);
-      MQTT.unsubscribe(status_topic + "display_city", onStateChange);
-    };
-  }, []);
+  const weather = useWeather(location.device),
+    { now, display_city } = weather;
 
   if (!now.icon) {
     return (
@@ -40,7 +23,7 @@ const WeatherTile = () => {
   return (
     <Tile width={2} height={2} onClick="weather">
       <div style={{ textAlign: "center" }}>
-        <div>{displayCity}</div>
+        <div>{display_city}</div>
         <div
           style={{
             fontSize: 48,

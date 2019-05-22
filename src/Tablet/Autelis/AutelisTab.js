@@ -8,6 +8,8 @@ import Clock from "common/Clock";
 import Config from "Config";
 import MQTT from "lib/MQTT";
 
+import useWeather from "common/hooks/useWeather";
+
 const AutelisTab = () => {
   const autelis = Config.autelis,
     location = autelis.location,
@@ -15,12 +17,10 @@ const AutelisTab = () => {
     backward = autelis.deviceMap.backward;
 
   const status_topic = Config.mqtt.autelis + "/status/",
-    set_topic = status_topic.replace("status", "set"),
-    weather_topic = Config.mqtt.weather + "/" + location + "/status/";
+    set_topic = status_topic.replace("status", "set");
 
-  // weather
-  const [now, setNow] = useState({});
-  const [city, setCity] = useState("");
+  const weather = useWeather(location),
+    { now, display_city, forecast } = weather;
 
   // general
   const [pump, setPump] = useState(false);
@@ -60,16 +60,6 @@ const AutelisTab = () => {
     "solarHeat",
     "solarTemp"
   ];
-
-  const handleWeatherChange = (topic, message) => {
-    if (~topic.indexOf("now")) {
-      setNow(message);
-    } else if (~topic.indexOf("display_city")) {
-      setCity(message);
-    } else {
-      console.log("can't weather change", topic, message);
-    }
-  };
 
   const handleStateChange = (topic, message) => {
     const key = backward[topic.substr(status_topic.length)];
@@ -131,8 +121,6 @@ const AutelisTab = () => {
   };
 
   useEffect(() => {
-    MQTT.subscribe(weather_topic + "now", handleWeatherChange);
-    MQTT.subscribe(weather_topic + "display_city", handleWeatherChange);
     for (const key of topics) {
       MQTT.subscribe(status_topic + forward[key], handleStateChange);
     }
@@ -141,8 +129,6 @@ const AutelisTab = () => {
       for (const key of topics) {
         MQTT.unsubscribe(status_topic + forward[key], handleStateChange);
       }
-      MQTT.unsubscribe(weather_topic + "now", handleWeatherChange);
-      MQTT.unsubscribe(weather_topic + "display_city", handleWeatherChange);
     };
   }, []);
 
@@ -196,7 +182,7 @@ const AutelisTab = () => {
           <div>Sunset: {sunset}</div>
         </div>
         <div style={{ fontSize: 38, flex: 1 }}>
-          {city} {img} {now.current_temperature}&deg;F
+          {display_city} {img} {now.current_temperature}&deg;F
         </div>
       </div>
     );

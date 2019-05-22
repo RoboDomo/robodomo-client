@@ -6,6 +6,8 @@ import { FaFlag } from "react-icons/fa";
 
 import MQTT from "lib/MQTT";
 
+import useWeather from "common/hooks/useWeather";
+
 const styles = {
   img: {
     verticalAlign: "middle",
@@ -33,6 +35,8 @@ const WeatherTab = ({ location }) => {
   const device = location.device,
     status_topic = `${Config.mqtt.weather}/${device}/status/`,
     status_topic_length = status_topic.length;
+
+  const weather = useWeather(location.device);
 
   const renderHourly = hourly => {
     return (
@@ -80,6 +84,7 @@ const WeatherTab = ({ location }) => {
       </div>
     );
   };
+
   const renderDaily = daily => {
     return (
       <div
@@ -130,49 +135,49 @@ const WeatherTab = ({ location }) => {
     );
   };
 
-  const [forecast, setForecast] = useState({});
-  const [now, setNow] = useState({});
-  const [display_city, setDisplayCity] = useState("");
+  //  const [forecast, setForecast] = useState({});
+  //  const [now, setNow] = useState({});
+  //  const [display_city, setDisplayCity] = useState("");
 
-  useEffect(() => {
-    const onStateChange = (topic, newState) => {
-      const key = topic.substr(status_topic_length);
-      switch (key) {
-        case "forecast":
-          setForecast(newState);
-          break;
-        case "now":
-          setNow(newState);
-          break;
-        case "display_city":
-          setDisplayCity(newState);
-          break;
-        default:
-          throw new Error("invalid case", key);
-      }
-    };
-    MQTT.subscribe(status_topic + "forecast", onStateChange);
-    MQTT.subscribe(status_topic + "now", onStateChange);
-    MQTT.subscribe(status_topic + "display_city", onStateChange);
-    return () => {
-      MQTT.unsubscribe(status_topic + "forecast", onStateChange);
-      MQTT.unsubscribe(status_topic + "now", onStateChange);
-      MQTT.unsubscribe(status_topic + "display_city", onStateChange);
-    };
-  }, []);
+  //  useEffect(() => {
+  //    const onStateChange = (topic, newState) => {
+  //      const key = topic.substr(status_topic_length);
+  //      switch (key) {
+  //        case "forecast":
+  //          setForecast(newState);
+  //          break;
+  //        case "now":
+  //          setNow(newState);
+  //          break;
+  //        case "display_city":
+  //          setDisplayCity(newState);
+  //          break;
+  //        default:
+  //          throw new Error("invalid case", key);
+  //      }
+  //    };
+  //    MQTT.subscribe(status_topic + "forecast", onStateChange);
+  //    MQTT.subscribe(status_topic + "now", onStateChange);
+  //    MQTT.subscribe(status_topic + "display_city", onStateChange);
+  //    return () => {
+  //      MQTT.unsubscribe(status_topic + "forecast", onStateChange);
+  //      MQTT.unsubscribe(status_topic + "now", onStateChange);
+  //      MQTT.unsubscribe(status_topic + "display_city", onStateChange);
+  //    };
+  //  }, []);
 
   try {
     const header = (
         <div style={{ fontSize: 24, fontWeight: "bold" }}>
-          {display_city} Weather
+          {weather.display_city} Weather
         </div>
       ),
-      daily = forecast.daily || [],
+      daily = weather.forecast.daily || [],
       //      hourly = forecast.hourly,
-      sunrise = new Date(now.sunrise * 1000)
+      sunrise = new Date(weather.now.sunrise * 1000)
         .toLocaleTimeString()
         .replace(":00 ", " "),
-      sunset = new Date(now.sunset * 1000)
+      sunset = new Date(weather.now.sunset * 1000)
         .toLocaleTimeString()
         .replace(":00 ", " ");
 
@@ -192,8 +197,8 @@ const WeatherTab = ({ location }) => {
           }}
         >
           <div>
-            <FaFlag style={{ fontSize: 24 }} /> {now.wind_direction}{" "}
-            {now.current_wind} MPH
+            <FaFlag style={{ fontSize: 24 }} /> {weather.now.wind_direction}{" "}
+            {weather.now.current_wind} MPH
           </div>
           <div style={{ fontSize: 14, textAlign: "right" }}>
             Sunrise: {sunrise} / Sunset: {sunset}
@@ -201,11 +206,11 @@ const WeatherTab = ({ location }) => {
         </div>
         <div style={{ fontSize: 30, float: "left", marginBottom: 10 }}>
           <img
-            alt={now.icon}
+            alt={weather.now.icon}
             style={styles.img}
-            src={`/img/Weather/icons/black/${now.icon}.svg`}
+            src={`/img/Weather/icons/black/${weather.now.icon}.svg`}
           />
-          {now.current_temperature}&deg;F
+          {weather.now.current_temperature}&deg;F
           <div style={{ fontSize: 14, textAlign: "right" }}>
             High: {daily[0].high_temperature}&deg; / Low:{" "}
             {daily[0].low_temperature}&deg;
@@ -214,13 +219,14 @@ const WeatherTab = ({ location }) => {
         <div style={{ clear: "both" }} />
 
         <h4>Hourly Forecast</h4>
-        {renderHourly(forecast.hourly)}
+        {renderHourly(weather.forecast.hourly)}
         <h5 style={{ marginTop: 2 }}>5 Day Forecast</h5>
         {renderDaily(daily)}
       </div>
     );
   } catch (e) {
-    console.log("Weather render exception", e.message, e.stack);
+    console.log("weather", weather);
+    //    console.log("Weather render exception", e.message, e.stack);
     return null;
   }
 };

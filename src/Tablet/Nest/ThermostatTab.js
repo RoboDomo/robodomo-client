@@ -19,6 +19,8 @@ import Thermostat from "react-nest-thermostat";
 
 import MQTT from "lib/MQTT";
 
+import useWeather from "common/hooks/useWeather";
+
 const ThermostatTab = ({ thermostat }) => {
   const device = thermostat.device;
 
@@ -26,10 +28,10 @@ const ThermostatTab = ({ thermostat }) => {
     thermostat_status_topic_length = thermostat_status_topic.length,
     set_topic = thermostat_status_topic.replace("status", "set");
 
-  const weather_status_topic = useRef(null);
+  const [thermoState, setThermoState] = useState(null);
 
-  const [thermoState, setThermoState] = useState({}),
-    [weatherState, setWeatherState] = useState({});
+  const weather = useWeather(thermoState ? thermoState.postal_code : null),
+    { now, display_city, forecast } = weather;
 
   const thermostatTopics = [
     "device",
@@ -45,14 +47,6 @@ const ThermostatTab = ({ thermostat }) => {
     "time_to_target",
     "hvac_mode"
   ];
-  const weatherTopics = ["now", "forecast"];
-
-  const onWeatherChange = (topic, newState) => {
-    const key = topic.substr(weather_status_topic.current.length);
-    const s = {};
-    s[key] = newState;
-    setWeatherState(prev => ({ ...prev, ...s }));
-  };
 
   const onThermostatChange = (topic, newState) => {
     const key = topic.substr(thermostat_status_topic_length);
@@ -68,12 +62,6 @@ const ThermostatTab = ({ thermostat }) => {
     return () => {
       for (const topic of thermostatTopics) {
         MQTT.unsubscribe(thermostat_status_topic + topic, onThermostatChange);
-      }
-      if (weather_status_topic.current) {
-        const t = weather_status_topic.current;
-        for (const w of weatherTopics) {
-          MQTT.unsubscribe(t + w, onWeatherChange);
-        }
       }
     };
   }, []);
@@ -97,14 +85,13 @@ const ThermostatTab = ({ thermostat }) => {
   };
 
   const render = () => {
-    const thermostat = thermoState,
-      weather = weatherState,
-      now = weather ? weather.now : {};
+    const thermostat = thermoState;
 
-    if (!thermostat || !now) {
+    if (!thermostat || !thermostat.away) {
       return null;
     }
 
+    console.log("thermostat", thermostat);
     const target = n => {
       let icon = <FaChevronRight />,
         disabled = false;
@@ -301,14 +288,6 @@ const ThermostatTab = ({ thermostat }) => {
     );
   };
 
-  if (!weather_status_topic.current && thermoState.postal_code) {
-    const t = (weather_status_topic.current = `${Config.mqtt.weather}/${
-      thermoState.postal_code
-    }/status/`);
-    for (const w of weatherTopics) {
-      MQTT.subscribe(t + w, onWeatherChange);
-    }
-  }
   return render();
 };
 

@@ -29,7 +29,7 @@ const useTiVo = config => {
         select: "SELECT",
         right: "RIGHT",
         down: "DOWN",
-        channeldown: "CHANNLEDOWN",
+        channeldown: "CHANNELDOWN",
 
         a: "a",
         b: "b",

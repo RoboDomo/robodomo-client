@@ -13,14 +13,18 @@ import MQTT from "lib/MQTT";
 
 import Config from "Config";
 
-const ThermostatButton = ({ thermostat, weather }) => {
+import useWeather from "common/hooks/useWeather";
+
+const ThermostatButton = ({ thermostat }) => {
   const weather_status_topic = useRef(null);
   const [postalCode, setPostalCode] = useState(0);
   const [ambientTemperature, setAmbientTemperature] = useState(72);
   const [targetTemperature, setTargetTemperature] = useState(72);
   const [hvacState, setHVACState] = useState("off");
-  const [now, setNow] = useState({});
+  //  const [now, setNow] = useState({});
 
+  const weather = useWeather(postalCode);
+  console.log("weather", weather);
   const thermostat_status_topic =
       Config.mqtt.nest + "/" + thermostat + "/status/",
     set_topic = thermostat_status_topic.replace("status", "set");
@@ -34,8 +38,6 @@ const ThermostatButton = ({ thermostat, weather }) => {
       setTargetTemperature(newState);
     } else if (~topic.indexOf("hvac_state")) {
       setHVACState(newState);
-    } else if (~topic.indexOf("weather")) {
-      setNow(newState);
     } else {
       console.log("invalid topic/state", topic, newState);
     }
@@ -71,21 +73,7 @@ const ThermostatButton = ({ thermostat, weather }) => {
         handleStateChange
       );
     };
-  }, []); // postalCode, ambientTemperature, targetTemperature, hvacState]);
-
-  useEffect(() => {
-    if (!weather_status_topic.current && postalCode) {
-      const t = Config.mqtt.weather + "/" + postalCode + "/status/now";
-      weather_status_topic.current = t;
-      MQTT.subscribe(t, handleStateChange);
-    }
-    return () => {
-      if (weather_status_topic.current) {
-        MQTT.unsubscribe(weather_status_topic.current, handleStateChange);
-        weather_status_topic.current = null;
-      }
-    };
-  }, [postalCode]);
+  }, []);
 
   const handleClickDown = () => {
     const target_temperature = targetTemperature - 1;
@@ -130,11 +118,11 @@ const ThermostatButton = ({ thermostat, weather }) => {
             width: 32,
             height: 32
           }}
-          src={"/img/Weather/icons/black/" + now.icon + ".svg"}
-          alt={now.icon}
+          src={"/img/Weather/icons/black/" + weather.now.icon + ".svg"}
+          alt={weather.now.icon}
         />
         <div style={{ display: "inline", paddingTop: 0 }}>
-          {now.current_temperature}&deg; F
+          {weather.now.current_temperature}&deg; F
         </div>
       </div>
       <div style={{ fontSize: 16, fontWeight: "bold" }}>
@@ -162,4 +150,6 @@ const ThermostatButton = ({ thermostat, weather }) => {
     </>
   );
 };
+
+//
 export default ThermostatButton;
