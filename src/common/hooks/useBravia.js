@@ -2,6 +2,126 @@ import { useState, useEffect, useReducer } from "react";
 import MQTT from "lib/MQTT";
 import Config from "Config";
 
+const codes = [
+  "*AD",
+  "ActionMenu",
+  "Analog",
+  "Analog2",
+  "AnalogRgb1",
+  "AndroidMenu",
+  "Assists",
+  "Audio",
+  "AudioMixDown",
+  "AudioMixUp",
+  "BS",
+  "BSCS",
+  "Blue",
+  "CS",
+  "ChannelDown",
+  "ChannelUp",
+  "ClosedCaption",
+  "Component1",
+  "Component2",
+  "Confirm",
+  "CursorDown",
+  "CursorLeft",
+  "CursorRight",
+  "CursorUp",
+  "DOT",
+  "DUX",
+  "Ddata",
+  "DemoMode",
+  "DemoSurround",
+  "Digital",
+  "DigitalToggle",
+  "Display",
+  "Down",
+  "DpadCenter",
+  "EPG",
+  "Enter",
+  "Exit",
+  "FeaturedApp",
+  "FeaturedAppVOD",
+  "FlashMinus",
+  "FlashPlus",
+  "FootballMode",
+  "Forward",
+  "GGuide",
+  "GooglePlay",
+  "Green",
+  "Hdmi1",
+  "Hdmi2",
+  "Hdmi3",
+  "Hdmi4",
+  "Help",
+  "Home",
+  "Input",
+  "Jump",
+  "Left",
+  "Media",
+  "MediaAudioTrack",
+  "Mode3D",
+  "Mute",
+  "Netflix",
+  "Next",
+  "Num0",
+  "Num1",
+  "Num11",
+  "Num12",
+  "Num2",
+  "Num3",
+  "Num4",
+  "Num5",
+  "Num6",
+  "Num7",
+  "Num8",
+  "Num9",
+  "OneTouchTimeRec",
+  "OneTouchView",
+  "Options",
+  "PAP",
+  "Pause",
+  "PhotoFrame",
+  "PicOff",
+  "PictureMode",
+  "PictureOff",
+  "Play",
+  "PopUpMenu",
+  "PowerOff",
+  "Prev",
+  "Rec",
+  "Red",
+  "Return",
+  "Rewind",
+  "Right",
+  "ShopRemoteControlForcedDynamic",
+  "Sleep",
+  "SleepTimer",
+  "Stop",
+  "SubTitle",
+  "SyncMenu",
+  "Teletext",
+  "TenKey",
+  "TopMenu",
+  "Tv",
+  "TvAnalog",
+  "TvAntennaCable",
+  "TvInput",
+  "TvPower",
+  "TvSatellite",
+  "Tv_Radio",
+  "Up",
+  "Video1",
+  "Video2",
+  "VolumeDown",
+  "VolumeUp",
+  "WakeUp",
+  "Wide",
+  "WirelessSubwoofer",
+  "Yellow",
+  "iManual"
+];
+
 const useBravia = config => {
   const hostname = config.device;
   const status_topic = Config.mqtt.bravia + "/" + hostname + "/status/",
@@ -14,26 +134,23 @@ const useBravia = config => {
   const [appsMap, setAppsMap] = useState(null);
 
   const reducer = (state, action) => {
-    switch (action) {
+    if (~codes.indexOf(action.type)) {
+      MQTT.publish(set_topic, action.type);
+      return;
+    }
+    const act = action.type.toLowerCase();
+    switch (act) {
       default:
         console.error("useBravia reducer invalid action", action);
     }
   };
 
   const handleAppsList = (topic, message) => {
-    try {
-      setAppsList(JSON.parse(message));
-    } catch (e) {
-      setAppsList(message);
-    }
+    setAppsList(message);
   };
 
   const handleAppsMap = (topic, message) => {
-    try {
-      setAppsMap(JSON.parse(message));
-    } catch (e) {
-      setAppsMap(message);
-    }
+    setAppsMap(message);
   };
 
   const handleInput = (topic, message) => {
@@ -45,11 +162,8 @@ const useBravia = config => {
   };
 
   const handleVolume = (topic, message) => {
-    try {
-      setVolume(JSON.parse(message));
-    } catch (e) {
-      setVolume(message);
-    }
+    setVolume(message.speaker);
+    console.log("volume", message.speaker);
     //
   };
 
@@ -70,6 +184,7 @@ const useBravia = config => {
 
   const [, d] = useReducer(reducer);
   return {
+    ...config,
     dispatch: d,
     power: power,
     input: input,

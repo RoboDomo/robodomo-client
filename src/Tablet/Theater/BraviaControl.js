@@ -1,11 +1,11 @@
 import React from "react";
 
 import {
-  Row,
-  Col,
-  ButtonGroup,
-  Tooltip,
-  OverlayTrigger
+  //  Row,
+  //  Col,
+  ButtonGroup
+  //  Tooltip,
+  //  OverlayTrigger
 } from "react-bootstrap";
 
 import {
@@ -13,59 +13,65 @@ import {
   FaChevronDown,
   FaChevronLeft,
   FaChevronRight,
+  FaPowerOff,
+  FaVolumeMute,
+  FaVolumeUp,
+  FaVolumeDown,
   FaBackward,
   FaFastBackward,
   FaPause,
   FaPlay,
-  FaStepForward,
+  //  FaStepForward,
   FaForward,
-  FaFastForward,
-  FaDotCircle
+  FaFastForward
+  //  FaDotCircle
 } from "react-icons/fa";
 
-import RemoteButton from "common/RemoteButton";
+import useBravia from "common/hooks/useBravia";
+import ActionButton from "common/ActionButton";
 
-import Config from "Config";
+//import Config from "Config";
 
-const BraviaControl = ({ bravia, tvInput, avrInput }) => {
-  const status_topic = Config.mqtt.bravia + "/" + bravia.device + "/status/",
-    //    status_topic_length = status_topic.length,
-    set_topic = status_topic.replace("status", "set") + "command";
+const BraviaControl = ({ config }) => {
+  //  ({ bravia, tvInput, avrInput }) => {
+  const tv = useBravia(config),
+    dispatch = tv.dispatch;
+  //  const status_topic = Config.mqtt.bravia + "/" + config.device + "/status/",
+  //    set_topic = status_topic.replace("status", "set") + "command";
 
-  console.log("bravia", bravia, status_topic);
   const renderJoystick = () => {
     return (
       <>
         <ButtonGroup>
-          <RemoteButton variant="none" />
-          <RemoteButton topic={set_topic} message="UP">
+          <ActionButton variant="none" />
+          <ActionButton dispatch={dispatch} action="CursorUp">
             <FaChevronUp />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="CHANNELUP" variant="info">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="ChannelUp" variant="info">
             +
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton topic={set_topic} message="LEFT">
+          <ActionButton dispatch={dispatch} action="CursorLeft">
             <FaChevronLeft />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="SELECT" variant="primary">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="Enter" variant="primary">
             Select
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="RIGHT">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="CursorRight">
             <FaChevronRight />
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          <RemoteButton variant="none" />
-          <RemoteButton topic={set_topic} message="DOWN">
+          <ActionButton variant="none" />
+          <ActionButton dispatch={dispatch} action="CursorDown">
             <FaChevronDown />
-          </RemoteButton>
-          <RemoteButton topic={set_topic} message="CHANNELDOWN" variant="info">
+          </ActionButton>
+          <ActionButton dispatch={dispatch} action="ChannelDown" variant="info">
             -
-          </RemoteButton>
+          </ActionButton>
         </ButtonGroup>
       </>
     );
@@ -84,51 +90,51 @@ const BraviaControl = ({ bravia, tvInput, avrInput }) => {
       >
         <div style={{ flex: 1 }}>
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="NUM1">
+            <ActionButton dispatch={dispatch} action="Num1">
               1
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM2">
+            </ActionButton>
+            <ActionButton dispatch={dispatch} action="Num2">
               2
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM3">
+            </ActionButton>
+            <ActionButton dispatch={dispatch} action="Num3">
               3
-            </RemoteButton>
+            </ActionButton>
           </ButtonGroup>
           <br />
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="NUM4">
+            <ActionButton dispatch={dispatch} action="Num4">
               4
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM5">
+            </ActionButton>
+            <ActionButton dispatch={dispatch} action="Num5">
               5
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM6">
+            </ActionButton>
+            <ActionButton dispatch={dispatch} action="Num6">
               6
-            </RemoteButton>
+            </ActionButton>
           </ButtonGroup>
           <br />
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="NUM7">
+            <ActionButton dispatch={dispatch} action="Num7">
               7
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM8">
+            </ActionButton>
+            <ActionButton dispatch={dispatch} action="Num8">
               8
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM9">
+            </ActionButton>
+            <ActionButton dispatch={dispatch} action="Num9">
               9
-            </RemoteButton>
+            </ActionButton>
           </ButtonGroup>
           <br />
           <ButtonGroup>
-            <RemoteButton topic={set_topic} message="CLEAR">
+            <ActionButton dispatch={dispatch} action="Clear">
               .
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="NUM0">
+            </ActionButton>
+            <ActionButton dispatch={dispatch} action="Num0">
               0
-            </RemoteButton>
-            <RemoteButton topic={set_topic} message="ENTER">
+            </ActionButton>
+            <ActionButton dispatch={dispatch} action="Enter">
               Enter
-            </RemoteButton>
+            </ActionButton>
           </ButtonGroup>
         </div>
       </div>
@@ -138,18 +144,34 @@ const BraviaControl = ({ bravia, tvInput, avrInput }) => {
   const renderHDMI = () => {
     return (
       <ButtonGroup>
-        <RemoteButton variant={tvInput === "hdmi1" ? "primary" : undefined}>
+        <ActionButton
+          variant={tv.input === "hdmi1" ? "success" : undefined}
+          dispatch={dispatch}
+          action="Hdmi1"
+        >
           HDMI 1
-        </RemoteButton>
-        <RemoteButton variant={tvInput === "hdmi2" ? "primary" : undefined}>
+        </ActionButton>
+        <ActionButton
+          variant={tv.input === "hdmi2" ? "success" : undefined}
+          dispatch={dispatch}
+          action="Hdmi2"
+        >
           HDMI 2
-        </RemoteButton>
-        <RemoteButton variant={tvInput === "hdmi3" ? "primary" : undefined}>
+        </ActionButton>
+        <ActionButton
+          variant={tv.input === "hdmi3" ? "success" : undefined}
+          dispatch={dispatch}
+          action="Hdmi3"
+        >
           HDMI 3
-        </RemoteButton>
-        <RemoteButton variant={tvInput === "hdmi4" ? "primary" : undefined}>
+        </ActionButton>
+        <ActionButton
+          variant={tv.input === "hdmi4" ? "success" : undefined}
+          dispatch={dispatch}
+          action="Hdmi4"
+        >
           HDMI 4
-        </RemoteButton>
+        </ActionButton>
       </ButtonGroup>
     );
   };
@@ -157,30 +179,115 @@ const BraviaControl = ({ bravia, tvInput, avrInput }) => {
   const renderLaunchPoints = () => {
     return (
       <ButtonGroup>
-        <RemoteButton>Netflix</RemoteButton>
-        <RemoteButton>Prime</RemoteButton>
-        <RemoteButton>YouTube</RemoteButton>
-        <RemoteButton>CBS</RemoteButton>
+        <ActionButton dispatch={dispatch} action="LAUNCH-Netflix">
+          Netflix
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="LAUNCH-Prime Video">
+          Prime
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="LAUNCH-YouTube">
+          YouTube
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="LAUNCH-HBO GO">
+          HBO Go
+        </ActionButton>
       </ButtonGroup>
     );
   };
 
+  const renderControls = () => {
+    const power = tv.power ? (
+      <ActionButton dispatch={dispatch} action="PowerOff">
+        <span style={{ fontWeight: "bold", color: "red" }}>
+          <FaPowerOff /> Off
+        </span>
+      </ActionButton>
+    ) : (
+      <ActionButton dispatch={dispatch} action="WakeUp">
+        <span style={{ fontWeight: "bold", color: "lightgreen" }}>
+          <FaPowerOff /> On
+        </span>
+      </ActionButton>
+    );
+    return (
+      <ButtonGroup>
+        <ActionButton dispatch={dispatch} action="Return">
+          Return
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="Display">
+          Display
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="Home">
+          Home
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="ActionMenu">
+          Menu
+        </ActionButton>
+        {power}
+      </ButtonGroup>
+    );
+  };
+
+  const renderVolume = () => {
+    const mute = tv && tv.volume ? tv.volume.mute : false;
+    return (
+      <>
+        <ActionButton dispatch={dispatch} action="VolumeUp">
+          <FaVolumeUp />
+        </ActionButton>
+        <ActionButton dispatch={dispatch} action="VolumeDown">
+          <FaVolumeDown />
+        </ActionButton>
+        <ActionButton
+          variant={mute ? "danger" : undefined}
+          dispatch={dispatch}
+          action="Mute"
+        >
+          <FaVolumeMute />
+        </ActionButton>
+      </>
+    );
+  };
+
+  const renderTransport = () => {
+    return (
+      <ButtonGroup>
+        <ActionButton mini dispatch={dispatch} action="Prev">
+          <FaFastBackward />
+        </ActionButton>
+        <ActionButton mini dispatch={dispatch} action="Rewind">
+          <FaBackward />
+        </ActionButton>
+        <ActionButton mini dispatch={dispatch} action="Pause">
+          <FaPause />
+        </ActionButton>
+        <ActionButton mini dispatch={dispatch} action="Play">
+          <FaPlay />
+        </ActionButton>
+        <ActionButton mini dispatch={dispatch} action="Forward">
+          <FaForward />
+        </ActionButton>
+        <ActionButton mini dispatch={dispatch} action="Next">
+          <FaFastForward />
+        </ActionButton>
+      </ButtonGroup>
+    );
+  };
+  // \\ // \\
   return (
     <>
       <div>
-        <h4>{bravia.title}</h4>
-        <ButtonGroup>
-          <RemoteButton>Return</RemoteButton>
-          <RemoteButton>Display</RemoteButton>
-          <RemoteButton>Home</RemoteButton>
-          <RemoteButton>Menu</RemoteButton>
-          <RemoteButton>Power</RemoteButton>
-        </ButtonGroup>
+        <h4>
+          {config.title} ({tv.power ? "ON" : "OFF"})
+        </h4>
+        {renderControls()}
       </div>
-      <div style={{ marginTop: 8 }}>{renderJoystick()}</div>
-      <div style={{ marginTop: 8 }}>{renderKeypad()}</div>
-      <div style={{ marginTop: 8 }}>{renderHDMI()}</div>
-      <div style={{ marginTop: 8 }}>{renderLaunchPoints()}</div>
+      <div style={{ marginTop: 4 }}>{renderVolume()}</div>
+      <div style={{ marginTop: 4 }}>{renderJoystick()}</div>
+      <div style={{ marginTop: 4 }}>{renderKeypad()}</div>
+      <div style={{ marginTop: 4 }}>{renderHDMI()}</div>
+      <div style={{ marginTop: 4 }}>{renderLaunchPoints()}</div>
+      <div style={{ marginTop: 4 }}>{renderTransport()}</div>
     </>
   );
 };

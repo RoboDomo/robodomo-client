@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Row, Col } from "react-bootstrap";
 
@@ -19,8 +19,9 @@ const TheaterTab = ({ style, theater }) => {
   const [currentActivity, setCurrentActivity] = useState("All Off");
   const [startingActivity, setStartingActivity] = useState(null);
 
-  const avr = useRef(null);
-  const tv = useRef(null);
+  //  const avr = useRef(null);
+  let tv, avr;
+  //  const tv = useRef(null);
 
   // devices
   const devices = theater.devices || [],
@@ -30,19 +31,19 @@ const TheaterTab = ({ style, theater }) => {
     deviceMap[device.type] = device;
     switch (device.type) {
       case "denon":
-        avr.current = useDenon({ ...device, debug: "TheaterTab" });
+        avr = useDenon({ ...device, debug: "TheaterTab" });
         break;
       case "lgtv":
-        tv.current = useLGTV({ ...device, debug: "TheaterTab" });
+        tv = useLGTV({ ...device, debug: "TheaterTab" });
         break;
       case "bravia":
-        tv.current = useBravia({ ...device, debug: "TheaterTab" });
+        tv = useBravia({ ...device, debug: "TheaterTab" });
         break;
       default:
         break;
     }
   }
-  if (!avr.current) {
+  if (!avr) {
     return null;
   }
 
@@ -95,20 +96,27 @@ const TheaterTab = ({ style, theater }) => {
     //    } catch (e) {}
 
     let found = false;
-    for (const activity of activities) {
-      const inputs = activity.inputs || {};
-      //        console.log("inputs", inputs.tv, tvInput, inputs.avr, avrInput);
-      if (inputs.tv === tv.current.input && inputs.avr === avr.current.input) {
-        if (currentActivity !== activity.name) {
-          setCurrentDevice(prev => activity.defaultDevice);
-          setCurrentActivity(prev => activity.name);
-          //          console.log(
-          //            "FOUND currentActivity",
-          //            currentActivity,
-          //            ":" + activity.name + ":"
-          //          );
-          found = true;
-          break;
+    if (!tv.power) {
+      //      console.log("TV OFF");
+      setCurrentActivity("All Off");
+      tv.input = "Off";
+      found = true;
+    } else {
+      for (const activity of activities) {
+        const inputs = activity.inputs || {};
+        //        console.log("inputs", inputs.tv, tvInput, inputs.avr, avrInput);
+        if (inputs.tv === tv.input && inputs.avr === avr.input) {
+          if (currentActivity !== activity.name) {
+            setCurrentDevice(prev => activity.defaultDevice);
+            setCurrentActivity(prev => activity.name);
+            //          console.log(
+            //            "FOUND currentActivity",
+            //            currentActivity,
+            //            ":" + activity.name + ":"
+            //          );
+            found = true;
+            break;
+          }
         }
       }
     }
@@ -123,13 +131,13 @@ const TheaterTab = ({ style, theater }) => {
     }
   }, [
     //uutvPower,
-    tv.current.power,
-    avr.current.power,
+    tv.power,
+    avr.power,
     currentActivity,
     currentDevice,
     //    tvInput,
-    tv.current.input,
-    avr.current.input
+    tv.input,
+    avr.input
     //    foregroundApp
   ]);
 
@@ -148,8 +156,8 @@ const TheaterTab = ({ style, theater }) => {
     return (
       <TheaterDevice
         currentDevice={currentDevice}
-        avr={avr.current}
-        tv={tv.current}
+        avr={avr}
+        tv={tv}
         deviceMap={deviceMap}
       />
     );
@@ -167,15 +175,15 @@ const TheaterTab = ({ style, theater }) => {
         <DevicesListGroup
           devices={devices}
           currentDevice={currentDevice}
-          tvInput={tv.current.input}
-          avrInput={avr.current.input}
+          tvInput={tv.input}
+          avrInput={avr.input}
           onClick={handleDeviceClick}
         />
       </Col>
       <Col sm={10}>
         <Row style={{ width: "100%", textAlign: "center" }}>
           <Col sm={2} style={{ textAlign: "center" }}>
-            <AudioControl avr={avr.current} />
+            <AudioControl avr={avr} />
           </Col>
           <Col sm={7} style={{ textAlign: "center" }}>
             {renderDevice()}

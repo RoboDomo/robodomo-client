@@ -11,11 +11,6 @@ const TheaterDevice = ({ currentDevice, avr, tv, deviceMap }) => {
   if (!currentDevice) {
     return <h1>All Off</h1>;
   }
-  //  console.log("currentDevice", currentDevice);
-
-  if (currentDevice.startsWith("Sony")) {
-    currentDevice = "Sony TV";
-  }
   switch (currentDevice) {
     case "Harmony Hub":
       return <HarmonyRemoteControl hub={deviceMap.harmony} />;
@@ -28,14 +23,8 @@ const TheaterDevice = ({ currentDevice, avr, tv, deviceMap }) => {
     case "LG TV":
       // TODO tvInput, avrInput props might change?  Use key...
       return <LGTVControl config={deviceMap.lgtv} />;
-    case "Sony TV":
-      return (
-        <BraviaControl
-          bravia={deviceMap.bravia}
-          tvInput={tv.input}
-          avrInput={avr.input}
-        />
-      );
+    case "TV":
+      return <BraviaControl config={deviceMap.bravia} />;
     default:
       return <h1>All Off</h1>;
   }

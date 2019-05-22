@@ -4,6 +4,7 @@
 1) Link to Documentation in README
 2) Complete Phone version.
 3) Use success variant for radios, etc.
+4) useWeather(), useTVGuide() hooks
 
 ### Theater
 1) Don't show AVR controls if no AVR.  Show TV audio controls instead. Same logic if AVR is powered off.

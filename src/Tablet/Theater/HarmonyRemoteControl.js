@@ -93,7 +93,7 @@ const HarmonyRemoteControl = ({ hub }) => {
       remap(commands, group);
     }
 
-    console.log("commands", commands);
+    //    console.log("commands", commands);
     return (
       <>
         <RokuButtons style={rowStyle} device={hub.device} commands={commands} />
