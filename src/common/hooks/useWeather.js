@@ -1,4 +1,4 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import MQTT from "lib/MQTT";
 import Config from "Config";
 
