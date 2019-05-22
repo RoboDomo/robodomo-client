@@ -11,6 +11,7 @@ import ButtonList from "./ButtonList";
 import MQTTScript from "lib/MQTTScript";
 
 import useLGTV from "common/hooks/useLGTV";
+import useBravia from "common/hooks/useBravia";
 import useDenon from "common/hooks/useDenon";
 
 const TheaterTab = ({ style, theater }) => {
@@ -34,6 +35,9 @@ const TheaterTab = ({ style, theater }) => {
       case "lgtv":
         tv.current = useLGTV({ ...device, debug: "TheaterTab" });
         break;
+      case "bravia":
+        tv.current = useBravia({ ...device, debug: "TheaterTab" });
+        break;
       default:
         break;
     }
@@ -54,41 +58,13 @@ const TheaterTab = ({ style, theater }) => {
   for (const activity of activities) {
     activitiesMap[activity.name] = activities;
   }
+
   const handleActivityClick = activity => {
     setCurrentActivity(activity.name);
     setCurrentDevice(activity.defaultDevice);
     setStartingActivity(activity);
     console.log("handleClick", activity.name, activity.script);
   };
-
-  useEffect(() => {
-    for (const device of devices) {
-      switch (device.type) {
-        case "bravia":
-          console.log("----> subscribe bravia");
-          //          MQTT.subscribe(`bravia/${device.device}/status/power`, handleMessage);
-          break;
-        default:
-          break;
-      }
-    }
-
-    return () => {
-      for (const device of devices) {
-        switch (device.type) {
-          case "bravia":
-            console.log("-----> unsubscribe bravia");
-            //            MQTT.unsubscribe(
-            //              `bravia/${device.device}/status/power`,
-            //              handleMessage
-            //            );
-            break;
-          default:
-            break;
-        }
-      }
-    };
-  }, []); // power, currentDevice, avrInput]);
 
   useEffect(() => {
     // determine TV input (e.g. HDMI1, HDMI2, NetFlix, etc.)

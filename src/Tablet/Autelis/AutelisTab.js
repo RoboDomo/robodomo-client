@@ -390,6 +390,15 @@ const AutelisTab = () => {
           marginTop: 8
         }}
       >
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Waterfall
+        </div>
         <ButtonGroup style={{ flex: 1 }}>
           <Button
             variant={waterfall ? "success" : undefined}
@@ -412,15 +421,6 @@ const AutelisTab = () => {
             Off
           </Button>
         </ButtonGroup>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24
-          }}
-        >
-          Waterfall
-        </div>
       </div>
     );
   };
@@ -433,6 +433,15 @@ const AutelisTab = () => {
           marginTop: 8
         }}
       >
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Pool Light
+        </div>
         <ButtonGroup style={{ flex: 1 }}>
           <Button
             variant={poolLight ? "success" : undefined}
@@ -455,15 +464,6 @@ const AutelisTab = () => {
             Off
           </Button>
         </ButtonGroup>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24
-          }}
-        >
-          Pool Light
-        </div>
       </div>
     );
   };
@@ -476,6 +476,15 @@ const AutelisTab = () => {
           marginTop: 8
         }}
       >
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 24
+          }}
+        >
+          Pool Heat
+        </div>
         <div style={{ flex: 0.6, display: "flex" }}>
           <ButtonGroup style={{ flex: 1 }}>
             <Button
@@ -512,15 +521,6 @@ const AutelisTab = () => {
               control("poolSetpoint", newValue);
             }}
           />
-        </div>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24
-          }}
-        >
-          Pool Heat
         </div>
       </div>
     );
@@ -731,8 +731,8 @@ const AutelisTab = () => {
             </Col>
             <Col sm={6}>
               {renderSpaHeater()}
-              {renderSpaLight()}
               {renderJets()}
+              {renderSpaLight()}
               {renderBlower()}
             </Col>
           </Row>

@@ -239,7 +239,7 @@ export default {
       guide: "CA68543",
       devices: [
         {
-          name: "Sony TV",
+          name: "TV",
           title: "Sony 850c",
           type: "bravia",
           favorites: braviaFavorites,
@@ -267,29 +267,37 @@ export default {
       ],
       activities: [
         {
-          name: "Watch TV",
-          default: "TiVo",
+          name: "TV",
+          defaultDevice: "TiVo",
+          inputs: {
+            tv: "hdmi2",
+            avr: "TV"
+          },
           script: [
             { topic: "bravia/sony-850c/set", message: "POWERON" },
             { topic: "bravia/sony-850c/set", message: "HDMI1" },
             { topic: "tivo/tivo-bolt", message: "LIVE TV" },
-            { topic: "denon/denon-x2100w/set", message: "SLEEP" }
+            { topic: "denon/denon-x2100w/set", message: "PWON" }
           ]
         },
         {
-          name: "Watch Apple TV",
+          name: "Apple TV",
           default: "AppleTV",
           script: [
-            { topic: "lgtv/olede6p/set", message: "POWERON" },
-            { topic: "lgtv/olede6p/set", message: "HDMI1" },
-            { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
-            { topic: "roku/roku4-theater/set", message: "SLEEP" }
+            { topic: "bravia/sony-850c/set", message: "POWERON" },
+            { topic: "bravia/sony-850c/set", message: "HDMI1" },
+            { topic: "tivo/tivo-bolt", message: "LIVE TV" }
+            //            { topic: "roku/roku4-theater/set", message: "SLEEP" }
           ]
         },
         {
           name: "All Off",
           default: null,
-          script: [{ topic: "lgtv/olede6p/set", message: "POWEROFF" }]
+          script: [
+            //
+            { topic: "bravia/sony-850c/set", message: "POWEROFF" },
+            { topic: "denon/denon-x2100w/set", message: "PWSTANDBY" }
+          ]
         }
       ],
       buttons: [
@@ -299,8 +307,11 @@ export default {
           device: "Falsetto/Hallway Thermostat",
           weather: "92211"
         },
+        { type: "label", text: "Ceiling Fan" },
         { name: "Ceiling Fan", type: "fan", device: "Bedroom Fan" },
+        { type: "label", text: "Fan Light" },
         { name: "Light", type: "dimmer", device: "Bedroom Fan Light" },
+        { type: "label", text: "Bathroom" },
         { name: "Bathroom", type: "dimmer", device: "Bathroom Light" },
         { name: "Kitchen Light", type: "switch", device: "Kitchen Sink Light" },
         { name: "Good Night", type: "macro", device: "Good Night" },
