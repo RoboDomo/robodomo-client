@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-
-// import MQTT from 'lib/MQTT';
-
+import MQTT from "./lib/MQTT";
 import Config from "./Config";
 
 /* prettier-ignore */
@@ -30,14 +28,14 @@ if (!mobile && meta && Config.bowser.platform.model !== "iPad") {
 //outer.style.height = "100%";
 //meta.setAttribute("content", "height=" + window.innerHeight);
 
-// MQTT.once('connect', () => {
-import("./App" /* webpackChunkName: "reel", webpackPreload: true */)
-  .then(mod => mod.default)
-  .then(App => {
-    ReactDOM.render(<App />, document.getElementById("root"));
-  });
-// });
-// MQTT.connect();
+MQTT.once("connect", () => {
+  import("./App" /* webpackChunkName: "reel", webpackPreload: true */)
+    .then(mod => mod.default)
+    .then(App => {
+      ReactDOM.render(<App />, document.getElementById("root"));
+    });
+});
+MQTT.connect();
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
