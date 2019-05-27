@@ -1,17 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import MQTT from "./lib/MQTT";
+import Config from "./Config";
 
-import MQTT from "lib/MQTT";
-
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootswatch/dist/slate/bootstrap.min.css";
-import "bootstrap-slider/dist/css/bootstrap-slider.css";
-import "react-bootstrap-toggle/dist/bootstrap2-toggle.css";
-
-import Config from "Config";
-
+/* prettier-ignore */
 console.log(
   "platform",
   Config.bowser,
@@ -36,10 +29,11 @@ if (!mobile && meta && Config.bowser.platform.model !== "iPad") {
 //meta.setAttribute("content", "height=" + window.innerHeight);
 
 MQTT.once("connect", () => {
-  ReactDOM.render(
-    <App style={{ height: "100%" }} />,
-    document.getElementById("root")
-  );
+  import("./App" /* webpackChunkName: "robodomo", webpackPreload: true */)
+    .then(mod => mod.default)
+    .then(App => {
+      ReactDOM.render(<App />, document.getElementById("root"));
+    });
 });
 MQTT.connect();
 
