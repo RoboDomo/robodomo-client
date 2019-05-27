@@ -29,7 +29,7 @@ if (!mobile && meta && Config.bowser.platform.model !== "iPad") {
 //meta.setAttribute("content", "height=" + window.innerHeight);
 
 MQTT.once("connect", () => {
-  import("./App" /* webpackChunkName: "reel", webpackPreload: true */)
+  import("./App" /* webpackChunkName: "robodomo", webpackPreload: true */)
     .then(mod => mod.default)
     .then(App => {
       ReactDOM.render(<App />, document.getElementById("root"));
