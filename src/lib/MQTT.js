@@ -2,19 +2,15 @@ import Config from "Config";
 import EventEmitter from "events";
 import { connect } from "mqtt";
 
-//const RETRY_TIME = 2000;
-
 class MQTT extends EventEmitter {
   constructor() {
     super();
     this.connect = this.connect.bind(this);
     this.cache = {};
     this.setMaxListeners(50);
-    //    this.reconnecting = false;
   }
 
   connect() {
-    //    this.reconnecting = false;
     console.log("connecting", Config.mqtt.host, Config.mqtt.port);
     this.host = Config.mqtt.host;
     this.port = Config.mqtt.port;
@@ -33,10 +29,7 @@ class MQTT extends EventEmitter {
   onFailure() {
     console.log("mqtt", "onFailure");
     this.emit("failure");
-    //    if (!this.reconnecting) {
-    //      this.reconnecting = true;
-    //      setTimeout(this.connect, RETRY_TIME);
-    //    }
+    // mosca retries for us
   }
 
   emitMessage(topic, payload) {
@@ -57,7 +50,6 @@ class MQTT extends EventEmitter {
         "color:red; font-weight: bold",
         "color:blue; font-weight: bold"
       );
-      //      console.warn("MQTT <<<", topic, message.substr(0, 20));
       this.emitMessage(topic, message);
     }
     this.emit("message", topic, message);
@@ -66,7 +58,7 @@ class MQTT extends EventEmitter {
   onConnectionLost(e) {
     console.log("mqtt", "onConnectionLost", e, this.subscriptions);
     this.emit("connectionlost");
-    //    setTimeout(this.connect, RETRY_TIME);
+    // mosca reonnects for us
   }
 
   subscribe(topic, handler) {
