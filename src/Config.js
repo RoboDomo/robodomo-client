@@ -9,7 +9,7 @@ const lgtvFavorites = [
   "hdmi1",
   "hdmi2",
   "hdmi3",
-  "hdmi4"
+  "hdmi4",
 ];
 
 // lowercase these
@@ -25,7 +25,7 @@ const braviaFavorites = [
   "epix",
   "showtime anytime",
   "fox news",
-  "cbs"
+  "cbs",
 ];
 
 const bowser = require("bowser"),
@@ -42,7 +42,7 @@ export default {
     // port is the port on the mqtt server for websocket connection
     // you would configure this for mosquitto, for example, in mosquitto.conf
     // between host and port, we're looking at something like mqtt://ha:80
-    port: 80,
+    port: 800,
     // topics - roughly one per microservice
     appletv: "appletv",
     denon: "denon",
@@ -55,13 +55,13 @@ export default {
     bravia: "bravia",
     lgtv: "lgtv",
     smartthings: "smartthings",
-    macros: "macros"
+    macros: "macros",
   },
   bowser: parser.getResult(),
   ui: {
     // these two add up to 12
     labelCol: 4,
-    fieldCol: 8
+    fieldCol: 8,
   },
   theaters: [
     {
@@ -73,34 +73,34 @@ export default {
           name: "Harmony Hub",
           title: "Theater Harmony Hub",
           type: "harmony",
-          device: "harmony-hub"
+          device: "harmony-hub",
         },
         {
           name: "TiVo",
           title: "TiVo Bolt+ 3TB",
           type: "tivo",
           device: "tivo-bolt-3tb",
-          guide: "CA68543"
+          guide: "CA68543",
         },
         {
           name: "LG TV",
           title: "LG OLEDE8P",
           type: "lgtv",
           favorites: lgtvFavorites,
-          device: "olede6p"
+          device: "olede6p",
         },
         {
           name: "AVR",
           title: "Denon S910W",
           type: "denon",
-          device: "denon-s910w"
+          device: "denon-s910w",
         },
         {
           name: "Apple TV",
           title: "Theater Apple TV",
           type: "appletv",
-          device: "appletv-theater"
-        }
+          device: "appletv-theater",
+        },
       ],
       activities: [
         {
@@ -108,89 +108,89 @@ export default {
           defaultDevice: "TiVo",
           inputs: {
             tv: "hdmi1",
-            avr: "TV"
+            avr: "TV",
           },
           script: [
             {
               text: "Starting Harmony Activity",
               topic: "harmony/harmony-hub/set/activity",
-              message: "35943301"
+              message: "35943301",
             },
             {
               text: "Turning on LG TV",
               topic: "lgtv/olede6p/set/command",
-              message: "POWERON"
+              message: "POWERON",
             },
             {
               text: "Setting TV Input to HDMI 1",
               topic: "lgtv/olede6p/set/commnad",
-              message: "LAUNCH-com.webos.app.hdmi1"
+              message: "LAUNCH-com.webos.app.hdmi1",
             },
             {
               text: "Setting TiVo to Live TV",
               topic: "tivo/tivo-bolt-3tb/set",
-              message: "LIVETV"
+              message: "LIVETV",
             },
             {
               text: "Turning on AVR",
               topic: "denon/denon-s910w/set",
-              message: "PWON"
+              message: "PWON",
             },
             {
               text: "Setting AVR to TV",
               topic: "denon/denon-s910w/set",
-              message: "SITV"
-            }
-          ]
+              message: "SITV",
+            },
+          ],
         },
         {
           name: "Apple TV",
           defaultDevice: "Apple TV",
           inputs: {
             tv: "hdmi2",
-            avr: "MPLAY"
+            avr: "MPLAY",
           },
           script: [
             {
               text: "Starting Harmony Activity",
               topic: "harmony/harmony-hub/set/activity",
-              message: "35943341"
+              message: "35943341",
             },
             {
               text: "Turning on LG TV",
               topic: "lgtv/olede6p/set",
-              message: "POWERON"
+              message: "POWERON",
             },
             {
               text: "Setting LGTV Input to HDMI2",
               topic: "lgtv/olede6p/set/command",
-              message: "LAUNCH-com.webos.app.hdmi2"
+              message: "LAUNCH-com.webos.app.hdmi2",
             },
             {
               text: "Turning on AVR",
               topic: "denon/denon-s910w/set/",
-              message: "PWON"
+              message: "PWON",
             },
             {
               text: "Setting AVR Input to MPLAY",
               topic: "denon/denon-s910w/set/",
-              message: "SIMPLAY"
-            }
-          ]
+              message: "SIMPLAY",
+            },
+          ],
         },
         {
           name: "Roku",
           defaultDevice: "Harmony Hub",
           inputs: {
             tv: "hdmi4",
-            avr: "TV"
+            avr: "TV",
           },
           script: [
             { topic: "lgtv/olede6p/set/power", message: "ON" },
             { topic: "lgtv/olede6p/set", message: "HDMI1" },
             { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
-            { topic: "roku/roku4-theater/set", message: "SLEEP" }
-          ]
+            { topic: "roku/roku4-theater/set", message: "SLEEP" },
+          ],
         },
         {
           // XBox is only available with a harmony hub to control it!
@@ -198,30 +198,30 @@ export default {
           defaultDevice: "Harmony Hub",
           inputs: {
             tv: "hdmi2",
-            avr: "DVD"
+            avr: "DVD",
           },
           script: [
             { topic: "lgtv/olede6p/set", message: "POWERON" },
             { topic: "lgtv/olede6p/set", message: "HDMI1" },
             { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
-            { topic: "roku/roku4-theater/set", message: "SLEEP" }
-          ]
+            { topic: "roku/roku4-theater/set", message: "SLEEP" },
+          ],
         },
         {
           name: "All Off",
           defaultDevice: null,
           script: [
             { topic: "lgtv/olede6p/set", message: "POWEROFF" },
-            { topic: "denon/denon-s910w/set", message: "PWOFF" }
-          ]
-        }
+            { topic: "denon/denon-s910w/set", message: "PWOFF" },
+          ],
+        },
       ],
       buttons: [
         {
           name: "Nest",
           type: "thermostat",
           device: "Falsetto/Hallway Thermostat",
-          weather: "92211"
+          weather: "92211",
         },
         { type: "label", text: "Ceiling Fan" },
         { name: "Ceiling Fan", type: "fan", device: "Ceiling Fan" },
@@ -230,8 +230,8 @@ export default {
         { type: "label", text: "Macros" },
         { name: "TV Break", type: "macro", device: "TV Break" },
         { name: "TV Resume", type: "macro", device: "TV Resume" },
-        { name: "Bed Time", type: "macro", device: "Bed Time" }
-      ]
+        { name: "Bed Time", type: "macro", device: "Bed Time" },
+      ],
     },
     {
       title: "MBR",
@@ -243,27 +243,27 @@ export default {
           title: "Sony 850c",
           type: "bravia",
           favorites: braviaFavorites,
-          device: "sony-850c"
+          device: "sony-850c",
         },
         {
           name: "AVR",
           title: "Denon X2100W",
           type: "denon",
-          device: "denon-x2100w"
+          device: "denon-x2100w",
         },
         {
           name: "TiVo",
           title: "TiVo Bolt",
           type: "tivo",
           device: "tivo-bolt",
-          guide: "CA68543"
+          guide: "CA68543",
         },
         {
           name: "Apple TV",
           title: "MBR Apple TV",
           type: "appletv",
-          device: "appletv-mbr"
-        }
+          device: "appletv-mbr",
+        },
       ],
       activities: [
         {
@@ -271,14 +271,14 @@ export default {
           defaultDevice: "TiVo",
           inputs: {
             tv: "hdmi2",
-            avr: "TV"
+            avr: "TV",
           },
           script: [
             { topic: "bravia/sony-850c/set", message: "POWERON" },
             { topic: "bravia/sony-850c/set", message: "HDMI1" },
             { topic: "tivo/tivo-bolt", message: "LIVE TV" },
-            { topic: "denon/denon-x2100w/set", message: "PWON" }
-          ]
+            { topic: "denon/denon-x2100w/set", message: "PWON" },
+          ],
         },
         {
           name: "Apple TV",
@@ -286,9 +286,9 @@ export default {
           script: [
             { topic: "bravia/sony-850c/set", message: "POWERON" },
             { topic: "bravia/sony-850c/set", message: "HDMI1" },
-            { topic: "tivo/tivo-bolt", message: "LIVE TV" }
+            { topic: "tivo/tivo-bolt", message: "LIVE TV" },
             //            { topic: "roku/roku4-theater/set", message: "SLEEP" }
-          ]
+          ],
         },
         {
           name: "All Off",
@@ -296,16 +296,16 @@ export default {
           script: [
             //
             { topic: "bravia/sony-850c/set", message: "POWEROFF" },
-            { topic: "denon/denon-x2100w/set", message: "PWSTANDBY" }
-          ]
-        }
+            { topic: "denon/denon-x2100w/set", message: "PWSTANDBY" },
+          ],
+        },
       ],
       buttons: [
         {
           name: "Nest",
           type: "thermostat",
           device: "Falsetto/Hallway Thermostat",
-          weather: "92211"
+          weather: "92211",
         },
         { type: "label", text: "Ceiling Fan" },
         { name: "Ceiling Fan", type: "fan", device: "Bedroom Fan" },
@@ -315,9 +315,9 @@ export default {
         { name: "Bathroom", type: "dimmer", device: "Bathroom Light" },
         { name: "Kitchen Light", type: "switch", device: "Kitchen Sink Light" },
         { name: "Good Night", type: "macro", device: "Good Night" },
-        { name: "Good Morning", type: "macro", device: "Good Morning" }
-      ]
-    }
+        { name: "Good Morning", type: "macro", device: "Good Morning" },
+      ],
+    },
   ],
   dashboards: [
     {
@@ -331,12 +331,12 @@ export default {
         { type: "spa", controller: "autelis" },
         {
           type: "theater",
-          title: "Theater"
+          title: "Theater",
         },
         {
           type: "garagedoor",
           title: "Garage Doors",
-          devices: ["Garage Door Sensor", "Cart Door Sensor"]
+          devices: ["Garage Door Sensor", "Cart Door Sensor"],
         },
         { device: "Ceiling Fan", type: "fan" },
         { device: "Ceiling Fan Light", type: "dimmer" },
@@ -350,8 +350,8 @@ export default {
         { type: "macro", name: "TV Resume", label: "TV Resume" },
         //          {type: 'macro', name: 'Theater On', label: 'Theater On'},
         //          {type: 'macro', name: 'Theater Off', label: 'Theater Off'},
-        { type: "macro", name: "Bedtime", label: "Bedtime" }
-      ]
+        { type: "macro", name: "Bedtime", label: "Bedtime" },
+      ],
     },
     {
       title: "MBR",
@@ -364,7 +364,7 @@ export default {
         {
           type: "garagedoor",
           title: "Garage Doors",
-          devices: ["Garage Door Sensor", "Cart Door Sensor"]
+          devices: ["Garage Door Sensor", "Cart Door Sensor"],
         },
         { device: "Bathroom Light", type: "dimmer" },
         { device: "Bedroom Fan", type: "fan" },
@@ -377,8 +377,8 @@ export default {
         { device: "Hall Bath Dimmer", type: "switch" },
         { device: "Hall Bath Lights", type: "switch" },
         { type: "macro", name: "Good Night", label: "Good Night" },
-        { type: "macro", name: "Good Morning", label: "Good Morning" }
-      ]
+        { type: "macro", name: "Good Morning", label: "Good Morning" },
+      ],
     },
     {
       title: "Office",
@@ -392,21 +392,21 @@ export default {
         {
           type: "garagedoor",
           title: "Garage Doors",
-          devices: ["Garage Door Sensor", "Cart Door Sensor"]
+          devices: ["Garage Door Sensor", "Cart Door Sensor"],
         },
         { device: "Office Dimmer", type: "dimmer" },
         { device: "Office Fan", type: "fan" },
         { device: "Office Light", type: "dimmer" },
         { device: "Back Room Light", type: "dimmer" },
         { device: "Back Room Fan", type: "fan" },
-        { device: "Back Room Switch", type: "switch" }
+        { device: "Back Room Switch", type: "switch" },
         //              {device: 'Kitchen Lights', type: 'dimmer'},
         //              {device: 'Porch Light', type: 'switch'},
         //              {device: 'Outside Light', type: 'switch'},
         //              {device: 'Bathroom Light', type: 'dimmer'},
         //          {type: 'macro', name: 'Theater On', label: 'Theater On'},
         //          {type: 'macro', name: 'Theater Off', label: 'Theater Off'},
-      ]
+      ],
     },
     {
       title: "Macros",
@@ -419,15 +419,15 @@ export default {
         { type: "macro", name: "Warm Spa", label: "Warm Spa" },
         { type: "macro", name: "Enter Spa", label: "Enter Spa" },
         { type: "macro", name: "Exit Spa", label: "Exit Spa" },
-        { type: "macro", name: "Spa Off", label: "Spa Off" }
-      ]
-    }
+        { type: "macro", name: "Spa Off", label: "Spa Off" },
+      ],
+    },
   ],
   weather: {
     locations: [
       { name: "Palm Desert CA", device: "92211" },
-      { name: "Mission Beach CA", device: "92109" }
-    ]
+      { name: "Mission Beach CA", device: "92109" },
+    ],
   },
   autelis: {
     device: "autelis",
@@ -458,7 +458,7 @@ export default {
         poolTemp: "pooltemp",
         spaTemp: "spatemp",
         solarHeat: "solarht",
-        solarTemp: "solartemp"
+        solarTemp: "solartemp",
       },
       backward: {
         pump: "pump",
@@ -476,113 +476,111 @@ export default {
         spaht: "spaHeat",
         poolht: "poolHeat",
         solartemp: "solarTemp",
-        solarht: "solarHeat"
-      }
-    }
+        solarht: "solarHeat",
+      },
+    },
   },
   //  autelis: require("autelis-microservice/config").autelis,
   nest: {
-    thermostats: [
-      { device: "Falsetto/Hallway Thermostat", name: "Hallway Thermostat" }
-    ],
+    thermostats: [{ device: "Falsetto/Hallway Thermostat", name: "Hallway Thermostat" }],
     protects: [
       {
         device: "Falsetto/Entryway Nest Protect",
-        name: "Entryway"
-      }
-    ]
+        name: "Entryway",
+      },
+    ],
   },
   sensors: [
     {
       name: "Back Office Multisensor",
       topic: "smartthings/Back Office Multisensor/battery",
-      type: "battery"
+      type: "battery",
     },
     {
       name: "Back Office Multisensor",
       topic: "smartthings/Back Office Multisensor/humidity",
-      type: "humidity"
+      type: "humidity",
     },
     {
       name: "Back Office Multisensor",
       topic: "smartthings/Back Office Multisensor/illuminance",
-      type: "illuminance"
+      type: "illuminance",
     },
     {
       name: "Back Office Multisensor",
       topic: "smartthings/Back Office Multisensor/motion",
-      type: "motion"
+      type: "motion",
     },
     {
       name: "Back Office Multisensor",
       topic: "smartthings/Back Office Multisensor/temperature",
-      type: "temperature"
+      type: "temperature",
     },
     {
       name: "Bathroom Sensor",
       topic: "smartthings/Bathroom Sensor/motion",
-      type: "motion"
+      type: "motion",
     },
     {
       name: "Bathroom Sensor",
       topic: "smartthings/Bathroom Sensor/battery",
-      type: "battery"
+      type: "battery",
     },
     {
       name: "Cart Door Sensor",
       topic: "smartthings/Cart Door Sensor/contact",
-      type: "contact"
+      type: "contact",
     },
     {
       name: "Garage Door Sensor",
       topic: "smartthings/Garage Door Sensor/contact",
-      type: "contact"
+      type: "contact",
     },
     {
       name: "Sliding Door",
       topic: "smartthings/Sliding Door/contact",
-      type: "contact"
+      type: "contact",
     },
     {
       name: "Sliding Door",
       topic: "smartthings/Sliding Door/temperature",
-      type: "temperature"
+      type: "temperature",
     },
     {
       name: "Front Door",
       topic: "smartthings/Front Door/motion",
-      type: "motion"
+      type: "motion",
     },
     {
       name: "Front Door",
       topic: "smartthings/Front Door/battery",
-      type: "battery"
+      type: "battery",
     },
     {
       name: "Thermostat",
       topic: "nest/Falsetto/Hallway Thermostat/status/ambient_temperature_f",
-      type: "temperature"
+      type: "temperature",
     },
     {
       name: "Thermostat",
       topic: "nest/Falsetto/Hallway Thermostat/status/humidity",
-      type: "humidity"
+      type: "humidity",
     },
     {
       name: "MBR Sensor",
       topic: "smartthings/MBR Sensor/battery",
-      type: "battery"
+      type: "battery",
     },
     {
       name: "MBR Sensor",
       topic: "smartthings/MBR Sensor/contact",
-      type: "contact"
+      type: "contact",
     },
     {
       name: "MBR Sensor",
       topic: "smartthings/MBR Sensor/temperature",
-      type: "temperature"
-    }
+      type: "temperature",
+    },
   ],
   smartthings: {
     device: "smartthings",
@@ -593,47 +591,47 @@ export default {
       {
         name: "Office Dimmer",
         type: "dimmer",
-        rooms: ["Theater", "Office", "Back Room"]
+        rooms: ["Theater", "Office", "Back Room"],
       },
       {
         name: "Office Light",
         type: "dimmer",
-        rooms: ["Theater", "Office", "Back Room"]
+        rooms: ["Theater", "Office", "Back Room"],
       },
       {
         name: "Office Fan",
         type: "fan",
-        rooms: ["Theater", "Office", "Back Room"]
+        rooms: ["Theater", "Office", "Back Room"],
       },
       {
         name: "Back Room Light",
         type: "dimmer",
-        rooms: ["Theater", "Office", "Back Room"]
+        rooms: ["Theater", "Office", "Back Room"],
       },
       {
         name: "Back Room Fan",
         type: "fan",
-        rooms: ["Theater", "Office", "Back Room"]
+        rooms: ["Theater", "Office", "Back Room"],
       },
       {
         name: "Back Room Switch",
         type: "switch",
-        rooms: ["Theater", "Office", "Back Room"]
+        rooms: ["Theater", "Office", "Back Room"],
       },
       {
         name: "Entryway Lights",
         type: "switch",
-        rooms: ["Theater", "Office", "Back Room", "Bedroom"]
+        rooms: ["Theater", "Office", "Back Room", "Bedroom"],
       },
       {
         name: "Kitchen Lights",
         type: "dimmer",
-        rooms: ["Kitchen", "Theater", "Bedroom"]
+        rooms: ["Kitchen", "Theater", "Bedroom"],
       },
       {
         name: "Bathroom Light",
         type: "dimmer",
-        rooms: ["Bathroom", "Bedroom"]
+        rooms: ["Bathroom", "Bedroom"],
       },
       { name: "Bedroom Lamp", type: "switch", rooms: ["Bedroom"] },
       { name: "Bedroom Fan", type: "fan", rooms: ["Bedroom"] },
@@ -647,20 +645,20 @@ export default {
       {
         name: "Front Door",
         type: "motion",
-        rooms: ["Theater", "Bedroom", "Outside"]
+        rooms: ["Theater", "Bedroom", "Outside"],
       },
       {
         name: "Bathroom Sensor",
         type: "motion",
-        rooms: ["Bathroom", "Bedroom"]
+        rooms: ["Bathroom", "Bedroom"],
       },
       { name: "Sliding Door", type: "acceleration", rooms: ["*"] },
       { name: "Sliding Door", type: "temperature", rooms: ["*"] },
-      { name: "Sliding Door", type: "threeAxis", rooms: ["*"] }
-    ]
+      { name: "Sliding Door", type: "threeAxis", rooms: ["*"] },
+    ],
   },
   tvguide: {
-    guides: [{ device: "CA68543", name: "Frontier FIOS Palm Desert" }]
+    guides: [{ device: "CA68543", name: "Frontier FIOS Palm Desert" }],
   },
   tivo: {
     guide: "CA68543",
@@ -671,18 +669,18 @@ export default {
         device: "tivo-bolt-3tb",
         name: "Theater TiVo",
         denon: "denon-s910w",
-        guide: "CA68543"
+        guide: "CA68543",
       },
       {
         device: "tivo-bolt",
         name: "TiVo Bolt",
         denon: "denon-x2100w",
-        guide: "CA68543"
+        guide: "CA68543",
       },
       { device: "tivo-office2", name: "Mini Back Office", guide: "CA68543" },
       { device: "tivo-office", name: "Mini Office", guide: "CA68543" },
-      { device: "tivo-guest", name: "Mini Guest Room", guide: "CA68543" }
-    ]
+      { device: "tivo-guest", name: "Mini Guest Room", guide: "CA68543" },
+    ],
   },
   tivoFavorites: [
     { name: "CNN", channel: "0600" },
@@ -695,13 +693,13 @@ export default {
     { name: "FOX", channel: "0508" },
     { name: "PBS", channel: "0528" },
     { name: "COOKING", channel: "0663" },
-    { name: "FOOD", channel: "0664" }
+    { name: "FOOD", channel: "0664" },
   ],
   denon: {
     receivers: [
       { name: "Family Room Receiver", device: "denon-s910w" },
-      { name: "Master Bed Room Receiver", device: "denon-x2100w" }
-    ]
+      { name: "Master Bed Room Receiver", device: "denon-x2100w" },
+    ],
   },
   lgtv: {
     tvs: [
@@ -709,15 +707,15 @@ export default {
         name: "Family Room TV",
         device: "olede6p",
         denon: "denon-s910w",
-        favorites: lgtvFavorites
-      }
-    ]
+        favorites: lgtvFavorites,
+      },
+    ],
   },
   bravia: {
     tvs: [
       { name: "MBR TV", device: "sony-850c", favorites: braviaFavorites },
-      { name: "Office TV", device: "sony-810c", favorites: braviaFavorites }
-    ]
+      { name: "Office TV", device: "sony-810c", favorites: braviaFavorites },
+    ],
   },
   harmony: {
     hubs: [
@@ -729,7 +727,7 @@ export default {
           {
             type: "thermostat",
             text: "Nest",
-            name: "Falsetto/Hallway Thermostat"
+            name: "Falsetto/Hallway Thermostat",
           },
           { type: "fan", text: "Ceiling Fan", name: "Ceiling Fan" },
           { type: "dimmer", text: "Light", name: "Ceiling Fan Light" },
@@ -737,23 +735,23 @@ export default {
             type: "mqtt",
             text: "TV Break",
             topic: "macros/run",
-            message: "TV Break"
+            message: "TV Break",
           },
           {
             type: "mqtt",
             text: "TV Resume",
             topic: "macros/run",
-            message: "TV Resume"
+            message: "TV Resume",
           },
           {
             type: "mqtt",
             text: "Bedtime",
             topic: "macros/run",
-            message: "Bedtime"
-          }
-        ]
-      }
+            message: "Bedtime",
+          },
+        ],
+      },
       //      {name: 'Master Bedroom', device: 'harmony-hub2'},
-    ]
-  }
+    ],
+  },
 };
