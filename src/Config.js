@@ -42,7 +42,7 @@ export default {
     // port is the port on the mqtt server for websocket connection
     // you would configure this for mosquitto, for example, in mosquitto.conf
     // between host and port, we're looking at something like mqtt://ha:80
-    port: 800,
+    port: 80,
     // topics - roughly one per microservice
     appletv: "appletv",
     denon: "denon",
