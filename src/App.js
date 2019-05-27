@@ -6,8 +6,12 @@ import "bootswatch/dist/slate/bootstrap.min.css";
 import "bootstrap-slider/dist/css/bootstrap-slider.css";
 import "react-bootstrap-toggle/dist/bootstrap2-toggle.css";
 
-const Tablet = lazy(() => import("./Tablet/MainScreen" /* webpackChunkName: "tablet", webpackPreload: true  */));
-const Phone = lazy(() => import("./Phone/MainScreen" /* webpackChunkName: "phone", webpackPreload: true  */));
+const Tablet = lazy(() =>
+  import("./Tablet/MainScreen" /* webpackChunkName: "tablet", webpackPrefetch: true  */)
+);
+const Phone = lazy(() =>
+  import("./Phone/MainScreen" /* webpackChunkName: "phone", webpackPrefetch: true  */)
+);
 
 const Platform = () => {
   if (Config.bowser.platform.type === "mobile") {
