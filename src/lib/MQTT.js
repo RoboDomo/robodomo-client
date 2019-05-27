@@ -2,7 +2,7 @@ import Config from "Config";
 import EventEmitter from "events";
 import { connect } from "mqtt";
 
-const RETRY_TIME = 2000;
+//const RETRY_TIME = 2000;
 
 class MQTT extends EventEmitter {
   constructor() {
@@ -10,11 +10,11 @@ class MQTT extends EventEmitter {
     this.connect = this.connect.bind(this);
     this.cache = {};
     this.setMaxListeners(50);
-    this.reconnecting = false;
+    //    this.reconnecting = false;
   }
 
   connect() {
-    this.reconnecting = false;
+    //    this.reconnecting = false;
     console.log("connecting", Config.mqtt.host, Config.mqtt.port);
     this.host = Config.mqtt.host;
     this.port = Config.mqtt.port;
@@ -33,10 +33,10 @@ class MQTT extends EventEmitter {
   onFailure() {
     console.log("mqtt", "onFailure");
     this.emit("failure");
-    if (!this.reconnecting) {
-      this.reconnecting = true;
-      setTimeout(this.connect, RETRY_TIME);
-    }
+    //    if (!this.reconnecting) {
+    //      this.reconnecting = true;
+    //      setTimeout(this.connect, RETRY_TIME);
+    //    }
   }
 
   emitMessage(topic, payload) {
