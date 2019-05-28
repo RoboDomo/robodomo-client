@@ -16,7 +16,7 @@ import {
   FaStepForward,
   FaForward,
   FaFastForward,
-  FaDotCircle
+  FaDotCircle,
 } from "react-icons/fa";
 
 const style = {
@@ -25,14 +25,14 @@ const style = {
     marginTop: 4,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   line: {
     overflow: "hidden",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 };
 
 const TiVo = ({ device }) => {
@@ -45,7 +45,7 @@ const TiVo = ({ device }) => {
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "center"
+            justifyContent: "center",
           }}
         >
           <ButtonGroup>

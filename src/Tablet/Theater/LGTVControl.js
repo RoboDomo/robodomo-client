@@ -14,7 +14,7 @@ import {
   FaStepForward,
   FaForward,
   FaFastForward,
-  FaDotCircle
+  FaDotCircle,
 } from "react-icons/fa";
 
 import ActionButton from "common/ActionButton";
@@ -46,7 +46,7 @@ const ignoredLaunchPoints = [
   "Notifications",
   "Set Up TV for Google Assistant",
   "Set Up TV for Amazon Alexa",
-  "LG Remote Service"
+  "LG Remote Service",
 ];
 
 // If props.lgtv.tuner is set to true, then additional controls are rendered.
@@ -115,7 +115,7 @@ const LGTVControl = ({ config }) => {
                 marginRight: 10,
                 marginBottom: 10,
                 float: "left",
-                border: border
+                border: border,
               }}
               key={info.id}
               onClick={() => {
@@ -225,8 +225,7 @@ const LGTVControl = ({ config }) => {
         <br />
         <ButtonGroup>
           <ActionButton variant="none" />
-          {button("down", <FaChevronDown />)};
-          {button("channeldown", "-", "info")};
+          {button("down", <FaChevronDown />)};{button("channeldown", "-", "info")};
         </ButtonGroup>
       </>
     );
@@ -283,12 +282,7 @@ const LGTVControl = ({ config }) => {
   const renderTransport = () => {
     const button = (action, label, variant) => {
       return (
-        <ActionButton
-          variant={variant}
-          dispatch={dispatch}
-          action={action}
-          mini
-        >
+        <ActionButton variant={variant} dispatch={dispatch} action={action} mini>
           {label}
         </ActionButton>
       );

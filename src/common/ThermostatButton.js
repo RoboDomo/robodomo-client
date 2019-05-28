@@ -24,8 +24,7 @@ const ThermostatButton = ({ thermostat }) => {
 
   const weather = useWeather(postalCode);
   console.log("weather", weather);
-  const thermostat_status_topic =
-      Config.mqtt.nest + "/" + thermostat + "/status/",
+  const thermostat_status_topic = Config.mqtt.nest + "/" + thermostat + "/status/",
     set_topic = thermostat_status_topic.replace("status", "set");
 
   const handleStateChange = (topic, newState) => {
@@ -44,35 +43,17 @@ const ThermostatButton = ({ thermostat }) => {
 
   useEffect(() => {
     MQTT.subscribe(thermostat_status_topic + "postal_code", handleStateChange);
-    MQTT.subscribe(
-      thermostat_status_topic + "ambient_temperature_f",
-      handleStateChange
-    );
-    MQTT.subscribe(
-      thermostat_status_topic + "target_temperature_f",
-      handleStateChange
-    );
+    MQTT.subscribe(thermostat_status_topic + "ambient_temperature_f", handleStateChange);
+    MQTT.subscribe(thermostat_status_topic + "target_temperature_f", handleStateChange);
     MQTT.subscribe(thermostat_status_topic + "hvac_state", handleStateChange);
 
     return () => {
-      MQTT.unsubscribe(
-        thermostat_status_topic + "postal_code",
-        handleStateChange
-      );
-      MQTT.unsubscribe(
-        thermostat_status_topic + "ambient_temperature_f",
-        handleStateChange
-      );
-      MQTT.unsubscribe(
-        thermostat_status_topic + "target_temperature_f",
-        handleStateChange
-      );
-      MQTT.unsubscribe(
-        thermostat_status_topic + "hvac_state",
-        handleStateChange
-      );
+      MQTT.unsubscribe(thermostat_status_topic + "postal_code", handleStateChange);
+      MQTT.unsubscribe(thermostat_status_topic + "ambient_temperature_f", handleStateChange);
+      MQTT.unsubscribe(thermostat_status_topic + "target_temperature_f", handleStateChange);
+      MQTT.unsubscribe(thermostat_status_topic + "hvac_state", handleStateChange);
     };
-  }, []);
+  }, [thermostat_status_topic]);
 
   const handleClickDown = () => {
     const target_temperature = targetTemperature - 1;
@@ -115,7 +96,7 @@ const ThermostatButton = ({ thermostat }) => {
           style={{
             verticalAlign: "middle",
             width: 32,
-            height: 32
+            height: 32,
           }}
           src={"/img/Weather/icons/black/" + weather.now.icon + ".svg"}
           alt={weather.now.icon}
@@ -124,9 +105,7 @@ const ThermostatButton = ({ thermostat }) => {
           {weather.now.current_temperature}&deg; F
         </div>
       </div>
-      <div style={{ fontSize: 16, fontWeight: "bold" }}>
-        Inside: {ambientTemperature}&deg;F
-      </div>
+      <div style={{ fontSize: 16, fontWeight: "bold" }}>Inside: {ambientTemperature}&deg;F</div>
       <RemoteButton onClick={handleClickUp}>
         <FaChevronUp />
       </RemoteButton>
@@ -138,7 +117,7 @@ const ThermostatButton = ({ thermostat }) => {
           backgroundColor: backgroundColor,
           width: 96,
           marginLeft: "auto",
-          marginRight: "auto"
+          marginRight: "auto",
         }}
       >
         {targetTemperature}&deg;F

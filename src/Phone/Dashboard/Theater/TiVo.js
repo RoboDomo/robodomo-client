@@ -22,25 +22,13 @@ const TiVo = ({ device }) => {
       }
     };
 
-    MQTT.subscribe(
-      `${Config.mqtt.tivo}/${device.device}/status/channel`,
-      handleMessage
-    );
-    MQTT.subscribe(
-      `${Config.mqtt.tvguide}/${device.guide}/status/channels`,
-      handleMessage
-    );
+    MQTT.subscribe(`${Config.mqtt.tivo}/${device.device}/status/channel`, handleMessage);
+    MQTT.subscribe(`${Config.mqtt.tvguide}/${device.guide}/status/channels`, handleMessage);
     return () => {
-      MQTT.unsubscribe(
-        `${Config.mqtt.tivo}/${device.device}/status/channel`,
-        handleMessage
-      );
-      MQTT.unsubscribe(
-        `${Config.mqtt.tvguide}/${device.guide}/status/channels`,
-        handleMessage
-      );
+      MQTT.unsubscribe(`${Config.mqtt.tivo}/${device.device}/status/channel`, handleMessage);
+      MQTT.unsubscribe(`${Config.mqtt.tvguide}/${device.guide}/status/channels`, handleMessage);
     };
-  }, []);
+  }, [device.device, device.guide]);
 
   const info = channels[channel];
   if (!info) {

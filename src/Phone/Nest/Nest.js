@@ -8,9 +8,7 @@ import ProtectTab from "./ProtectTab";
 const LOCALSTORAGE_KEY = "nestPhoneTabState";
 
 const Nest = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem(LOCALSTORAGE_KEY) || "0"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
 
   return (
     <Tabs
@@ -26,11 +24,7 @@ const Nest = () => {
     >
       {Config.nest.thermostats.map(thermostat => {
         return (
-          <Tab
-            title={thermostat.name}
-            eventKey={thermostat.name}
-            key={thermostat.name}
-          >
+          <Tab title={thermostat.name} eventKey={thermostat.name} key={thermostat.name}>
             <ThermostatTab thermostat={thermostat} />
           </Tab>
         );

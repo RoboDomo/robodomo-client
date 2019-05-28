@@ -6,9 +6,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import WeatherTab from "./WeatherTab";
 
 const Weather = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem("weatherTabState") || "0"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem("weatherTabState") || "0");
   const changeTab = eventKey => {
     localStorage.setItem("weatherTabState", eventKey);
     setActiveTab(eventKey);

@@ -1,17 +1,17 @@
 import React from "react";
 import { ListGroup } from "react-bootstrap";
 
-import ClockItem from "Dashboard/ClockItem";
-import WeatherItem from "Dashboard/WeatherItem";
-import ThermostatItem from "Dashboard/ThermostatItem";
-import PoolItem from "Dashboard/PoolItem";
-import SpaItem from "Dashboard/SpaItem";
-import TheaterItem from "Dashboard/TheaterItem";
-import GarageDoorItem from "Dashboard/GarageDoorItem";
-import FanItem from "Dashboard/FanItem";
-import DimmerItem from "Dashboard/DimmerItem";
-import SwitchItem from "Dashboard/SwitchItem";
-import MacroItem from "Dashboard/MacroItem";
+import ClockItem from "./ClockItem";
+import WeatherItem from "./WeatherItem";
+import ThermostatItem from "./ThermostatItem";
+import PoolItem from "./PoolItem";
+import SpaItem from "./SpaItem";
+import TheaterItem from "./TheaterItem";
+import GarageDoorItem from "./GarageDoorItem";
+import FanItem from "./FanItem";
+import DimmerItem from "./DimmerItem";
+import SwitchItem from "./SwitchItem";
+import MacroItem from "./MacroItem";
 
 const DashboardTab = ({ dashboard }) => {
   const renderTile = tile => {

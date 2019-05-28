@@ -15,7 +15,7 @@ const SliderField = ({
   step = 1,
   precision = 0,
   onSliderStop,
-  onSliderChange
+  onSliderChange,
 }) => {
   const [val, setVal] = useState(value);
   return (
@@ -69,7 +69,7 @@ SliderField.propTypes = {
   step: PropTypes.number,
   precision: PropTypes.number,
   onSliderStop: PropTypes.func,
-  onSliderChange: PropTypes.func
+  onSliderChange: PropTypes.func,
 };
 
 export default SliderField;

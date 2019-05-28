@@ -8,9 +8,7 @@ import TheaterTab from "./TheaterTab";
 const LOCALSTORAGE_KEY = "phoneTheaterTab";
 
 const Theater = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem(LOCALSTORAGE_KEY) || "1"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "1");
   return (
     <Tabs
       id="theater-tabs"

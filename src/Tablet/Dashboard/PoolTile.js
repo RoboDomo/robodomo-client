@@ -46,11 +46,7 @@ const PoolTile = ({ device }) => {
   };
 
   const on = autelis.pump,
-    backgroundColor = on
-      ? autelis.poolHeat === "enabled"
-        ? "red"
-        : "green"
-      : undefined,
+    backgroundColor = on ? (autelis.poolHeat === "enabled" ? "red" : "green") : undefined,
     color = on ? "white" : undefined;
 
   return (

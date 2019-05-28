@@ -27,10 +27,7 @@ const ButtonList = ({ theater }) => {
             case "thermostat":
               return (
                 <div key={key++} style={{ textAlign: "center", width: "100%" }}>
-                  <ThermostatButton
-                    thermostat={button.device}
-                    weather={button.weather}
-                  />
+                  <ThermostatButton thermostat={button.device} weather={button.weather} />
                 </div>
               );
             case "macro":

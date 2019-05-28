@@ -55,7 +55,7 @@ const useTiVo = config => {
         slow: "SLOW",
         forward: "FORWARD",
         advance: "ADVANCE",
-        record: "RECORD"
+        record: "RECORD",
       },
       act = action.type.toLowerCase(),
       message = actions[act];
@@ -88,14 +88,14 @@ const useTiVo = config => {
       MQTT.unsubscribe(`${topic}mode`, handleMessage);
       MQTT.unsubscribe(`${topic}reason`, handleMessage);
     };
-  }, []);
+  }, [topic]);
 
   const [, d] = useReducer(reducer.current);
   return {
     dispatch: d,
     channel: channel,
     mode: mode,
-    reason: reason
+    reason: reason,
   };
 };
 

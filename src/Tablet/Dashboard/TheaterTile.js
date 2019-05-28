@@ -99,10 +99,7 @@ const TheaterTile = ({ title }) => {
 
         for (const activity of activities) {
           const inputs = activity.inputs || {};
-          if (
-            inputs.tv === tvInput.current &&
-            inputs.avr === avrInput.current
-          ) {
+          if (inputs.tv === tvInput.current && inputs.avr === avrInput.current) {
             currentDevice.current = activity.defaultDevice;
             setCurrentActivity(activity.name);
             setActive(activity);
@@ -115,25 +112,13 @@ const TheaterTile = ({ title }) => {
       switch (device.type) {
         case "lgtv":
           tvType = "lgtv";
-          MQTT.subscribe(
-            `${Config.mqtt.lgtv}/${device.device}/status/power`,
-            onMessage
-          );
-          MQTT.subscribe(
-            `${Config.mqtt.lgtv}/${device.device}/status/foregroundApp`,
-            onMessage
-          );
-          MQTT.subscribe(
-            `${Config.mqtt.lgtv}/${device.device}/status/launchPoints`,
-            onMessage
-          );
+          MQTT.subscribe(`${Config.mqtt.lgtv}/${device.device}/status/power`, onMessage);
+          MQTT.subscribe(`${Config.mqtt.lgtv}/${device.device}/status/foregroundApp`, onMessage);
+          MQTT.subscribe(`${Config.mqtt.lgtv}/${device.device}/status/launchPoints`, onMessage);
           break;
         case "denon":
           denon.current = device.device;
-          MQTT.subscribe(
-            `${Config.mqtt.denon}/${device.device}/status/SI`,
-            onMessage
-          );
+          MQTT.subscribe(`${Config.mqtt.denon}/${device.device}/status/SI`, onMessage);
           break;
         case "tivo":
           tivo.current = device;
@@ -151,23 +136,15 @@ const TheaterTile = ({ title }) => {
         switch (device.type) {
           case "lgtv":
             tvType = "lgtv";
-            MQTT.unsubscribe(
-              `${Config.mqtt.lgtv}/${device.device}/status/power`,
-              onMessage
-            );
+            MQTT.unsubscribe(`${Config.mqtt.lgtv}/${device.device}/status/power`, onMessage);
             MQTT.unsubscribe(
               `${Config.mqtt.lgtv}/${device.device}/status/foregroundApp`,
               onMessage
             );
-            MQTT.unsubscribe(
-              `${Config.mqtt.lgtv}/${device.device}/status/launchPoints`
-            );
+            MQTT.unsubscribe(`${Config.mqtt.lgtv}/${device.device}/status/launchPoints`);
             break;
           case "denon":
-            MQTT.unsubscribe(
-              `${Config.mqtt.denon}/${device.device}/status/SI`,
-              onMessage
-            );
+            MQTT.unsubscribe(`${Config.mqtt.denon}/${device.device}/status/SI`, onMessage);
             break;
           case "tivo":
             break;

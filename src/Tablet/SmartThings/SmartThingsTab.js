@@ -39,7 +39,7 @@ const SmartThingsTab = ({ room }) => {
     const levels = {
       low: 25,
       medium: 50,
-      high: 75
+      high: 75,
     };
 
     if (state === "off") {
@@ -61,50 +61,26 @@ const SmartThingsTab = ({ room }) => {
       switch (thing.type) {
         case "dimmer":
         case "fan":
-          MQTT.subscribe(
-            `${status_topic}${thing.name}/switch`,
-            handleStateChange
-          );
-          MQTT.subscribe(
-            `${status_topic}${thing.name}/level`,
-            handleStateChange
-          );
+          MQTT.subscribe(`${status_topic}${thing.name}/switch`, handleStateChange);
+          MQTT.subscribe(`${status_topic}${thing.name}/level`, handleStateChange);
           break;
         case "switch":
-          MQTT.subscribe(
-            `${status_topic}${thing.name}/switch`,
-            handleStateChange
-          );
+          MQTT.subscribe(`${status_topic}${thing.name}/switch`, handleStateChange);
           break;
         case "motion":
-          MQTT.subscribe(
-            `${status_topic}${thing.name}/motion`,
-            handleStateChange
-          );
+          MQTT.subscribe(`${status_topic}${thing.name}/motion`, handleStateChange);
           break;
         case "presence":
-          MQTT.subscribe(
-            `${status_topic}${thing.name}/presence`,
-            handleStateChange
-          );
+          MQTT.subscribe(`${status_topic}${thing.name}/presence`, handleStateChange);
           break;
         case "button":
-          MQTT.subscribe(
-            `${status_topic}${thing.name}/pressed`,
-            handleStateChange
-          );
+          MQTT.subscribe(`${status_topic}${thing.name}/pressed`, handleStateChange);
           break;
         case "contact":
-          MQTT.subscribe(
-            `${status_topic}${thing.name}/contact`,
-            handleStateChange
-          );
+          MQTT.subscribe(`${status_topic}${thing.name}/contact`, handleStateChange);
           break;
         case "temperature":
-          MQTT.subscribe(
-            `${status_topic}${thing.name}/temperature`,
-            handleStateChange
-          );
+          MQTT.subscribe(`${status_topic}${thing.name}/temperature`, handleStateChange);
           break;
         case "acceleration":
           break;
@@ -121,50 +97,26 @@ const SmartThingsTab = ({ room }) => {
         switch (thing.type) {
           case "dimmer":
           case "fan":
-            MQTT.unsubscribe(
-              `${status_topic}${thing.name}/switch`,
-              handleStateChange
-            );
-            MQTT.unsubscribe(
-              `${status_topic}${thing.name}/level`,
-              handleStateChange
-            );
+            MQTT.unsubscribe(`${status_topic}${thing.name}/switch`, handleStateChange);
+            MQTT.unsubscribe(`${status_topic}${thing.name}/level`, handleStateChange);
             break;
           case "switch":
-            MQTT.unsubscribe(
-              `${status_topic}${thing.name}/switch`,
-              handleStateChange
-            );
+            MQTT.unsubscribe(`${status_topic}${thing.name}/switch`, handleStateChange);
             break;
           case "motion":
-            MQTT.unsubscribe(
-              `${status_topic}${thing.name}/motion`,
-              handleStateChange
-            );
+            MQTT.unsubscribe(`${status_topic}${thing.name}/motion`, handleStateChange);
             break;
           case "presence":
-            MQTT.unsubscribe(
-              `${status_topic}${thing.name}/presence`,
-              handleStateChange
-            );
+            MQTT.unsubscribe(`${status_topic}${thing.name}/presence`, handleStateChange);
             break;
           case "button":
-            MQTT.unsubscribe(
-              `${status_topic}${thing.name}/pressed`,
-              handleStateChange
-            );
+            MQTT.unsubscribe(`${status_topic}${thing.name}/pressed`, handleStateChange);
             break;
           case "contact":
-            MQTT.unsubscribe(
-              `${status_topic}${thing.name}/contact`,
-              handleStateChange
-            );
+            MQTT.unsubscribe(`${status_topic}${thing.name}/contact`, handleStateChange);
             break;
           case "temperature":
-            MQTT.unsubscribe(
-              `${status_topic}${thing.name}/temperature`,
-              handleStateChange
-            );
+            MQTT.unsubscribe(`${status_topic}${thing.name}/temperature`, handleStateChange);
             break;
           case "acceleration":
             break;
@@ -176,14 +128,14 @@ const SmartThingsTab = ({ room }) => {
         }
       }
     };
-  }, []);
+  }, [room.things, status_topic]);
 
   return (
     <div style={{ overflow: "scroll", height: "100vh", paddingBottom: 300 }}>
       <div
         style={{
           width: "50%",
-          margin: "auto"
+          margin: "auto",
         }}
       >
         {room.things.map((thing, ndx) => {

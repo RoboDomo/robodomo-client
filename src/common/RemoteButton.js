@@ -20,7 +20,7 @@ const RemoteButton = ({ variant, topic, message, mini, children, onClick }) => {
     width: mini ? 46 : w,
     height: 40,
     fontSize: 14,
-    paddingBottom: 22
+    paddingBottom: 22,
   };
   if (variant === "none") {
     return (
@@ -28,7 +28,7 @@ const RemoteButton = ({ variant, topic, message, mini, children, onClick }) => {
         style={{
           width: style.width,
           height: style.height,
-          float: "left"
+          float: "left",
         }}
       >
         {children}

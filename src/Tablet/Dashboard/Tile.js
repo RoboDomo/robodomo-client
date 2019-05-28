@@ -7,7 +7,7 @@ const Tile = ({
   width, // width, in tiles (e.g. 1, 2)
   height, // height, in tiles (e.g. 1, 2)
   onClick, // if string, location.hash, if funciton, it is called
-  children
+  children,
 }) => {
   const [pressed, setPressed] = useState(false);
   let timer = null;
@@ -42,7 +42,7 @@ const Tile = ({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
       onClick={handleClick}
     >

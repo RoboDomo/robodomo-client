@@ -53,7 +53,7 @@ const AppleTV = ({ device }) => {
       MQTT.unsubscribe(topic + "/info", onInfoChange);
       MQTT.unsubscribe(topic + "/elapsedTime", onTimeChange);
     };
-  }, []);
+  }, [topic]);
 
   const renderPlaybackState = () => {
     if (!info) {

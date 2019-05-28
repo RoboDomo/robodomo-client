@@ -27,10 +27,7 @@ const XBoxButtons = ({ style, device, commands }) => {
           >
             Y
           </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.XboxGuide.action.deviceId}
-            message="Xbox"
-          >
+          <RemoteButton topic={command_topic + commands.XboxGuide.action.deviceId} message="Xbox">
             XBox
           </RemoteButton>
           <RemoteButton
@@ -61,10 +58,7 @@ const XBoxButtons = ({ style, device, commands }) => {
           >
             Info
           </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.Live.action.deviceId}
-            message="LiveTV"
-          >
+          <RemoteButton topic={command_topic + commands.Live.action.deviceId} message="LiveTV">
             Live TV
           </RemoteButton>
           <RemoteButton

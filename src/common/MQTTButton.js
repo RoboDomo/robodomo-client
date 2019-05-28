@@ -28,7 +28,7 @@ const MQTTButton = ({ name, children }) => {
 };
 
 MQTTButton.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 
 export default MQTTButton;

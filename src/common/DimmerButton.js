@@ -28,7 +28,7 @@ const DimmerButton = ({ children, name }) => {
       MQTT.unsubscribe(status_topic + "switch", onStateChange);
       MQTT.unsubscribe(status_topic + "level", onStateChange);
     };
-  }, []);
+  }, [status_topic]);
 
   const handleClick = () => {
     if (power === "on") {
@@ -49,6 +49,6 @@ const DimmerButton = ({ children, name }) => {
 };
 
 DimmerButton.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 export default DimmerButton;

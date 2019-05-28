@@ -35,7 +35,7 @@ const FanItem = ({ name }) => {
       MQTT.unsubscribe(status_topic + "switch", onStateChange);
       MQTT.unsubscribe(status_topic + "level", onStateChange);
     };
-  }, []);
+  }, [status_topic, status_topic_length]);
 
   const onClick = e => {
     e.stopPropagation();
@@ -78,17 +78,13 @@ const FanItem = ({ name }) => {
   return (
     <ListGroup.Item
       style={{
-        color: power === "on" ? "yellow" : undefined
+        color: power === "on" ? "yellow" : undefined,
       }}
       onClick={onClick}
     >
       <GiComputerFan size={36} style={{ paddingBottom: 12 }} />
       <span style={{ fontSize: 20, marginLeft: 2 }}>{name}</span>
-      <Badge
-        className="float-right"
-        variant="secondary"
-        style={{ fontSize: 20, marginLeft: 10 }}
-      >
+      <Badge className="float-right" variant="secondary" style={{ fontSize: 20, marginLeft: 10 }}>
         {value}
       </Badge>
     </ListGroup.Item>

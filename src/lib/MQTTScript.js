@@ -26,15 +26,8 @@ const MQTTScript = ({ script, onComplete }) => {
         console.log("!currentCommand");
         complete();
       } else {
-        console.log(
-          "-----> PUBLISH",
-          currentCommand.current.topic,
-          currentCommand.current.message
-        );
-        MQTT.publish(
-          currentCommand.current.topic,
-          currentCommand.current.message
-        );
+        console.log("-----> PUBLISH", currentCommand.current.topic, currentCommand.current.message);
+        MQTT.publish(currentCommand.current.topic, currentCommand.current.message);
         if (scriptCopy.current.length === 0) {
           console.log("!scriptCopy.length");
           complete();
@@ -44,18 +37,18 @@ const MQTTScript = ({ script, onComplete }) => {
     setTimer(t);
   }
 
-  if (!script) {
-    return null;
-  }
-
   useEffect(() => {
     return () => {
-      if (timer) {
+      if (timer && script) {
         clearInterval(timer);
         setTimer(null);
       }
     };
-  }, [scriptCopy, currentCommand]);
+  }, [scriptCopy, currentCommand, timer, script]);
+
+  if (!script) {
+    return null;
+  }
 
   if (!currentCommand.current) {
     return <div>NO CURRENT</div>;

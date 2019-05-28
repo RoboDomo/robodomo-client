@@ -5,12 +5,7 @@ import Config from "Config";
 import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
-import {
-  FaChevronUp,
-  FaChevronDown,
-  FaChevronLeft,
-  FaChevronRight
-} from "react-icons/fa";
+import { FaChevronUp, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const JoystickButtons = ({ style, device, commands }) => {
   if (!commands || !device || !commands.DirectionUp) {

@@ -129,17 +129,7 @@ const TheaterTab = ({ style, theater }) => {
       //        avr.current.input
       //      );
     }
-  }, [
-    //uutvPower,
-    tv.power,
-    avr.power,
-    currentActivity,
-    currentDevice,
-    //    tvInput,
-    tv.input,
-    avr.input
-    //    foregroundApp
-  ]);
+  }, [tv.power, avr.power, currentActivity, currentDevice, tv.input, avr.input, activities]);
 
   const renderDevice = () => {
     if (startingActivity) {
@@ -153,14 +143,7 @@ const TheaterTab = ({ style, theater }) => {
       );
       //      return <div>Starting {startingActivity.name}</div>;
     }
-    return (
-      <TheaterDevice
-        currentDevice={currentDevice}
-        avr={avr}
-        tv={tv}
-        deviceMap={deviceMap}
-      />
-    );
+    return <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />;
   };
 
   return (

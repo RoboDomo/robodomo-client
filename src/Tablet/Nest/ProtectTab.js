@@ -24,7 +24,7 @@ const ProtectTab = ({ sensor }) => {
     "last_manual_test_time",
     "smoke_alarm_state",
     "software_version",
-    "ui_color_state"
+    "ui_color_state",
   ];
 
   const [away, setAway] = useState("home");
@@ -74,19 +74,16 @@ const ProtectTab = ({ sensor }) => {
         MQTT.unsubscribe(protect_status_topic + topic, handleStateChange);
       }
     };
-  }, []);
+  }, [protect_status_topic, topics]);
 
   const style = { backgroundColor: uiColor, fontSize: 20, padding: 10 };
   return (
     <div style={{ margin: 0, paddingLeft: 20 }}>
       <div style={style}>
         <h1>
-          {sensor.name} Nest Protect{" "}
-          <Badge variant="secondary">{softwareVersion}</Badge>
+          {sensor.name} Nest Protect <Badge variant="secondary">{softwareVersion}</Badge>
         </h1>
-        <div>
-          {testActive ? "TEST ACTIVE" : "Last Manual Test: " + lastTest}
-        </div>
+        <div>{testActive ? "TEST ACTIVE" : "Last Manual Test: " + lastTest}</div>
       </div>
       <h1>
         {away === "home" ? HOME : AWAY} You are {away}

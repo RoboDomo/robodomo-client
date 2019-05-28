@@ -1,12 +1,6 @@
 import React, { useState } from "react";
 
-import {
-  Navbar,
-  Nav,
-  TabContainer,
-  TabContent,
-  TabPane
-} from "react-bootstrap";
+import { Navbar, Nav, TabContainer, TabContent, TabPane } from "react-bootstrap";
 
 import { FaSwimmingPool } from "react-icons/fa";
 import { MdDashboard, MdMenu } from "react-icons/md";
@@ -24,16 +18,14 @@ const LOCALSTORAGE_KEY = "phoneTabState";
 
 const style = {
   nav: {
-    width: window.innerWidth / 7 - 8
-  }
+    width: window.innerWidth / 7 - 8,
+  },
 };
 /**
  * Phone Top Level App (Main) Screen
  */
 const MainScreen = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem(LOCALSTORAGE_KEY) || "1"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "1");
   console.log("height", window.outerHeight);
   return (
     <div style={{ marginTop: 50 }}>

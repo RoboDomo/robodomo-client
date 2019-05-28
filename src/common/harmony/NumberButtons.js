@@ -13,10 +13,7 @@ const NumberButtons = ({ style, device, commands }) => {
 
   const enterItem = commands.NumberEnter || commands.Dot;
   const enterButton = enterItem ? (
-    <RemoteButton
-      topic={command_topic + enterItem.action.deviceId}
-      message={enterItem.name}
-    >
+    <RemoteButton topic={command_topic + enterItem.action.deviceId} message={enterItem.name}>
       {commands.NumberEnter ? "Enter" : "."}
     </RemoteButton>
   ) : (

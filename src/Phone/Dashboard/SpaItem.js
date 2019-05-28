@@ -32,7 +32,7 @@ const SpaItem = ({ device }) => {
         MQTT.unsubscribe(status_topic + device, onStateChange);
       });
     };
-  }, []);
+  }, [deviceMap.backward, deviceMap.forward, status_topic, status_topic_length]);
 
   const isOn = thing => {
     const control = state[thing];
@@ -43,12 +43,7 @@ const SpaItem = ({ device }) => {
     return control.toLowerCase() === "on";
   };
 
-  const on =
-      isOn("spa") ||
-      isOn("spaHeat") ||
-      isOn("jet") ||
-      isOn("blower") ||
-      isOn("spaLight"),
+  const on = isOn("spa") || isOn("spaHeat") || isOn("jet") || isOn("blower") || isOn("spaLight"),
     variant = on ? "danger" : undefined;
 
   const renderControl = (ndx, text, big) => {
@@ -59,11 +54,7 @@ const SpaItem = ({ device }) => {
     }
     if (big) {
       return (
-        <Badge
-          variant="secondary"
-          className="float-right"
-          style={{ fontSize: 30 }}
-        >
+        <Badge variant="secondary" className="float-right" style={{ fontSize: 30 }}>
           {text}
         </Badge>
       );

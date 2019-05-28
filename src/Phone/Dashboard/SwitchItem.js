@@ -18,7 +18,7 @@ const SwitchItem = ({ name }) => {
     return () => {
       MQTT.unsubscribe(status_topic + "switch", onStateChange);
     };
-  }, []);
+  }, [status_topic]);
 
   const onClick = e => {
     e.stopPropagation();
@@ -36,11 +36,7 @@ const SwitchItem = ({ name }) => {
       <ListGroup.Item onClick={onClick}>
         <TiLightbulb size={24} style={{ marginBottom: 10 }} />
         <span style={{ fontSize: 20, fontWeight: "normal" }}>{name}</span>
-        <Badge
-          variant="secondary"
-          className="float-right"
-          style={{ fontSize: 20, marginLeft: 10 }}
-        >
+        <Badge variant="secondary" className="float-right" style={{ fontSize: 20, marginLeft: 10 }}>
           Off
         </Badge>
       </ListGroup.Item>
@@ -50,11 +46,7 @@ const SwitchItem = ({ name }) => {
     <ListGroup.Item style={{ color: "yellow" }} onClick={onClick}>
       <TiLightbulb size={24} style={{ marginBottom: 10 }} />
       <span style={{ fontSize: 20, fontWeight: "normal" }}>{name}</span>
-      <Badge
-        variant="secondary"
-        className="float-right"
-        style={{ fontSize: 20, marginLeft: 10 }}
-      >
+      <Badge variant="secondary" className="float-right" style={{ fontSize: 20, marginLeft: 10 }}>
         On
       </Badge>
     </ListGroup.Item>

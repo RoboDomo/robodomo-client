@@ -40,7 +40,7 @@ const FanTile = ({ name }) => {
       MQTT.unsubscribe(status_topic + "switch", onStateChange);
       MQTT.unsubscribe(status_topic + "level", onStateChange);
     };
-  }, []);
+  }, [status_topic, status_topic_length]);
 
   const onClick = e => {
     e.stopPropagation();
@@ -98,7 +98,7 @@ const FanTile = ({ name }) => {
       <div
         style={{
           textAlign: "center",
-          color: power.current === "on" ? "yellow" : undefined
+          color: power.current === "on" ? "yellow" : undefined,
         }}
         onClick={onClick}
       >

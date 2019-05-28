@@ -33,12 +33,12 @@ const useWeather = zip => {
       MQTT.unsubscribe(status_topic + "now", handleNowChange);
       MQTT.unsubscribe(status_topic + "display_city", handleCityChange);
     };
-  }, [zip]);
+  }, [status_topic, zip]);
 
   return {
     now: now || {},
     display_city: city,
-    forecast: forecast
+    forecast: forecast,
   };
 };
 

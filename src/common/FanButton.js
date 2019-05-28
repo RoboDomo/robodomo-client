@@ -29,7 +29,7 @@ const FanButton = ({ name }) => {
       MQTT.unsubscribe(status_topic + "switch", onStateChange);
       MQTT.unsubscribe(status_topic + "level", onStateChange);
     };
-  }, []);
+  }, [status_topic]);
   const handleClick = () => {
     let value = 25;
 
@@ -74,7 +74,7 @@ const FanButton = ({ name }) => {
 };
 
 FanButton.propTypes = {
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
 
 export default FanButton;

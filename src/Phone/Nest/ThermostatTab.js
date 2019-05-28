@@ -8,7 +8,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   ListGroup,
-  ListGroupItem
+  ListGroupItem,
 } from "react-bootstrap";
 
 import { FaChevronUp, FaChevronDown, FaChevronRight } from "react-icons/fa";
@@ -41,7 +41,7 @@ const ThermostatTab = ({ thermostat }) => {
     "has_leaf",
     "humidity",
     "time_to_target",
-    "hvac_mode"
+    "hvac_mode",
   ];
   const weatherTopics = ["now", "forecast"];
 
@@ -74,7 +74,7 @@ const ThermostatTab = ({ thermostat }) => {
         }
       }
     };
-  }, []);
+  }, [onThermostatChange, thermostatTopics, thermostat_status_topic, weatherTopics]);
 
   const hvacModeChange = mode => {
     MQTT.publish(set_topic + "/hvac_mode", mode);
@@ -83,10 +83,7 @@ const ThermostatTab = ({ thermostat }) => {
   const adjustTemperature = temp => {
     const thermostat = thermoState;
     if (thermostat) {
-      MQTT.publish(
-        set_topic + "/target_temperature_f",
-        thermostat.target_temperature_f + temp
-      );
+      MQTT.publish(set_topic + "/target_temperature_f", thermostat.target_temperature_f + temp);
     }
   };
 
@@ -116,11 +113,7 @@ const ThermostatTab = ({ thermostat }) => {
         disabled = true;
       }
       return (
-        <Button
-          block
-          disabled={disabled}
-          onClick={() => setTargetTemperature(n)}
-        >
+        <Button block disabled={disabled} onClick={() => setTargetTemperature(n)}>
           {icon} Set to {n}&deg;
         </Button>
       );
@@ -170,7 +163,7 @@ const ThermostatTab = ({ thermostat }) => {
           overflow: "scroll",
           height: "100vh",
           paddingBottom: 300,
-          textAlign: "center"
+          textAlign: "center",
         }}
       >
         <Thermostat
@@ -225,10 +218,7 @@ const ThermostatTab = ({ thermostat }) => {
           <ToggleButton style={{ width: bwidth, fontSize: 14 }} value="cool">
             Cool
           </ToggleButton>
-          <ToggleButton
-            style={{ width: bwidth, fontSize: 14 }}
-            value="heat-cool"
-          >
+          <ToggleButton style={{ width: bwidth, fontSize: 14 }} value="heat-cool">
             Both
           </ToggleButton>
           <ToggleButton style={{ width: bwidth, fontSize: 14 }} value="Eco">
@@ -240,15 +230,11 @@ const ThermostatTab = ({ thermostat }) => {
             <ListGroup>
               <ListGroupItem>
                 Presence
-                <span style={{ float: "right" }}>
-                  {thermostat.away.toUpperCase()}
-                </span>
+                <span style={{ float: "right" }}>{thermostat.away.toUpperCase()}</span>
               </ListGroupItem>
               <ListGroupItem>
                 Inside Temp
-                <span style={{ float: "right" }}>
-                  {thermostat.ambient_temperature_f}&deg;F
-                </span>
+                <span style={{ float: "right" }}>{thermostat.ambient_temperature_f}&deg;F</span>
               </ListGroupItem>
               <ListGroupItem>
                 Humidity
@@ -270,9 +256,7 @@ const ThermostatTab = ({ thermostat }) => {
               </ListGroupItem>
               <ListGroupItem>
                 Outside Temp
-                <span style={{ float: "right" }}>
-                  {now.current_temperature}&deg;F
-                </span>
+                <span style={{ float: "right" }}>{now.current_temperature}&deg;F</span>
               </ListGroupItem>
               <ListGroupItem>
                 Outside Humidity
@@ -287,15 +271,11 @@ const ThermostatTab = ({ thermostat }) => {
             <ListGroup>
               <ListGroupItem>
                 Target Temp
-                <span style={{ float: "right" }}>
-                  {thermostat.target_temperature_f}&deg;F
-                </span>
+                <span style={{ float: "right" }}>{thermostat.target_temperature_f}&deg;F</span>
               </ListGroupItem>
               <ListGroupItem>
                 Time To Target
-                <span style={{ float: "right" }}>
-                  {thermostat.time_to_target}
-                </span>
+                <span style={{ float: "right" }}>{thermostat.time_to_target}</span>
               </ListGroupItem>
             </ListGroup>
             {renderTargets()}

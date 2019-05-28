@@ -11,7 +11,7 @@ const topics = [
   "poolHeat",
   "poolSetpoint",
   "solarHeat",
-  "solarTemp"
+  "solarTemp",
 ];
 
 const PoolItem = ({ device }) => {
@@ -40,7 +40,7 @@ const PoolItem = ({ device }) => {
         MQTT.unsubscribe(status_topic + device, onStateChange);
       });
     };
-  }, []);
+  }, [deviceMap.backward, deviceMap.forward, status_topic, status_topic_length]);
 
   const renderControl = (ndx, text, big) => {
     const thingState = (state[ndx] || "off").toLowerCase();
@@ -54,11 +54,7 @@ const PoolItem = ({ device }) => {
 
     return (
       <div>
-        <Badge
-          style={{ marginBottom: 4 }}
-          variant="secondary"
-          className="float-right"
-        >
+        <Badge style={{ marginBottom: 4 }} variant="secondary" className="float-right">
           {text}
         </Badge>
       </div>
@@ -66,11 +62,7 @@ const PoolItem = ({ device }) => {
   };
 
   const on = state.pump.toLowerCase() === "on",
-    variant = on
-      ? state.poolHeat === "enabled"
-        ? "danger"
-        : "success"
-      : undefined;
+    variant = on ? (state.poolHeat === "enabled" ? "danger" : "success") : undefined;
 
   if (on) {
     return (

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { ListGroup, Card, Form } from "react-bootstrap";
 
-import MacroItem from "Dashboard/MacroItem";
-import ToggleField from "common/form/ToggleField";
-import NumberField from "common/form/NumberField";
-import Clock from "common/Clock";
+import ToggleField from "@/common/form/ToggleField";
+import NumberField from "@/common/form/NumberField";
+import Clock from "@/common/Clock";
+import MacroItem from "../Dashboard/MacroItem";
 
-import Config from "Config";
-import MQTT from "lib/MQTT";
+import Config from "@/Config";
+import MQTT from "@/lib/MQTT";
 
 const AutelisTab = () => {
   const autelis = Config.autelis,
@@ -59,7 +59,7 @@ const AutelisTab = () => {
     "spaHeat",
     "poolHeat",
     "solarHeat",
-    "solarTemp"
+    "solarTemp",
   ];
 
   useEffect(() => {
@@ -145,7 +145,7 @@ const AutelisTab = () => {
       MQTT.unsubscribe(weather_topic + "now", handleWeatherChange);
       MQTT.unsubscribe(weather_topic + "display_city", handleWeatherChange);
     };
-  }, []);
+  }, [backward, forward, status_topic, topics, weather_topic]);
 
   /**
    * Send message to control a device
@@ -184,19 +184,15 @@ const AutelisTab = () => {
     return "Solar Off";
   };
 
-  const sunrise = new Date(now.sunrise * 1000)
-      .toLocaleTimeString()
-      .replace(":00 ", " "),
-    sunset = new Date(now.sunset * 1000)
-      .toLocaleTimeString()
-      .replace(":00 ", " "),
+  const sunrise = new Date(now.sunrise * 1000).toLocaleTimeString().replace(":00 ", " "),
+    sunset = new Date(now.sunset * 1000).toLocaleTimeString().replace(":00 ", " "),
     img = now.icon ? (
       <img
         alt={now.icon}
         style={{
           verticalAlign: "middle",
           width: 64,
-          height: 64
+          height: 64,
         }}
         src={`/img/Weather/icons/black/${now.icon}.svg`}
       />
@@ -208,7 +204,7 @@ const AutelisTab = () => {
         overflow: "auto",
         height: "100vh",
         padding: 20,
-        paddingBottom: 200
+        paddingBottom: 200,
       }}
     >
       <Card>
@@ -231,15 +227,10 @@ const AutelisTab = () => {
           </div>
         </Card.Body>
       </Card>
-      <Card
-        bg={poolOn ? "success" : undefined}
-        text={poolOn ? "white" : undefined}
-      >
+      <Card bg={poolOn ? "success" : undefined} text={poolOn ? "white" : undefined}>
         <Card.Header>Pool</Card.Header>
         <Card.Body>
-          <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
-            {renderPoolTemp()}
-          </div>
+          <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>{renderPoolTemp()}</div>
           <Form>
             <ToggleField
               label="Pool"
@@ -290,15 +281,10 @@ const AutelisTab = () => {
         </Card.Body>
       </Card>
 
-      <Card
-        bg={spaOn ? "danger" : undefined}
-        text={spaOn ? "white" : undefined}
-      >
+      <Card bg={spaOn ? "danger" : undefined} text={spaOn ? "white" : undefined}>
         <Card.Header>Spa</Card.Header>
         <Card.Body>
-          <div style={{ textAlign: "center", fontSize: 30 }}>
-            {renderSpaTemp()}
-          </div>
+          <div style={{ textAlign: "center", fontSize: 30 }}>{renderSpaTemp()}</div>
           <Form>
             <ToggleField
               label="Spa"
@@ -349,15 +335,10 @@ const AutelisTab = () => {
           </Form>
         </Card.Body>
       </Card>
-      <Card
-        bg={solarOn ? "success" : undefined}
-        text={solarOn ? "white" : "primary"}
-      >
+      <Card bg={solarOn ? "success" : undefined} text={solarOn ? "white" : "primary"}>
         <Card.Header>Solar</Card.Header>
         <Card.Body>
-          <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>
-            {renderSolarTemp()}
-          </div>
+          <div style={{ textAlign: "center", fontSize: 30, height: 50 }}>{renderSolarTemp()}</div>
           <Form>
             <ToggleField
               label="Solar"

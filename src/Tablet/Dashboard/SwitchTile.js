@@ -18,7 +18,7 @@ const SwitchTile = ({ name }) => {
     return () => {
       MQTT.unsubscribe(status_topic + "switch", onStateChange);
     };
-  }, []);
+  }, [status_topic]);
 
   const onClick = e => {
     e.stopPropagation();

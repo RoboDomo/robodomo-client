@@ -8,14 +8,7 @@ import { Row, Col, Card } from "react-bootstrap";
 
 const SensorsTab = () => {
   const [sensors, setSensors] = useState({});
-  const types = [
-    "contact",
-    "motion",
-    "battery",
-    "temperature",
-    "illuminance",
-    "humidity"
-  ];
+  const types = ["contact", "motion", "battery", "temperature", "illuminance", "humidity"];
 
   const onStateChange = (topic, newState) => {
     const s = {};

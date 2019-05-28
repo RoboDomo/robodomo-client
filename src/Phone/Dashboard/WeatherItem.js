@@ -26,7 +26,7 @@ const WeatherItem = tile => {
       MQTT.unsubscribe(status_topic + "now", onStateChange);
       MQTT.unsubscribe(status_topic + "display_city", onStateChange);
     };
-  }, []);
+  }, [tile.location]);
   return (
     <ListGroup.Item>
       <div style={{ textAlign: "center" }}>{displayCity}</div>
@@ -36,7 +36,7 @@ const WeatherItem = tile => {
           style={{
             verticalAlign: "middle",
             width: 32,
-            height: 32
+            height: 32,
           }}
           src={"/img/Weather/icons/black/" + now.icon + ".svg"}
         />

@@ -6,9 +6,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import TheaterTab from "./TheaterTab";
 
 const Theater = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem("theaterTabState") || "0"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem("theaterTabState") || "0");
 
   return (
     <Tabs

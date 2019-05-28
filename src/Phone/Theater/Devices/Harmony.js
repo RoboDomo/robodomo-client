@@ -31,7 +31,7 @@ const rowStyle = {
   marginTop: 4,
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
 };
 const HarmonyRemoteControl = ({ hub }) => {
   // state
@@ -75,7 +75,7 @@ const HarmonyRemoteControl = ({ hub }) => {
         MQTT.unsubscribe(status_topic + topic, handleStateChange);
       }
     };
-  }, []);
+  }, [handleStateChange, status_topic]);
 
   // render
   if (activities && startingActivity) {
@@ -98,33 +98,13 @@ const HarmonyRemoteControl = ({ hub }) => {
       <>
         <RokuButtons style={rowStyle} device={hub.device} commands={commands} />
         <XBoxButtons style={rowStyle} device={hub.device} commands={commands} />
-        <AppleTVButtons
-          style={rowStyle}
-          device={hub.device}
-          commands={commands}
-        />
+        <AppleTVButtons style={rowStyle} device={hub.device} commands={commands} />
         <TiVoButtons style={rowStyle} device={hub.device} commands={commands} />
-        <ColoredButtons
-          style={rowStyle}
-          device={hub.device}
-          commands={commands}
-        />
+        <ColoredButtons style={rowStyle} device={hub.device} commands={commands} />
         <ABCDButtons style={rowStyle} device={hub.device} commands={commands} />
-        <JoystickButtons
-          style={rowStyle}
-          device={hub.device}
-          commands={commands}
-        />
-        <NumberButtons
-          style={rowStyle}
-          device={hub.device}
-          commands={commands}
-        />
-        <TransportButtons
-          style={rowStyle}
-          device={hub.device}
-          commands={commands}
-        />
+        <JoystickButtons style={rowStyle} device={hub.device} commands={commands} />
+        <NumberButtons style={rowStyle} device={hub.device} commands={commands} />
+        <TransportButtons style={rowStyle} device={hub.device} commands={commands} />
       </>
     );
   }

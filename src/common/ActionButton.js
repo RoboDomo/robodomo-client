@@ -12,20 +12,13 @@ import React from "react";
 
 import { Button } from "react-bootstrap";
 
-const ActionButton = ({
-  variant,
-  dispatch,
-  action,
-  mini,
-  children,
-  onClick
-}) => {
+const ActionButton = ({ variant, dispatch, action, mini, children, onClick }) => {
   const w = Math.min(window.screen.availWidth / 5 - 4, 100);
   const style = {
     width: mini ? 46 : w,
     height: 40,
     fontSize: 14,
-    paddingBottom: 22
+    paddingBottom: 22,
   };
   if (variant === "none") {
     return (
@@ -33,7 +26,7 @@ const ActionButton = ({
         style={{
           width: style.width,
           height: style.height,
-          float: "left"
+          float: "left",
         }}
       >
         {children}

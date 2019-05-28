@@ -8,9 +8,7 @@ import WeatherTab from "./WeatherTab";
 const LOCALSTORAGE_KEY = "phoneWeatherTab";
 
 const Weather = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem(LOCALSTORAGE_KEY) || "1"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "1");
   return (
     <Tabs
       id="weather-tabs"
@@ -25,11 +23,7 @@ const Weather = () => {
     >
       {Config.weather.locations.map(location => {
         return (
-          <Tab
-            eventKey={location.name}
-            key={location.name}
-            title={location.name}
-          >
+          <Tab eventKey={location.name} key={location.name} title={location.name}>
             <WeatherTab location={location} />
           </Tab>
         );

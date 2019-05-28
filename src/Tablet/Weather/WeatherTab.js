@@ -8,21 +8,21 @@ const styles = {
   img: {
     verticalAlign: "middle",
     width: 64,
-    height: 64
+    height: 64,
     // float:         'left'
   },
   img_small: {
     verticalAlign: "middle",
     width: 48,
     height: 48,
-    float: "left"
+    float: "left",
   },
   imgleft: {
     verticalAlign: "middle",
     width: 48,
-    height: 48
+    height: 48,
     // float:         'left'
-  }
+  },
 };
 
 const dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -41,13 +41,11 @@ const WeatherTab = ({ location }) => {
           textAlign: "left",
           whiteSpace: "nowrap",
           overflowX: "auto",
-          overflowY: "hidden"
+          overflowY: "hidden",
         }}
       >
         {hourly.map((o, i) => {
-          const d = new Date(o.time * 1000)
-            .toLocaleTimeString()
-            .replace(":00 ", " ");
+          const d = new Date(o.time * 1000).toLocaleTimeString().replace(":00 ", " ");
 
           if (i < 0 || i > 23) {
             return null;
@@ -62,13 +60,11 @@ const WeatherTab = ({ location }) => {
                 marginRight: 2,
                 padding: 2,
                 border: "1px solid black",
-                textAlign: "center"
+                textAlign: "center",
               }}
             >
               <div style={{ fontSize: 16, fontWeight: "bold" }}>{d}</div>
-              <div style={{ textAlign: "center", fontSize: 24 }}>
-                {o.temp}&deg;
-              </div>
+              <div style={{ textAlign: "center", fontSize: 24 }}>{o.temp}&deg;</div>
               <div style={{ fontSize: "smaller" }}>Humidity: {o.humidity}%</div>
             </div>
           );
@@ -81,7 +77,7 @@ const WeatherTab = ({ location }) => {
     return (
       <div
         style={{
-          display: "flex"
+          display: "flex",
         }}
       >
         {daily.map((o, i) => {
@@ -108,15 +104,11 @@ const WeatherTab = ({ location }) => {
                 padding: 5,
                 border: "1px solid black",
                 textAlign: "center",
-                fontSize: 12
+                fontSize: 12,
               }}
             >
               {header}
-              <img
-                alt={o.icon}
-                style={styles.img}
-                src={`/img/Weather/icons/black/${o.icon}.svg`}
-              />
+              <img alt={o.icon} style={styles.img} src={`/img/Weather/icons/black/${o.icon}.svg`} />
               <div>{o.conditions}</div>
               <div>High: {o.high_temperature} &deg;F</div>
               <div>Low: {o.low_temperature} &deg;F</div>
@@ -160,18 +152,12 @@ const WeatherTab = ({ location }) => {
 
   try {
     const header = (
-        <div style={{ fontSize: 24, fontWeight: "bold" }}>
-          {weather.display_city} Weather
-        </div>
+        <div style={{ fontSize: 24, fontWeight: "bold" }}>{weather.display_city} Weather</div>
       ),
       daily = weather.forecast.daily || [],
       //      hourly = forecast.hourly,
-      sunrise = new Date(weather.now.sunrise * 1000)
-        .toLocaleTimeString()
-        .replace(":00 ", " "),
-      sunset = new Date(weather.now.sunset * 1000)
-        .toLocaleTimeString()
-        .replace(":00 ", " ");
+      sunrise = new Date(weather.now.sunrise * 1000).toLocaleTimeString().replace(":00 ", " "),
+      sunset = new Date(weather.now.sunset * 1000).toLocaleTimeString().replace(":00 ", " ");
 
     if (!daily[0]) {
       return null;
@@ -185,7 +171,7 @@ const WeatherTab = ({ location }) => {
             fontSize: 30,
             float: "right",
             marginTop: 5,
-            marginBottom: 10
+            marginBottom: 10,
           }}
         >
           <div>
@@ -204,8 +190,7 @@ const WeatherTab = ({ location }) => {
           />
           {weather.now.current_temperature}&deg;F
           <div style={{ fontSize: 14, textAlign: "right" }}>
-            High: {daily[0].high_temperature}&deg; / Low:{" "}
-            {daily[0].low_temperature}&deg;
+            High: {daily[0].high_temperature}&deg; / Low: {daily[0].low_temperature}&deg;
           </div>
         </div>
         <div style={{ clear: "both" }} />

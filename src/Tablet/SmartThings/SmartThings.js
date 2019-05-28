@@ -8,15 +8,13 @@ import Config from "Config";
 const LOCALSTORAGE_KEY = "smartthingsTabletTabs";
 
 const SmartThings = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem(LOCALSTORAGE_KEY) || "0"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
   const rooms = useRef(null);
 
   if (!rooms.current) {
     try {
       const roomsMap = {
-        All: []
+        All: [],
       };
 
       for (const thing of Config.smartthings.things) {
@@ -46,7 +44,7 @@ const SmartThings = () => {
       for (const name in roomsMap) {
         rooms.current.push({
           name: name,
-          things: roomsMap[name]
+          things: roomsMap[name],
         });
       }
     } catch (e) {

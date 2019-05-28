@@ -119,7 +119,7 @@ const codes = [
   "Wide",
   "WirelessSubwoofer",
   "Yellow",
-  "iManual"
+  "iManual",
 ];
 
 const useBravia = config => {
@@ -180,7 +180,7 @@ const useBravia = config => {
       MQTT.unsubscribe(status_topic + "power", handlePower);
       MQTT.unsubscribe(status_topic + "volume", handleVolume);
     };
-  }, []);
+  }, [status_topic]);
 
   const [, d] = useReducer(reducer);
   return {
@@ -190,7 +190,7 @@ const useBravia = config => {
     input: input,
     volume: volume,
     appsList: appsList,
-    appsMap: appsMap
+    appsMap: appsMap,
   };
 };
 

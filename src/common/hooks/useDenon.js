@@ -38,7 +38,7 @@ const useDenon = config => {
         dvd: "SIDVD",
         blueray: "SIBD",
         satcbl: "SISAT/CBL",
-        mplayer: "SIMPLAY"
+        mplayer: "SIMPLAY",
       },
       act = action.type.toLowerCase();
 
@@ -78,65 +78,23 @@ const useDenon = config => {
       }
     };
 
-    MQTT.subscribe(
-      `${Config.mqtt.denon}/${config.device}/status/SI`,
-      handleMessage
-    );
-    MQTT.subscribe(
-      `${Config.mqtt.denon}/${config.device}/status/PW`,
-      handleMessage
-    );
-    MQTT.subscribe(
-      `${Config.mqtt.denon}/${config.device}/status/MU`,
-      handleMessage
-    );
-    MQTT.subscribe(
-      `${Config.mqtt.denon}/${config.device}/status/MV`,
-      handleMessage
-    );
-    MQTT.subscribe(
-      `${Config.mqtt.denon}/${config.device}/status/MS`,
-      handleMessage
-    );
-    MQTT.subscribe(
-      `${Config.mqtt.denon}/${config.device}/status/CVC`,
-      handleMessage
-    );
-    MQTT.subscribe(
-      `${Config.mqtt.denon}/${config.device}/status/DC`,
-      handleMessage
-    );
+    MQTT.subscribe(`${Config.mqtt.denon}/${config.device}/status/SI`, handleMessage);
+    MQTT.subscribe(`${Config.mqtt.denon}/${config.device}/status/PW`, handleMessage);
+    MQTT.subscribe(`${Config.mqtt.denon}/${config.device}/status/MU`, handleMessage);
+    MQTT.subscribe(`${Config.mqtt.denon}/${config.device}/status/MV`, handleMessage);
+    MQTT.subscribe(`${Config.mqtt.denon}/${config.device}/status/MS`, handleMessage);
+    MQTT.subscribe(`${Config.mqtt.denon}/${config.device}/status/CVC`, handleMessage);
+    MQTT.subscribe(`${Config.mqtt.denon}/${config.device}/status/DC`, handleMessage);
     return () => {
-      MQTT.unsubscribe(
-        `${Config.mqtt.denon}/${config.device}/status/SI`,
-        handleMessage
-      );
-      MQTT.unsubscribe(
-        `${Config.mqtt.denon}/${config.device}/status/PW`,
-        handleMessage
-      );
-      MQTT.unsubscribe(
-        `${Config.mqtt.denon}/${config.device}/status/MU`,
-        handleMessage
-      );
-      MQTT.unsubscribe(
-        `${Config.mqtt.denon}/${config.device}/status/MV`,
-        handleMessage
-      );
-      MQTT.unsubscribe(
-        `${Config.mqtt.denon}/${config.device}/status/MS`,
-        handleMessage
-      );
-      MQTT.unsubscribe(
-        `${Config.mqtt.denon}/${config.device}/status/CVC`,
-        handleMessage
-      );
-      MQTT.unsubscribe(
-        `${Config.mqtt.denon}/${config.device}/status/DC`,
-        handleMessage
-      );
+      MQTT.unsubscribe(`${Config.mqtt.denon}/${config.device}/status/SI`, handleMessage);
+      MQTT.unsubscribe(`${Config.mqtt.denon}/${config.device}/status/PW`, handleMessage);
+      MQTT.unsubscribe(`${Config.mqtt.denon}/${config.device}/status/MU`, handleMessage);
+      MQTT.unsubscribe(`${Config.mqtt.denon}/${config.device}/status/MV`, handleMessage);
+      MQTT.unsubscribe(`${Config.mqtt.denon}/${config.device}/status/MS`, handleMessage);
+      MQTT.unsubscribe(`${Config.mqtt.denon}/${config.device}/status/CVC`, handleMessage);
+      MQTT.unsubscribe(`${Config.mqtt.denon}/${config.device}/status/DC`, handleMessage);
     };
-  }, []);
+  }, [config.device]);
 
   return {
     dispatch: d,
@@ -146,7 +104,7 @@ const useDenon = config => {
     masterVolume: masterVolume,
     centerVolume: centerVolume,
     surroundMode: surroundMode,
-    digitalInputMode: digitalInputMode
+    digitalInputMode: digitalInputMode,
   };
 };
 

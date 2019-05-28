@@ -8,9 +8,7 @@ import DashboardTab from "./DashboardTab";
 const LOCALSTORAGE_KEY = "phoneDashboardTab";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem(LOCALSTORAGE_KEY) || "1"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "1");
   return (
     <Tabs
       id="dashboard-tabs"
@@ -25,11 +23,7 @@ const Dashboard = () => {
     >
       {Config.dashboards.map(dashboard => {
         return (
-          <Tab
-            eventKey={dashboard.key}
-            key={dashboard.key}
-            title={dashboard.title}
-          >
+          <Tab eventKey={dashboard.key} key={dashboard.key} title={dashboard.title}>
             <DashboardTab dashboard={dashboard} />
           </Tab>
         );

@@ -44,7 +44,7 @@ const AppleTV = ({ device }) => {
       MQTT.unsubscribe(topic + "/info", onInfoChange);
       MQTT.unsubscribe(topic + "/elapsedTime", onTimeChange);
     };
-  }, []);
+  }, [topic]);
 
   const renderPlaybackState = () => {
     if (!info) {
@@ -54,8 +54,7 @@ const AppleTV = ({ device }) => {
       return (
         <>
           <div style={{ fontSize: 10 }}>{info.title}</div>
-          {info.playbackState.toUpperCase()} {formatTime(elapsedTime)} /{" "}
-          {formatTime(info.duration)}
+          {info.playbackState.toUpperCase()} {formatTime(elapsedTime)} / {formatTime(info.duration)}
         </>
       );
     } else {

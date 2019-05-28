@@ -3,14 +3,7 @@ import React /*, { useState, useEffect, useRef }*/ from "react";
 import ReactBootstrapSlider from "react-bootstrap-slider";
 import Toggle from "react-bootstrap-toggle";
 
-const DimmerField = ({
-  label,
-  name,
-  value,
-  toggled,
-  onToggle,
-  onValueChange
-}) => {
+const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) => {
   const applyValueChange = val => {
     value = val;
     if (onValueChange) {
@@ -33,11 +26,7 @@ const DimmerField = ({
     <div style={{ display: "flex", marginTop: 10 }}>
       <div style={{ marginTop: 10, flex: 1 }}>{label}</div>
       <div style={{ whiteSpace: "nowrap", display: "flex" }}>
-        <Toggle
-          active={toggled}
-          onClick={handleToggle}
-          style={{ flex: 1, marginRight: 20 }}
-        />
+        <Toggle active={toggled} onClick={handleToggle} style={{ flex: 1, marginRight: 20 }} />
         <div style={{ flex: 1, marginTop: 10 }}>
           <ReactBootstrapSlider
             style={{ flex: 1, paddingTop: 8 }}

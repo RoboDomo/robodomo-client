@@ -27,7 +27,7 @@ const WeatherTile = () => {
           style={{
             fontSize: 48,
             paddingRight: 10,
-            marginBottom: 10
+            marginBottom: 10,
           }}
         >
           <img
@@ -35,24 +35,21 @@ const WeatherTile = () => {
             style={{
               verticalAlign: "middle",
               width: 96,
-              height: 96
+              height: 96,
             }}
             src={"/img/Weather/icons/black/" + now.icon + ".svg"}
           />
-          <div style={{ display: "inline", paddingTop: 10 }}>
-            {now.current_temperature}&deg;F
-          </div>
+          <div style={{ display: "inline", paddingTop: 10 }}>{now.current_temperature}&deg;F</div>
         </div>
         <div
           style={{
             fontSize: 24,
             marginTop: 5,
             marginBottom: 10,
-            textAlign: "center"
+            textAlign: "center",
           }}
         >
-          <FaFlag style={{ fontSize: 32 }} /> {now.wind_direction}{" "}
-          {now.current_wind} MPH
+          <FaFlag style={{ fontSize: 32 }} /> {now.wind_direction} {now.current_wind} MPH
         </div>
       </div>
     </Tile>

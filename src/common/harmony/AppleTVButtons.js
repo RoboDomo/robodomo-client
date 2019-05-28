@@ -8,13 +8,7 @@ import { Row, ButtonGroup } from "react-bootstrap";
 // apple tv commands are similar to XBox (for example)
 // but XBox has eject, and ATV does not.
 const isAppleTV = commands => {
-  return (
-    commands &&
-    commands.Back &&
-    commands.Home &&
-    commands.Menu &&
-    !commands.Eject
-  );
+  return commands && commands.Back && commands.Home && commands.Menu && !commands.Eject;
 };
 
 const AppleTVButtons = ({ style, device, commands }) => {

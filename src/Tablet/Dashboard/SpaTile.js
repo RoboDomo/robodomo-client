@@ -19,12 +19,7 @@ const SpaTile = ({ device }) => {
     return control.toLowerCase() === "on";
   };
 
-  const on =
-      isOn("spa") ||
-      isOn("spaHeat") ||
-      isOn("jet") ||
-      isOn("blower") ||
-      isOn("spaLight"),
+  const on = isOn("spa") || isOn("spaHeat") || isOn("jet") || isOn("blower") || isOn("spaLight"),
     backgroundColor = on ? "red" : undefined,
     color = on ? "white" : undefined;
 

@@ -12,7 +12,7 @@ import {
   TabContainer,
   TabContent,
   TabPane,
-  Nav
+  Nav,
 } from "react-bootstrap";
 
 import Dashboard from "Tablet/Dashboard/Dashboard";
@@ -33,9 +33,7 @@ import { MdMenu } from "react-icons/md";
 const LOCALSTORAGE_KEY = "mainTabState";
 
 const MainScreen = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem(LOCALSTORAGE_KEY) || "1"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "1");
   return (
     <div style={{ width: 1024, height: 768, margin: "auto" }}>
       <div style={{ marginTop: 56 }}>

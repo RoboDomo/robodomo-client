@@ -1,13 +1,7 @@
 import React from "react";
 import { Badge, ListGroup } from "react-bootstrap";
 
-const DevicesListGroup = ({
-  devices,
-  currentDevice,
-  tvInput,
-  avrInput,
-  onClick
-}) => {
+const DevicesListGroup = ({ devices, currentDevice, tvInput, avrInput, onClick }) => {
   tvInput = tvInput || "off";
   if (!devices.length || !tvInput) {
     return null;

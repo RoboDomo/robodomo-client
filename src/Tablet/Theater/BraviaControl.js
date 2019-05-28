@@ -3,7 +3,7 @@ import React from "react";
 import {
   //  Row,
   //  Col,
-  ButtonGroup
+  ButtonGroup,
   //  Tooltip,
   //  OverlayTrigger
 } from "react-bootstrap";
@@ -23,7 +23,7 @@ import {
   FaPlay,
   //  FaStepForward,
   FaForward,
-  FaFastForward
+  FaFastForward,
   //  FaDotCircle
 } from "react-icons/fa";
 
@@ -85,7 +85,7 @@ const BraviaControl = ({ config }) => {
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
         <div style={{ flex: 1 }}>
@@ -238,11 +238,7 @@ const BraviaControl = ({ config }) => {
         <ActionButton dispatch={dispatch} action="VolumeDown">
           <FaVolumeDown />
         </ActionButton>
-        <ActionButton
-          variant={mute ? "danger" : undefined}
-          dispatch={dispatch}
-          action="Mute"
-        >
+        <ActionButton variant={mute ? "danger" : undefined} dispatch={dispatch} action="Mute">
           <FaVolumeMute />
         </ActionButton>
       </>

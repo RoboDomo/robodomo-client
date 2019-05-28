@@ -38,7 +38,7 @@ const ThermostatItem = ({ device }) => {
         MQTT.unsubscribe(status_topic + topic, onStateChange);
       }
     };
-  }, []);
+  }, [status_topic]);
 
   let variant;
   if (hvacState === "cooling") {
@@ -54,7 +54,7 @@ const ThermostatItem = ({ device }) => {
           style={{
             flex: 2,
             fontSize: 44,
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
           }}
         >
           {ambientTemperature}&deg;F

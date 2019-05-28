@@ -2,14 +2,12 @@
 import React from "react";
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 
-import MacroTile from "Dashboard/MacroTile";
-import NumberField from "common/form/NumberField";
-import Clock from "common/Clock";
-
-import Config from "Config";
-
-import useAutelis from "common/hooks/useAutelis";
-import useWeather from "common/hooks/useWeather";
+import Config from "@/Config";
+import NumberField from "@/common/form/NumberField";
+import Clock from "@/common/Clock";
+import useAutelis from "@/common/hooks/useAutelis";
+import useWeather from "@/common/hooks/useWeather";
+import MacroTile from "../Dashboard/MacroTile";
 
 const AutelisTab = () => {
   const controller = Config.autelis,
@@ -33,7 +31,7 @@ const AutelisTab = () => {
       spaHeat,
       spaSetpoint,
       jets,
-      blower
+      blower,
     } = autelis;
 
   const weather = useWeather(location),
@@ -46,19 +44,15 @@ const AutelisTab = () => {
     spaOn = spa && pump,
     solarOn = solarHeat && pump;
 
-  const sunrise = new Date(now.sunrise * 1000)
-      .toLocaleTimeString()
-      .replace(":00 ", " "),
-    sunset = new Date(now.sunset * 1000)
-      .toLocaleTimeString()
-      .replace(":00 ", " "),
+  const sunrise = new Date(now.sunrise * 1000).toLocaleTimeString().replace(":00 ", " "),
+    sunset = new Date(now.sunset * 1000).toLocaleTimeString().replace(":00 ", " "),
     img = now.icon ? (
       <img
         alt={now.icon}
         style={{
           paddingBottom: 0,
           width: 64,
-          height: 64
+          height: 64,
         }}
         src={`/img/Weather/icons/black/${now.icon}.svg`}
       />
@@ -154,7 +148,7 @@ const AutelisTab = () => {
     return (
       <div
         style={{
-          display: "flex"
+          display: "flex",
         }}
       >
         <ButtonGroup style={{ flex: 1 }}>
@@ -166,7 +160,7 @@ const AutelisTab = () => {
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 44
+            fontSize: 44,
           }}
         >
           {renderTemp()}
@@ -180,7 +174,7 @@ const AutelisTab = () => {
       <div
         style={{
           display: "flex",
-          marginTop: 8
+          marginTop: 8,
         }}
       >
         <ButtonGroup style={{ flex: 1 }}>
@@ -209,7 +203,7 @@ const AutelisTab = () => {
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 36
+            fontSize: 36,
           }}
         >
           Solar {solarTemp}&deg;F
@@ -223,7 +217,7 @@ const AutelisTab = () => {
       <div
         style={{
           display: "flex",
-          marginTop: 8
+          marginTop: 8,
         }}
       >
         <ButtonGroup style={{ flex: 1 }}>
@@ -252,7 +246,7 @@ const AutelisTab = () => {
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 36
+            fontSize: 36,
           }}
         >
           Cleaner
@@ -266,14 +260,14 @@ const AutelisTab = () => {
       <div
         style={{
           display: "flex",
-          marginTop: 8
+          marginTop: 8,
         }}
       >
         <div
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 24
+            fontSize: 24,
           }}
         >
           Waterfall
@@ -309,14 +303,14 @@ const AutelisTab = () => {
       <div
         style={{
           display: "flex",
-          marginTop: 8
+          marginTop: 8,
         }}
       >
         <div
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 24
+            fontSize: 24,
           }}
         >
           Pool Light
@@ -352,14 +346,14 @@ const AutelisTab = () => {
       <div
         style={{
           display: "flex",
-          marginTop: 8
+          marginTop: 8,
         }}
       >
         <div
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 24
+            fontSize: 24,
           }}
         >
           Pool Heat
@@ -411,7 +405,7 @@ const AutelisTab = () => {
       <div
         style={{
           display: "flex",
-          marginTop: 8
+          marginTop: 8,
         }}
       >
         <div style={{ flex: 0.6, display: "flex" }}>
@@ -456,7 +450,7 @@ const AutelisTab = () => {
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 24
+            fontSize: 24,
           }}
         >
           Spa Heat
@@ -470,7 +464,7 @@ const AutelisTab = () => {
       <div
         style={{
           display: "flex",
-          marginTop: 8
+          marginTop: 8,
         }}
       >
         <ButtonGroup style={{ flex: 1 }}>
@@ -499,7 +493,7 @@ const AutelisTab = () => {
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 24
+            fontSize: 24,
           }}
         >
           Spa Light
@@ -513,7 +507,7 @@ const AutelisTab = () => {
       <div
         style={{
           display: "flex",
-          marginTop: 8
+          marginTop: 8,
         }}
       >
         <ButtonGroup style={{ flex: 1 }}>
@@ -542,7 +536,7 @@ const AutelisTab = () => {
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 24
+            fontSize: 24,
           }}
         >
           Jets
@@ -556,7 +550,7 @@ const AutelisTab = () => {
       <div
         style={{
           display: "flex",
-          marginTop: 8
+          marginTop: 8,
         }}
       >
         <ButtonGroup style={{ flex: 1 }}>
@@ -585,7 +579,7 @@ const AutelisTab = () => {
           style={{
             textAlign: "center",
             flex: 0.6,
-            fontSize: 24
+            fontSize: 24,
           }}
         >
           Blower
@@ -622,7 +616,7 @@ const AutelisTab = () => {
               textAlign: "center",
               marginTop: 10,
               display: "flex",
-              justifyContent: "center"
+              justifyContent: "center",
             }}
           >
             <MacroTile label="Warm Spa" name="Warm Spa" width={1} />

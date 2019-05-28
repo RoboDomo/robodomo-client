@@ -6,30 +6,52 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "bootswatch": "^4.3.1",
-    "bowser": "^2.1.2",
+    "bowser": "^2.4.0",
     "jquery": "^3.3.1",
     "mqtt": "^2.18.8",
-    "react": "^16.8.5",
-    "react-bootstrap": "^1.0.0-beta.6",
+    "react": "^16.8.6",
+    "react-app-rewired": "^2.1.3",
+    "react-bootstrap": "^1.0.0-beta.8",
     "react-bootstrap-slider": "^2.2.2",
     "react-bootstrap-toggle": "^2.3.2",
     "react-dock": "^0.2.4",
-    "react-dom": "^16.8.5",
-    "react-icons": "^3.5.0",
+    "react-dom": "^16.8.6",
+    "react-icons": "^3.7.0",
     "react-nest-thermostat": "^1.0.8",
     "react-popper": "^1.3.3",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.8"
+    "react-scripts": "^3.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "electron": "electron ."
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
+    "electron": "electron .",
+    "autoformat": "lint-staged"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "plugin:prettier/recommended",
+      "prettier/babel",
+      "prettier/react"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run autoformat"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx},!src/models": [
+      "eslint --fix",
+      "git add"
+    ],
+    "src/**/*.{json,scss,sass,less}": [
+      "prettier --write",
+      "git add"
+    ]
   },
   "browserslist": [
     ">0.2%",
@@ -38,6 +60,14 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "electron": "^5.0.2"
+    "electron": "^5.0.2",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "hard-source-webpack-plugin": "^0.13.1",
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.7",
+    "prettier": "^1.17.1",
+    "workbox-webpack-plugin": "^4.3.1"
   }
 }

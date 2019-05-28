@@ -11,21 +11,15 @@ const useTVGuide = guide => {
       setChannels(message);
     };
 
-    MQTT.subscribe(
-      `${Config.mqtt.tvguide}/${guide}/status/channels`,
-      handleChannels
-    );
+    MQTT.subscribe(`${Config.mqtt.tvguide}/${guide}/status/channels`, handleChannels);
 
     return () => {
-      MQTT.unsubscribe(
-        `${Config.mqtt.tvguide}/${guide}/status/channels`,
-        handleChannels
-      );
+      MQTT.unsubscribe(`${Config.mqtt.tvguide}/${guide}/status/channels`, handleChannels);
     };
-  }, []);
+  }, [guide]);
 
   return {
-    channels: channels
+    channels: channels,
   };
 };
 

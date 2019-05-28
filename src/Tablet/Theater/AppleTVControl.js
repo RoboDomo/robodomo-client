@@ -11,7 +11,7 @@ import {
   FaPause,
   FaPlay,
   FaForward,
-  FaFastForward
+  FaFastForward,
 } from "react-icons/fa";
 
 import MQTT from "lib/MQTT";
@@ -19,7 +19,7 @@ import MQTT from "lib/MQTT";
 const rowStyle = {
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
 };
 
 const formatTime = (seconds, trim = true) => {
@@ -76,7 +76,7 @@ const AppleTVControl = ({ device }) => {
       MQTT.unsubscribe(topic + "/info", onInfoChange);
       MQTT.unsubscribe(topic + "/elapsedTime", onTimeChange);
     };
-  }, []);
+  }, [topic]);
 
   const renderPlayState = () => {
     if (info.totalTime) {
@@ -199,9 +199,7 @@ const AppleTVControl = ({ device }) => {
           <RemoteButton variant="none" />
         </ButtonGroup>
       </Row>
-      <Row style={{ ...rowStyle, marginTop: 20 }}>
-        {renderPlaybackControls()}
-      </Row>
+      <Row style={{ ...rowStyle, marginTop: 20 }}>{renderPlaybackControls()}</Row>
     </>
   );
 };

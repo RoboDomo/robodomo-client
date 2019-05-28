@@ -14,7 +14,7 @@ import {
   FaStepForward,
   FaForward,
   FaFastForward,
-  FaDotCircle
+  FaDotCircle,
 } from "react-icons/fa";
 
 import RemoteButton from "common/RemoteButton";
@@ -45,7 +45,7 @@ const ignoredLaunchPoints = [
   "Notifications",
   "Set Up TV for Google Assistant",
   "Set Up TV for Amazon Alexa",
-  "LG Remote Service"
+  "LG Remote Service",
 ];
 
 // If props.lgtv.tuner is set to true, then additional controls are rendered.
@@ -89,7 +89,7 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
         style={{
           justifyContent: "center",
           display: "flex",
-          flexWrap: "wrap"
+          flexWrap: "wrap",
         }}
       >
         {Object.keys(lgtv.launchPoints).map(key => {
@@ -110,16 +110,12 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
               style={{
                 margin: 4,
                 maxWidth: 48,
-                flex: 1
+                flex: 1,
               }}
               key={info.id}
             >
               <OverlayTrigger key={okey} overlay={overlay}>
-                <img
-                  alt={info.title}
-                  style={{ maxWidth: 48, minHeight: 48 }}
-                  src={info.icon}
-                />
+                <img alt={info.title} style={{ maxWidth: 48, minHeight: 48 }} src={info.icon} />
               </OverlayTrigger>
             </div>
           );
@@ -152,18 +148,10 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
   const renderHDMI = () => {
     return (
       <ButtonGroup>
-        <RemoteButton variant={tvInput === "hdmi1" ? "primary" : undefined}>
-          HDMI1
-        </RemoteButton>
-        <RemoteButton variant={tvInput === "hdmi2" ? "primary" : undefined}>
-          HDMI2
-        </RemoteButton>
-        <RemoteButton variant={tvInput === "hdmi3" ? "primary" : undefined}>
-          HDMI3
-        </RemoteButton>
-        <RemoteButton variant={tvInput === "hdmi4" ? "primary" : undefined}>
-          HDMI4
-        </RemoteButton>
+        <RemoteButton variant={tvInput === "hdmi1" ? "primary" : undefined}>HDMI1</RemoteButton>
+        <RemoteButton variant={tvInput === "hdmi2" ? "primary" : undefined}>HDMI2</RemoteButton>
+        <RemoteButton variant={tvInput === "hdmi3" ? "primary" : undefined}>HDMI3</RemoteButton>
+        <RemoteButton variant={tvInput === "hdmi4" ? "primary" : undefined}>HDMI4</RemoteButton>
       </ButtonGroup>
     );
   };
@@ -247,7 +235,7 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
           marginLeft: "auto",
           marginRight: "auto",
           marginTop: 14,
-          marginBottom: 10
+          marginBottom: 10,
         }}
       >
         {renderLaunchPoints()}
@@ -312,12 +300,7 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
           <RemoteButton topic={set_topic} message="ADVANCE" mini>
             <FaFastForward />
           </RemoteButton>
-          <RemoteButton
-            topic={set_topic}
-            message="RECORD"
-            mini
-            variant="danger"
-          >
+          <RemoteButton topic={set_topic} message="RECORD" mini variant="danger">
             <FaDotCircle />
           </RemoteButton>
         </ButtonGroup>

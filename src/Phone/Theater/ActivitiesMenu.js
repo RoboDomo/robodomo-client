@@ -14,11 +14,7 @@ const ActivitiesMenu = ({ activities, currentActivity }) => {
       alignRight={true}
       navbar={true}
       onSelect={(newActivity, e) => {
-        console.log(
-          "onSelect newActivity",
-          newActivity,
-          activitiesMap[newActivity]
-        );
+        console.log("onSelect newActivity", newActivity, activitiesMap[newActivity]);
       }}
     >
       <Button variant="primary">{currentActivity}</Button>

@@ -5,9 +5,7 @@ import Clock from "common/Clock";
 
 const ClockItem = () => {
   return (
-    <ListGroup.Item
-      style={{ fontSize: 50, whiteSpace: "nowrap", textAlign: "center" }}
-    >
+    <ListGroup.Item style={{ fontSize: 50, whiteSpace: "nowrap", textAlign: "center" }}>
       <Clock />
     </ListGroup.Item>
   );

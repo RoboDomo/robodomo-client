@@ -37,7 +37,7 @@ const DimmerTile = ({ name }) => {
       MQTT.unsubscribe(status_topic + "switch", onStateChange);
       MQTT.unsubscribe(status_topic + "level", onStateChange);
     };
-  }, []);
+  }, [status_topic, status_topic_length]);
 
   const onClick = e => {
     e.stopPropagation();
@@ -55,19 +55,16 @@ const DimmerTile = ({ name }) => {
     power === "off"
       ? {
           color: undefined,
-          value: "Off"
+          value: "Off",
         }
       : {
           color: "yellow",
-          value: `${level}%`
+          value: `${level}%`,
         };
 
   return (
     <Tile width={1} height={1}>
-      <div
-        style={{ textAlign: "center", color: style.color }}
-        onClick={onClick}
-      >
+      <div style={{ textAlign: "center", color: style.color }} onClick={onClick}>
         <TiAdjustBrightness size={24} style={{ marginBottom: 10 }} />
         <div style={{ fontWeight: "normal" }}>{name}</div>
         <div style={{ fontSize: 30 }}>{style.value}</div>

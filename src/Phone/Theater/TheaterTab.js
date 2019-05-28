@@ -115,14 +115,8 @@ const TheaterTab = ({ theater }) => {
         case "lgtv":
           tvType = "lgtv";
           MQTT.subscribe(`lgtv/${device.device}/status/power`, onMessage);
-          MQTT.subscribe(
-            `lgtv/${device.device}/status/foregroundApp`,
-            onMessage
-          );
-          MQTT.subscribe(
-            `lgtv/${device.device}/status/launchPoints`,
-            onMessage
-          );
+          MQTT.subscribe(`lgtv/${device.device}/status/foregroundApp`, onMessage);
+          MQTT.subscribe(`lgtv/${device.device}/status/launchPoints`, onMessage);
           break;
         case "denon":
           MQTT.subscribe(`denon/${device.device}/status/SI`, onMessage);
@@ -136,14 +130,8 @@ const TheaterTab = ({ theater }) => {
         switch (device.type) {
           case "lgtv":
             MQTT.unsubscribe(`lgtv/${device.device}/status/power`, onMessage);
-            MQTT.unsubscribe(
-              `lgtv/${device.device}/status/foregroundApp`,
-              onMessage
-            );
-            MQTT.unsubscribe(
-              `lgtv/${device.device}/status/launchPoints`,
-              onMessage
-            );
+            MQTT.unsubscribe(`lgtv/${device.device}/status/foregroundApp`, onMessage);
+            MQTT.unsubscribe(`lgtv/${device.device}/status/launchPoints`, onMessage);
             break;
           case "denon":
             MQTT.unsubscribe(`denon/${device.device}/status/SI`, onMessage);

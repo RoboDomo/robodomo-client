@@ -38,11 +38,11 @@ export default {
   // configuraiton for MQTT Host and topics
   mqtt: {
     // host is the host running mqtt server
-    host: "ha",
+    host: process.env.REACT_APP_SERVER_DOMAIN,
     // port is the port on the mqtt server for websocket connection
     // you would configure this for mosquitto, for example, in mosquitto.conf
     // between host and port, we're looking at something like mqtt://ha:80
-    port: 80,
+    port: process.env.REACT_APP_SERVER_PORT,
     // topics - roughly one per microservice
     appletv: "appletv",
     denon: "denon",

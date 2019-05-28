@@ -19,7 +19,7 @@ const topics = [
   "spaHeat",
   "poolHeat",
   "solarHeat",
-  "solarTemp"
+  "solarTemp",
 ];
 
 const useAutelis = () => {
@@ -134,7 +134,7 @@ const useAutelis = () => {
         MQTT.unsubscribe(status_topic + forward[key], handleStateChange);
       }
     };
-  }, []);
+  }, [forward, handleStateChange, status_topic]);
 
   const [, d] = useReducer(reducer.current);
   return {
@@ -155,7 +155,7 @@ const useAutelis = () => {
     spaSetpoint: spaSetpoint,
     jet: jets,
     jets: jets,
-    blower: blower
+    blower: blower,
   };
 };
 

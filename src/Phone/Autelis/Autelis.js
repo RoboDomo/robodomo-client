@@ -9,9 +9,7 @@ import Config from "Config";
 const LOCALSTORAGE_KEY = "autelisTabletTabState";
 
 const Autelis = () => {
-  const [activeTab, setActiveTab] = useState(
-    localStorage.getItem(LOCALSTORAGE_KEY) || "0"
-  );
+  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
   return (
     <Tabs
       id="autelis-tabs"

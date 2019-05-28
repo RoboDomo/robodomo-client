@@ -2,12 +2,7 @@ import React from "react";
 
 import { Row, ButtonGroup } from "react-bootstrap";
 
-import {
-  FaChevronUp,
-  FaChevronDown,
-  FaChevronLeft,
-  FaChevronRight
-} from "react-icons/fa";
+import { FaChevronUp, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 import ActionButton from "common/ActionButton";
 
@@ -16,7 +11,7 @@ import useDenon from "common/hooks/useDenon";
 const rowStyle = {
   display: "flex",
   alignItems: "center",
-  justifyContent: "center"
+  justifyContent: "center",
 };
 
 const DenonControl = ({ config }) => {

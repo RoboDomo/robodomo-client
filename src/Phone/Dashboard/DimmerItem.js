@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Badge, ListGroup } from "react-bootstrap";
 
-import Config from "Config";
-import MQTT from "lib/MQTT";
+import Config from "@/Config";
+import MQTT from "@/lib/MQTT";
 
 import { TiAdjustBrightness } from "react-icons/ti";
 
@@ -37,7 +37,7 @@ const DimmerItem = ({ name }) => {
       MQTT.unsubscribe(status_topic + "switch", onStateChange);
       MQTT.unsubscribe(status_topic + "level", onStateChange);
     };
-  }, []);
+  }, [status_topic, status_topic_length]);
 
   const onClick = e => {
     e.stopPropagation();
@@ -55,25 +55,18 @@ const DimmerItem = ({ name }) => {
     power === "off"
       ? {
           color: undefined,
-          value: "Off"
+          value: "Off",
         }
       : {
           color: "yellow",
-          value: `${level}%`
+          value: `${level}%`,
         };
 
   return (
-    <ListGroup.Item
-      style={{ whiteSpace: "nowrap", color: style.color }}
-      onClick={onClick}
-    >
+    <ListGroup.Item style={{ whiteSpace: "nowrap", color: style.color }} onClick={onClick}>
       <TiAdjustBrightness size={24} style={{ paddingBottom: 10 }} />
       <span style={{ fontSize: 20, fontWeight: "normal" }}>{name}</span>
-      <Badge
-        className="float-right"
-        variant="secondary"
-        style={{ fontSize: 20, marginLeft: 10 }}
-      >
+      <Badge className="float-right" variant="secondary" style={{ fontSize: 20, marginLeft: 10 }}>
         {style.value}
       </Badge>
     </ListGroup.Item>

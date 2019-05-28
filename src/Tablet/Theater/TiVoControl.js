@@ -16,7 +16,7 @@ import {
   FaStepForward,
   FaForward,
   FaFastForward,
-  FaDotCircle
+  FaDotCircle,
 } from "react-icons/fa";
 
 import useTiVo from "common/hooks/useTiVo";
@@ -26,8 +26,8 @@ const style = {
     marginTop: 4,
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 };
 
 const TiVoControl = ({ config }) => {
@@ -41,7 +41,7 @@ const TiVoControl = ({ config }) => {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "center"
+          justifyContent: "center",
         }}
       >
         <ButtonGroup>
@@ -70,11 +70,7 @@ const TiVoControl = ({ config }) => {
           <ActionButton dispatch={dispatch} action="back">
             Back
           </ActionButton>
-          <ActionButton
-            dispatch={dispatch}
-            action="thumbsdown"
-            variant="danger"
-          >
+          <ActionButton dispatch={dispatch} action="thumbsdown" variant="danger">
             <FaThumbsDown />
           </ActionButton>
         </ButtonGroup>
@@ -200,12 +196,7 @@ const TiVoControl = ({ config }) => {
           <ActionButton dispatch={dispatch} action="advance" mini>
             <FaFastForward />
           </ActionButton>
-          <ActionButton
-            dispatch={dispatch}
-            action="record"
-            mini
-            variant="danger"
-          >
+          <ActionButton dispatch={dispatch} action="record" mini variant="danger">
             <FaDotCircle />
           </ActionButton>
         </ButtonGroup>

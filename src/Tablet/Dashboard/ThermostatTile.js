@@ -7,13 +7,7 @@ import NumberInput from "common/form/NumberInput";
 import Thermostat from "react-nest-thermostat";
 import { Form } from "react-bootstrap";
 
-const topics = [
-  "away",
-  "ambient_temperature_f",
-  "target_temperature_f",
-  "hvac_state",
-  "has_leaf"
-];
+const topics = ["away", "ambient_temperature_f", "target_temperature_f", "hvac_state", "has_leaf"];
 
 const ThermostatTile = ({ device }) => {
   const [away, setAway] = useState("home");
@@ -50,14 +44,14 @@ const ThermostatTile = ({ device }) => {
         MQTT.unsubscribe(status_topic + topic, onStateChange);
       }
     };
-  }, []);
+  }, [status_topic]);
 
   return (
     <Tile width={2} height={2}>
       <div
         style={{
           textAlign: "center",
-          marginTop: 0
+          marginTop: 0,
         }}
       >
         <div style={{ marginBottom: 8, fontSize: 18, fontWeight: "bold" }}>

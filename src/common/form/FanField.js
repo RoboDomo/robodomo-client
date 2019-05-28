@@ -26,10 +26,7 @@ const FanField = ({ label, name, toggled, value, onChange }) => {
           <Button variant={styles.low} onClick={() => onChange(name, "low")}>
             Low
           </Button>
-          <Button
-            variant={styles.medium}
-            onClick={() => onChange(name, "medium")}
-          >
+          <Button variant={styles.medium} onClick={() => onChange(name, "medium")}>
             Medium
           </Button>
           <Button variant={styles.high} onClick={() => onChange(name, "high")}>

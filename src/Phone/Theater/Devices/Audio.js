@@ -49,7 +49,7 @@ const AudioControl = ({ device }) => {
       MQTT.unsubscribe(topic + "MS", onMessage);
       MQTT.unsubscribe(topic + "CVC", onMessage);
     };
-  }, []);
+  }, [topic]);
 
   return (
     <div style={{ textAlign: "center" }}>
@@ -67,20 +67,10 @@ const AudioControl = ({ device }) => {
             >
               <FaVolumeMute />
             </RemoteButton>
-            <RemoteButton
-              mini
-              topic={set_topic}
-              message="MVUP"
-              name="volume-up"
-            >
+            <RemoteButton mini topic={set_topic} message="MVUP" name="volume-up">
               <FaVolumeUp />
             </RemoteButton>
-            <RemoteButton
-              mini
-              topic={set_topic}
-              message="MVDOWN"
-              name="volume-down"
-            >
+            <RemoteButton mini topic={set_topic} message="MVDOWN" name="volume-down">
               <FaVolumeDown />
             </RemoteButton>
           </ButtonGroup>
@@ -89,20 +79,10 @@ const AudioControl = ({ device }) => {
         <div style={{ flex: 1 }}>
           Center {format(center - 500)}
           <ButtonGroup>
-            <RemoteButton
-              mini
-              topic={set_topic}
-              message="CVC UP"
-              name="center-up"
-            >
+            <RemoteButton mini topic={set_topic} message="CVC UP" name="center-up">
               <FaVolumeUp />
             </RemoteButton>
-            <RemoteButton
-              mini
-              topic={set_topic}
-              message="CVC DOWN"
-              name="center-down"
-            >
+            <RemoteButton mini topic={set_topic} message="CVC DOWN" name="center-down">
               <FaVolumeDown />
             </RemoteButton>
           </ButtonGroup>

@@ -18,7 +18,7 @@ import {
   FaStepForward,
   FaForward,
   FaFastForward,
-  FaDotCircle
+  FaDotCircle,
 } from "react-icons/fa";
 
 const TransportButtons = ({ style, device, commands }) => {

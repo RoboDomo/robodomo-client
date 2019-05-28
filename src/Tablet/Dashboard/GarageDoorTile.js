@@ -5,9 +5,7 @@ import MQTT from "lib/MQTT";
 import Tile from "./Tile";
 
 const GarageDoorTile = ({ config }) => {
-  const devices = Array.isArray(config.devices)
-    ? config.devices
-    : [config.devices];
+  const devices = Array.isArray(config.devices) ? config.devices : [config.devices];
   const preface = Config.mqtt.smartthings;
 
   const [doorSensors, setDoorSensors] = useState({});
@@ -34,7 +32,7 @@ const GarageDoorTile = ({ config }) => {
         MQTT.unsubscribe(`${preface}/${device}/contact`, onStateChange);
       }
     };
-  }, []);
+  }, [devices, preface]);
 
   const doors = [];
   let open = false;
@@ -54,7 +52,7 @@ const GarageDoorTile = ({ config }) => {
           padding: 5,
           textAlign: "center",
           backgroundColor: open ? "red" : undefined,
-          color: open ? "white" : undefined
+          color: open ? "white" : undefined,
         }}
       >
         {doors.map(function(door) {

@@ -54,7 +54,7 @@ const useLGTV = config => {
       play: "PLAY",
       slow: "SLOW",
       forward: "FORWARD",
-      advance: "ADVANCE"
+      advance: "ADVANCE",
     };
     //    if (launchPoints) {
     //    console.log("launchPoints", launchPoints);
@@ -67,7 +67,7 @@ const useLGTV = config => {
         ...state,
         {
           /* newstate*/
-        }
+        },
       ];
     } catch (e) {}
   };
@@ -100,38 +100,25 @@ const useLGTV = config => {
     if (!launchPoints) {
       return;
     }
-    if (
-      !foregroundApp ||
-      !foregroundApp.appId ||
-      !launchPoints[foregroundApp.appId]
-    ) {
+    if (!foregroundApp || !foregroundApp.appId || !launchPoints[foregroundApp.appId]) {
       setInput("OFF");
       return;
     }
     const title = launchPoints[foregroundApp.appId].title;
     const lp = title || "unknown";
     setInput(power ? lp.replace(/\s+/, "").toLowerCase() : "OFF");
-  });
+  }, [launchPoints, foregroundApp, power]);
 
   useEffect(() => {
     MQTT.subscribe(`lgtv/${hostname}/status/power`, handlePower);
-    MQTT.subscribe(
-      `lgtv/${hostname}/status/foregroundApp`,
-      handleForegroundApp
-    );
+    MQTT.subscribe(`lgtv/${hostname}/status/foregroundApp`, handleForegroundApp);
     MQTT.subscribe(`lgtv/${hostname}/status/launchPoints`, handleLaunchPoints);
     return () => {
       MQTT.unsubscribe(`lgtv/${hostname}/status/power`, handlePower);
-      MQTT.unsubscribe(
-        `lgtv/${hostname}/status/foregroundApp`,
-        handleForegroundApp
-      );
-      MQTT.unsubscribe(
-        `lgtv/${hostname}/status/launchPoints`,
-        handleLaunchPoints
-      );
+      MQTT.unsubscribe(`lgtv/${hostname}/status/foregroundApp`, handleForegroundApp);
+      MQTT.unsubscribe(`lgtv/${hostname}/status/launchPoints`, handleLaunchPoints);
     };
-  }, []);
+  }, [hostname]);
 
   const [, d] = useReducer(reducer);
   return {
@@ -141,7 +128,7 @@ const useLGTV = config => {
     power: power,
     input: input,
     foregroundApp: foregroundApp,
-    launchPoints: launchPoints
+    launchPoints: launchPoints,
   };
 };
 
