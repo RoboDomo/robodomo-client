@@ -68,7 +68,6 @@ const useTiVo = config => {
   });
 
   const handleMessage = (topic, message) => {
-    console.log("handle", topic, message);
     if (~topic.indexOf("channel")) {
       setChannel(message);
     } else if (~topic.indexOf("mode")) {

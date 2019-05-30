@@ -20,7 +20,7 @@ const ThermostatTile = ({ device }) => {
     set_topic = status_topic.replace("status", "set");
 
   useEffect(() => {
-    const onStateChange = (topic, newValue) => {
+    const handleStateChange = (topic, newValue) => {
       if (~topic.indexOf("away")) {
         setAway(newValue);
       } else if (~topic.indexOf("ambient_temperature_f")) {
@@ -37,17 +37,17 @@ const ThermostatTile = ({ device }) => {
     };
 
     for (const topic of topics) {
-      MQTT.subscribe(status_topic + topic, onStateChange);
+      MQTT.subscribe(status_topic + topic, handleStateChange);
     }
     return () => {
       for (const topic of topics) {
-        MQTT.unsubscribe(status_topic + topic, onStateChange);
+        MQTT.unsubscribe(status_topic + topic, handleStateChange);
       }
     };
   }, [status_topic]);
 
   return (
-    <Tile width={2} height={2}>
+    <Tile width={2} height={2} onClick="nest">
       <div
         style={{
           textAlign: "center",

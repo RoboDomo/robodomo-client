@@ -8,7 +8,6 @@ const TiVo = ({ device }) => {
   const tvguide = useTVGuide(device.guide);
   const tivo = useTiVo(device);
 
-  console.log("tivo", tivo);
   const info = tvguide.channels[tivo.channel];
   if (!info) {
     return null;

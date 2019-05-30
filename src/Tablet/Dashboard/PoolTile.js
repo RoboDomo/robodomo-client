@@ -57,7 +57,7 @@ const PoolTile = ({ device }) => {
       height={1}
       onClick={() => {
         localStorage.setItem("autelis-radio", "pool");
-        window.location.hash = "poolcontrol";
+        window.location.hash = "autelis";
       }}
     >
       <div style={{ textAlign: "center" }}>{renderPool()}</div>

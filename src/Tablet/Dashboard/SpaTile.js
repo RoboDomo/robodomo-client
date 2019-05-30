@@ -62,7 +62,7 @@ const SpaTile = ({ device }) => {
       height={1}
       onClick={() => {
         localStorage.setItem("autelis-radio", "spa");
-        window.location.hash = "poolcontrol";
+        window.location.hash = "autelis";
       }}
       backgroundColor={backgroundColor}
       color={color}

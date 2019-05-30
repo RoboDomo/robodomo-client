@@ -23,7 +23,6 @@ const ThermostatButton = ({ thermostat }) => {
   //  const [now, setNow] = useState({});
 
   const weather = useWeather(postalCode);
-  console.log("weather", weather);
   const thermostat_status_topic = Config.mqtt.nest + "/" + thermostat + "/status/",
     set_topic = thermostat_status_topic.replace("status", "set");
 

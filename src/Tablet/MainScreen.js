@@ -4,7 +4,7 @@
  * Implements the top bar as tabs and renders app content below
  */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import {
   //  Grid,
@@ -32,8 +32,38 @@ import { MdMenu } from "react-icons/md";
 
 const LOCALSTORAGE_KEY = "mainTabState";
 
+const tabInfo = {
+  dashboard: 1,
+  1: "dashboard",
+  theater: 2,
+  2: "theater",
+  weather: 3,
+  3: "weather",
+  nest: 4,
+  4: "nest",
+  sensors: 5,
+  5: "sensors",
+  autelis: 6,
+  6: "autelis",
+  smartthings: 7,
+  7: "smartthings",
+};
+
 const MainScreen = () => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "1");
+  useEffect(() => {
+    window.addEventListener(
+      "hashchange",
+      () => {
+        const hash = window.location.hash.substr(1),
+          info = tabInfo[hash];
+        localStorage.setItem(LOCALSTORAGE_KEY, info);
+        setActiveTab(info);
+      },
+      false
+    );
+  }, []);
+
   return (
     <div style={{ width: 1024, height: 768, margin: "auto" }}>
       <div style={{ marginTop: 56 }}>
@@ -73,9 +103,7 @@ const MainScreen = () => {
             bg="primary"
             variant="dark"
             onSelect={tab => {
-              localStorage.setItem(LOCALSTORAGE_KEY, tab);
-              setActiveTab(tab);
-              console.log("eventKey");
+              window.location.hash = "#" + tabInfo[tab];
             }}
           >
             <Navbar.Brand

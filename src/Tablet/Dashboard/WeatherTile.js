@@ -19,13 +19,14 @@ const WeatherTile = () => {
       </Tile>
     );
   }
+
   return (
     <Tile width={2} height={2} onClick="weather">
       <div style={{ textAlign: "center" }}>
         <div>{display_city}</div>
         <div
           style={{
-            fontSize: 48,
+            fontSize: 32,
             paddingRight: 10,
             marginBottom: 10,
           }}
@@ -39,7 +40,9 @@ const WeatherTile = () => {
             }}
             src={"/img/Weather/icons/black/" + now.icon + ".svg"}
           />
-          <div style={{ display: "inline", paddingTop: 10 }}>{now.current_temperature}&deg;F</div>
+          <div style={{ display: "inline", paddingTop: 10 }}>
+            <span style={{ fontSize: 64 }}>{now.current_temperature}</span>&deg;F
+          </div>
         </div>
         <div
           style={{

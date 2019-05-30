@@ -15,7 +15,6 @@ const SmartThingsTab = ({ room }) => {
     set_topic = status_topic;
 
   const valueChange = (name, value) => {
-    console.log("valueChange", name, value);
     const newValue = {};
     newValue[name] = value;
     setState(prev => ({ ...prev, ...newValue }));
@@ -23,7 +22,6 @@ const SmartThingsTab = ({ room }) => {
 
   const control = (name, state) => {
     //
-    console.log("control", name, state);
     const newValue = {};
     newValue[name] = state;
     setState(prev => ({ ...prev, ...newValue }));
@@ -31,7 +29,6 @@ const SmartThingsTab = ({ room }) => {
   };
 
   const toggleSwitch = (name, state) => {
-    console.log("toggleSwitch", name, state);
     control(`${name}/switch`, state ? "on" : "off");
   };
 

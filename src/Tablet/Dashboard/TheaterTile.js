@@ -165,7 +165,7 @@ const TheaterTile = ({ title }) => {
   };
 
   return active ? (
-    <Tile width={2} height={2}>
+    <Tile width={2} height={2} onClick="theater">
       <div style={{ fontSize: 24, marginBottom: 0 }}>{currentActivity}</div>
       {renderCurrentDevice()}
       <Audio device={denon.current} />

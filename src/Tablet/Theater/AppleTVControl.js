@@ -60,7 +60,6 @@ const AppleTVControl = ({ device }) => {
       } catch (e) {
         msg = message;
       }
-      console.log("message", message);
       setInfo(prev => ({ ...prev, ...msg }));
     }
   };
@@ -92,7 +91,6 @@ const AppleTVControl = ({ device }) => {
   };
 
   const renderNowPlaying = () => {
-    console.log("info", info);
     if (!info || !info.title) {
       return (
         <div style={{ height: 128 }}>
