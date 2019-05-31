@@ -430,6 +430,7 @@ export default {
   weather: {
     locations: [
       { name: "Palm Desert CA", device: "92211" },
+      { name: "Bermuda Dunes CA", device: "92203" },
       { name: "Mission Beach CA", device: "92109" },
     ],
   },
