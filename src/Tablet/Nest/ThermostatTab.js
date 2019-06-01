@@ -64,7 +64,8 @@ const ThermostatTab = ({ thermostat }) => {
         MQTT.unsubscribe(thermostat_status_topic + topic, onThermostatChange);
       }
     };
-  }, [onThermostatChange, thermostatTopics, thermostat_status_topic]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const hvacModeChange = mode => {
     MQTT.publish(set_topic + "/hvac_mode", mode);
