@@ -3,7 +3,6 @@ import MQTT from "lib/MQTT";
 import Config from "Config";
 
 const useLGTV = config => {
-  //  console.log("useLGTV", config);
   const hostname = config.device;
   const [power, setPower] = useState(null);
   const [input, setInput] = useState(null);
@@ -13,10 +12,7 @@ const useLGTV = config => {
   const status_topic = Config.mqtt.lgtv + "/" + hostname + "/status/",
     set_topic = status_topic.replace("status", "set") + "command";
 
-  //  console.log("set", set_topic);
   const reducer = (state, action) => {
-    //    console.log("reducer", state, action, action.type);
-    //    console.log("set2", set_topic);
     const topics = {
       poweron: "POWERON",
       poweroff: "POWEROFF",
@@ -56,9 +52,6 @@ const useLGTV = config => {
       forward: "FORWARD",
       advance: "ADVANCE",
     };
-    //    if (launchPoints) {
-    //    console.log("launchPoints", launchPoints);
-    //    }
     const topic = topics[("" + action.type).toLowerCase()];
 
     try {
@@ -74,7 +67,7 @@ const useLGTV = config => {
 
   const handlePower = (topic, message) => {
     if (message === true || message === false) {
-      setPower(message);
+      setPower(message ? "on" : "off");
     } else {
       setPower(message === "on");
     }
@@ -107,8 +100,7 @@ const useLGTV = config => {
     const title = launchPoints[foregroundApp.appId].title;
     const lp = title || "unknown";
     setInput(power ? lp.replace(/\s+/, "").toLowerCase() : "OFF");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [foregroundApp, launchPoints, power]);
 
   useEffect(() => {
     MQTT.subscribe(`lgtv/${hostname}/status/power`, handlePower);
@@ -133,4 +125,5 @@ const useLGTV = config => {
   };
 };
 
+//
 export default useLGTV;
