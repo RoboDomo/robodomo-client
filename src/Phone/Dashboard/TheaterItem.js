@@ -20,33 +20,6 @@ const TheaterItem = ({ title }) => {
   const tivo = useRef(null);
   const denon = useRef(null);
 
-  const findTheater = () => {
-    for (const t of Config.theaters) {
-      if (t.title === title) {
-        return t;
-      }
-    }
-    return null;
-  };
-  const def = findTheater();
-  if (!def) {
-    return <div>Config.js error: Theater {title} not found</div>;
-  }
-
-  const devices = def.devices || [],
-    deviceMap = {};
-
-  for (const device of devices) {
-    deviceMap[device.type] = device;
-  }
-
-  const activities = def.activities || [],
-    activitiesMap = {};
-
-  for (const activity of activities) {
-    activitiesMap[activity.name] = activities;
-  }
-
   let tvType = "unknown";
 
   useEffect(() => {
@@ -99,10 +72,10 @@ const TheaterItem = ({ title }) => {
         }
       } catch (e) {}
     }; // onMessage
+
     for (const device of devices) {
       switch (device.type) {
         case "lgtv":
-          tvType = "lgtv";
           MQTT.subscribe(`${Config.mqtt.lgtv}/${device.device}/status/power`, onMessage);
           MQTT.subscribe(`${Config.mqtt.lgtv}/${device.device}/status/foregroundApp`, onMessage);
           MQTT.subscribe(`${Config.mqtt.lgtv}/${device.device}/status/launchPoints`, onMessage);
@@ -144,7 +117,35 @@ const TheaterItem = ({ title }) => {
         }
       }
     };
-  }, [currentActivity, power, launchPoints, avrInput, tvInput]);
+  }, []);
+
+  const findTheater = () => {
+    for (const t of Config.theaters) {
+      if (t.title === title) {
+        return t;
+      }
+    }
+    return null;
+  };
+
+  const def = findTheater();
+  if (!def) {
+    return <div>Config.js error: Theater {title} not found</div>;
+  }
+
+  const devices = def.devices || [],
+    deviceMap = {};
+
+  for (const device of devices) {
+    deviceMap[device.type] = device;
+  }
+
+  const activities = def.activities || [],
+    activitiesMap = {};
+
+  for (const activity of activities) {
+    activitiesMap[activity.name] = activities;
+  }
 
   const renderCurrentDevice = () => {
     if (currentDevice.current === "TiVo") {

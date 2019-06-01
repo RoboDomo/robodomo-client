@@ -37,7 +37,8 @@ const DimmerItem = ({ name }) => {
       MQTT.unsubscribe(status_topic + "switch", onStateChange);
       MQTT.unsubscribe(status_topic + "level", onStateChange);
     };
-  }, [status_topic, status_topic_length]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onClick = e => {
     e.stopPropagation();

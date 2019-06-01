@@ -75,7 +75,8 @@ const HarmonyRemoteControl = ({ hub }) => {
         MQTT.unsubscribe(status_topic + topic, handleStateChange);
       }
     };
-  }, [handleStateChange, status_topic]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // render
   if (activities && startingActivity) {

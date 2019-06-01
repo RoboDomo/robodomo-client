@@ -134,7 +134,8 @@ const useAutelis = () => {
         MQTT.unsubscribe(status_topic + forward[key], handleStateChange);
       }
     };
-  }, [forward, handleStateChange, status_topic]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [, d] = useReducer(reducer.current);
   return {

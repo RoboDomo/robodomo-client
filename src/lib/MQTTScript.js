@@ -44,7 +44,8 @@ const MQTTScript = ({ script, onComplete }) => {
         setTimer(null);
       }
     };
-  }, [scriptCopy, currentCommand, timer, script]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (!script) {
     return null;

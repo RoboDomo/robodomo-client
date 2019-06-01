@@ -52,7 +52,8 @@ const ThermostatButton = ({ thermostat }) => {
       MQTT.unsubscribe(thermostat_status_topic + "target_temperature_f", handleStateChange);
       MQTT.unsubscribe(thermostat_status_topic + "hvac_state", handleStateChange);
     };
-  }, [thermostat_status_topic]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleClickDown = () => {
     const target_temperature = targetTemperature - 1;

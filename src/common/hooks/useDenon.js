@@ -94,7 +94,8 @@ const useDenon = config => {
       MQTT.unsubscribe(`${Config.mqtt.denon}/${config.device}/status/CVC`, handleMessage);
       MQTT.unsubscribe(`${Config.mqtt.denon}/${config.device}/status/DC`, handleMessage);
     };
-  }, [config.device]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     dispatch: d,

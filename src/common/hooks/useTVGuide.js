@@ -16,7 +16,8 @@ const useTVGuide = guide => {
     return () => {
       MQTT.unsubscribe(`${Config.mqtt.tvguide}/${guide}/status/channels`, handleChannels);
     };
-  }, [guide]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     channels: channels,

@@ -33,7 +33,8 @@ const useWeather = zip => {
       MQTT.unsubscribe(status_topic + "now", handleNowChange);
       MQTT.unsubscribe(status_topic + "display_city", handleCityChange);
     };
-  }, [status_topic, zip]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return {
     now: now || {},

@@ -107,7 +107,8 @@ const useLGTV = config => {
     const title = launchPoints[foregroundApp.appId].title;
     const lp = title || "unknown";
     setInput(power ? lp.replace(/\s+/, "").toLowerCase() : "OFF");
-  }, [launchPoints, foregroundApp, power]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     MQTT.subscribe(`lgtv/${hostname}/status/power`, handlePower);

@@ -180,7 +180,8 @@ const useBravia = config => {
       MQTT.unsubscribe(status_topic + "power", handlePower);
       MQTT.unsubscribe(status_topic + "volume", handleVolume);
     };
-  }, [status_topic]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [, d] = useReducer(reducer);
   return {

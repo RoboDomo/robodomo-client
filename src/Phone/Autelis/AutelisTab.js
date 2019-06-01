@@ -145,7 +145,8 @@ const AutelisTab = () => {
       MQTT.unsubscribe(weather_topic + "now", handleWeatherChange);
       MQTT.unsubscribe(weather_topic + "display_city", handleWeatherChange);
     };
-  }, [backward, forward, status_topic, topics, weather_topic]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   /**
    * Send message to control a device

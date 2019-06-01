@@ -87,7 +87,8 @@ const useTiVo = config => {
       MQTT.unsubscribe(`${topic}mode`, handleMessage);
       MQTT.unsubscribe(`${topic}reason`, handleMessage);
     };
-  }, [topic]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [, d] = useReducer(reducer.current);
   return {
