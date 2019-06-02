@@ -38,7 +38,7 @@ export default {
   // configuraiton for MQTT Host and topics
   mqtt: {
     // host is the host running mqtt server
-    host: process.env.REACT_APP_SERVER_DOMAIN || "ha",
+    host: process.env.REACT_APP_SERVER_DOMAIN || "robodomo",
     // port is the port on the mqtt server for websocket connection
     // you would configure this for mosquitto, for example, in mosquitto.conf
     // between host and port, we're looking at something like mqtt://ha:80
@@ -430,7 +430,6 @@ export default {
   weather: {
     locations: [
       { name: "Palm Desert CA", device: "92211" },
-      { name: "Bermuda Dunes CA", device: "92203" },
       { name: "Mission Beach CA", device: "92109" },
     ],
   },

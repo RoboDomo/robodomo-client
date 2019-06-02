@@ -16,19 +16,20 @@ import Config from "Config";
 import useWeather from "common/hooks/useWeather";
 
 const ThermostatButton = ({ thermostat }) => {
-  const [postalCode, setPostalCode] = useState(0);
+  //  const [postalCode, setPostalCode] = useState(0);
   const [ambientTemperature, setAmbientTemperature] = useState(72);
   const [targetTemperature, setTargetTemperature] = useState(72);
   const [hvacState, setHVACState] = useState("off");
   //  const [now, setNow] = useState({});
 
+  const postalCode = Config.weather.locations[0].device;
   const weather = useWeather(postalCode);
   const thermostat_status_topic = Config.mqtt.nest + "/" + thermostat + "/status/",
     set_topic = thermostat_status_topic.replace("status", "set");
 
   const handleStateChange = (topic, newState) => {
     if (~topic.indexOf("postal_code")) {
-      setPostalCode(newState);
+      //      setPostalCode(newState);
     } else if (~topic.indexOf("ambient_temperature_f")) {
       setAmbientTemperature(newState);
     } else if (~topic.indexOf("target_temperature_f")) {
@@ -64,11 +65,7 @@ const ThermostatButton = ({ thermostat }) => {
   const handleClickUp = () => {
     const target_temperature = targetTemperature + 1;
     setTargetTemperature(target_temperature);
-    MQTT.publish(
-      set_topic +
-        "targhttps://www.amazon.com/gp/product/B07DK6CDC8/ref=ppx_yo_dt_b_asin_title_o05_s01?ie=UTF8&psc=1et_temperature_f",
-      target_temperature
-    );
+    MQTT.publish(set_topic + "target_temperature_f", target_temperature);
   };
 
   // got these colors by inspecting the react-nest component
@@ -86,6 +83,7 @@ const ThermostatButton = ({ thermostat }) => {
       color = "white";
       break;
   }
+
   return (
     <>
       <div style={{ textAlign: "center", fontWeight: "bold", fontSize: 24 }}>
@@ -94,15 +92,15 @@ const ThermostatButton = ({ thermostat }) => {
       <div style={{ fontSize: 24, fontWeight: "bold" }}>
         <img
           style={{
-            verticalAlign: "middle",
+            verticalAlign: "top",
             width: 32,
             height: 32,
           }}
-          src={"/img/Weather/icons/black/" + weather.now.icon + ".svg"}
-          alt={weather.now.icon}
+          src={weather.now.iconLink}
+          alt={weather.now.iconName}
         />
-        <div style={{ display: "inline", paddingTop: 0 }}>
-          {weather.now.current_temperature}&deg; F
+        <div style={{ display: "inline", paddingTop: 0, fontSize: 24 }}>
+          {weather.now.temperature}&deg; F
         </div>
       </div>
       <div style={{ fontSize: 16, fontWeight: "bold" }}>Inside: {ambientTemperature}&deg;F</div>

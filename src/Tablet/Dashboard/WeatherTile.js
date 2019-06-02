@@ -10,8 +10,9 @@ const WeatherTile = () => {
   const location = Config.weather.locations[0];
 
   const weather = useWeather(location.device),
-    { now, display_city } = weather;
+    { now } = weather;
 
+  console.log("weather", weather, location);
   if (!now.icon) {
     return (
       <Tile width={2} height={2} onClick="weather">
@@ -23,7 +24,7 @@ const WeatherTile = () => {
   return (
     <Tile width={2} height={2} onClick="weather">
       <div style={{ textAlign: "center" }}>
-        <div>{display_city}</div>
+        <div>{now.city}</div>
         <div
           style={{
             fontSize: 32,
@@ -32,16 +33,23 @@ const WeatherTile = () => {
           }}
         >
           <img
-            alt={now.icon}
+            alt={now.iconName}
             style={{
-              verticalAlign: "middle",
+              verticalAlign: "bottom",
               width: 96,
               height: 96,
             }}
-            src={"/img/Weather/icons/black/" + now.icon + ".svg"}
+            src={now.iconLink}
           />
-          <div style={{ display: "inline", paddingTop: 10 }}>
-            <span style={{ fontSize: 64 }}>{now.current_temperature}</span>&deg;F
+          <div style={{ display: "inline" }}>
+            <span
+              style={{
+                fontSize: 56,
+              }}
+            >
+              {now.temperature}
+              &deg;F
+            </span>
           </div>
         </div>
         <div
@@ -52,7 +60,10 @@ const WeatherTile = () => {
             textAlign: "center",
           }}
         >
-          <FaFlag style={{ fontSize: 32 }} /> {now.wind_direction} {now.current_wind} MPH
+          <FaFlag style={{ fontSize: 32 }} /> {now.windDescShort} {now.windSpeed} MPH
+        </div>
+        <div>
+          {now.description} {now.highTemperature}&deg;F / {now.lowTemperature}&deg;F
         </div>
       </div>
     </Tile>
