@@ -1,6 +1,8 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require("electron");
 
+const URL = process.env.ROBODOMO_URL || "http://robodomo:5000";
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
@@ -20,7 +22,8 @@ const createWindow = async () => {
   // Open the DevTools.
   //  mainWindow.webContents.openDevTools();
 
-  await mainWindow.loadURL("http://yyz:3000");
+  console.log(URL);
+  await mainWindow.loadURL(URL);
 
   // Emitted when the window is closed.
   mainWindow.on("closed", function() {
