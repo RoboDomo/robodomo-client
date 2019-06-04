@@ -37,20 +37,24 @@ const useWeather = zip => {
   };
 
   useEffect(() => {
-    MQTT.subscribe(status_topic + "forecast", handleForecastChange);
-    MQTT.subscribe(status_topic + "observation", handleNowChange);
-    MQTT.subscribe(status_topic + "astronomy", handleAstronomyChange);
-    MQTT.subscribe(status_topic + "hourly", handleHourlyChange);
-    MQTT.subscribe(status_topic + "display_city", handleCityChange);
+    if (zip) {
+      MQTT.subscribe(status_topic + "forecast", handleForecastChange);
+      MQTT.subscribe(status_topic + "observation", handleNowChange);
+      MQTT.subscribe(status_topic + "astronomy", handleAstronomyChange);
+      MQTT.subscribe(status_topic + "hourly", handleHourlyChange);
+      MQTT.subscribe(status_topic + "display_city", handleCityChange);
+    }
     return () => {
-      MQTT.unsubscribe(status_topic + "forecast", handleForecastChange);
-      MQTT.unsubscribe(status_topic + "observation", handleNowChange);
-      MQTT.unsubscribe(status_topic + "astronomy", handleAstronomyChange);
-      MQTT.unsubscribe(status_topic + "hourly", handleHourlyChange);
-      MQTT.unsubscribe(status_topic + "display_city", handleCityChange);
+      if (zip) {
+        MQTT.unsubscribe(status_topic + "forecast", handleForecastChange);
+        MQTT.unsubscribe(status_topic + "observation", handleNowChange);
+        MQTT.unsubscribe(status_topic + "astronomy", handleAstronomyChange);
+        MQTT.unsubscribe(status_topic + "hourly", handleHourlyChange);
+        MQTT.unsubscribe(status_topic + "display_city", handleCityChange);
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [zip]);
 
   return {
     now: now || {},

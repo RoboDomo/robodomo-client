@@ -1,5 +1,7 @@
 import React from "react";
 
+import Clock from "common/Clock";
+
 import { FaFlag } from "react-icons/fa";
 
 import useWeather from "common/hooks/useWeather";
@@ -188,7 +190,9 @@ const WeatherTab = ({ location }) => {
           </div>
         </div>
         <div style={{ clear: "both", marginBottom: 10 }} />
-        <h4>Hourly Forecast</h4>
+        <h4>
+          Hourly Forecast <Clock />
+        </h4>
         {renderHourly(weather.forecast.hourly)}
         <h5 style={{ marginTop: 2 }}>7 Day Forecast</h5>
         {renderDaily(weather.forecast)}

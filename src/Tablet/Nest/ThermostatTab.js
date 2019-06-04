@@ -89,7 +89,6 @@ const ThermostatTab = ({ thermostat }) => {
       return null;
     }
 
-    console.log("thermostat", thermostat);
     const target = n => {
       let icon = <FaChevronRight />,
         disabled = false;
@@ -145,6 +144,7 @@ const ThermostatTab = ({ thermostat }) => {
           );
       }
     };
+    console.log("now", now);
     return (
       <Row style={{ marginTop: 6 }}>
         <Col sm={3}>
@@ -177,15 +177,15 @@ const ThermostatTab = ({ thermostat }) => {
             </ListGroupItem>
             <ListGroupItem>
               Outside Temperature
-              <span style={{ float: "right" }}>{now.current_temperature}&deg;F</span>
+              <span style={{ float: "right" }}>{now.temperature}&deg;F</span>
             </ListGroupItem>
             <ListGroupItem>
               Outside Humidity
-              <span style={{ float: "right" }}>{now.current_humidity}%</span>
+              <span style={{ float: "right" }}>{now.humidity}%</span>
             </ListGroupItem>
             <ListGroupItem>
               Conditions
-              <span style={{ float: "right" }}>{now.conditions}</span>
+              <span style={{ float: "right" }}>{now.description}</span>
             </ListGroupItem>
           </ListGroup>
         </Col>

@@ -46,15 +46,15 @@ const AutelisTab = () => {
 
   const sunrise = new Date(now.sunrise * 1000).toLocaleTimeString().replace(":00 ", " "),
     sunset = new Date(now.sunset * 1000).toLocaleTimeString().replace(":00 ", " "),
-    img = now.icon ? (
+    img = now.iconLink ? (
       <img
-        alt={now.icon}
+        alt={now.iconName}
         style={{
           paddingBottom: 0,
           width: 64,
           height: 64,
         }}
-        src={`/img/Weather/icons/black/${now.icon}.svg`}
+        src={now.iconLink}
       />
     ) : null;
 
@@ -69,7 +69,7 @@ const AutelisTab = () => {
           <div>Sunset: {sunset}</div>
         </div>
         <div style={{ fontSize: 38, flex: 1 }}>
-          {display_city} {img} {now.current_temperature}&deg;F
+          {display_city} {img} {now.temperature}&deg;F
         </div>
       </div>
     );
