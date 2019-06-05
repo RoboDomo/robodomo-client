@@ -41,7 +41,7 @@ export default {
     host: process.env.REACT_APP_SERVER_DOMAIN || "robodomo",
     // port is the port on the mqtt server for websocket connection
     // you would configure this for mosquitto, for example, in mosquitto.conf
-    // between host and port, we're looking at something like mqtt://ha:80
+    // between host and port, we're looking at something like mqtt://robodomo:80
     port: process.env.REACT_APP_SERVER_PORT || 80,
     // topics - roughly one per microservice
     appletv: "appletv",
