@@ -144,7 +144,6 @@ const ThermostatTab = ({ thermostat }) => {
           );
       }
     };
-    console.log("now", now);
     return (
       <Row style={{ marginTop: 6 }}>
         <Col sm={3}>

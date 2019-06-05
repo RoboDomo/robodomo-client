@@ -82,7 +82,6 @@ const WeatherTab = ({ location }) => {
   };
 
   const renderDaily = daily => {
-    console.log("daily", daily);
     let lastDay = "";
     return (
       <div

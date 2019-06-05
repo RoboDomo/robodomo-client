@@ -20,17 +20,11 @@ const SliderField = ({
   const [val, setVal] = useState(value);
   return (
     <FormGroup style={{ marginBottom: 0 }}>
-      <Col
-        componentClass={ControlLabel}
-        sm={Config.ui.labelCol}
-        style={{ whiteSpace: "nowrap", float: "left" }}
-      >
+      // TODO: componentClass? See react-bootstrap docs
+      <Col componentClass={ControlLabel} sm={4} style={{ whiteSpace: "nowrap", float: "left" }}>
         {label}
       </Col>
-      <Col
-        sm={Config.ui.fieldCol - 1}
-        style={{ textAlign: "right", paddingTop: 4, paddingRight: 50 }}
-      >
+      <Col sm={7} style={{ textAlign: "right", paddingTop: 4, paddingRight: 50 }}>
         <ReactBootstrapSlider
           style={{ width: "100%" }}
           value={Number(val)}
