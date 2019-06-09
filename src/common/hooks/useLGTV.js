@@ -74,11 +74,7 @@ const useLGTV = config => {
   };
 
   const handleForegroundApp = (topic, message) => {
-    try {
-      setForegroundApp(JSON.parse(message));
-    } catch (e) {
-      setForegroundApp(message);
-    }
+    setForegroundApp(message);
   };
 
   const handleLaunchPoints = (topic, message) => {
@@ -90,28 +86,32 @@ const useLGTV = config => {
   };
 
   useEffect(() => {
-    if (!launchPoints) {
-      return;
-    }
-    if (!foregroundApp || !foregroundApp.appId || !launchPoints[foregroundApp.appId]) {
+    MQTT.subscribe(`lgtv/${hostname}/status/power`, handlePower);
+    MQTT.subscribe(`lgtv/${hostname}/status/launchPoints`, handleLaunchPoints);
+    MQTT.subscribe(`lgtv/${hostname}/status/foregroundApp`, handleForegroundApp);
+    return () => {
+      MQTT.unsubscribe(`lgtv/${hostname}/status/power`, handlePower);
+      MQTT.unsubscribe(`lgtv/${hostname}/status/launchPoints`, handleLaunchPoints);
+      MQTT.unsubscribe(`lgtv/${hostname}/status/foregroundApp`, handleForegroundApp);
+    };
+  }, [hostname]);
+
+  useEffect(() => {
+    if (
+      !launchPoints ||
+      !foregroundApp ||
+      !foregroundApp.appId ||
+      !launchPoints[foregroundApp.appId]
+    ) {
       setInput("OFF");
       return;
     }
     const title = launchPoints[foregroundApp.appId].title;
     const lp = title || "unknown";
-    setInput(power ? lp.replace(/\s+/, "").toLowerCase() : "OFF");
-  }, [foregroundApp, launchPoints, power]);
+    const inp = power ? lp.replace(/\s+/, "").toLowerCase() : "OFF";
 
-  useEffect(() => {
-    MQTT.subscribe(`lgtv/${hostname}/status/power`, handlePower);
-    MQTT.subscribe(`lgtv/${hostname}/status/foregroundApp`, handleForegroundApp);
-    MQTT.subscribe(`lgtv/${hostname}/status/launchPoints`, handleLaunchPoints);
-    return () => {
-      MQTT.unsubscribe(`lgtv/${hostname}/status/power`, handlePower);
-      MQTT.unsubscribe(`lgtv/${hostname}/status/foregroundApp`, handleForegroundApp);
-      MQTT.unsubscribe(`lgtv/${hostname}/status/launchPoints`, handleLaunchPoints);
-    };
-  }, [hostname]);
+    setInput(inp);
+  }, [foregroundApp, launchPoints, power]);
 
   const [, d] = useReducer(reducer);
   return {

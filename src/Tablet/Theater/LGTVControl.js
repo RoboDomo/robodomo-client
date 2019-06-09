@@ -108,7 +108,7 @@ const LGTVControl = ({ config }) => {
           const appId = foregroundApp.appId,
             app = launchPoints[appId];
           const border = app === info ? "6px inset white" : "6px outset white";
-          console.log("foregroundApp", foregroundApp.appId, info);
+          //          console.log("foregroundApp", foregroundApp.appId, info);
           return (
             <div
               style={{

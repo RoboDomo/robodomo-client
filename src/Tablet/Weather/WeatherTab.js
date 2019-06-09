@@ -8,13 +8,13 @@ import useWeather from "common/hooks/useWeather";
 
 const styles = {
   img: {
-    verticalAlign: "middle",
+    verticalAlign: "bottom",
     width: 64,
     height: 64,
     // float:         'left'
   },
   img_small: {
-    verticalAlign: "middle",
+    verticalAlign: "bottom",
     width: 48,
     height: 48,
     //    float: "left",
@@ -26,8 +26,6 @@ const styles = {
     // float:         'left'
   },
 };
-
-const dayOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const WeatherTab = ({ location }) => {
   const weather = useWeather(location.device);
@@ -46,7 +44,7 @@ const WeatherTab = ({ location }) => {
           overflowY: "hidden",
         }}
       >
-        {weather.hourly.map((data, i) => {
+        {hourly.map((data, i) => {
           if (data.localTime === undefined) {
             return null;
           }
@@ -147,7 +145,7 @@ const WeatherTab = ({ location }) => {
     const header = (
         <>
           <div style={{ fontSize: 24, fontWeight: "bold" }}>
-            Weather for {weather.now.city}, {weather.now.state}
+            <Clock /> Weather for {weather.now.city}, {weather.now.state}
           </div>
           <div>{weather.now.description}</div>
         </>
@@ -179,8 +177,10 @@ const WeatherTab = ({ location }) => {
           </div>
         </div>
         <div style={{ fontSize: 40, float: "left" }}>
-          <img alt={weather.now.iconName} style={styles.img} src={weather.now.iconLink} />
-          <span style={{ paddingTop: 10, fontSize: 48 }}>{weather.now.temperature}&deg;F</span>
+          <span style={{ paddingTop: 10, fontSize: 48 }}>
+            <img alt={weather.now.iconName} style={styles.img} src={weather.now.iconLink} />{" "}
+            {weather.now.temperature}&deg;F
+          </span>
           <div style={{ fontSize: 14, textAlign: "right" }}>
             High {weather.now.highTemperature}&deg; / Low: {weather.now.lowTemperature}&deg;
           </div>
@@ -189,10 +189,8 @@ const WeatherTab = ({ location }) => {
           </div>
         </div>
         <div style={{ clear: "both", marginBottom: 10 }} />
-        <h4>
-          Hourly Forecast <Clock />
-        </h4>
-        {renderHourly(weather.forecast.hourly)}
+        <h4>Hourly Forecast</h4>
+        {renderHourly(weather.hourly)}
         <h5 style={{ marginTop: 2 }}>7 Day Forecast</h5>
         {renderDaily(weather.forecast)}
       </div>

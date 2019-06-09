@@ -45,7 +45,7 @@ class MQTT extends EventEmitter {
     this.cache[topic] = message;
     if (this.listenerCount(topic)) {
       console.log(
-        "%cMQTT message <<< %c" + topic + " %c" + message.substr(0, 20),
+        "%cMQTT message <<< %c" + topic + " %c" + message.substr(0, 60),
         "font-weight: bold;",
         "color:red; font-weight: bold",
         "color:blue; font-weight: bold"
@@ -63,7 +63,12 @@ class MQTT extends EventEmitter {
 
   subscribe(topic, handler) {
     if (!this.listenerCount(topic)) {
-      console.log("MQTT subscribe", topic);
+      console.log(
+        "%cMQTT SUBSCRIBE +++ %c" + topic,
+        "font-weight: bold;",
+        "color:darkgreen; font-weight: bold"
+      );
+      //      console.log("MQTT subscribe", topic);
       this.mqtt.subscribe(topic);
     }
     if (handler) {
@@ -86,7 +91,12 @@ class MQTT extends EventEmitter {
     if (handler) {
       this.removeListener(topic, handler);
       if (!this.listenerCount(topic)) {
-        console.log("MQTT unsubscribe", topic);
+        console.log(
+          "%cMQTT UNSUBSCRIBE  --- %c" + topic,
+          "font-weight: bold;",
+          "color:darkgreen; font-weight: bold"
+        );
+        //        console.log("MQTT unsubscribe", topic);
         this.mqtt.unsubscribe(topic);
       }
     } else {

@@ -28,16 +28,15 @@ const WeatherTile = () => {
         <div
           style={{
             fontSize: 32,
-            paddingRight: 10,
-            marginBottom: 10,
+            height: 72,
           }}
         >
           <img
             alt={now.iconName}
             style={{
               verticalAlign: "bottom",
-              width: 96,
-              height: 96,
+              width: 80,
+              height: 80,
             }}
             src={now.iconLink}
           />
@@ -52,6 +51,9 @@ const WeatherTile = () => {
             </span>
           </div>
         </div>
+        <div style={{ textAlign: "right" }}>
+          {now.highTemperature}&deg;F / {now.lowTemperature}&deg;F
+        </div>
         <div
           style={{
             fontSize: 24,
@@ -62,9 +64,7 @@ const WeatherTile = () => {
         >
           <FaFlag style={{ fontSize: 32 }} /> {now.windDescShort} {now.windSpeed} MPH
         </div>
-        <div>
-          {now.description} {now.highTemperature}&deg;F / {now.lowTemperature}&deg;F
-        </div>
+        <div>{now.description}</div>
       </div>
     </Tile>
   );
