@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
 
-import MQTT from "lib/MQTT";
-import Config from "Config";
+import MQTT from "@/lib/MQTT";
 
 const useTVGuide = guide => {
+  const Config = useConfig();
   const [channels, setChannels] = useState({});
 
   useEffect(() => {
@@ -24,4 +25,5 @@ const useTVGuide = guide => {
   };
 };
 
+//
 export default useTVGuide;

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
+
 import { Badge, ListGroup } from "react-bootstrap";
 
-import Config from "Config";
 import MQTT from "lib/MQTT";
 import { TiLightbulb } from "react-icons/ti";
 
 const SwitchItem = ({ name }) => {
+  const Config = useConfig();
   const [state, setState] = useState("off");
   const status_topic = Config.mqtt.smartthings + "/" + name + "/",
     set_topic = status_topic;

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
+
 import { ListGroup, Card, Form } from "react-bootstrap";
 
 import ToggleField from "@/common/form/ToggleField";
@@ -6,18 +8,18 @@ import NumberField from "@/common/form/NumberField";
 import Clock from "@/common/Clock";
 import MacroItem from "../Dashboard/MacroItem";
 
-import Config from "@/Config";
 import MQTT from "@/lib/MQTT";
 
 const AutelisTab = () => {
-  const autelis = Config.autelis,
+  const config = useConfig();
+  const autelis = config.autelis,
     location = autelis.location,
     forward = autelis.deviceMap.forward,
     backward = autelis.deviceMap.backward;
 
-  const status_topic = Config.mqtt.autelis + "/status/",
+  const status_topic = config.mqtt.autelis + "/status/",
     set_topic = status_topic.replace("status", "set"),
-    weather_topic = Config.mqtt.weather + "/" + location + "/status/";
+    weather_topic = config.mqtt.weather + "/" + location + "/status/";
 
   // weather
   const [now, setNow] = useState({});

@@ -1,21 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import * as serviceWorker from "./serviceWorker";
-import MQTT from "./lib/MQTT";
-import Config from "./Config";
+import * as serviceWorker from "@/serviceWorker";
+import MQTT from "@/lib/MQTT";
 
-/* prettier-ignore */
-console.log(
-  "platform",
-  Config.bowser,
-  Config.bowser.platform.type,
-  window.innerWidth,
-  window.innerHeight
-);
+// We only need to calculate platform once.
+import bowser from "bowser";
+const parser = bowser.getParser(window.navigator.userAgent),
+  platform = parser.getResult().platform;
 
-const mobile = Config.bowser.platform.type === "mobile",
+const mobile = platform.type === "mobile",
   meta = document.getElementById("meta-viewport");
-if (!mobile && meta && Config.bowser.platform.model !== "iPad") {
+
+if (!mobile && meta && platform.model !== "iPad") {
   //    width = 1024, // mobile ? window.outerWidth : 1024,
   //    height = 768; // mobile ? window.outerHeight : 768;
   // max scale tweaked so it looks good on a Galaxy Tab 7

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
+
 import { ButtonGroup } from "react-bootstrap";
 import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
 
@@ -6,8 +8,8 @@ import RemoteButton from "common/RemoteButton";
 
 import MQTT from "lib/MQTT";
 
-import Config from "Config";
 const Audio = ({ device }) => {
+  const Config = useConfig();
   const [mute, setMute] = useState(false);
 
   const topic = `${Config.mqtt.denon}/${device}/status/`,

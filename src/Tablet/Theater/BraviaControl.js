@@ -30,8 +30,6 @@ import {
 import useBravia from "common/hooks/useBravia";
 import ActionButton from "common/ActionButton";
 
-//import Config from "Config";
-
 const BraviaControl = ({ config }) => {
   //  ({ bravia, tvInput, avrInput }) => {
   const tv = useBravia(config),

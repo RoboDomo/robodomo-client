@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
 
-import Config from "Config";
 import MQTT from "lib/MQTT";
 import Tile from "./Tile";
 import NumberInput from "common/form/NumberInput";
@@ -10,6 +10,8 @@ import { Form } from "react-bootstrap";
 const topics = ["away", "ambient_temperature_f", "target_temperature_f", "hvac_state", "has_leaf"];
 
 const ThermostatTile = ({ device }) => {
+  const Config = useConfig();
+
   const [away, setAway] = useState("home");
   const [ambientTemperature, setAmbientTemperature] = useState("72");
   const [targetTemperature, setTargetTemperature] = useState("72");
@@ -80,4 +82,6 @@ const ThermostatTile = ({ device }) => {
     </Tile>
   );
 };
+
+//
 export default ThermostatTile;

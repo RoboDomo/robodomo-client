@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
 
-import Config from "Config";
 import MQTT from "lib/MQTT";
 
 import XBoxButtons from "common/harmony/XBoxButtons";
@@ -34,6 +34,7 @@ const rowStyle = {
   justifyContent: "center",
 };
 const HarmonyRemoteControl = ({ hub }) => {
+  const Config = useConfig();
   // state
   const [currentActivity, setCurrentActivity] = useState(null);
   const [startingActivity, setStartingActivity] = useState(null);
@@ -111,4 +112,5 @@ const HarmonyRemoteControl = ({ hub }) => {
   return null;
 };
 
+//
 export default HarmonyRemoteControl;

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useReducer } from "react";
-import MQTT from "lib/MQTT";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
+import MQTT from "@/lib/MQTT";
 
 const topics = [
   "pump",
@@ -23,6 +22,7 @@ const topics = [
 ];
 
 const useAutelis = () => {
+  const Config = useConfig();
   const status_topic = `${Config.mqtt.autelis}/status/`,
     set_topic = status_topic.replace("status", "set"); //  + "command/";
 

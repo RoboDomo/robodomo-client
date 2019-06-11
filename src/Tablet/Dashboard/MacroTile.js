@@ -4,20 +4,20 @@
  * A tile that runs a macro when pressed.
  */
 import React from "react";
+import useConfig from "@/common/hooks/useConfig";
 
-import Config from "Config";
 import MQTT from "lib/MQTT";
 import Tile from "./Tile";
 import { FaRunning } from "react-icons/fa";
 
 const MacroTile = ({ label, name }) => {
-  const topic = `${Config.mqtt.macros}/run`;
+  const Config = useConfig();
 
   const onClick = () => {
     if (!name) {
       console.warn("MacroTile needs name prop");
     } else {
-      MQTT.publish(topic, name);
+      MQTT.publish(`${Config.mqtt.macros}/run`, name);
     }
   };
 
@@ -34,4 +34,5 @@ const MacroTile = ({ label, name }) => {
   );
 };
 
+//
 export default MacroTile;

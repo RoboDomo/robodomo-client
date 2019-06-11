@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
 
-import Config from "Config";
 import MQTT from "lib/MQTT";
 import Tile from "./Tile";
 
 import { TiAdjustBrightness } from "react-icons/ti";
 
 const DimmerTile = ({ name }) => {
+  const Config = useConfig();
   const status_topic = `${Config.mqtt.smartthings}/${name}/`,
     status_topic_length = status_topic.length,
     set_topic = status_topic;

@@ -1,11 +1,11 @@
 import React from "react";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
 const ABCDButtons = ({ style, device, commands }) => {
+  const Config = useConfig();
   if (!device || !commands || !commands.A) {
     return null;
   }
@@ -46,4 +46,6 @@ const ABCDButtons = ({ style, device, commands }) => {
     </Row>
   );
 };
+
+//
 export default ABCDButtons;

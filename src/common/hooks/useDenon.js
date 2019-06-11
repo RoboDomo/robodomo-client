@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, useReducer } from "react";
-import MQTT from "lib/MQTT";
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
+import MQTT from "@/lib/MQTT";
 
 const useDenon = config => {
+  const Config = useConfig();
+
   const [power, setPower] = useState(null);
   const [input, setInput] = useState(null);
   const [masterVolume, setMasterVolume] = useState(null);
@@ -109,4 +111,5 @@ const useDenon = config => {
   };
 };
 
+//
 export default useDenon;

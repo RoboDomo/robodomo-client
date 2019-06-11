@@ -1,13 +1,13 @@
 import React, { useState } from "react";
+import useConfig from "@/common/hooks/useConfig";
 import { Tab, Tabs } from "react-bootstrap";
-
-import Config from "Config";
 
 import TheaterTab from "./TheaterTab";
 
 const LOCALSTORAGE_KEY = "phoneTheaterTab";
 
 const Theater = () => {
+  const Config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "1");
   return (
     <Tabs

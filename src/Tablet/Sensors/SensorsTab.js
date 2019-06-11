@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
+import useConfig from "@/common/hooks/useConfig";
 
-import Config from "Config";
-
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
 import { Row, Col, Card } from "react-bootstrap";
 
 const SensorsTab = () => {
+  const Config = useConfig();
   const [sensors, setSensors] = useState({});
   const types = ["contact", "motion", "battery", "temperature", "illuminance", "humidity"];
 
@@ -25,7 +25,7 @@ const SensorsTab = () => {
         MQTT.unsubscribe(sensor.topic, onStateChange);
       }
     };
-  }, []);
+  }, [Config.sensors]);
 
   const renderType = type => {
     let key = 0;

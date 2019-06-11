@@ -1,12 +1,11 @@
 import React from "react";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
 const ColoredButtons = ({ style, device, commands }) => {
-  console.log("ColoredButtons", device, commands);
+  const Config = useConfig();
   if (!device || !commands || !commands.Yellow) {
     return null;
   }
@@ -47,4 +46,6 @@ const ColoredButtons = ({ style, device, commands }) => {
     </Row>
   );
 };
+
+//
 export default ColoredButtons;

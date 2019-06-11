@@ -1,10 +1,17 @@
-import React, { Suspense, lazy } from "react";
-import Config from "./Config";
+import React, { Suspense, useState, useEffect, lazy } from "react";
+import ConfigurationContext from "@/common/hooks/contexts/ConfigurationContext";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootswatch/dist/slate/bootstrap.min.css";
 import "bootstrap-slider/dist/css/bootstrap-slider.css";
 import "react-bootstrap-toggle/dist/bootstrap2-toggle.css";
+
+import MQTT from "@/lib/MQTT";
+
+// We only need to calculate platform once.
+import bowser from "bowser";
+const parser = bowser.getParser(window.navigator.userAgent),
+  platform = parser.getResult().platform;
 
 const Tablet = lazy(() =>
   import("./Tablet/MainScreen" /* webpackChunkName: "tablet", webpackPrefetch: true  */)
@@ -14,7 +21,7 @@ const Phone = lazy(() =>
 );
 
 const Platform = () => {
-  if (Config.bowser.platform.type === "mobile") {
+  if (platform.type === "mobile") {
     setTimeout(async () => {
       try {
         await window.screen.orientation.lock("natural");
@@ -28,10 +35,24 @@ const Platform = () => {
   return <Tablet />;
 };
 
-const App = () => (
-  <Suspense fallback={<div className="loader" />}>
-    <Platform />
-  </Suspense>
-);
+const App = () => {
+  const [config, setConfig] = useState(null);
+
+  const handleSettings = (topic, message) => {
+    setConfig(message);
+  };
+
+  useEffect(() => {
+    MQTT.subscribe("settings/status/config", handleSettings);
+  }, []);
+
+  return (
+    <Suspense fallback={<div className="loader" />}>
+      <ConfigurationContext.Provider value={config}>
+        <Platform />
+      </ConfigurationContext.Provider>
+    </Suspense>
+  );
+};
 
 export default App;

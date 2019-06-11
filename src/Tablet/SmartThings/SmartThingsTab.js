@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
 
 import MQTT from "lib/MQTT";
-
-import Config from "Config";
 
 import ToggleField from "common/form/ToggleField";
 import DimmerField from "common/form/DimmerField";
@@ -10,6 +9,7 @@ import FanField from "common/form/FanField";
 import DisplayField from "common/form/DisplayField";
 
 const SmartThingsTab = ({ room }) => {
+  const Config = useConfig();
   const [state, setState] = useState({});
   const status_topic = `${Config.mqtt.smartthings}/`,
     set_topic = status_topic;

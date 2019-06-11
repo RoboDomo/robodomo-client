@@ -4,8 +4,7 @@
  * This is a button group/bar for rewind/pause/play/forward kind of buttons.
  */
 import React from "react";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
@@ -22,6 +21,7 @@ import {
 } from "react-icons/fa";
 
 const TransportButtons = ({ style, device, commands }) => {
+  const Config = useConfig();
   if (!commands || !device || !commands.Pause) {
     return null;
   }

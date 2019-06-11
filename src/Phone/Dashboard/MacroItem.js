@@ -4,13 +4,15 @@
  * A dashboard item that runs a macro when pressed.
  */
 import React from "react";
+import useConfig from "@/common/hooks/useConfig";
+
 import { ListGroup } from "react-bootstrap";
 
-import Config from "Config";
 import MQTT from "lib/MQTT";
 import { FaRunning } from "react-icons/fa";
 
 const MacroItem = ({ label, name }) => {
+  const Config = useConfig();
   const topic = `${Config.mqtt.macros}/run`;
 
   const onClick = () => {

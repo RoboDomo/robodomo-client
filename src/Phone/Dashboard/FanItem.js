@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
 import { Badge, ListGroup } from "react-bootstrap";
 
-import Config from "Config";
 import MQTT from "lib/MQTT";
 import { GiComputerFan } from "react-icons/gi";
 
 const FanItem = ({ name }) => {
-  const status_topic = `${Config.mqtt.smartthings}/${name}/`,
+  const config = useConfig();
+  const status_topic = `${config.mqtt.smartthings}/${name}/`,
     status_topic_length = status_topic.length,
     set_topic = status_topic;
   const [power, setPower] = useState("off");

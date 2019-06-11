@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { ListGroup } from "react-bootstrap";
+import useConfig from "@/common/hooks/useConfig";
 
-import Config from "Config";
+import { ListGroup } from "react-bootstrap";
 
 import MQTT from "lib/MQTT";
 
 const WeatherItem = tile => {
+  const Config = useConfig();
   const [displayCity, setDisplayCity] = useState("");
   const [now, setNow] = useState({});
 
@@ -26,7 +27,7 @@ const WeatherItem = tile => {
       MQTT.unsubscribe(status_topic + "now", onStateChange);
       MQTT.unsubscribe(status_topic + "display_city", onStateChange);
     };
-  }, [tile.location]);
+  }, [Config.mqtt.weather, tile.location]);
   return (
     <ListGroup.Item>
       <div style={{ textAlign: "center" }}>{displayCity}</div>

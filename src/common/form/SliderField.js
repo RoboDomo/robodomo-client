@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import ReactBootstrapSlider from "react-bootstrap-slider";
 import { FormGroup, ControlLabel, Col, Badge } from "react-bootstrap";
 
-import Config from "Config";
-
 const SliderField = ({
   label,
   name,

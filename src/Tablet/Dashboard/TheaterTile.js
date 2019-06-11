@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
+import useConfig from "@/common/hooks/useConfig";
 
 import Tile from "./Tile";
 import AppleTV from "./Theater/AppleTV";
 import TiVo from "./Theater/TiVo";
 import Audio from "./Theater/Audio";
 
-import MQTT from "lib/MQTT";
-
-import Config from "Config";
+import MQTT from "@/lib/MQTT";
 
 // config
 // denon, tv, settop, tivo
 const TheaterTile = ({ title }) => {
+  const Config = useConfig();
   const [currentActivity, setCurrentActivity] = useState("All Off");
 
   const power = useRef("off");

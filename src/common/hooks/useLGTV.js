@@ -1,8 +1,9 @@
 import { useState, useEffect, useReducer } from "react";
-import MQTT from "lib/MQTT";
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
+import MQTT from "@/lib/MQTT";
 
 const useLGTV = config => {
+  const Config = useConfig();
   const hostname = config.device;
   const [power, setPower] = useState(null);
   const [input, setInput] = useState(null);

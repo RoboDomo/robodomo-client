@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import useConfig from "@/common/hooks/useConfig";
 
-import Config from "Config";
-
-import MQTT from "lib/MQTT";
-import RemoteButton from "common/RemoteButton";
+import MQTT from "@/lib/MQTT";
+import RemoteButton from "@/common/RemoteButton";
 
 const DimmerButton = ({ children, name }) => {
+  const Config = useConfig();
   const [power, setPower] = useState("off");
   const [level, setLevel] = useState(20);
   const status_topic = Config.mqtt.smartthings + "/" + name + "/",
@@ -48,7 +48,10 @@ const DimmerButton = ({ children, name }) => {
   );
 };
 
+//
 DimmerButton.propTypes = {
   name: PropTypes.string.isRequired,
 };
+
+//
 export default DimmerButton;

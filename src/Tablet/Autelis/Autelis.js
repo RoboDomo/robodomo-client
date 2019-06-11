@@ -1,14 +1,14 @@
 import React, { useState } from "react";
+import useConfig from "common/hooks/useConfig";
 
 import { Tabs, Tab } from "react-bootstrap";
 
 import AutelisTab from "./AutelisTab";
 
-import Config from "Config";
-
 const LOCALSTORAGE_KEY = "autelisTabletTabState";
 
 const Autelis = () => {
+  const config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
   return (
     <Tabs
@@ -22,7 +22,7 @@ const Autelis = () => {
       mountOnEnter
       unmountOnExit
     >
-      <Tab title={Config.autelis.device.toUpperCase()} eventKey="autelis" key="autelis">
+      <Tab title={config.autelis.device.toUpperCase()} eventKey="autelis" key="autelis">
         <AutelisTab />
       </Tab>
     </Tabs>

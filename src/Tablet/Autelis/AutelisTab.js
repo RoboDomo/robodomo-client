@@ -1,8 +1,7 @@
-//import React, { useState, useEffect } from "react";
 import React from "react";
+import useConfig from "@/common/hooks/useConfig";
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 
-import Config from "@/Config";
 import NumberField from "@/common/form/NumberField";
 import Clock from "@/common/Clock";
 import useAutelis from "@/common/hooks/useAutelis";
@@ -10,7 +9,8 @@ import useWeather from "@/common/hooks/useWeather";
 import MacroTile from "../Dashboard/MacroTile";
 
 const AutelisTab = () => {
-  const controller = Config.autelis,
+  const config = useConfig();
+  const controller = config.autelis,
     location = controller.location;
 
   const autelis = useAutelis(),

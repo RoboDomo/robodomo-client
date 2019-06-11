@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
+
 import { Badge } from "react-bootstrap";
 import { FaCheck, FaWindowClose, FaHome, FaRoad } from "react-icons/fa";
 
-import MQTT from "lib/MQTT";
-
-import Config from "Config";
+import MQTT from "@/lib/MQTT";
 
 // device, name
 const ProtectTab = ({ sensor }) => {
+  const Config = useConfig();
   const device = sensor.device;
   const protect_status_topic = Config.mqtt.nest + "/" + device + "/status/";
 
@@ -94,4 +95,5 @@ const ProtectTab = ({ sensor }) => {
   );
 };
 
+//
 export default ProtectTab;

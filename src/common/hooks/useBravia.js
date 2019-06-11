@@ -1,6 +1,6 @@
 import { useState, useEffect, useReducer } from "react";
-import MQTT from "lib/MQTT";
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
+import MQTT from "@/lib/MQTT";
 
 const codes = [
   "*AD",
@@ -123,6 +123,7 @@ const codes = [
 ];
 
 const useBravia = config => {
+  const Config = useConfig();
   const hostname = config.device;
   const status_topic = Config.mqtt.bravia + "/" + hostname + "/status/",
     set_topic = status_topic.replace("status", "set") + "command";

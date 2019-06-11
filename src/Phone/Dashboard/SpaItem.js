@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
+
 import { ListGroup, Badge } from "react-bootstrap";
 
-import Config from "Config";
 import MQTT from "lib/MQTT";
 
 const topics = ["spaHeat", "spaTemp", "spa", "jet", "blower", "spaLight"];
 const SpaItem = ({ device }) => {
+  const Config = useConfig();
   const [state, setState] = useState({});
 
   const controller = Config[device],

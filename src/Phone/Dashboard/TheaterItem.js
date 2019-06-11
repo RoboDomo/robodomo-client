@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ListGroup } from "react-bootstrap";
+import useConfig from "@/common/hooks/useConfig";
 import MQTT from "@/lib/MQTT";
-import Config from "@/Config";
 
 import TiVo from "../Dashboard/Theater/TiVo";
 import AppleTV from "../Dashboard/Theater/AppleTV";
 
+import { ListGroup } from "react-bootstrap";
+
 const TheaterItem = ({ title }) => {
+  const Config = useConfig();
   const [currentActivity, setCurrentActivity] = useState("All Off");
   const [power, setPower] = useState(false);
   const [foregroundApp, setForegroundApp] = useState(null);
@@ -171,4 +173,5 @@ const TheaterItem = ({ title }) => {
   );
 };
 
+//
 export default TheaterItem;

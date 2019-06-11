@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
+
 import { ListGroup, Badge } from "react-bootstrap";
 
-import Config from "Config";
 import MQTT from "lib/MQTT";
 
 const topics = [
@@ -15,6 +16,7 @@ const topics = [
 ];
 
 const PoolItem = ({ device }) => {
+  const Config = useConfig();
   const [state, setState] = useState({ pump: "off" });
   const controller = Config[device],
     deviceMap = controller.deviceMap,

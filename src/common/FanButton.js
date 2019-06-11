@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import MQTT from "lib/MQTT";
 import RemoteButton from "common/RemoteButton";
 
 const FanButton = ({ name }) => {
+  const Config = useConfig();
   const [power, setPower] = useState("off");
   const [level, setLevel] = useState(5);
 

@@ -1,12 +1,12 @@
 import React from "react";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
 const TiVoButtons = ({ style, device, commands }) => {
+  const Config = useConfig();
   if (!commands || !device || !commands.TiVo) {
     return null;
   }

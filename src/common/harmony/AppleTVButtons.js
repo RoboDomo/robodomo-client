@@ -1,6 +1,5 @@
 import React from "react";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
@@ -12,6 +11,7 @@ const isAppleTV = commands => {
 };
 
 const AppleTVButtons = ({ style, device, commands }) => {
+  const Config = useConfig();
   if (!device || !isAppleTV(commands)) {
     return null;
   }

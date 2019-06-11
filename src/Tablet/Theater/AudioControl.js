@@ -5,20 +5,7 @@ import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
 import { ButtonGroup } from "react-bootstrap";
 import ActionButton from "common/ActionButton";
 
-//import MQTT from "lib/MQTT";
-
-//import Config from "Config";
-
 const AudioControl = ({ avr }) => {
-  //  console.log("AudioControl", avr);
-  //  const [mute, setMute] = useState(false);
-  //  const [volume, setVolume] = useState(0);
-  //  const [center, setCenter] = useState(0);
-  //  const [dolby, setDolby] = useState(null);
-
-  //  const topic = `${Config.mqtt.denon}/${device.device}/status/`,
-  //    set_topic = topic.replace("status", "set");
-
   const format = n => {
     if (n === null) {
       return 0;
@@ -38,6 +25,7 @@ const AudioControl = ({ avr }) => {
   if (!avr) {
     return null;
   }
+
   const dispatch = avr.dispatch;
 
   const button = (action, children, variant) => {
@@ -75,4 +63,5 @@ const AudioControl = ({ avr }) => {
   );
 };
 
+//
 export default AudioControl;

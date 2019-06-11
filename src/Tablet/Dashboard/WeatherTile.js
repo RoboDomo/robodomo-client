@@ -1,18 +1,25 @@
 import React from "react";
+import useConfig from "@/common/hooks/useConfig";
 
 import Tile from "./Tile";
-import Config from "Config";
 import { FaFlag } from "react-icons/fa";
 
 import useWeather from "common/hooks/useWeather";
 
 const WeatherTile = () => {
-  const location = Config.weather.locations[0];
+  const Config = useConfig();
+  const location = (() => {
+    for (const location of Config.weather.locations) {
+      if (location.default) {
+        return location;
+      }
+    }
+    return Config.weather.locations[0];
+  })();
 
   const weather = useWeather(location.device),
     { now } = weather;
 
-  console.log("weather", weather, location);
   if (!now.icon) {
     return (
       <Tile width={2} height={2} onClick="weather">
@@ -25,6 +32,7 @@ const WeatherTile = () => {
     <Tile width={2} height={2} onClick="weather">
       <div style={{ textAlign: "center" }}>
         <div>{now.city}</div>
+        <div>{now.description}</div>
         <div
           style={{
             fontSize: 32,
@@ -64,9 +72,10 @@ const WeatherTile = () => {
         >
           <FaFlag style={{ fontSize: 32 }} /> {now.windDescShort} {now.windSpeed} MPH
         </div>
-        <div>{now.description}</div>
       </div>
     </Tile>
   );
 };
+
+//
 export default WeatherTile;

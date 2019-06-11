@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
+
 import { Image } from "react-bootstrap";
 
 import MQTT from "lib/MQTT";
 
-import Config from "Config";
-
 const TiVo = ({ device }) => {
+  const Config = useConfig();
   const [channel, setChannel] = useState(0);
   const [channels, setChannels] = useState({});
 
@@ -28,7 +29,7 @@ const TiVo = ({ device }) => {
       MQTT.unsubscribe(`${Config.mqtt.tivo}/${device.device}/status/channel`, handleMessage);
       MQTT.unsubscribe(`${Config.mqtt.tvguide}/${device.guide}/status/channels`, handleMessage);
     };
-  }, [device.device, device.guide]);
+  }, [Config.mqtt.tivo, Config.mqtt.tvguide, device.device, device.guide]);
 
   const info = channels[channel];
   if (!info) {

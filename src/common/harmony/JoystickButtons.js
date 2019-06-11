@@ -1,6 +1,5 @@
 import React from "react";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import RemoteButton from "common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
@@ -8,6 +7,7 @@ import { Row, ButtonGroup } from "react-bootstrap";
 import { FaChevronUp, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const JoystickButtons = ({ style, device, commands }) => {
+  const Config = useConfig();
   if (!commands || !device || !commands.DirectionUp) {
     return null;
   }
@@ -87,4 +87,6 @@ const JoystickButtons = ({ style, device, commands }) => {
     </div>
   );
 };
+
+//
 export default JoystickButtons;

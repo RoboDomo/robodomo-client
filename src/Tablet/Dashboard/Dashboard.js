@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
 import DashboardTab from "./DashboardTab";
 
 const Dashboard = () => {
+  const config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem("dashboardTabState") || "1");
   const changeTab = eventKey => {
     localStorage.setItem("dashboardTabState", eventKey);
@@ -20,7 +20,7 @@ const Dashboard = () => {
       mountOnEnter
       unmountOnExit
     >
-      {Config.dashboards.map(dashboard => {
+      {config.dashboards.map(dashboard => {
         return (
           <Tab eventKey={dashboard.key} key={dashboard.key} title={dashboard.title}>
             <DashboardTab dashboard={dashboard} />

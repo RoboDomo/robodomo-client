@@ -4,18 +4,18 @@
  * Component for upper right side of Theater screen, to display and control thermostat
  */
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
 import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
-import RemoteButton from "common/RemoteButton";
-import Clock from "common/Clock";
+import RemoteButton from "@/common/RemoteButton";
+import Clock from "@/common/Clock";
 
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
-import Config from "Config";
-
-import useWeather from "common/hooks/useWeather";
+import useWeather from "@/common/hooks/useWeather";
 
 const ThermostatButton = ({ thermostat }) => {
+  const Config = useConfig();
   //  const [postalCode, setPostalCode] = useState(0);
   const [ambientTemperature, setAmbientTemperature] = useState(72);
   const [targetTemperature, setTargetTemperature] = useState(72);

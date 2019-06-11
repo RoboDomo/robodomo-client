@@ -1,4 +1,5 @@
 import React from "react";
+import useConfig from "@/common/hooks/useConfig";
 
 import { ButtonGroup, Tooltip, OverlayTrigger } from "react-bootstrap";
 
@@ -17,12 +18,9 @@ import {
   FaDotCircle,
 } from "react-icons/fa";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 
-import Config from "Config";
-
-//import MQTT from "lib/MQTT";
-
+// TODO: move these to config.js in config-microservice
 const ignoredLaunchPoints = [
   "HDMI1",
   "HDMI2",
@@ -52,6 +50,7 @@ const ignoredLaunchPoints = [
 // Number pad, for example, is not needed for smart TV apps, but are needed
 // for watching TV.
 const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
+  const Config = useConfig();
   const status_topic = Config.mqtt.lgtv + "/" + lgtv.device + "/status/",
     //    status_topic_length = status_topic.length,
     set_topic = status_topic.replace("status", "set") + "command";
@@ -309,4 +308,5 @@ const LGTVControl = ({ lgtv, tvInput, avrInput }) => {
   );
 };
 
+//
 export default LGTVControl;

@@ -1,4 +1,4 @@
-import Config from "Config";
+//import Config from "Config";
 import EventEmitter from "events";
 import { connect } from "mqtt";
 
@@ -7,13 +7,13 @@ class MQTT extends EventEmitter {
     super();
     this.connect = this.connect.bind(this);
     this.cache = {};
-    this.setMaxListeners(50);
+    this.setMaxListeners(250);
   }
 
   connect() {
-    console.log("connecting", Config.mqtt.host, Config.mqtt.port);
-    this.host = Config.mqtt.host;
-    this.port = Config.mqtt.port;
+    this.host = process.env.REACT_APP_MQTT_HOST || "robodomo";
+    this.port = process.env.REACT_APP_MQTT_PORT || 80;
+    console.log("connecting", this.host, this.port);
     const mqtt = (this.mqtt = connect({ host: this.host, port: this.port }));
 
     mqtt.on("connect", this.onConnect.bind(this));

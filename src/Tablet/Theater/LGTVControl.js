@@ -1,4 +1,5 @@
 import React from "react";
+import useConfig from "@/common/hooks/useConfig";
 
 import { Image, ButtonGroup, Tooltip, OverlayTrigger } from "react-bootstrap";
 
@@ -17,12 +18,11 @@ import {
   FaDotCircle,
 } from "react-icons/fa";
 
-import ActionButton from "common/ActionButton";
+import ActionButton from "@/common/ActionButton";
 
-import Config from "Config";
-import useLGTV from "common/hooks/useLGTV";
+import useLGTV from "@/common/hooks/useLGTV";
 
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
 const ignoredLaunchPoints = [
   "HDMI1",
@@ -53,6 +53,8 @@ const ignoredLaunchPoints = [
 // Number pad, for example, is not needed for smart TV apps, but are needed
 // for watching TV.
 const LGTVControl = ({ config }) => {
+  const Config = useConfig();
+
   const lgtv = useLGTV(config),
     tvInput = lgtv.input,
     dispatch = lgtv.dispatch;
@@ -314,4 +316,5 @@ const LGTVControl = ({ config }) => {
   );
 };
 
+//
 export default LGTVControl;

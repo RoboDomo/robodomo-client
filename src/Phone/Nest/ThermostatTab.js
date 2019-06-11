@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import {
   ButtonGroup,
@@ -18,6 +17,7 @@ import Thermostat from "react-nest-thermostat";
 import MQTT from "lib/MQTT";
 
 const ThermostatTab = ({ thermostat }) => {
+  const Config = useConfig();
   const device = thermostat.device;
 
   const thermostat_status_topic = Config.mqtt.nest + "/" + device + "/status/",

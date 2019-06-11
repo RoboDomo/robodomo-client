@@ -2,8 +2,6 @@ import React /* useState*/ from "react";
 
 // TODO: remember tab state
 
-//import Config from "Config";
-
 import { Tab, Tabs } from "react-bootstrap";
 import SensorsTab from "./SensorsTab";
 

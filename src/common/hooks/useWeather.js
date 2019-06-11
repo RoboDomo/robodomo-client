@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import MQTT from "lib/MQTT";
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
+import MQTT from "@/lib/MQTT";
 
 const useWeather = zip => {
+  const Config = useConfig();
   const status_topic = `${Config.mqtt.weather}/${zip}/status/`;
 
   const [forecast, setForecast] = useState(null);
@@ -65,4 +66,5 @@ const useWeather = zip => {
   };
 };
 
+//
 export default useWeather;

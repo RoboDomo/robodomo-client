@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
+import useConfig from "@/common/hooks/useConfig";
 import NumberInput from "common/form/NumberInput";
 
 import { ListGroup } from "react-bootstrap";
 
 import MQTT from "lib/MQTT";
 
-import Config from "Config";
-
 const topics = ["ambient_temperature_f", "target_temperature_f", "hvac_state"];
 
 const ThermostatItem = ({ device }) => {
+  const Config = useConfig();
   const [ambientTemperature, setAmbientTemperature] = useState("72");
   const [targetTemperature, setTargetTemperature] = useState("72");
   const [hvacState, setHVACState] = useState("off");

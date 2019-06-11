@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
 import WeatherTab from "./WeatherTab";
 
 const Weather = () => {
+  const Config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem("weatherTabState") || "0");
   const changeTab = eventKey => {
     localStorage.setItem("weatherTabState", eventKey);

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
+import useConfig from "@/common/hooks/useConfig";
 
-import Config from "Config";
 import Tile from "./Tile";
 import Clock from "common/Clock";
 import useWeather from "common/hooks/useWeather";
@@ -8,6 +8,7 @@ import useWeather from "common/hooks/useWeather";
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 const ClockTile = () => {
+  const Config = useConfig();
   const [date, setDate] = useState(new Date());
 
   const weather = useWeather(Config.weather.locations[0].device);

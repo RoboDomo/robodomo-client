@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef, useReducer } from "react";
-import MQTT from "lib/MQTT";
-
-import Config from "Config";
+import useConfig from "@/common/hooks/useConfig";
+import MQTT from "@/lib/MQTT";
 
 const useTiVo = config => {
+  const Config = useConfig();
   const topic = `${Config.mqtt.tivo}/${config.device}/status/`,
     set_topic = topic.replace("status", "set") + "command";
 

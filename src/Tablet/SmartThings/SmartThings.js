@@ -1,13 +1,13 @@
 import React, { useState, useRef } from "react";
+import useConfig from "@/common/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
 import SmartThingsTab from "./SmartThingsTab";
 
-import Config from "Config";
-
 const LOCALSTORAGE_KEY = "smartthingsTabletTabs";
 
 const SmartThings = () => {
+  const Config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
   const rooms = useRef(null);
 
@@ -81,4 +81,5 @@ const SmartThings = () => {
   );
 };
 
+//
 export default SmartThings;
