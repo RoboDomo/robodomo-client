@@ -6,6 +6,10 @@ import "bootswatch/dist/slate/bootstrap.min.css";
 import "bootstrap-slider/dist/css/bootstrap-slider.css";
 import "react-bootstrap-toggle/dist/bootstrap2-toggle.css";
 
+import "@ionic/core/css/core.css";
+import "@ionic/core/css/ionic.bundle.css";
+import "./theme.css";
+
 import MQTT from "@/lib/MQTT";
 
 // We only need to calculate platform once.
