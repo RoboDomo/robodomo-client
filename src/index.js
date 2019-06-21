@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "@/serviceWorker";
 import MQTT from "@/lib/MQTT";
@@ -24,14 +24,14 @@ if (!mobile && meta && platform.model !== "iPad") {
 //outer.style.height = "100%";
 //meta.setAttribute("content", "height=" + window.innerHeight);
 
-MQTT.once("connect", () => {
-  import("./App" /* webpackChunkName: "robodomo", webpackPreload: true */)
-    .then(mod => mod.default)
-    .then(App => {
-      ReactDOM.render(<App />, document.getElementById("root"));
-    });
-});
-MQTT.connect();
+const App = lazy(() => import("./App" /* webpackChunkName: "robodomo", webpackPreload: true */));
+
+ReactDOM.render(
+  <Suspense fallback={<div className="loader" />}>
+    <App />
+  </Suspense>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

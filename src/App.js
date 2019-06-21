@@ -1,5 +1,6 @@
 import React, { Suspense, useState, useEffect, lazy } from "react";
 import ConfigurationContext from "@/hooks/contexts/ConfigurationContext";
+import MqttProvider from "@/providers/mqtt";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootswatch/dist/slate/bootstrap.min.css";
@@ -52,9 +53,11 @@ const App = () => {
 
   return (
     <Suspense fallback={<div className="loader" />}>
-      <ConfigurationContext.Provider value={config}>
-        <Platform />
-      </ConfigurationContext.Provider>
+      <MqttProvider>
+        <ConfigurationContext.Provider value={config}>
+          <Platform />
+        </ConfigurationContext.Provider>
+      </MqttProvider>
     </Suspense>
   );
 };
