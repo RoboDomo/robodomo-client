@@ -1,111 +1,56 @@
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
-const NumberButtons = ({ style, device, commands }) => {
-  const Config = useConfig();
-  if (!device || !commands || !commands.Number1) {
+const NumberButtons = ({ dispatch, style, hub }) => {
+  const commands = hub.commands;
+  if (!commands || !commands.Number1) {
     return null;
   }
-  const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
 
-  const enterItem = commands.NumberEnter || commands.Dot;
-  const enterButton = enterItem ? (
-    <RemoteButton topic={command_topic + enterItem.action.deviceId} message={enterItem.name}>
-      {commands.NumberEnter ? "Enter" : "."}
-    </RemoteButton>
-  ) : (
-    <RemoteButton variant="none" />
-  );
-  const clearButton = commands.Clear ? (
-    <RemoteButton
-      topic={command_topic + commands.Clear.action.deviceId}
-      message={commands.Clear.name}
-    >
-      Clear
-    </RemoteButton>
-  ) : (
-    <RemoteButton variant="none" />
-  );
+  const makeButton = (command, text) => {
+    return command ? (
+      <RemoteButton
+        onClick={() => {
+          dispatch({ type: "send_key", command: command });
+        }}
+      >
+        {text || command.name.replace("Number", "")}
+      </RemoteButton>
+    ) : (
+      <RemoteButton variant="none" />
+    );
+  };
+
   return (
     <Row style={style}>
       <ButtonGroup>
-        <RemoteButton
-          topic={command_topic + commands.Number1.action.deviceId}
-          message={commands.Number1.name}
-        >
-          1
-        </RemoteButton>
-        <RemoteButton
-          topic={command_topic + commands.Number2.action.deviceId}
-          message={commands.Number2.name}
-        >
-          2
-        </RemoteButton>
-        <RemoteButton
-          topic={command_topic + commands.Number3.action.deviceId}
-          message={commands.Number3.name}
-        >
-          3
-        </RemoteButton>
+        {makeButton(commands.Number1)}
+        {makeButton(commands.Number2)}
+        {makeButton(commands.Number3)}
       </ButtonGroup>
       <br />
       <ButtonGroup>
-        <RemoteButton
-          topic={command_topic + commands.Number4.action.deviceId}
-          message={commands.Number4.name}
-        >
-          4
-        </RemoteButton>
-        <RemoteButton
-          topic={command_topic + commands.Number5.action.deviceId}
-          message={commands.Number5.name}
-        >
-          5
-        </RemoteButton>
-        <RemoteButton
-          topic={command_topic + commands.Number6.action.deviceId}
-          message={commands.Number6.name}
-        >
-          6
-        </RemoteButton>
+        {makeButton(commands.Number4)}
+        {makeButton(commands.Number5)}
+        {makeButton(commands.Number6)}
       </ButtonGroup>
       <br />
       <ButtonGroup>
-        <RemoteButton
-          topic={command_topic + commands.Number7.action.deviceId}
-          message={commands.Number7.name}
-        >
-          7
-        </RemoteButton>
-        <RemoteButton
-          topic={command_topic + commands.Number8.action.deviceId}
-          message={commands.Number8.name}
-        >
-          8
-        </RemoteButton>
-        <RemoteButton
-          topic={command_topic + commands.Number9.action.deviceId}
-          message={commands.Number9.name}
-        >
-          9
-        </RemoteButton>
+        {makeButton(commands.Number7)}
+        {makeButton(commands.Number8)}
+        {makeButton(commands.Number9)}
       </ButtonGroup>
       <br />
       <ButtonGroup>
-        {clearButton}
-        <RemoteButton
-          topic={command_topic + commands.Number0.action.deviceId}
-          message={commands.Number0.name}
-        >
-          0
-        </RemoteButton>
-        {enterButton}
+        {makeButton(commands.Clear)}
+        {makeButton(commands.Number0)}
+        {makeButton(commands.NumberEnter || commands.Dot)}
       </ButtonGroup>
     </Row>
   );
 };
 
+//
 export default NumberButtons;

@@ -2,7 +2,7 @@
  * Screen to control Nest products (thermostat, nest protect)
  */
 import React, { useState } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
 import ThermostatTab from "./ThermostatTab";

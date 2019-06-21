@@ -1,47 +1,36 @@
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
-const ColoredButtons = ({ style, device, commands }) => {
-  const Config = useConfig();
-  if (!device || !commands || !commands.Yellow) {
+const ColoredButtons = ({ style, dispatch, hub }) => {
+  const commands = hub.commands;
+  if (!dispatch || !commands || !commands.Yellow) {
     return null;
   }
-  const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
+
+  // generate JSX markup for a button
+  const makeButton = (command, variant, text) => {
+    return (
+      <RemoteButton
+        mini
+        variant={variant}
+        onClick={() => {
+          dispatch({ type: "send_key", command: command });
+        }}
+      >
+        {text || command.name}
+      </RemoteButton>
+    );
+  };
 
   return (
     <Row style={style}>
       <ButtonGroup>
-        <RemoteButton
-          variant="warning"
-          topic={command_topic + commands.Yellow.action.deviceId}
-          message={commands.Yellow.name}
-        >
-          Yellow
-        </RemoteButton>
-        <RemoteButton
-          variant="info"
-          topic={command_topic + commands.Blue.action.deviceId}
-          message={commands.Blue.name}
-        >
-          Blue
-        </RemoteButton>
-        <RemoteButton
-          variant="danger"
-          topic={command_topic + commands.Red.action.deviceId}
-          message={commands.Red.name}
-        >
-          Red
-        </RemoteButton>
-        <RemoteButton
-          variant="success"
-          topic={command_topic + commands.Green.action.deviceId}
-          message={commands.Green.name}
-        >
-          Green
-        </RemoteButton>
+        {makeButton(commands.Yellow, "warning")}
+        {makeButton(commands.Blue, "info")}
+        {makeButton(commands.Red, "danger")}
+        {makeButton(commands.Green, "success")}
       </ButtonGroup>
     </Row>
   );

@@ -1,5 +1,6 @@
-import React from "react";
-import useConfig from "@/common/hooks/useConfig";
+import React, { useReducer } from "react";
+import lgtvReducer from "@/hooks/reducers/lgtvReducer";
+import useConfig from "@/hooks/useConfig";
 
 import { Image, ButtonGroup, Tooltip, OverlayTrigger } from "react-bootstrap";
 
@@ -20,9 +21,7 @@ import {
 
 import ActionButton from "@/common/ActionButton";
 
-import useLGTV from "@/common/hooks/useLGTV";
-
-import MQTT from "@/lib/MQTT";
+import useLGTV from "@/hooks/useLGTV";
 
 const ignoredLaunchPoints = [
   "HDMI1",
@@ -53,15 +52,13 @@ const ignoredLaunchPoints = [
 // Number pad, for example, is not needed for smart TV apps, but are needed
 // for watching TV.
 const LGTVControl = ({ config }) => {
-  const Config = useConfig();
-
   const lgtv = useLGTV(config),
     tvInput = lgtv.input,
-    dispatch = lgtv.dispatch;
+    [, dispatch] = useReducer(lgtvReducer, { device: config.device });
 
-  const status_topic = Config.mqtt.lgtv + "/" + lgtv.device + "/status/",
-    //    status_topic_length = status_topic.length,
-    set_topic = status_topic.replace("status", "set") + "command";
+  if (!lgtv.launchPoints || !lgtv.foregroundApp) {
+    return null;
+  }
 
   const foregroundApp = lgtv.foregroundApp,
     launchPoints = lgtv.launchPoints,
@@ -95,9 +92,7 @@ const LGTVControl = ({ config }) => {
       <>
         {Object.keys(lgtv.launchPoints).map(key => {
           const info = lgtv.launchPoints[key];
-          //          console.log("key", key, "info", info)
           if (~ignoredLaunchPoints.indexOf(info.title)) {
-            //            console.log("LGTV", info);
             return null;
           }
           const ttkey = `tt-${info.id}`,
@@ -110,7 +105,6 @@ const LGTVControl = ({ config }) => {
           const appId = foregroundApp.appId,
             app = launchPoints[appId];
           const border = app === info ? "6px inset white" : "6px outset white";
-          //          console.log("foregroundApp", foregroundApp.appId, info);
           return (
             <div
               style={{
@@ -121,8 +115,8 @@ const LGTVControl = ({ config }) => {
               }}
               key={info.id}
               onClick={() => {
-                console.log("click", info);
-                MQTT.publish(`${set_topic}`, `LAUNCH-${info.id}`);
+                console.log("info", info);
+                dispatch({ type: `LAUNCH-${info.id}` });
               }}
             >
               <OverlayTrigger key={okey} overlay={overlay}>
@@ -151,7 +145,7 @@ const LGTVControl = ({ config }) => {
     if (!app) {
       return null;
     }
-    console.log("app.icon", app.icon, app.title);
+
     return (
       <div style={{ textAlign: "center" }}>
         <div style={{ marginLeft: "auto", marginRight: "auto", width: 100 }}>
@@ -217,17 +211,17 @@ const LGTVControl = ({ config }) => {
       <>
         <ButtonGroup>
           <ActionButton variant="none" />
-          {button("up", <FaChevronUp />)};{button("channelup", "+", "info")};
+          {button("up", <FaChevronUp />)} {button("channelup", "+", "info")}
         </ButtonGroup>
         <br />
         <ButtonGroup>
-          {button("left", <FaChevronLeft />)};{button("select", "Select")};
-          {button("right", <FaChevronRight />)};
+          {button("left", <FaChevronLeft />)} {button("select", "Select")}
+          {button("right", <FaChevronRight />)}
         </ButtonGroup>
         <br />
         <ButtonGroup>
           <ActionButton variant="none" />
-          {button("down", <FaChevronDown />)};{button("channeldown", "-", "info")};
+          {button("down", <FaChevronDown />)} {button("channeldown", "-", "info")}
         </ButtonGroup>
       </>
     );

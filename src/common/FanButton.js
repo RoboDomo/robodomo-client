@@ -1,35 +1,11 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import useConfig from "@/common/hooks/useConfig";
+import { useFan } from "@/hooks/useSmartThings";
 
-import MQTT from "lib/MQTT";
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 
 const FanButton = ({ name }) => {
-  const Config = useConfig();
-  const [power, setPower] = useState("off");
-  const [level, setLevel] = useState(5);
+  const fan = useFan(name);
 
-  const status_topic = Config.mqtt.smartthings + "/" + name + "/",
-    set_topic = status_topic;
-
-  useEffect(() => {
-    const onStateChange = (topic, newState) => {
-      if (~topic.indexOf("switch")) {
-        setPower(newState);
-      } else if (~topic.indexOf("level")) {
-        setLevel(newState);
-      } else {
-        console.log("invlaid topic/state", topic, newState);
-      }
-    };
-    MQTT.subscribe(status_topic + "switch", onStateChange);
-    MQTT.subscribe(status_topic + "level", onStateChange);
-    return () => {
-      MQTT.unsubscribe(status_topic + "switch", onStateChange);
-      MQTT.unsubscribe(status_topic + "level", onStateChange);
-    };
-  }, [status_topic]);
   const handleClick = () => {
     let value = 25;
 
@@ -44,23 +20,20 @@ const FanButton = ({ name }) => {
     }
 
     if (value) {
-      setPower("on");
-      setLevel(value);
-      MQTT.publish(set_topic + "switch/set", "on");
+      fan.switch = "on";
       setTimeout(() => {
-        MQTT.publish(set_topic + "level/set", value);
+        fan.level = value;
       }, 250);
     } else {
-      setPower("off");
-      MQTT.publish(set_topic + "switch/set", "off");
+      fan.switch = "off";
     }
   };
 
   let value = "Off";
-  if (power === "on") {
-    if (level < 34) {
+  if (fan.switch === "on") {
+    if (fan.level < 34) {
       value = "Low";
-    } else if (level < 67) {
+    } else if (fan.level < 67) {
       value = "Medium";
     } else {
       value = "High";
@@ -73,8 +46,5 @@ const FanButton = ({ name }) => {
   );
 };
 
-FanButton.propTypes = {
-  name: PropTypes.string.isRequired,
-};
-
+//
 export default FanButton;

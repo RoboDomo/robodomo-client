@@ -4,9 +4,8 @@
  * This is a button group/bar for rewind/pause/play/forward kind of buttons.
  */
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
 import {
@@ -14,30 +13,33 @@ import {
   FaFastBackward,
   FaPause,
   FaPlay,
+  FaStop,
   FaStepForward,
   FaForward,
   FaFastForward,
   FaDotCircle,
 } from "react-icons/fa";
 
-const TransportButtons = ({ style, device, commands }) => {
-  const Config = useConfig();
-  if (!commands || !device || !commands.Pause) {
+const TransportButtons = ({ dispatch, style, hub }) => {
+  const commands = hub.commands;
+  if (!commands || !commands.Pause) {
     return null;
   }
-  const makeButton = (commands, device, kind, Icon) => {
-    if (!commands[kind]) {
+
+  // generate JSX markup for a button
+  const makeButton = (command, text) => {
+    if (!command) {
       return null;
     }
-    const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
     return (
       <RemoteButton
         mini
-        variant={kind === "Record" ? "danger" : undefined}
-        topic={command_topic + commands[kind].action.deviceId}
-        message={commands[kind].name}
+        variant={command.name === "Record" ? "danger" : undefined}
+        onClick={() => {
+          dispatch({ type: "send_key", command: command });
+        }}
       >
-        {Icon}
+        {text || command.name}
       </RemoteButton>
     );
   };
@@ -46,17 +48,20 @@ const TransportButtons = ({ style, device, commands }) => {
     <div style={style}>
       <Row>
         <ButtonGroup>
-          {makeButton(commands, device, "SkipBackward", <FaFastBackward />)}
-          {makeButton(commands, device, "Rewind", <FaBackward />)}
-          {makeButton(commands, device, "Pause", <FaPause />)}
-          {makeButton(commands, device, "Play", <FaPlay />)}
-          {makeButton(commands, device, "FrameAdvance", <FaStepForward />)}
-          {makeButton(commands, device, "FastForward", <FaForward />)}
-          {makeButton(commands, device, "SkipForward", <FaFastForward />)}
-          {makeButton(commands, device, "Record", <FaDotCircle />)}
+          {makeButton(commands.SkipBackward, <FaFastBackward />)}
+          {makeButton(commands.Rewind, <FaBackward />)}
+          {makeButton(commands.Pause, <FaPause />)}
+          {makeButton(commands.Stop, <FaStop />)}
+          {makeButton(commands.Play, <FaPlay />)}
+          {makeButton(commands.FrameAdvance, <FaStepForward />)}
+          {makeButton(commands.FastForward, <FaForward />)}
+          {makeButton(commands.SkipForward, <FaFastForward />)}
+          {makeButton(commands.Record, <FaDotCircle />)}
         </ButtonGroup>
       </Row>
     </div>
   );
 };
+
+//
 export default TransportButtons;

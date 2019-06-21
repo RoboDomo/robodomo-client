@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
 const formatTime = (seconds, trim = true) => {
   const d = new Date(null);

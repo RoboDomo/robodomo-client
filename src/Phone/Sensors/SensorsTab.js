@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
 import { Badge, Card } from "react-bootstrap";
 

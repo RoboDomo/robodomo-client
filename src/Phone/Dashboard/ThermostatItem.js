@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
-import NumberInput from "common/form/NumberInput";
+import useConfig from "@/hooks/useConfig";
+import NumberInput from "@/common/form/NumberInput";
 
 import { ListGroup } from "react-bootstrap";
 
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
 const topics = ["ambient_temperature_f", "target_temperature_f", "hvac_state"];
 

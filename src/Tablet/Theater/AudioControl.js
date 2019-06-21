@@ -1,34 +1,39 @@
-//import React, { useState, useEffect } from "react";
-import React from "react";
+import React, { useReducer } from "react";
 
 import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
 import { ButtonGroup } from "react-bootstrap";
-import ActionButton from "common/ActionButton";
+
+import ActionButton from "@/common/ActionButton";
+
+import denonReducer from "@/hooks/reducers/denonReducer";
+
+const format = n => {
+  if (n === null) {
+    return 0;
+  }
+  if (typeof n === "number") {
+    if (n > 99) {
+      return n / 10;
+    }
+    return n;
+  }
+  if (n.length === 3) {
+    return Number(n) / 10;
+  }
+  return Number(n);
+};
 
 const AudioControl = ({ avr }) => {
-  const format = n => {
-    if (n === null) {
-      return 0;
-    }
-    if (typeof n === "number") {
-      if (n > 99) {
-        return n / 10;
-      }
-      return n;
-    }
-    if (n.length === 3) {
-      return Number(n) / 10;
-    }
-    return Number(n);
-  };
-
+  const [, dispatch] = useReducer(denonReducer, { device: avr ? avr.device : null });
   if (!avr) {
     return null;
   }
 
-  const dispatch = avr.dispatch;
-
   const button = (action, children, variant) => {
+    if (action === "mute") {
+      action = avr.mute ? "unmute" : "mute";
+    }
+
     return (
       <ActionButton variant={variant} dispatch={dispatch} action={action}>
         {children}
@@ -40,7 +45,7 @@ const AudioControl = ({ avr }) => {
     <>
       <ButtonGroup vertical>
         <div>Master Volume</div>
-        {button("mute", <FaVolumeMute />, avr.mute ? "daner" : "primary")}
+        {button("mute", <FaVolumeMute />, avr.mute ? "danger" : "primary")}
         {button("masterup", <FaVolumeUp />)}
         <div style={{ textAlign: "center", width: "100%" }}>{format(avr.masterVolume)}</div>
         {button("masterdown", <FaVolumeDown />)}

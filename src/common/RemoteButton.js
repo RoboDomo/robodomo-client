@@ -12,9 +12,9 @@ import React from "react";
 
 import { Button } from "react-bootstrap";
 
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
-const RemoteButton = ({ variant, topic, message, mini, children, onClick }) => {
+const RemoteButton = ({ variant, topic, message, dispatch, action, mini, children, onClick }) => {
   const w = Math.min(window.screen.availWidth / 5 - 4, 100);
   const style = {
     width: mini ? 46 : w,
@@ -40,11 +40,15 @@ const RemoteButton = ({ variant, topic, message, mini, children, onClick }) => {
     <Button
       variant={variant}
       style={style}
-      onClick={() => {
+      onClick={e => {
+        e.stopPropagation();
+        e.preventDefault();
         if (topic && message) {
           MQTT.publish(topic, message);
+        } else if (dispatch && action) {
+          dispatch({ type: action });
         } else if (onClick) {
-          onClick();
+          onClick(e);
         }
       }}
     >
@@ -52,4 +56,6 @@ const RemoteButton = ({ variant, topic, message, mini, children, onClick }) => {
     </Button>
   );
 };
+
+//
 export default RemoteButton;

@@ -1,81 +1,51 @@
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
-const XBoxButtons = ({ style, device, commands }) => {
-  const Config = useConfig();
-  if (!device || !commands || !commands.GameX) {
+const XBoxButtons = ({ style, dispatch, hub }) => {
+  const commands = hub.commands;
+  if (!dispatch || !commands || !commands.GameX) {
     return null;
   }
 
-  const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
+  const makeButton = (command, text) => {
+    return command ? (
+      <RemoteButton
+        onClick={() => {
+          dispatch({ type: "send_key", value: command });
+        }}
+      >
+        {text || command.name}
+      </RemoteButton>
+    ) : (
+      <RemoteButton variant="none" />
+    );
+  };
+
   return (
     <div style={style}>
       <Row>
         <ButtonGroup>
-          <RemoteButton
-            topic={command_topic + commands.GameX.action.deviceId}
-            message={commands.GameX.name}
-          >
-            X
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.GameY.action.deviceId}
-            message={commands.GameY.name}
-          >
-            Y
-          </RemoteButton>
-          <RemoteButton topic={command_topic + commands.XboxGuide.action.deviceId} message="Xbox">
-            XBox
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.GameA.action.deviceId}
-            message={commands.GameA.name}
-          >
-            A
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.GameB.action.deviceId}
-            message={commands.GameB.name}
-          >
-            B
-          </RemoteButton>
+          {makeButton(commands.GameX)}
+          {makeButton(commands.GameY)}
+          {makeButton(commands.XboxGuide)}
+          {makeButton(commands.GameA)}
+          {makeButton(commands.GameB)}
         </ButtonGroup>
       </Row>
       <Row>
         <ButtonGroup>
-          <RemoteButton
-            topic={command_topic + commands.Menu.action.deviceId}
-            message={commands.Menu.name}
-          >
-            Menu
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.Info.action.deviceId}
-            message={commands.Info.name}
-          >
-            Info
-          </RemoteButton>
-          <RemoteButton topic={command_topic + commands.Live.action.deviceId} message="LiveTV">
-            Live TV
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.XboxGuide.action.deviceId}
-            message="XboxGuide"
-          >
-            Guide
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.Eject.action.deviceId}
-            message={commands.Eject.name}
-          >
-            Eject
-          </RemoteButton>
+          {makeButton(commands.Menu)}
+          {makeButton(commands.Info)}
+          {makeButton(commands.Live)}
+          {makeButton(commands.XboxGuide, "Guide")}
+          {makeButton(commands.Eject)}
         </ButtonGroup>
       </Row>
     </div>
   );
 };
+
+//
 export default XBoxButtons;

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 
 import ReactBootstrapSlider from "react-bootstrap-slider";
 import { FormGroup, ControlLabel, Col, Badge } from "react-bootstrap";
@@ -50,18 +49,6 @@ const SliderField = ({
       </Col>
     </FormGroup>
   );
-};
-
-SliderField.propTypes = {
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.number,
-  min: PropTypes.number,
-  max: PropTypes.number,
-  step: PropTypes.number,
-  precision: PropTypes.number,
-  onSliderStop: PropTypes.func,
-  onSliderChange: PropTypes.func,
 };
 
 export default SliderField;

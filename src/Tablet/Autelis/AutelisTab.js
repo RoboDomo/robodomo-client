@@ -1,11 +1,12 @@
-import React from "react";
-import useConfig from "@/common/hooks/useConfig";
+import React, { useReducer } from "react";
+import useConfig from "@/hooks/useConfig";
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
 
 import NumberField from "@/common/form/NumberField";
 import Clock from "@/common/Clock";
-import useAutelis from "@/common/hooks/useAutelis";
-import useWeather from "@/common/hooks/useWeather";
+import useAutelis from "@/hooks/useAutelis";
+import autelisReducer from "@/hooks/reducers/autelisReducer";
+import useWeather from "@/hooks/useWeather";
 import MacroTile from "../Dashboard/MacroTile";
 
 const AutelisTab = () => {
@@ -13,9 +14,9 @@ const AutelisTab = () => {
   const controller = config.autelis,
     location = controller.location;
 
+  const [, dispatch] = useReducer(autelisReducer, { autelis: controller });
   const autelis = useAutelis(),
     {
-      dispatch,
       pump,
       cleaner,
       solarHeat,

@@ -1,73 +1,51 @@
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
-const TiVoButtons = ({ style, device, commands }) => {
-  const Config = useConfig();
-  if (!commands || !device || !commands.TiVo) {
+const TiVoButtons = ({ style, dispatch, hub }) => {
+  const commands = hub.commands;
+  if (!commands || !dispatch || !commands.TiVo) {
     return null;
   }
-  const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
+
+  // render JSX for button
+  const makeButton = (command, variant, text) => {
+    return command ? (
+      <RemoteButton
+        variant={variant}
+        onClick={() => {
+          dispatch({ type: "send_key", value: command });
+        }}
+      >
+        {text || command.name}
+      </RemoteButton>
+    ) : (
+      <RemoteButton variant="none" />
+    );
+  };
+
   return (
     <div>
       <Row style={style}>
         <ButtonGroup>
-          <RemoteButton
-            topic={command_topic + commands.Back.action.deviceId}
-            message={commands.Back.name}
-          >
-            Back
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.Live.action.deviceId}
-            message={commands.Live.name}
-          >
-            LiveTV
-          </RemoteButton>
-          <RemoteButton
-            variant="primary"
-            topic={command_topic + commands.TiVo.action.deviceId}
-            message="TiVo"
-          >
-            TiVo
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.Guide.action.deviceId}
-            message={commands.Guide.name}
-          >
-            Guide
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.Info.action.deviceId}
-            message={commands.Info.name}
-          >
-            Info
-          </RemoteButton>
+          {makeButton(commands.Back)}
+          {makeButton(commands.Live)}
+          {makeButton(commands.TiVo, "primary")}
+          {makeButton(commands.Guide)}
+          {makeButton(commands.Info)}
         </ButtonGroup>
       </Row>
       <Row style={style}>
         <ButtonGroup>
-          <RemoteButton
-            variant="success"
-            topic={command_topic + commands.ThumbsUp.action.deviceId}
-            message={commands.ThumbsUp.name}
-          >
-            <FaThumbsUp />
-          </RemoteButton>
-          <RemoteButton
-            variant="danger"
-            topic={command_topic + commands.ThumbsDown.action.deviceId}
-            message={commands.ThumbsDown.name}
-          >
-            <FaThumbsDown />
-          </RemoteButton>
+          {makeButton(commands.ThumbsUp, "success", <FaThumbsUp />)}
+          {makeButton(commands.ThumbsDown, "danger", <FaThumbsDown />)}
         </ButtonGroup>
       </Row>
     </div>
   );
 };
 
+//
 export default TiVoButtons;

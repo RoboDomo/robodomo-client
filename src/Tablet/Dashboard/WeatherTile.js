@@ -1,10 +1,10 @@
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
+
+import useConfig from "@/hooks/useConfig";
+import useWeather from "@/hooks/useWeather";
 
 import Tile from "./Tile";
 import { FaFlag } from "react-icons/fa";
-
-import useWeather from "common/hooks/useWeather";
 
 const WeatherTile = () => {
   const Config = useConfig();

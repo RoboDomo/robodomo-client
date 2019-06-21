@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 import MQTT from "@/lib/MQTT";
 
 import TiVo from "../Dashboard/Theater/TiVo";

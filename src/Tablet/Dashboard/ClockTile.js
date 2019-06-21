@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
 import Tile from "./Tile";
-import Clock from "common/Clock";
-import useWeather from "common/hooks/useWeather";
+import Clock from "@/common/Clock";
+import useWeather from "@/hooks/useWeather";
 
 const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 

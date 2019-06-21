@@ -1,87 +1,52 @@
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
 import { FaChevronUp, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const JoystickButtons = ({ style, device, commands }) => {
-  const Config = useConfig();
-  if (!commands || !device || !commands.DirectionUp) {
+const JoystickButtons = ({ style, dispatch, hub }) => {
+  const commands = hub.commands;
+  if (!commands || !dispatch || !commands.DirectionUp) {
     return null;
   }
-  const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
-  const channelUp = commands.ChannelUp ? (
-    <RemoteButton
-      variant="info"
-      topic={command_topic + commands.ChannelUp.action.deviceId}
-      message={commands.ChannelUp.name}
-    >
-      +
-    </RemoteButton>
-  ) : (
-    <RemoteButton variant="none" />
-  );
 
-  const channelDown = commands.ChannelDown ? (
-    <RemoteButton
-      variant="info"
-      topic={command_topic + commands.ChannelDown.action.deviceId}
-      message={commands.ChannelDown.name}
-    >
-      -
-    </RemoteButton>
-  ) : (
-    <RemoteButton variant="none" />
-  );
+  const makeButton = (command, variant, text) => {
+    return command ? (
+      <RemoteButton
+        variant={variant}
+        onClick={() => {
+          dispatch({ type: "send_key", value: command });
+        }}
+      >
+        {text || command.name}
+      </RemoteButton>
+    ) : (
+      <RemoteButton variant="none" />
+    );
+  };
+
   return (
     <div>
       <Row style={style}>
         <ButtonGroup>
-          <RemoteButton variant="none" />
-          <RemoteButton
-            topic={command_topic + commands.DirectionUp.action.deviceId}
-            message={commands.DirectionUp.name}
-          >
-            <FaChevronUp />
-          </RemoteButton>
-          {channelUp}
+          {makeButton(null)}
+          {makeButton(commands.DirectionUp, undefined, <FaChevronUp />)}
+          {makeButton(commands.ChannelUp)}
         </ButtonGroup>
       </Row>
       <Row style={style}>
         <ButtonGroup>
-          <RemoteButton
-            topic={command_topic + commands.DirectionLeft.action.deviceId}
-            message={commands.DirectionLeft.name}
-          >
-            <FaChevronLeft />
-          </RemoteButton>
-          <RemoteButton
-            variant="primary"
-            topic={command_topic + commands.Select.action.deviceId}
-            message={commands.Select.name}
-          >
-            Select
-          </RemoteButton>
-          <RemoteButton
-            topic={command_topic + commands.DirectionRight.action.deviceId}
-            message={commands.DirectionRight.name}
-          >
-            <FaChevronRight />
-          </RemoteButton>
+          {makeButton(commands.DirectionLeft, undefined, <FaChevronLeft />)}
+          {makeButton(commands.Select, "info")}
+          {makeButton(commands.DirectionRight, undefined, <FaChevronRight />)}
         </ButtonGroup>
       </Row>
       <Row style={style}>
         <ButtonGroup>
-          <RemoteButton variant="none" />
-          <RemoteButton
-            topic={command_topic + commands.DirectionDown.action.deviceId}
-            message={commands.DirectionDown.name}
-          >
-            <FaChevronDown />
-          </RemoteButton>
-          {channelDown}
+          {makeButton(null)}
+          {makeButton(commands.DirectionDown, undefined, <FaChevronDown />)}
+          {makeButton(commands.ChannelDown)}
         </ButtonGroup>
       </Row>
     </div>

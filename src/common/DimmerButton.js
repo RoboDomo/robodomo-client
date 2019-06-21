@@ -1,56 +1,25 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import useConfig from "@/common/hooks/useConfig";
 
-import MQTT from "@/lib/MQTT";
+import { useDimmer } from "@/hooks/useSmartThings";
 import RemoteButton from "@/common/RemoteButton";
 
 const DimmerButton = ({ children, name }) => {
-  const Config = useConfig();
-  const [power, setPower] = useState("off");
-  const [level, setLevel] = useState(20);
-  const status_topic = Config.mqtt.smartthings + "/" + name + "/",
-    set_topic = status_topic;
-
-  useEffect(() => {
-    const onStateChange = (topic, newState) => {
-      if (~topic.indexOf("switch")) {
-        setPower(newState);
-      } else if (~topic.indexOf("level")) {
-        setLevel(newState);
-      } else {
-        console.log("invlaid topic/state", topic, newState);
-      }
-    };
-    MQTT.subscribe(status_topic + "switch", onStateChange);
-    MQTT.subscribe(status_topic + "level", onStateChange);
-    return () => {
-      MQTT.unsubscribe(status_topic + "switch", onStateChange);
-      MQTT.unsubscribe(status_topic + "level", onStateChange);
-    };
-  }, [status_topic]);
+  const dimmer = useDimmer(name);
 
   const handleClick = () => {
-    if (power === "on") {
-      setPower("off");
-      MQTT.publish(set_topic + "switch/set", "off");
+    if (dimmer.switch === "on") {
+      dimmer.switch = "off";
     } else {
-      setPower("on");
-      MQTT.publish(set_topic + "switch/set", "on");
+      dimmer.switch = "on";
     }
   };
 
-  const value = power === "on" ? Number(level) + "%" : "Off";
+  const value = dimmer.switch === "on" ? Number(dimmer.level) + "%" : "Off";
   return (
     <div>
       <RemoteButton onClick={handleClick}>{value}</RemoteButton>
     </div>
   );
-};
-
-//
-DimmerButton.propTypes = {
-  name: PropTypes.string.isRequired,
 };
 
 //

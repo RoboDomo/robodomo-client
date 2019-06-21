@@ -1,43 +1,71 @@
-import React, { useEffect, useState } from "react";
-import useConfig from "@/common/hooks/useConfig";
-
-import MQTT from "@/lib/MQTT";
+import React, { useEffect, useRef, useState } from "react";
+import useConfig from "@/hooks/useConfig";
+import {
+  useContact,
+  useMotion,
+  useBattery,
+  useTemperature,
+  useIlluminance,
+  useHumidity,
+} from "@/hooks/useSmartThings";
 
 import { Row, Col, Card } from "react-bootstrap";
 
 const SensorsTab = () => {
   const Config = useConfig();
-  const [sensors, setSensors] = useState({});
+  const sensors = useRef({
+    contact: {},
+    motion: {},
+    battery: {},
+    temperature: {},
+    illuminance: {},
+    humidity: {},
+  });
   const types = ["contact", "motion", "battery", "temperature", "illuminance", "humidity"];
 
-  const onStateChange = (topic, newState) => {
-    const s = {};
-    s[topic] = newState;
-    setSensors(prev => ({ ...prev, ...s }));
-  };
-
-  useEffect(() => {
-    for (const sensor of Config.sensors) {
-      MQTT.subscribe(sensor.topic, onStateChange);
+  for (const sensor of Config.sensors) {
+    switch (sensor.type) {
+      case "contact":
+        sensors.current.contact[sensor.name] = useContact(sensor.name);
+        break;
+      case "motion":
+        sensors.current.motion[sensor.name] = useMotion(sensor.name);
+        break;
+      case "battery":
+        sensors.current.battery[sensor.name] = useBattery(sensor.name);
+        break;
+      case "temperature":
+        sensors.current.temperature[sensor.name] = useTemperature(sensor.name);
+        break;
+      case "illuminance":
+        sensors.current.illuminance[sensor.name] = useIlluminance(sensor.name);
+        break;
+      case "humidity":
+        sensors.current.humidity[sensor.name] = useHumidity(sensor.name);
+        break;
+      default:
+        break;
     }
-    return () => {
-      for (const sensor of Config.sensors) {
-        MQTT.unsubscribe(sensor.topic, onStateChange);
-      }
-    };
-  }, [Config.sensors]);
+  }
 
   const renderType = type => {
     let key = 0;
 
-    return Config.sensors.map(sensor => {
-      if (sensor.type !== type) {
+    const m = [],
+      h = sensors.current[type];
+
+    for (const s of Object.keys(h)) {
+      m.push(h[s]);
+    }
+
+    return m.map(sensor => {
+      if (!sensor) {
         return null;
       }
       return (
         <div key={"type" + key++}>
           {sensor.name}
-          <span style={{ float: "right" }}>{sensors[sensor.topic]}</span>
+          <span style={{ float: "right" }}>{sensor.formatted}</span>
         </div>
       );
     });
@@ -71,4 +99,5 @@ const SensorsTab = () => {
   );
 };
 
+//
 export default SensorsTab;

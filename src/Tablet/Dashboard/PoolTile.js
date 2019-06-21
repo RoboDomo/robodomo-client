@@ -2,7 +2,7 @@ import React from "react";
 
 import Tile from "./Tile";
 
-import useAutelis from "common/hooks/useAutelis";
+import useAutelis from "@/hooks/useAutelis";
 
 const PoolTile = ({ device }) => {
   const autelis = useAutelis();

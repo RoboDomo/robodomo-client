@@ -1,12 +1,11 @@
 import React from "react";
 import { Image } from "react-bootstrap";
 
-import useTiVo from "common/hooks/useTiVo";
-import useTVGuide from "common/hooks/useTVGuide";
+import useTiVo from "@/hooks/useTiVo";
 
 const TiVo = ({ device }) => {
-  const tvguide = useTVGuide(device.guide);
   const tivo = useTiVo(device);
+  const tvguide = tivo.guide;
 
   const info = tvguide.channels[tivo.channel];
   if (!info) {

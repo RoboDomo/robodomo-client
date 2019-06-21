@@ -1,7 +1,7 @@
 import React from "react";
 import { ListGroup } from "react-bootstrap";
 
-import Clock from "common/Clock";
+import Clock from "@/common/Clock";
 
 const ClockItem = () => {
   return (

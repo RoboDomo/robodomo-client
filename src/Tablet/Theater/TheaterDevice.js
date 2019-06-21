@@ -29,5 +29,6 @@ const TheaterDevice = ({ currentDevice, avr, tv, deviceMap }) => {
       return <h1>All Off</h1>;
   }
 };
+
 //
 export default TheaterDevice;

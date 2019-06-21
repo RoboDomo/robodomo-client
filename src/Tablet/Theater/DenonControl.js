@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useReducer } from "react";
 
 import { Row, ButtonGroup } from "react-bootstrap";
 
 import { FaChevronUp, FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-import ActionButton from "common/ActionButton";
+import ActionButton from "@/common/ActionButton";
 
-import useDenon from "common/hooks/useDenon";
+import useDenon from "@/hooks/useDenon";
+import denonReducer from "@/hooks/reducers/denonReducer";
 
 const rowStyle = {
   display: "flex",
@@ -17,7 +18,7 @@ const rowStyle = {
 const DenonControl = ({ config }) => {
   const avr = useDenon(config),
     input = avr.input,
-    dispatch = avr.dispatch;
+    [, dispatch] = useReducer(denonReducer, { device: config.device });
 
   const renderInputs = () => {
     return (
@@ -108,6 +109,8 @@ const DenonControl = ({ config }) => {
       </>
     );
   };
+
+  // RENDER
   return (
     <>
       {renderInputs()}
@@ -116,4 +119,5 @@ const DenonControl = ({ config }) => {
   );
 };
 
+//
 export default DenonControl;

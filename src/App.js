@@ -1,5 +1,5 @@
 import React, { Suspense, useState, useEffect, lazy } from "react";
-import ConfigurationContext from "@/common/hooks/contexts/ConfigurationContext";
+import ConfigurationContext from "@/hooks/contexts/ConfigurationContext";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootswatch/dist/slate/bootstrap.min.css";

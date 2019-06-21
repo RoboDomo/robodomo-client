@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useReducer } from "react";
 
-import ActionButton from "common//ActionButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 import {
   FaChevronUp,
@@ -18,8 +17,10 @@ import {
   FaFastForward,
   FaDotCircle,
 } from "react-icons/fa";
+import ActionButton from "@/common/ActionButton";
 
-import useTiVo from "common/hooks/useTiVo";
+import useTiVo from "@/hooks/useTiVo";
+import tivoReducer from "@/hooks/reducers/tivoReducer";
 
 const style = {
   row: {
@@ -32,11 +33,19 @@ const style = {
 
 const TiVoControl = ({ config }) => {
   const tivo = useTiVo(config),
-    dispatch = tivo.dispatch;
+    [, dispatch] = useReducer(tivoReducer, { device: config.device });
+
+  const g = tivo.guide.channels[tivo.channel];
+  if (!g) {
+    return null;
+  }
 
   return (
     <>
-      <h4>Channel: {tivo.channel}</h4>
+      <h4>
+        Channel: {tivo.channel} {g.name}{" "}
+        <img style={{ width: 30, height: 30 }} src={g.logo.URL} alt={g.name} />
+      </h4>
       <Row
         style={{
           display: "flex",

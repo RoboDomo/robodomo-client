@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 import MQTT from "@/lib/MQTT";
 
 const useWeather = zip => {
   const Config = useConfig();
-  const status_topic = `${Config.mqtt.weather}/${zip}/status/`;
 
   const [forecast, setForecast] = useState(null);
   const [now, setNow] = useState(null);
@@ -38,6 +37,7 @@ const useWeather = zip => {
   };
 
   useEffect(() => {
+    const status_topic = `${Config.mqtt.weather}/${zip}/status/`;
     if (zip) {
       MQTT.subscribe(status_topic + "forecast", handleForecastChange);
       MQTT.subscribe(status_topic + "observation", handleNowChange);
@@ -54,8 +54,7 @@ const useWeather = zip => {
         MQTT.unsubscribe(status_topic + "display_city", handleCityChange);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zip]);
+  }, [Config.mqtt.weather, zip]);
 
   return {
     now: now || {},

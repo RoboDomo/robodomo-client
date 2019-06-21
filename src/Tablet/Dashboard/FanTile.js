@@ -1,55 +1,22 @@
 import React, { useReducer, useRef, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import MQTT from "lib/MQTT";
+import { useFan } from "@/hooks/useSmartThings";
+
 import Tile from "./Tile";
 import { GiComputerFan } from "react-icons/gi";
 
 const FanTile = ({ name }) => {
-  const Config = useConfig();
-  const status_topic = `${Config.mqtt.smartthings}/${name}/`,
-    status_topic_length = status_topic.length,
-    set_topic = status_topic;
+  const fan = useFan(name);
 
-  const power = useRef("off");
-  const level = useRef(0);
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-
-  useEffect(() => {
-    const onStateChange = (topic, newState) => {
-      const key = topic.substr(status_topic_length);
-      switch (key) {
-        case "switch":
-          power.current = newState;
-          forceUpdate();
-          break;
-        case "level":
-          level.current = newState;
-          //          power.current = "on";
-          forceUpdate();
-          break;
-        default:
-          console.log("invalid state", key);
-          break;
-      }
-    };
-
-    MQTT.subscribe(status_topic + "switch", onStateChange);
-    MQTT.subscribe(status_topic + "level", onStateChange);
-
-    return () => {
-      MQTT.unsubscribe(status_topic + "switch", onStateChange);
-      MQTT.unsubscribe(status_topic + "level", onStateChange);
-    };
-  }, [status_topic, status_topic_length]);
 
   const onClick = e => {
     e.stopPropagation();
 
     let value = 25,
-      lvl = Number(level.current);
+      lvl = Number(fan.level);
 
-    if (power.current === "off") {
+    if (fan.switch === "off") {
       lvl = 25;
     } else if (lvl < 34) {
       value = 50;
@@ -60,31 +27,28 @@ const FanTile = ({ name }) => {
     }
 
     if (value) {
-      if (power.current !== "on") {
-        MQTT.publish(set_topic + "switch/set", "on");
-        level.current = value;
+      if (fan.switch !== "on") {
+        fan.switch = "on";
         forceUpdate();
         // we need to delay a bit so the switch on takes
         setTimeout(() => {
-          MQTT.publish(set_topic + "level/set", value);
-          level.current = value;
+          fan.level = value;
           forceUpdate();
         }, 100);
       } else {
-        MQTT.publish(set_topic + "level/set", value);
-        level.current = value;
+        fan.level = value;
         forceUpdate();
       }
     } else {
-      MQTT.publish(set_topic + "switch/set", "off");
+      fan.switch = "off";
       forceUpdate();
     }
   };
 
   // render
   let value = "Off";
-  if (power.current === "on") {
-    const l = Number(level.current);
+  if (fan.switch === "on") {
+    const l = Number(fan.level);
     if (l < 34) {
       value = "Low";
     } else if (l < 67) {
@@ -99,7 +63,7 @@ const FanTile = ({ name }) => {
       <div
         style={{
           textAlign: "center",
-          color: power.current === "on" ? "yellow" : undefined,
+          color: fan.switch === "on" ? "yellow" : undefined,
         }}
         onClick={onClick}
       >
@@ -111,4 +75,5 @@ const FanTile = ({ name }) => {
   );
 };
 
+//
 export default FanTile;

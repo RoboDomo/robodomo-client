@@ -1,7 +1,6 @@
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
 // apple tv commands are similar to XBox (for example)
@@ -10,55 +9,39 @@ const isAppleTV = commands => {
   return commands && commands.Back && commands.Home && commands.Menu && !commands.Eject;
 };
 
-const AppleTVButtons = ({ style, device, commands }) => {
-  const Config = useConfig();
-  if (!device || !isAppleTV(commands)) {
+const AppleTVButtons = ({ style, dispatch, hub }) => {
+  const commands = hub.commands;
+  if (!dispatch || !isAppleTV(commands)) {
     return null;
   }
-  const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
 
-  const clearButton = commands.Clear ? (
-    <RemoteButton
-      topic={command_topic + commands.Clear.action.deviceId}
-      message={commands.Clear.name}
-    >
-      Clear
-    </RemoteButton>
-  ) : null;
-  const ejectButton = commands.Eject ? (
-    <RemoteButton
-      topic={command_topic + commands.Eject.action.deviceId}
-      message={commands.Eject.name}
-    >
-      Eject
-    </RemoteButton>
-  ) : null;
+  // render JSX for button
+  const makeButton = (command, variant, text) => {
+    return command ? (
+      <RemoteButton
+        variant={variant}
+        onClick={() => {
+          dispatch({ type: "send_key", command: command });
+        }}
+      >
+        {text || command.name}
+      </RemoteButton>
+    ) : (
+      <RemoteButton variant="none" />
+    );
+  };
+
+  // render
   return (
-    <Row style={{ ...style }}>
+    <div>
       <ButtonGroup>
-        {clearButton}
-        <RemoteButton
-          topic={command_topic + commands.Back.action.deviceId}
-          message={commands.Back.name}
-        >
-          Back
-        </RemoteButton>
-        <RemoteButton
-          variant="primary"
-          topic={command_topic + commands.Home.action.deviceId}
-          message={commands.Home.name}
-        >
-          Home
-        </RemoteButton>
-        <RemoteButton
-          topic={command_topic + commands.Menu.action.deviceId}
-          message={commands.Menu.name}
-        >
-          Menu
-        </RemoteButton>
-        {ejectButton}
+        {makeButton(commands.Back)}
+        {makeButton(commands.Home, "primary")}
+        {makeButton(commands.Menu)}
       </ButtonGroup>
-    </Row>
+    </div>
   );
 };
+
+//
 export default AppleTVButtons;

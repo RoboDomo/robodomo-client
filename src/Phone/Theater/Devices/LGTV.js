@@ -1,5 +1,5 @@
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
 import { ButtonGroup, Tooltip, OverlayTrigger } from "react-bootstrap";
 

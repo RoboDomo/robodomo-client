@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
 import TheaterTab from "./TheaterTab";

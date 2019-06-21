@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer } from "react";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 import {
   FaChevronUp,
   FaChevronDown,
   FaChevronLeft,
   FaChevronRight,
+  FaFastBackward,
   FaBackward,
   FaPause,
   FaPlay,
@@ -14,7 +15,8 @@ import {
   FaFastForward,
 } from "react-icons/fa";
 
-import MQTT from "lib/MQTT";
+import useAppleTV from "@/hooks/useAppleTV";
+import appleTVReducer from "@/hooks/reducers/appleTVReducer";
 
 const rowStyle = {
   display: "flex",
@@ -43,39 +45,10 @@ const appName = n => {
 // appletv/device/set/command Pause
 
 const AppleTVControl = ({ device }) => {
-  const topic = "appletv/" + device + "/status",
-    set_topic = topic.replace("status", "set/command");
+  const appleTV = useAppleTV(device),
+    { info, elapsedTime } = appleTV;
 
-  const [elapsedTime, setElapsedTime] = useState(null);
-  const [info, setInfo] = useState(null);
-
-  const onInfoChange = (topic, message) => {
-    if (!message) {
-      setElapsedTime(null);
-      setInfo(null);
-    } else {
-      let msg;
-      try {
-        msg = JSON.parse(message);
-      } catch (e) {
-        msg = message;
-      }
-      setInfo(prev => ({ ...prev, ...msg }));
-    }
-  };
-
-  const onTimeChange = (topic, message) => {
-    setElapsedTime(message);
-  };
-
-  useEffect(() => {
-    MQTT.subscribe(topic + "/info", onInfoChange);
-    MQTT.subscribe(topic + "/elapsedTime", onTimeChange);
-    return () => {
-      MQTT.unsubscribe(topic + "/info", onInfoChange);
-      MQTT.unsubscribe(topic + "/elapsedTime", onTimeChange);
-    };
-  }, [topic]);
+  const [, dispatch] = useReducer(appleTVReducer, { device: device });
 
   const renderPlayState = () => {
     if (info.totalTime) {
@@ -117,30 +90,30 @@ const AppleTVControl = ({ device }) => {
 
   const renderPlaybackControls = () => {
     const playButton = (
-        <RemoteButton topic={set_topic} message="Play" mini>
+        <RemoteButton dispatch={dispatch} action="play" mini>
           <FaPlay />
         </RemoteButton>
       ),
       pauseButton = (
-        <RemoteButton topic={set_topic} message="Pause" mini>
+        <RemoteButton dispatch={dispatch} action="pause" mini>
           <FaPause />
         </RemoteButton>
       );
 
     return (
       <ButtonGroup>
-        <RemoteButton topic={set_topic} message="SkipBackward" mini>
-          <FaForward />
+        <RemoteButton dispatch={dispatch} action="skipbackward" mini>
+          <FaFastBackward />
         </RemoteButton>
-        <RemoteButton topic={set_topic} message="BeginRewind" mini>
+        <RemoteButton dispatch={dispatch} action="beginrewind" mini>
           <FaBackward />
         </RemoteButton>
         {pauseButton}
         {playButton}
-        <RemoteButton topic={set_topic} message="BeginForward" mini>
+        <RemoteButton dispatch={dispatch} action="beginforward" mini>
           <FaForward />
         </RemoteButton>
-        <RemoteButton topic={set_topic} message="SkipForward" mini>
+        <RemoteButton dispatch={dispatch} action="skipforward" mini>
           <FaFastForward />
         </RemoteButton>
       </ButtonGroup>
@@ -152,16 +125,16 @@ const AppleTVControl = ({ device }) => {
       <Row style={{ ...rowStyle, marginTop: 4 }}> {renderNowPlaying()}</Row>
       <Row style={{ ...rowStyle, marginTop: 4 }}>
         <ButtonGroup>
-          <RemoteButton topic={set_topic} message="Stop">
+          <RemoteButton dispatch={dispatch} action="stop">
             Stop
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="Menu">
+          <RemoteButton dispatch={dispatch} action="menu">
             Menu
           </RemoteButton>
-          <RemoteButton variant="primary" topic={set_topic} message="Suspend">
+          <RemoteButton variant="primary" dispatch={dispatch} action="home">
             Home
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="Power">
+          <RemoteButton dispatch={dispatch} action="power" variant="danger">
             Power
           </RemoteButton>
         </ButtonGroup>
@@ -169,7 +142,7 @@ const AppleTVControl = ({ device }) => {
       <Row style={{ ...rowStyle, marginTop: 4 }}>
         <ButtonGroup>
           <RemoteButton variant="none" />
-          <RemoteButton topic={set_topic} message="Up">
+          <RemoteButton dispatch={dispatch} action="up">
             <FaChevronUp />
           </RemoteButton>
           <RemoteButton variant="none" />
@@ -177,13 +150,13 @@ const AppleTVControl = ({ device }) => {
       </Row>
       <Row style={rowStyle}>
         <ButtonGroup>
-          <RemoteButton topic={set_topic} message="Left">
+          <RemoteButton dispatch={dispatch} action="left">
             <FaChevronLeft />
           </RemoteButton>
-          <RemoteButton variant="primary" topic={set_topic} message="Select">
+          <RemoteButton variant="primary" dispatch={dispatch} action="select">
             Select
           </RemoteButton>
-          <RemoteButton topic={set_topic} message="Right">
+          <RemoteButton dispatch={dispatch} action="right">
             <FaChevronRight />
           </RemoteButton>
         </ButtonGroup>
@@ -191,7 +164,7 @@ const AppleTVControl = ({ device }) => {
       <Row style={rowStyle}>
         <ButtonGroup>
           <RemoteButton variant="none" />
-          <RemoteButton topic={set_topic} message="Down">
+          <RemoteButton dispatch={dispatch} action="down">
             <FaChevronDown />
           </RemoteButton>
           <RemoteButton variant="none" />
@@ -202,4 +175,5 @@ const AppleTVControl = ({ device }) => {
   );
 };
 
+//
 export default AppleTVControl;

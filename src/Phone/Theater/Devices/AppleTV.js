@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 import {
   FaChevronUp,
@@ -14,7 +14,7 @@ import {
   FaFastForward,
 } from "react-icons/fa";
 
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
 const rowStyle = {
   marginTop: 4,

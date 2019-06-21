@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
 import SmartThingsTab from "./SmartThingsTab";
@@ -10,6 +10,9 @@ const SmartThings = () => {
   const Config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
   const rooms = useRef(null);
+  if (!Config) {
+    return null;
+  }
 
   if (!rooms.current) {
     try {

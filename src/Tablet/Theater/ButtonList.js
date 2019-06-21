@@ -1,11 +1,11 @@
 import React from "react";
 import { ButtonGroup } from "react-bootstrap";
 
-import RemoteButton from "common/RemoteButton";
-import FanButton from "common/FanButton";
-import DimmerButton from "common/DimmerButton";
-import MQTTButton from "common/MQTTButton";
-import ThermostatButton from "common/ThermostatButton";
+import RemoteButton from "@/common/RemoteButton";
+import FanButton from "@/common/FanButton";
+import DimmerButton from "@/common/DimmerButton";
+import MacroButton from "@/common/MacroButton";
+import ThermostatButton from "@/common/ThermostatButton";
 
 const ButtonList = ({ theater }) => {
   if (!theater.buttons) {
@@ -27,15 +27,15 @@ const ButtonList = ({ theater }) => {
             case "thermostat":
               return (
                 <div key={key++} style={{ textAlign: "center", width: "100%" }}>
-                  <ThermostatButton thermostat={button.device} weather={button.weather} />
+                  <ThermostatButton device={button.device} weather={button.weather} />
                 </div>
               );
             case "macro":
               return (
                 <div key={key++} style={{ textAlign: "center", width: "100%" }}>
-                  <MQTTButton name={button.name} device={button.device}>
+                  <MacroButton macro={button.name}>
                     <span style={{ whiteSpace: "nowrap" }}>{button.name}</span>
-                  </MQTTButton>
+                  </MacroButton>
                 </div>
               );
             case "fan":

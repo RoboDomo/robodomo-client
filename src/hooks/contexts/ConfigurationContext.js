@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import { createContext } from "react";
 
 const ConfigurationContext = createContext();
 

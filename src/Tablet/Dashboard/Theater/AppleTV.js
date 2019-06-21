@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
-import MQTT from "lib/MQTT";
+import React, { useState, useEffect, useReducer } from "react";
+
+import useAppleTV from "@/hooks/useAppleTV";
 
 const appName = n => {
   if (n === "com.google.ios.youtube") {
@@ -20,46 +21,15 @@ const formatTime = (seconds, trim = true) => {
 };
 
 const AppleTV = ({ device }) => {
-  const topic = "appletv/" + device + "/status";
-
-  const [elapsedTime, setElapsedTime] = useState(null);
-  const [info, setInfo] = useState(null);
-
-  useEffect(() => {
-    const onInfoChange = (topic, message) => {
-      if (!message) {
-        setElapsedTime(null);
-      } else {
-        if (message.position) {
-          setElapsedTime(message.position);
-        }
-        let msg;
-        try {
-          msg = JSON.parse(message);
-        } catch (e) {
-          msg = message;
-        }
-        setInfo(prev => ({ ...prev, ...msg }));
-      }
-    };
-
-    const onTimeChange = (topic, message) => {
-      setElapsedTime(message);
-    };
-
-    MQTT.subscribe(topic + "/info", onInfoChange);
-    MQTT.subscribe(topic + "/elapsedTime", onTimeChange);
-    return () => {
-      MQTT.unsubscribe(topic + "/info", onInfoChange);
-      MQTT.unsubscribe(topic + "/elapsedTime", onTimeChange);
-    };
-  }, [topic]);
+  const atv = useAppleTV(device),
+    elapsedTime = atv ? atv.elapsedTime : 0,
+    info = atv ? atv.info : null;
 
   const renderPlaybackState = () => {
     if (!info) {
       return null;
     }
-    console.log("info", info);
+
     if (info.totalTime) {
       return (
         <>
@@ -89,4 +59,5 @@ const AppleTV = ({ device }) => {
   );
 };
 
+//
 export default AppleTV;

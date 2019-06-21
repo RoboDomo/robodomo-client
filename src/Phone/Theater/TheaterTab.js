@@ -9,8 +9,8 @@ import AppleTV from "./Devices/AppleTV";
 import LGTV from "./Devices/LGTV";
 import Harmony from "./Devices/Harmony";
 
-import MQTT from "lib/MQTT";
-//import MQTTScript from "lib/MQTTScript";
+import MQTT from "@/lib/MQTT";
+//import MQTTScript from "@/lib/MQTTScript";
 
 const TheaterTab = ({ theater }) => {
   const [power, setPower] = useState(false);

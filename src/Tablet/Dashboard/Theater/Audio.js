@@ -1,61 +1,78 @@
-import React, { useState, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import React, { useReducer } from "react";
+import useDenon from "@/hooks/useDenon";
+import denonReducer from "@/hooks/reducers/denonReducer";
 
 import { ButtonGroup } from "react-bootstrap";
 import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
 
-import RemoteButton from "common/RemoteButton";
-
-import MQTT from "lib/MQTT";
+import RemoteButton from "@/common/RemoteButton";
 
 const Audio = ({ device }) => {
-  const Config = useConfig();
-  const [mute, setMute] = useState(false);
-
-  const topic = `${Config.mqtt.denon}/${device}/status/`,
-    set_topic = topic.replace("status", "set");
-
-  useEffect(() => {
-    const onMessage = (topic, message) => {
-      if (~topic.indexOf("MU")) {
-        setMute(message !== "OFF");
-      }
-    };
-    MQTT.subscribe(topic + "MU", onMessage);
-    return () => {
-      MQTT.unsubscribe(topic + "MU", onMessage);
-    };
-  });
+  const avr = useDenon(device),
+    mute = avr.mute;
+  const [, dispatch] = useReducer(denonReducer, { device: device });
 
   return (
     <>
       <ButtonGroup>
         <RemoteButton
           mini
-          variant={mute ? "danger" : "default"}
-          topic={set_topic + "MU"}
-          message={mute ? "MUOFF" : "MUON"}
+          variant={mute ? "danger" : undefined}
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("avr", avr);
+            dispatch({ type: avr.mute ? "unmute" : "mute" });
+          }}
         >
           <FaVolumeMute />
         </RemoteButton>
 
-        <RemoteButton mini topic={set_topic} message="MVDOWN">
+        <RemoteButton
+          mini
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            dispatch({ type: "masterdown" });
+          }}
+        >
           <FaVolumeDown />
         </RemoteButton>
 
-        <RemoteButton mini topic={set_topic} message="MVUP">
+        <RemoteButton
+          mini
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            dispatch({ type: "masterup" });
+          }}
+        >
           <FaVolumeUp />
         </RemoteButton>
       </ButtonGroup>
-      <ButtonGroup>
-        <RemoteButton topic={set_topic} message="MSAUTO">
+      <ButtonGroup style={{ marginTop: 4 }}>
+        <RemoteButton
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            dispatch({ type: "auto" });
+          }}
+        >
           Auto
         </RemoteButton>
-        <RemoteButton topic={set_topic} message="MSMOVIE">
+        <RemoteButton
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            dispatch({ type: "movie" });
+          }}
+        >
           Movie
         </RemoteButton>
       </ButtonGroup>
     </>
   );
 };
+
+//
 export default Audio;

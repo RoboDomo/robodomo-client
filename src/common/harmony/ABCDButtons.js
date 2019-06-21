@@ -1,47 +1,35 @@
 import React from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import RemoteButton from "common/RemoteButton";
+import RemoteButton from "@/common/RemoteButton";
 import { Row, ButtonGroup } from "react-bootstrap";
 
-const ABCDButtons = ({ style, device, commands }) => {
-  const Config = useConfig();
-  if (!device || !commands || !commands.A) {
+const ABCDButtons = ({ style, dispatch, hub }) => {
+  const commands = hub.commands;
+  if (!dispatch || !commands || !commands.A) {
     return null;
   }
-  const command_topic = Config.mqtt.harmony + "/" + device + "/set/device/";
+
+  // generate JSX markup for a button
+  const makeButton = (command, variant, text) => {
+    return (
+      <RemoteButton
+        variant={variant}
+        onClick={() => {
+          dispatch({ type: "send_key", command: command });
+        }}
+      >
+        {text || command.name}
+      </RemoteButton>
+    );
+  };
 
   return (
     <Row style={style}>
       <ButtonGroup>
-        <RemoteButton
-          variant="warning"
-          topic={command_topic + commands.A.action.deviceId}
-          message={commands.A.name}
-        >
-          A
-        </RemoteButton>
-        <RemoteButton
-          variant="primary"
-          topic={command_topic + commands.B.action.deviceId}
-          message={commands.B.name}
-        >
-          B
-        </RemoteButton>
-        <RemoteButton
-          variant="danger"
-          topic={command_topic + commands.C.action.deviceId}
-          message={commands.C.name}
-        >
-          C
-        </RemoteButton>
-        <RemoteButton
-          variant="success"
-          topic={command_topic + commands.D.action.deviceId}
-          message={commands.D.name}
-        >
-          D
-        </RemoteButton>
+        {makeButton(commands.A, "warning")}
+        {makeButton(commands.B, "primary")}
+        {makeButton(commands.C, "danger")}
+        {makeButton(commands.D, "success")}
       </ButtonGroup>
     </Row>
   );

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
 import {
   ButtonGroup,
@@ -14,7 +14,7 @@ import { FaChevronUp, FaChevronDown, FaChevronRight } from "react-icons/fa";
 
 import Thermostat from "react-nest-thermostat";
 
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
 const ThermostatTab = ({ thermostat }) => {
   const Config = useConfig();

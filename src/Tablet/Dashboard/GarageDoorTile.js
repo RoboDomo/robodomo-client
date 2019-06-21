@@ -1,49 +1,26 @@
 import React, { useState, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import { useContact } from "@/hooks/useSmartThings";
 
-import MQTT from "lib/MQTT";
 import Tile from "./Tile";
 
 const GarageDoorTile = ({ config }) => {
-  const Config = useConfig();
-  const devices = Array.isArray(config.devices) ? config.devices : [config.devices];
-  const preface = Config.mqtt.smartthings;
+  const devs = Array.isArray(config.devices) ? config.devices : [config.devices],
+    devices = {};
 
-  const [doorSensors, setDoorSensors] = useState({});
-
-  useEffect(() => {
-    const onStateChange = (topic, newState) => {
-      const newDoors = {};
-
-      for (const device of devices) {
-        if (topic.indexOf(device) !== -1) {
-          newDoors[device] = newState;
-          //        } else {
-          //          newDoors[device] = doorSensors[device];
-        }
-      }
-      setDoorSensors(prev => ({ ...prev, ...newDoors }));
-    };
-
-    for (const device of devices) {
-      MQTT.subscribe(`${preface}/${device}/contact`, onStateChange);
-    }
-    return () => {
-      for (const device of devices) {
-        MQTT.unsubscribe(`${preface}/${device}/contact`, onStateChange);
-      }
-    };
-  }, [devices, preface]);
+  for (const d of devs) {
+    devices[d] = useContact(d);
+  }
 
   const doors = [];
   let open = false;
 
-  for (const k of Object.keys(doorSensors)) {
-    doors.push({ name: k.replace(/\s+Sensor/, ""), state: doorSensors[k] });
-    if (doorSensors[k] === "open") {
+  for (const k of Object.keys(devices)) {
+    doors.push({ ...devices[k], name: k.replace(/\s+Sensor/, "") });
+    if (devices[k] === "open") {
       open = true;
     }
   }
+
   let key = 0;
   return (
     <Tile width={1} height={1} readOnly>
@@ -59,9 +36,8 @@ const GarageDoorTile = ({ config }) => {
         {doors.map(function(door) {
           return (
             <div key={++key}>
-              <span style={{ fontWeight: "bold" }}>{door.name}</span>
-              <br />
-              {door.state}
+              <div style={{ fontWeight: "bold" }}>{door.name}</div>
+              <div>{door.contact}</div>
             </div>
           );
         })}
@@ -69,4 +45,6 @@ const GarageDoorTile = ({ config }) => {
     </Tile>
   );
 };
+
+//
 export default GarageDoorTile;

@@ -1,10 +1,9 @@
 import React from "react";
 
-import Clock from "common/Clock";
+import Clock from "@/common/Clock";
+import useWeather from "@/hooks/useWeather";
 
 import { FaFlag } from "react-icons/fa";
-
-import useWeather from "common/hooks/useWeather";
 
 const styles = {
   img: {

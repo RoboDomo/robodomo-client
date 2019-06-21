@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
 import MQTT from "@/lib/MQTT";
 
@@ -17,8 +17,7 @@ const useTVGuide = guide => {
     return () => {
       MQTT.unsubscribe(`${Config.mqtt.tvguide}/${guide}/status/channels`, handleChannels);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [Config.mqtt.tvguide, guide]);
 
   return {
     channels: channels,

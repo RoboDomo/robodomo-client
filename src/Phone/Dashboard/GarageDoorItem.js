@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 import { ListGroup } from "react-bootstrap";
 
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
 const GarageDoorItem = ({ config }) => {
   const Config = useConfig();

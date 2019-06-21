@@ -1,38 +1,24 @@
 import React, { useState, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
 
-import MQTT from "lib/MQTT";
+import { useSwitch } from "@/hooks/useSmartThings";
+
 import Tile from "./Tile";
 import { TiLightbulb } from "react-icons/ti";
 
 const SwitchTile = ({ name }) => {
-  const Config = useConfig();
-  const [state, setState] = useState("off");
-  const status_topic = Config.mqtt.smartthings + "/" + name + "/",
-    set_topic = status_topic;
-
-  useEffect(() => {
-    const onStateChange = (topic, newState) => {
-      setState(newState);
-    };
-    MQTT.subscribe(status_topic + "switch", onStateChange);
-    return () => {
-      MQTT.unsubscribe(status_topic + "switch", onStateChange);
-    };
-  }, [status_topic]);
+  const thing = useSwitch(name);
 
   const onClick = e => {
     e.stopPropagation();
 
-    if (state === "on") {
-      setState("off");
-      MQTT.publish(set_topic + "switch/set", "off");
+    if (thing.switch === "on") {
+      thing.switch = "off";
     } else {
-      setState("on");
-      MQTT.publish(set_topic + "switch/set", "on");
+      thing.switch = "on";
     }
   };
-  if (state === "off") {
+
+  if (thing.switch === "off") {
     return (
       <Tile width={1} height={1}>
         <div style={{ textAlign: "center" }} onClick={onClick}>
@@ -54,4 +40,5 @@ const SwitchTile = ({ name }) => {
   );
 };
 
+//
 export default SwitchTile;

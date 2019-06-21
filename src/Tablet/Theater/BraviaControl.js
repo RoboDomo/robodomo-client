@@ -1,12 +1,6 @@
-import React from "react";
+import React, { useReducer } from "react";
 
-import {
-  //  Row,
-  //  Col,
-  ButtonGroup,
-  //  Tooltip,
-  //  OverlayTrigger
-} from "react-bootstrap";
+import { ButtonGroup } from "react-bootstrap";
 
 import {
   FaChevronUp,
@@ -21,21 +15,17 @@ import {
   FaFastBackward,
   FaPause,
   FaPlay,
-  //  FaStepForward,
   FaForward,
   FaFastForward,
-  //  FaDotCircle
 } from "react-icons/fa";
 
-import useBravia from "common/hooks/useBravia";
-import ActionButton from "common/ActionButton";
+import useBravia from "@/hooks/useBravia";
+import braviaReducer from "@/hooks/reducers/braviaReducer";
+import ActionButton from "@/common/ActionButton";
 
 const BraviaControl = ({ config }) => {
-  //  ({ bravia, tvInput, avrInput }) => {
   const tv = useBravia(config),
-    dispatch = tv.dispatch;
-  //  const status_topic = Config.mqtt.bravia + "/" + config.device + "/status/",
-  //    set_topic = status_topic.replace("status", "set") + "command";
+    [, dispatch] = useReducer(braviaReducer, { device: config.device });
 
   const renderJoystick = () => {
     return (
@@ -74,10 +64,8 @@ const BraviaControl = ({ config }) => {
       </>
     );
   };
+
   const renderKeypad = () => {
-    //    if (!bravia.tuner) {
-    //      return null;
-    //    }
     return (
       <div
         style={{

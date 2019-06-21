@@ -1,33 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
-import useConfig from "@/common/hooks/useConfig";
+
+import useConfig from "@/hooks/useConfig";
+import useLGTV from "@/hooks/useLGTV";
+import useDenon from "@/hooks/useDenon";
+import useBravia from "@/hooks/useBravia";
+import useTiVo from "@/hooks/useTiVo";
+import useAppleTV from "@/hooks/useAppleTV";
 
 import Tile from "./Tile";
 import AppleTV from "./Theater/AppleTV";
 import TiVo from "./Theater/TiVo";
 import Audio from "./Theater/Audio";
 
-import MQTT from "@/lib/MQTT";
-
 // config
 // denon, tv, settop, tivo
 const TheaterTile = ({ title }) => {
   const Config = useConfig();
-  const [currentActivity, setCurrentActivity] = useState("All Off");
 
-  const power = useRef("off");
-
-  const appleTV = useRef(null);
-  const tivo = useRef(null);
-  const denon = useRef(null);
-  const avrInput = useRef(null);
-  const currentDevice = useRef("None");
-  const lgtv = useRef({});
-  const launchPoints = useRef(null);
-  const foregroundApp = useRef(null);
-  const tvInput = useRef("");
-
-  const [active, setActive] = useState(null);
-
+  // first we need to find the theater in Config
   const findTheater = () => {
     for (const t of Config.theaters) {
       if (t.title === title) {
@@ -38,9 +28,10 @@ const TheaterTile = ({ title }) => {
   };
   const def = findTheater();
   if (!def) {
-    return <div>Config.js error: Theater {title} not found</div>;
+    throw new Error(`TheaterTile: theater ${title} not found in Config`);
   }
 
+  // create a hash map of device type => device config
   const devices = def.devices || [],
     deviceMap = {};
 
@@ -48,118 +39,52 @@ const TheaterTile = ({ title }) => {
     deviceMap[device.type] = device;
   }
 
+  // get instances of the devices
+  const lgtv = deviceMap.lgtv ? useLGTV(deviceMap.lgtv) : {},
+    bravia = deviceMap.bravia ? useBravia(deviceMap.bravia) : {},
+    avr = deviceMap.denon ? useDenon(deviceMap.denon) : {},
+    appleTV = deviceMap.appletv ? useAppleTV(deviceMap.appletv.device) : {},
+    tivo = deviceMap.tivo ? useTiVo(deviceMap.tivo) : {};
+
+  const tv = lgtv || bravia;
+
+  const currentDevice = useRef("None");
+
+  const [currentActivity, setCurrentActivity] = useState("All Off");
+  const [active, setActive] = useState(null);
+
+  // loop through activities and create a hashmap of name => activity definition
+  // while we're looping, we can compare the TV and AVR input with the inputs in the
+  // definition, to get the current activity
   const activities = def.activities || [],
     activitiesMap = {};
 
   for (const activity of activities) {
     activitiesMap[activity.name] = activities;
-  }
-
-  let tvType = "unknown";
-
-  useEffect(() => {
-    const onMessage = (topic, message) => {
-      if (~topic.indexOf("power")) {
-        power.current = message;
-      } else if (~topic.indexOf("launchPoints")) {
-        try {
-          launchPoints.current = JSON.parse(message);
-        } catch (e) {
-          launchPoints.current = message;
-        }
-      } else if (~topic.indexOf("foreground")) {
-        try {
-          foregroundApp.current = JSON.parse(message);
-        } catch (e) {
-          foregroundApp.current = message;
-        }
-      } else if (~topic.indexOf("SI")) {
-        avrInput.current = message;
+    const inputs = activity.inputs || {};
+    if (inputs.tv === tv.input && inputs.avr === avr.input) {
+      if (currentDevice.current === "None") {
+        currentDevice.current = activity.defaultDevice;
       }
-      // determine TV input (e.g. HDMI1, HDMI2, NetFlix, etc.)
-      if (power.current !== "on") {
-        setCurrentActivity("All Off");
-        setActive(null);
-        return;
-      }
-
-      try {
-        if (tvType === "lgtv" && launchPoints.current) {
-          const lps = launchPoints.current,
-            fg = foregroundApp.current,
-            title = lps[fg.appId].title;
-          const lp = title || "unknown";
-          tvInput.current = lp.replace(/\s+/, "").toLowerCase();
-          const o = Object.assign({}, deviceMap.lgtv);
-          o.foregroundApp = foregroundApp.current;
-          o.launchPoints = launchPoints.current;
-          o.power = power.current;
-          lgtv.current = { ...lgtv.current, ...o };
+      if (currentActivity !== activity.name) {
+        if (tv.power && avr.power) {
+          setCurrentActivity(activity.name);
+          setActive(activity);
+        } else if (currentActivity !== "All Off") {
+          setCurrentActivity("All Off");
+          setActive(null);
         }
-
-        for (const activity of activities) {
-          const inputs = activity.inputs || {};
-          if (inputs.tv === tvInput.current && inputs.avr === avrInput.current) {
-            currentDevice.current = activity.defaultDevice;
-            setCurrentActivity(activity.name);
-            setActive(activity);
-            break;
-          }
-        }
-      } catch (e) {}
-    }; // onMessage
-    for (const device of devices) {
-      switch (device.type) {
-        case "lgtv":
-          tvType = "lgtv";
-          MQTT.subscribe(`${Config.mqtt.lgtv}/${device.device}/status/power`, onMessage);
-          MQTT.subscribe(`${Config.mqtt.lgtv}/${device.device}/status/foregroundApp`, onMessage);
-          MQTT.subscribe(`${Config.mqtt.lgtv}/${device.device}/status/launchPoints`, onMessage);
-          break;
-        case "denon":
-          denon.current = device.device;
-          MQTT.subscribe(`${Config.mqtt.denon}/${device.device}/status/SI`, onMessage);
-          break;
-        case "tivo":
-          tivo.current = device;
-          break;
-        case "appletv":
-          appleTV.current = device.device;
-          break;
-        default:
-          break;
       }
+      break;
     }
-
-    return () => {
-      for (const device of devices) {
-        switch (device.type) {
-          case "lgtv":
-            tvType = "lgtv";
-            MQTT.unsubscribe(`${Config.mqtt.lgtv}/${device.device}/status/power`, onMessage);
-            MQTT.unsubscribe(
-              `${Config.mqtt.lgtv}/${device.device}/status/foregroundApp`,
-              onMessage
-            );
-            MQTT.unsubscribe(`${Config.mqtt.lgtv}/${device.device}/status/launchPoints`);
-            break;
-          case "denon":
-            MQTT.unsubscribe(`${Config.mqtt.denon}/${device.device}/status/SI`, onMessage);
-            break;
-          case "tivo":
-            break;
-          default:
-            break;
-        }
-      }
-    };
-  }, []);
+  }
 
   const renderCurrentDevice = () => {
     if (currentDevice.current === "TiVo") {
-      return <TiVo device={tivo.current} />;
+      return <TiVo device={deviceMap.tivo} />;
     } else if (currentDevice.current === "Apple TV") {
-      return <AppleTV device={appleTV.current} />;
+      console.log("atv", appleTV);
+      return <AppleTV device={appleTV.device} />;
     }
     return <div>Current Device: {currentDevice.current}</div>;
   };
@@ -168,7 +93,7 @@ const TheaterTile = ({ title }) => {
     <Tile width={2} height={2} onClick="theater">
       <div style={{ fontSize: 24, marginBottom: 0 }}>{currentActivity}</div>
       {renderCurrentDevice()}
-      <Audio device={denon.current} />
+      <Audio device={avr} />
     </Tile>
   ) : (
     <Tile width={2} height={2}>
@@ -176,4 +101,6 @@ const TheaterTile = ({ title }) => {
     </Tile>
   );
 };
+
+//
 export default TheaterTile;

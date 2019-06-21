@@ -1,6 +1,6 @@
 import React from "react";
 
-import RemoteButton from "common//RemoteButton";
+import RemoteButton from "@/common//RemoteButton";
 import { ButtonGroup } from "react-bootstrap";
 import {
   FaChevronUp,

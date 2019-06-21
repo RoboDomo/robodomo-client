@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 
 import { Row, Col } from "react-bootstrap";
 
@@ -8,19 +8,20 @@ import DevicesListGroup from "./DevicesListGroup";
 import TheaterDevice from "./TheaterDevice";
 import ButtonList from "./ButtonList";
 
-import MQTTScript from "lib/MQTTScript";
+import macrosReducer from "@/hooks/reducers/macrosReducer";
 
-import useLGTV from "common/hooks/useLGTV";
-import useBravia from "common/hooks/useBravia";
-import useDenon from "common/hooks/useDenon";
+import useLGTV from "@/hooks/useLGTV";
+import useBravia from "@/hooks/useBravia";
+import useDenon from "@/hooks/useDenon";
 
 const TheaterTab = ({ style, theater }) => {
   const [currentDevice, setCurrentDevice] = useState("None");
   const [currentActivity, setCurrentActivity] = useState("All Off");
-  const [startingActivity, setStartingActivity] = useState(null);
+  const [, dispatchActivity] = useReducer(macrosReducer);
 
   //  const avr = useRef(null);
-  let tv, avr;
+  let tv = null,
+    avr = null;
   //  const tv = useRef(null);
 
   // devices
@@ -43,12 +44,7 @@ const TheaterTab = ({ style, theater }) => {
         break;
     }
   }
-  if (!avr) {
-    return null;
-  }
-
   const handleDeviceClick = device => {
-    console.log("handleClick device", device);
     setCurrentDevice(device.name);
   };
 
@@ -63,38 +59,10 @@ const TheaterTab = ({ style, theater }) => {
   const handleActivityClick = activity => {
     setCurrentActivity(activity.name);
     setCurrentDevice(activity.defaultDevice);
-    setStartingActivity(activity);
-    console.log("handleClick", activity.name, activity.script);
+    dispatchActivity({ macro: activity.macro });
   };
 
   useEffect(() => {
-    // determine TV input (e.g. HDMI1, HDMI2, NetFlix, etc.)
-    //    if (avr.power === false) {
-    //      setAVRInput("OFF");
-    //    }
-    //    if (!tv.power) {
-    //      console.log("POWER IS OFF");
-    //            setTVInput("OFF");
-    //    }
-
-    //    try {
-    //      if (tvType.current === "lgtv") {
-    //        const lps = tv.launchPoints.current,
-    //          fg = tv.foregroundApp,
-    //          title = lps[fg.appId].title;
-    //        const lp = title || "unknown";
-    //        setTVInput(tvPower ? lp.replace(/\s+/, "").toLowerCase() : "OFF");
-    //        const o = Object.assign({}, deviceMap.lgtv);
-    //        o.foregroundApp = foregroundApp;
-    //        o.launchPoints = launchPoints.current;
-    //        o.power = tvPower;
-    //        o.tvInput = tvInput;
-    //        setLGTV(o);
-    //                setLGTV(prev => ({ ...prev, ...o }));
-    //      } else {
-    //      }
-    //    } catch (e) {}
-
     let found = false;
     if (!tv.power) {
       //      console.log("TV OFF");
@@ -104,45 +72,33 @@ const TheaterTab = ({ style, theater }) => {
     } else {
       for (const activity of activities) {
         const inputs = activity.inputs || {};
-        //        console.log("inputs", inputs.tv, tvInput, inputs.avr, avrInput);
         if (inputs.tv === tv.input && inputs.avr === avr.input) {
+          found = true;
           if (currentActivity !== activity.name) {
             setCurrentDevice(prev => activity.defaultDevice);
             setCurrentActivity(prev => activity.name);
-            //          console.log(
-            //            "FOUND currentActivity",
-            //            currentActivity,
-            //            ":" + activity.name + ":"
-            //          );
-            found = true;
             break;
           }
         }
       }
+      if (!found) {
+        setCurrentDevice(tv.name);
+      }
     }
-    if (!found) {
-      //      setCurrentActivity(tvInput);
-      //      console.log(
-      //        "NOT FOUND currentActivity",
-      //        currentActivity,
-      //        tv.input,
-      //        avr.current.input
-      //      );
-    }
-  }, [tv.power, avr.power, currentActivity, currentDevice, tv.input, avr.input, activities]);
+  }, [
+    tv.power,
+    avr.power,
+    currentActivity,
+    currentDevice,
+    tv.input,
+    avr.input,
+    theater.activities,
+    activities,
+    tv,
+    avr,
+  ]);
 
   const renderDevice = () => {
-    if (startingActivity) {
-      return (
-        <MQTTScript
-          script={startingActivity.script}
-          onComplete={() => {
-            setStartingActivity(null);
-          }}
-        />
-      );
-      //      return <div>Starting {startingActivity.name}</div>;
-    }
     return <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />;
   };
 

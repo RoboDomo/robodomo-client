@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
 import { ListGroup, Card, Form } from "react-bootstrap";
 

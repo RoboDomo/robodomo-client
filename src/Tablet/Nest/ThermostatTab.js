@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import React, { useReducer } from "react";
 
 import {
   ButtonGroup,
@@ -11,75 +10,36 @@ import {
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
-
+import Thermostat from "react-nest-thermostat";
 import { FaChevronUp, FaChevronDown, FaChevronRight } from "react-icons/fa";
 
-import Thermostat from "react-nest-thermostat";
-
-import MQTT from "lib/MQTT";
-
-import useWeather from "common/hooks/useWeather";
+import useWeather from "@/hooks/useWeather";
+import useThermostat from "@/hooks/useThermostat";
+import thermostatReducer from "@/hooks/reducers/thermostatReducer";
 
 const ThermostatTab = ({ thermostat }) => {
-  const Config = useConfig();
   const device = thermostat.device;
-
-  const thermostat_status_topic = Config.mqtt.nest + "/" + device + "/status/",
-    thermostat_status_topic_length = thermostat_status_topic.length,
-    set_topic = thermostat_status_topic.replace("status", "set");
-
-  const [thermoState, setThermoState] = useState(null);
-
+  const thermoState = useThermostat(device);
+  const [, dispatch] = useReducer(thermostatReducer, { device: device });
   const weather = useWeather(thermoState ? thermoState.postal_code : null),
     { now } = weather;
 
-  const thermostatTopics = [
-    "device",
-    "name",
-    "structure_name",
-    "postal_code",
-    "away",
-    "ambient_temperature_f",
-    "target_temperature_f",
-    "hvac_state",
-    "has_leaf",
-    "humidity",
-    "time_to_target",
-    "hvac_mode",
-  ];
-
-  const onThermostatChange = (topic, newState) => {
-    const key = topic.substr(thermostat_status_topic_length);
-    const s = {};
-    s[key] = newState;
-    setThermoState(prev => ({ ...prev, ...s }));
-  };
-
-  useEffect(() => {
-    for (const topic of thermostatTopics) {
-      MQTT.subscribe(thermostat_status_topic + topic, onThermostatChange);
-    }
-    return () => {
-      for (const topic of thermostatTopics) {
-        MQTT.unsubscribe(thermostat_status_topic + topic, onThermostatChange);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const hvacModeChange = mode => {
-    MQTT.publish(set_topic + "/hvac_mode", mode);
+    try {
+      dispatch({ type: "hvac_mode", value: mode });
+    } catch (e) {}
   };
 
   const adjustTemperature = temp => {
-    const thermostat = thermoState;
-    if (thermostat) {
-      MQTT.publish(set_topic + "/target_temperature_f", thermostat.target_temperature_f + temp);
-    }
+    try {
+      dispatch({ type: "target_temp", value: thermostat.target_temerature_f + temp });
+    } catch (e) {}
   };
 
   const setTargetTemperature = temp => {
-    MQTT.publish(set_topic + "/target_temperature_f", temp);
+    try {
+      dispatch({ type: "target_temp", value: temp });
+    } catch (e) {}
   };
 
   const render = () => {
@@ -107,6 +67,7 @@ const ThermostatTab = ({ thermostat }) => {
         </Button>
       );
     };
+
     const renderTargets = () => {
       switch (thermoState.hvac_mode) {
         case "Off":
@@ -144,6 +105,8 @@ const ThermostatTab = ({ thermostat }) => {
           );
       }
     };
+
+    // RENDER
     return (
       <Row style={{ marginTop: 6 }}>
         <Col sm={3}>

@@ -64,7 +64,7 @@ class MQTT extends EventEmitter {
   subscribe(topic, handler) {
     if (!this.listenerCount(topic)) {
       console.log(
-        "%cMQTT SUBSCRIBE +++ %c" + topic,
+        "%cMQTT SUBSCRIBE    +++ %c" + topic,
         "font-weight: bold;",
         "color:darkgreen; font-weight: bold"
       );

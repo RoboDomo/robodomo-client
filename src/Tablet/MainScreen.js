@@ -32,6 +32,7 @@ import { MdMenu } from "react-icons/md";
 
 const LOCALSTORAGE_KEY = "mainTabState";
 
+// TODO: get these from Config/Mongo (the order, which are enabled, etc.).
 const tabInfo = {
   dashboard: 1,
   1: "dashboard",

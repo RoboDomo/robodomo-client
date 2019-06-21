@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import useConfig from "@/common/hooks/useConfig";
+import useConfig from "@/hooks/useConfig";
 
-import MQTT from "lib/MQTT";
+import MQTT from "@/lib/MQTT";
 
-import XBoxButtons from "common/harmony/XBoxButtons";
-import RokuButtons from "common/harmony/RokuButtons";
-import TiVoButtons from "common/harmony/TiVoButtons";
-import AppleTVButtons from "common/harmony/AppleTVButtons";
-import JoystickButtons from "common/harmony/JoystickButtons";
-import ColoredButtons from "common/harmony/ColoredButtons";
-import ABCDButtons from "common/harmony/ABCDButtons";
-import NumberButtons from "common/harmony/NumberButtons";
-import TransportButtons from "common/harmony/TransportButtons";
+import XBoxButtons from "@/common/harmony/XBoxButtons";
+import RokuButtons from "@/common/harmony/RokuButtons";
+import TiVoButtons from "@/common/harmony/TiVoButtons";
+import AppleTVButtons from "@/common/harmony/AppleTVButtons";
+import JoystickButtons from "@/common/harmony/JoystickButtons";
+import ColoredButtons from "@/common/harmony/ColoredButtons";
+import ABCDButtons from "@/common/harmony/ABCDButtons";
+import NumberButtons from "@/common/harmony/NumberButtons";
+import TransportButtons from "@/common/harmony/TransportButtons";
 
 const topics = ["activities", "devices", "currentActivity", "startingActivity"];
 

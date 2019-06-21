@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-//import DelayedTask from "lib/DelayedTask";
+//import DelayedTask from "@/lib/DelayedTask";
 
 const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
   const [val, setVal] = useState(Number(value));
