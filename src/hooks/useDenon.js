@@ -65,7 +65,7 @@ const useDenon = device => {
       MQTT.publish(set_topic, "PW", v === true || v === "on" ? "ON" : "STANDBY");
     },
     get input() {
-      return $input;
+      return $power ? $input : "OFF";
     },
     set input(v) {
       MQTT.publish(set_topic, "SI" + v);

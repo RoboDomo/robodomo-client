@@ -13,6 +13,9 @@ import { Row, Col, Card } from "react-bootstrap";
 
 const SensorsTab = () => {
   const Config = useConfig();
+  if (!Config) {
+    return null;
+  }
   const sensors = useRef({
     contact: {},
     motion: {},
@@ -23,6 +26,20 @@ const SensorsTab = () => {
   });
   const types = ["contact", "motion", "battery", "temperature", "illuminance", "humidity"];
 
+  const clearSensors = () => {
+    const s = sensors.current;
+    s.contact = {};
+    s.motion = {};
+    s.battery = {};
+    s.temperature = {};
+    s.illuminance = {};
+    s.humidity = {};
+  };
+  useEffect(() => {
+    return () => {
+      clearSensors();
+    };
+  });
   for (const sensor of Config.sensors) {
     switch (sensor.type) {
       case "contact":

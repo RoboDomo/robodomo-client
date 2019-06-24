@@ -29,7 +29,7 @@ const useBravia = config => {
 
   const handleVolume = (topic, message) => {
     setVolume(message.speaker);
-    console.log("volume", message.speaker);
+    //    console.log("volume", message.speaker);
     //
   };
 

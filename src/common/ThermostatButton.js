@@ -3,7 +3,7 @@
  *
  * Component for upper right side of Theater screen, to display and control thermostat
  */
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useState, useRef } from "react";
 import useConfig from "@/hooks/useConfig";
 import useWeather from "@/hooks/useWeather";
 import useThermostat from "@/hooks/useThermostat";
@@ -23,36 +23,39 @@ const ThermostatButton = ({ device }) => {
 
   const [, dispatch] = useReducer(thermostatReducer, { device: device });
 
-  const targetTemperature = useRef(72);
+  const [targetTemperature, setTargetTemperature] = useState(72);
+  const newTarget = useRef(72);
 
   const postalCode = Config.weather.locations[0].device;
   const weather = useWeather(postalCode);
 
   useEffect(() => {
     if (!delayedTask.current && thermostat) {
-      targetTemperature.current = thermostat.target_temperature_f;
+      setTargetTemperature(thermostat.target_temperature_f);
     }
   }, [thermostat]);
 
   const handleClickDown = () => {
-    targetTemperature.current--;
+    newTarget.current = targetTemperature - 1;
+    setTargetTemperature(newTarget.current);
     if (delayedTask.current) {
       delayedTask.current.defer(2000);
     } else {
       delayedTask.current = new DelayedTask(() => {
-        dispatch({ type: "target_temp", value: targetTemperature.current });
+        dispatch({ type: "target_temp", value: newTarget.current });
         delayedTask.current = null;
       }, 2000);
     }
   };
 
   const handleClickUp = () => {
-    targetTemperature.current++;
+    newTarget.current = targetTemperature + 1;
+    setTargetTemperature(newTarget.current);
     if (delayedTask.current) {
       delayedTask.current.defer(2000);
     } else {
       delayedTask.current = new DelayedTask(() => {
-        dispatch({ type: "target_temp", value: targetTemperature.current });
+        dispatch({ type: "target_temp", value: newTarget.current });
         delayedTask.current = null;
       }, 2000);
     }
@@ -114,7 +117,7 @@ const ThermostatButton = ({ device }) => {
           marginRight: "auto",
         }}
       >
-        {targetTemperature.current}&deg;F
+        {targetTemperature}&deg;F
       </div>
       <RemoteButton onClick={handleClickDown}>
         <FaChevronDown />

@@ -43,10 +43,10 @@ const TheaterTile = ({ title }) => {
   const lgtv = deviceMap.lgtv ? useLGTV(deviceMap.lgtv) : {},
     bravia = deviceMap.bravia ? useBravia(deviceMap.bravia) : {},
     avr = deviceMap.denon ? useDenon(deviceMap.denon) : {},
-    appleTV = deviceMap.appletv ? useAppleTV(deviceMap.appletv.device) : {},
-    tivo = deviceMap.tivo ? useTiVo(deviceMap.tivo) : {};
+    appleTV = deviceMap.appletv ? useAppleTV(deviceMap.appletv.device) : {};
+  //    tivo = deviceMap.tivo ? useTiVo(deviceMap.tivo) : {};
 
-  const tv = lgtv || bravia;
+  const tv = lgtv.name ? lgtv : bravia;
 
   const currentDevice = useRef("None");
 
@@ -65,6 +65,7 @@ const TheaterTile = ({ title }) => {
     if (inputs.tv === tv.input && inputs.avr === avr.input) {
       if (currentDevice.current === "None") {
         currentDevice.current = activity.defaultDevice;
+        console.log("FOUND");
       }
       if (currentActivity !== activity.name) {
         if (tv.power && avr.power) {
@@ -80,13 +81,18 @@ const TheaterTile = ({ title }) => {
   }
 
   const renderCurrentDevice = () => {
+    console.warn("rcd", currentDevice.current);
     if (currentDevice.current === "TiVo") {
       return <TiVo device={deviceMap.tivo} />;
     } else if (currentDevice.current === "Apple TV") {
       console.log("atv", appleTV);
       return <AppleTV device={appleTV.device} />;
+    } else if (currentDevice.current === "AppleTV") {
+      console.log("atv", appleTV);
+      return <AppleTV device={appleTV.device} />;
+    } else {
+      return <div>Current Device: {currentDevice.current}</div>;
     }
-    return <div>Current Device: {currentDevice.current}</div>;
   };
 
   return active ? (

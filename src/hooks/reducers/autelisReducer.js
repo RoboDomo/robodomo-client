@@ -14,5 +14,7 @@ export default (state, action) => {
   } else {
     MQTT.publish(set_topic + key, value);
   }
+
+  //
   return state;
 };

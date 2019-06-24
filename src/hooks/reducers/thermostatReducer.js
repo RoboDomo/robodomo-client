@@ -8,13 +8,16 @@ export default (state, action) => {
 
   switch (type.toLowerCase()) {
     case "hvac_mode":
-      MQTT.publish(set_topic + "/hvac_mode", value);
+      MQTT.publish(set_topic + "hvac_mode", value);
       break;
     case "target_temp":
-      MQTT.publish(set_topic + "/target_temperature_f", value);
+    case "target_temperature":
+      MQTT.publish(set_topic + "target_temperature_f", value);
       break;
     default:
       break;
   }
+
+  //
   return state;
 };

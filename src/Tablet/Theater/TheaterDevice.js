@@ -19,6 +19,7 @@ const TheaterDevice = ({ currentDevice, avr, tv, deviceMap }) => {
     case "AVR":
       return <DenonControl config={deviceMap.denon} />;
     case "Apple TV":
+    case "AppleTV":
       return <AppleTVControl device={deviceMap.appletv.device} />;
     case "LG TV":
       // TODO tvInput, avrInput props might change?  Use key...

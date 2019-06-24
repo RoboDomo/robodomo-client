@@ -22,5 +22,7 @@ export default (state, action) => {
     default:
       break;
   }
+
+  //
   return state;
 };

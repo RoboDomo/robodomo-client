@@ -40,6 +40,7 @@ const ActionButton = ({ variant, dispatch, action, mini, children, onClick }) =>
       style={style}
       onClick={e => {
         e.preventDefault();
+        e.stopPropagation();
         if (dispatch && action) {
           dispatch({ type: action });
         } else if (onClick) {
