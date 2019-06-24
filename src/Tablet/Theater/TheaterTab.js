@@ -67,6 +67,7 @@ const TheaterTab = ({ style, theater }) => {
     if (!tv.power) {
       //      console.log("TV OFF");
       setCurrentActivity("All Off");
+      setCurrentDevice(null);
       tv.input = "Off";
       found = true;
     } else {
@@ -92,7 +93,6 @@ const TheaterTab = ({ style, theater }) => {
     currentDevice,
     tv.input,
     avr.input,
-    theater.activities,
     activities,
     tv,
     avr,

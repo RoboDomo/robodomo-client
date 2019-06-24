@@ -74,13 +74,14 @@ const AppleTVControl = ({ device }) => {
     }
 
     const app = appName(info.appDisplayName || info.appBundleIdentifier);
+    const title = info.title !== info.album ? info.title : null;
     return (
       <div>
         <h2>{app}</h2>
         <h4>
-          {info.title}
+          {title}
           <br />
-          {info.artist} {info.album}
+          <span style={{ fontStyle: "italic" }}>{info.artist}</span> - {info.album}
           <br />
           <div style={{ fontWeight: "bold" }}>{renderPlayState()}</div>
         </h4>

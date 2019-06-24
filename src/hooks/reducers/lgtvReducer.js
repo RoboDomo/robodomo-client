@@ -52,5 +52,7 @@ export default (state, action) => {
   try {
     MQTT.publish(set_topic, topic);
   } catch (e) {}
+
+  //
   return state;
 };

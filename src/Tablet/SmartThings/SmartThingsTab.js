@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from "react";
-import useConfig from "@/hooks/useConfig";
 import {
   useSwitch,
   useDimmer,
@@ -17,7 +16,6 @@ import FanField from "@/common/form/FanField";
 import DisplayField from "@/common/form/DisplayField";
 
 const SmartThingsTab = ({ room }) => {
-  const Config = useConfig();
   const things = useRef({
     dimmer: {},
     fan: {},
@@ -34,13 +32,21 @@ const SmartThingsTab = ({ room }) => {
     thing.switch = thing.switch === "on" ? "off" : "on";
   };
 
+  const toggleDimmer = (name, state) => {
+    const thing = things.current.dimmer[name];
+    thing.switch = thing.switch === "on" ? "off" : "on";
+  };
+
   useEffect(() => {
-    return () => {
+    const clearThings = () => {
       for (const thing of room.things) {
         delete things[thing.name];
       }
     };
-  }, [room.things, things]);
+    return () => {
+      clearThings();
+    };
+  }, [room.things]);
 
   for (const thing of room.things) {
     switch (thing.type) {
@@ -137,7 +143,7 @@ const SmartThingsTab = ({ room }) => {
                   label={thing.name}
                   value={t.level}
                   toggled={t.switch === "on"}
-                  onToggle={toggleSwitch}
+                  onToggle={toggleDimmer}
                   onValueChange={(name, level) => {
                     t.level = level;
                   }}

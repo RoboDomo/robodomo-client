@@ -9,11 +9,11 @@ const FanButton = ({ name }) => {
   const handleClick = () => {
     let value = 25;
 
-    if (power === "off") {
+    if (fan.switch === "off") {
       value = 25;
-    } else if (level < 34) {
+    } else if (fan.level < 34) {
       value = 50;
-    } else if (level < 67) {
+    } else if (fan.level < 67) {
       value = 75;
     } else {
       value = 0;

@@ -3,11 +3,13 @@ import MQTT from "@/lib/MQTT";
 const actions = {
   play: "Play",
   pause: "Pause",
+  skipbackward: "SkipBackward",
   backward: "SkipBackward",
   prev: "SkipBackward",
   previous: "SkipBackward",
   rewind: "BeginRewind",
   fastforward: "BeingForward",
+  skipforward: "SkipForward",
   forward: "SkipForward",
   next: "SkipForward",
   stop: "Stop",
@@ -38,5 +40,6 @@ export default (state, action) => {
   } else {
     console.error("appleTVReducer: Invalid command", action.type);
   }
+  //
   return state;
 };

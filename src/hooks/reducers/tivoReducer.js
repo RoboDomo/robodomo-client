@@ -59,4 +59,7 @@ export default (state, action) => {
   } else {
     console.error("invalid command", act);
   }
+
+  //
+  return state;
 };

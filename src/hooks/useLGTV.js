@@ -34,6 +34,7 @@ const useLGTV = config => {
     MQTT.subscribe(`${status_topic}/power`, handlePower);
     MQTT.subscribe(`${status_topic}/launchPoints`, handleLaunchPoints);
     MQTT.subscribe(`${status_topic}/foregroundApp`, handleForegroundApp);
+
     return () => {
       MQTT.unsubscribe(`${status_topic}/power`, handlePower);
       MQTT.unsubscribe(`${status_topic}/launchPoints`, handleLaunchPoints);

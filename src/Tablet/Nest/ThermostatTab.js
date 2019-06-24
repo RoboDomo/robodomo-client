@@ -31,8 +31,9 @@ const ThermostatTab = ({ thermostat }) => {
   };
 
   const adjustTemperature = temp => {
+    const newVal = Number(thermoState.target_temperature_f) + temp;
     try {
-      dispatch({ type: "target_temp", value: thermostat.target_temerature_f + temp });
+      dispatch({ type: "target_temp", value: newVal });
     } catch (e) {}
   };
 

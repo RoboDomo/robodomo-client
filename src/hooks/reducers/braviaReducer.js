@@ -120,6 +120,13 @@ const codes = [
   "iManual",
 ];
 
+const commandMap = (() => {
+  const m = {};
+  for (const code of codes) {
+    m[code.toLowerCase] = code;
+  }
+})();
+
 export default (state, action) => {
   const { type } = action,
     device = state.device,
@@ -127,13 +134,17 @@ export default (state, action) => {
     status_topic = "bravia/" + hostname + "/status/",
     set_topic = status_topic.replace("status", "set") + "command";
 
-  if (~codes.indexOf(action.type)) {
-    MQTT.publish(set_topic, action.type);
+  const command = commandMap[action.type.toLowerCase()];
+  if (command) {
+    MQTT.publish(set_topic, command);
     return;
   }
 
   switch (type.toLowerCase) {
     default:
-      console.error("useBravia reducer invalid action", action);
+      console.error("useBravia reducer invalid action", action.type);
   }
+
+  //
+  return state;
 };

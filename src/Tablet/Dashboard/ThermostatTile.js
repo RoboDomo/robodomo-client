@@ -10,7 +10,7 @@ import { Form } from "react-bootstrap";
 
 const ThermostatTile = ({ device }) => {
   const thermostat = useThermostat(device);
-  const [, dispatch] = useReducer(thermostatReducer);
+  const [, dispatch] = useReducer(thermostatReducer, { device: device });
 
   if (!thermostat || !thermostat.ambient_temperature_f || !thermostat.target_temperature_f) {
     return null;
@@ -42,6 +42,7 @@ const ThermostatTile = ({ device }) => {
             key={thermostat.target_temperature_f}
             value={thermostat.target_temperature_f}
             onValueChange={temp => {
+              console.log("onValueChange", temp);
               dispatch({ type: "target_temperature", value: temp });
             }}
           />
