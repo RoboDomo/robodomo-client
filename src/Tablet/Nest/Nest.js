@@ -13,6 +13,9 @@ const LOCALSTORAGE_KEY = "nestTabState";
 const Nest = () => {
   const Config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
+  if (!Config) {
+    return null;
+  }
 
   return (
     <Tabs

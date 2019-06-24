@@ -7,6 +7,9 @@ import WeatherTab from "./WeatherTab";
 const Weather = () => {
   const Config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem("weatherTabState") || "0");
+  if (!Config) {
+    return null;
+  }
   const changeTab = eventKey => {
     localStorage.setItem("weatherTabState", eventKey);
     setActiveTab(eventKey);
@@ -35,4 +38,6 @@ const Weather = () => {
     </Tabs>
   );
 };
+
+//
 export default Weather;

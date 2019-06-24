@@ -5,8 +5,11 @@ import { Tab, Tabs } from "react-bootstrap";
 import DashboardTab from "./DashboardTab";
 
 const Dashboard = () => {
-  const config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem("dashboardTabState") || "1");
+  const config = useConfig();
+  if (!config) {
+    return null;
+  }
   const changeTab = eventKey => {
     localStorage.setItem("dashboardTabState", eventKey);
     setActiveTab(eventKey);
@@ -30,4 +33,6 @@ const Dashboard = () => {
     </Tabs>
   );
 };
+
+//
 export default Dashboard;

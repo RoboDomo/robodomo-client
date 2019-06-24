@@ -13,6 +13,9 @@ import { Row, Col, Card } from "react-bootstrap";
 
 const SensorsTab = () => {
   const Config = useConfig();
+  if (!Config) {
+    return null;
+  }
   const sensors = useRef({
     contact: {},
     motion: {},

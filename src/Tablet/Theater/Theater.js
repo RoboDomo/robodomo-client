@@ -8,6 +8,9 @@ const Theater = () => {
   const Config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem("theaterTabState") || "0");
 
+  if (!Config) {
+    return null;
+  }
   return (
     <Tabs
       id="theater-tabs"
