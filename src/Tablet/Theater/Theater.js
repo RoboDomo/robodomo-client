@@ -5,10 +5,10 @@ import { Tab, Tabs } from "react-bootstrap";
 import TheaterTab from "./TheaterTab";
 
 const Theater = () => {
-  const Config = useConfig();
+  const config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem("theaterTabState") || "0");
 
-  if (!Config) {
+  if (!config) {
     return null;
   }
   return (
@@ -23,19 +23,21 @@ const Theater = () => {
       mountOnEnter
       unmountOnExit
     >
-      {Config.theaters.map(theater => {
-        //          console.log("theater", theater);
-        return (
-          <Tab
-            title={theater.title}
-            eventKey={theater.key}
-            key={theater.key}
-            style={{ paddingLeft: 10, paddingRight: 10 }}
-          >
-            <TheaterTab theater={theater} />
-          </Tab>
-        );
-      })}
+      {Array.isArray(config.theaters)
+        ? config.theaters.map(theater => {
+            //          console.log("theater", theater);
+            return (
+              <Tab
+                title={theater.title}
+                eventKey={theater.key}
+                key={theater.key}
+                style={{ paddingLeft: 10, paddingRight: 10 }}
+              >
+                <TheaterTab theater={theater} />
+              </Tab>
+            );
+          })
+        : null}
     </Tabs>
   );
 };

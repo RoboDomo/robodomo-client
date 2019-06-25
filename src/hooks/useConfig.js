@@ -1,9 +1,8 @@
 import { useContext } from "react";
-import ConfigurationContext from "@/hooks/contexts/ConfigurationContext";
+import { ConfigContext } from "@/providers/config";
 
 const useConfig = () => {
-  return useContext(ConfigurationContext);
+  return useContext(ConfigContext);
 };
 
-//
 export default useConfig;

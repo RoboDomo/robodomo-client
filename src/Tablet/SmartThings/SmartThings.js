@@ -7,10 +7,10 @@ import SmartThingsTab from "./SmartThingsTab";
 const LOCALSTORAGE_KEY = "smartthingsTabletTabs";
 
 const SmartThings = () => {
-  const Config = useConfig();
+  const config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
   const rooms = useRef(null);
-  if (!Config) {
+  if (!config || !config.smartthings || !Array.isArray(config.smartthings.things)) {
     return null;
   }
 
@@ -20,7 +20,7 @@ const SmartThings = () => {
         All: [],
       };
 
-      for (const thing of Config.smartthings.things) {
+      for (const thing of config.smartthings.things) {
         roomsMap.All.push(thing);
         for (const room of thing.rooms) {
           if (room !== "*") {
@@ -30,7 +30,7 @@ const SmartThings = () => {
         }
       }
 
-      for (const thing of Config.smartthings.things) {
+      for (const thing of config.smartthings.things) {
         for (const room of thing.rooms) {
           if (room === "*") {
             for (const r in roomsMap) {

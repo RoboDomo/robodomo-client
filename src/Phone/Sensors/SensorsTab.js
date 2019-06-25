@@ -10,6 +10,10 @@ const SensorsTab = () => {
   const [sensors, setSensors] = useState({});
   const types = ["contact", "motion", "battery", "temperature", "illuminance", "humidity"];
 
+  if (!Config || !Array.isArray(Config.sensors)) {
+    return null;
+  }
+
   const onStateChange = (topic, newState) => {
     const s = {};
     s[topic] = newState;

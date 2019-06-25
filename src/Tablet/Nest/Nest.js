@@ -11,9 +11,10 @@ import ProtectTab from "./ProtectTab";
 const LOCALSTORAGE_KEY = "nestTabState";
 
 const Nest = () => {
-  const Config = useConfig();
+  const config = useConfig();
   const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
-  if (!Config) {
+
+  if (!config || !config.nest) {
     return null;
   }
 
@@ -29,20 +30,24 @@ const Nest = () => {
       mountOnEnter
       unmountOnExit
     >
-      {Config.nest.thermostats.map(thermostat => {
-        return (
-          <Tab title={thermostat.name} eventKey={thermostat.name} key={thermostat.name}>
-            <ThermostatTab thermostat={thermostat} />
-          </Tab>
-        );
-      })}
-      {Config.nest.protects.map(protect => {
-        return (
-          <Tab title={protect.name} eventKey={protect.name} key={protect.name}>
-            <ProtectTab sensor={protect} />
-          </Tab>
-        );
-      })}
+      {Array.isArray(config.nest.thermostats)
+        ? config.nest.thermostats.map(thermostat => {
+            return (
+              <Tab title={thermostat.name} eventKey={thermostat.name} key={thermostat.name}>
+                <ThermostatTab thermostat={thermostat} />
+              </Tab>
+            );
+          })
+        : null}
+      {Array.isArray(config.nest.protects)
+        ? config.nest.protects.map(protect => {
+            return (
+              <Tab title={protect.name} eventKey={protect.name} key={protect.name}>
+                <ProtectTab sensor={protect} />
+              </Tab>
+            );
+          })
+        : null}
     </Tabs>
   );
 };

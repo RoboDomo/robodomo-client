@@ -1,6 +1,6 @@
 import React, { Suspense, useState, useEffect, lazy } from "react";
-import ConfigurationContext from "@/hooks/contexts/ConfigurationContext";
 import MqttProvider from "@/providers/mqtt";
+import ConfigProvider from "@/providers/config";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootswatch/dist/slate/bootstrap.min.css";
@@ -37,22 +37,12 @@ const Platform = () => {
 };
 
 const App = () => {
-  const [config, setConfig] = useState(null);
-
-  const handleSettings = (topic, message) => {
-    setConfig(message);
-  };
-
-  useEffect(() => {
-    MQTT.subscribe("settings/status/config", handleSettings);
-  }, []);
-
   return (
     <Suspense fallback={<div className="loader" />}>
       <MqttProvider>
-        <ConfigurationContext.Provider value={config}>
+        <ConfigProvider>
           <Platform />
-        </ConfigurationContext.Provider>
+        </ConfigProvider>
       </MqttProvider>
     </Suspense>
   );
