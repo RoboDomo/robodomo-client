@@ -85,10 +85,8 @@ const TheaterTile = ({ title }) => {
     if (currentDevice.current === "TiVo") {
       return <TiVo device={deviceMap.tivo} />;
     } else if (currentDevice.current === "Apple TV") {
-      console.log("atv", appleTV);
       return <AppleTV device={appleTV.device} />;
     } else if (currentDevice.current === "AppleTV") {
-      console.log("atv", appleTV);
       return <AppleTV device={appleTV.device} />;
     } else {
       return <div>Current Device: {currentDevice.current}</div>;

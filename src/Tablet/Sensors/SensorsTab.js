@@ -29,19 +29,20 @@ const SensorsTab = () => {
   const types = ["contact", "motion", "battery", "temperature", "illuminance", "humidity"];
 
   const clearSensors = () => {
-    const s = sensors.current;
-    s.contact = {};
-    s.motion = {};
-    s.battery = {};
-    s.temperature = {};
-    s.illuminance = {};
-    s.humidity = {};
+    sensors.current.contact = {};
+    sensors.current.motion = {};
+    sensors.current.battery = {};
+    sensors.current.temperature = {};
+    sensors.current.illuminance = {};
+    sensors.current.humidity = {};
   };
+
   useEffect(() => {
     return () => {
       clearSensors();
     };
-  });
+  }, []);
+
   for (const sensor of Config.sensors) {
     switch (sensor.type) {
       case "contact":
