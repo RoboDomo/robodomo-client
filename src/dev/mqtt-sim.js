@@ -19159,7 +19159,14 @@ const allMessages = [
  * @param {string[]} filter  Array of topics
  */
 const getRandomMessage = filter => {
-  const messages = filter ? allMessages.filter(([topic]) => filter.includes(topic)) : allMessages;
+  const messages =
+    Array.isArray(filter) && filter.length
+      ? allMessages.filter(([topic]) => filter.includes(topic))
+      : allMessages;
+
+  if (!messages.length) {
+    return null;
+  }
 
   const index = Math.floor(Math.random() * messages.length);
 

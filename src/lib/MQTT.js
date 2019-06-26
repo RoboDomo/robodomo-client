@@ -32,7 +32,9 @@ class MQTT extends EventEmitter {
           // filter by current subscriptions
           const payload = getRandomMessage(subscriptions);
 
-          this.onMessageArrived(...payload);
+          if (payload) {
+            this.onMessageArrived(...payload);
+          }
         }, process.env.REACT_APP_DEMO_TRAFFIC_INTERVAL || 5000);
       });
 
