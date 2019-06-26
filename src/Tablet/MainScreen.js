@@ -5,6 +5,7 @@
  */
 
 import React, { useState, useEffect } from "react";
+import { IonContent, IonApp } from "@ionic/react";
 
 import {
   //  Grid,
@@ -66,8 +67,8 @@ const MainScreen = () => {
   }, []);
 
   return (
-    <div style={{ width: 1024, height: 768, margin: "auto" }}>
-      <div style={{ marginTop: 56 }}>
+    <IonApp>
+      <IonContent id="main" style={{ "--color": "#aaaaaa" }}>
         <TabContainer
           id="mainTabs"
           variant="pills"
@@ -76,31 +77,7 @@ const MainScreen = () => {
           activeKey={parseInt(activeTab, 10)}
           onSelect={() => {}}
         >
-          <TabContent>
-            <TabPane mountOnEnter unmountOnExit eventKey={1}>
-              <Dashboard />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={2}>
-              <Theater />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={3}>
-              <Weather />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={4}>
-              <Nest />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={5}>
-              <Sensors />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={6}>
-              <Autelis />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={7}>
-              <SmartThings />
-            </TabPane>
-          </TabContent>
           <Navbar
-            fixed="top"
             bg="primary"
             variant="dark"
             onSelect={tab => {
@@ -141,9 +118,32 @@ const MainScreen = () => {
               </Nav.Link>
             </Nav>
           </Navbar>
+          <TabContent>
+            <TabPane mountOnEnter unmountOnExit eventKey={1}>
+              <Dashboard />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={2}>
+              <Theater />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={3}>
+              <Weather />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={4}>
+              <Nest />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={5}>
+              <Sensors />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={6}>
+              <Autelis />
+            </TabPane>
+            <TabPane mountOnEnter unmountOnExit eventKey={7}>
+              <SmartThings />
+            </TabPane>
+          </TabContent>
         </TabContainer>
-      </div>
-    </div>
+      </IonContent>
+    </IonApp>
   );
 };
 

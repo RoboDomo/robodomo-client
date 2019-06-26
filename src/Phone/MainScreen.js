@@ -37,6 +37,58 @@ const MainScreen = () => {
         unmountOnExit
         onSelect={() => {}}
       >
+        <Navbar bg="dark" variant="dark">
+          <Navbar.Brand>RoboDomo</Navbar.Brand>
+        </Navbar>
+        <Navbar
+          className="justify-content-between"
+          bg="dark"
+          variant="dark"
+          fixed="bottom"
+          onSelect={tab => {
+            localStorage.setItem(LOCALSTORAGE_KEY, tab);
+            setActiveTab(tab);
+            console.log("eventKey");
+          }}
+        >
+          <Nav justify fill variant="tabs" defaultActiveKey={activeTab}>
+            <Nav.Item style={style.nav}>
+              <Nav.Link eventKey={1} style={{ margin: 0 }}>
+                <MdDashboard />
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item style={style.nav}>
+              <Nav.Link eventKey={2} style={{ margin: 0 }}>
+                <IoIosTv />
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item style={style.nav}>
+              <Nav.Link eventKey={3} style={{ margin: 0 }}>
+                <TiWeatherCloudy />
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item style={style.nav}>
+              <Nav.Link eventKey={4} style={{ margin: 0 }}>
+                <TiThermometer />
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item style={style.nav}>
+              <Nav.Link eventKey={5} style={{ margin: 0 }}>
+                <IoIosAnalytics />
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item style={style.nav}>
+              <Nav.Link eventKey={6} style={{ margin: 0 }}>
+                <FaSwimmingPool />
+              </Nav.Link>
+            </Nav.Item>
+            <Nav.Item style={style.nav}>
+              <Nav.Link eventKey={7} style={{ margin: 0 }}>
+                <MdMenu />
+              </Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Navbar>
         <TabContent>
           <TabPane eventKey={1}>
             <Dashboard />
@@ -59,58 +111,6 @@ const MainScreen = () => {
           <TabPane eventKey={7}>SmartThings</TabPane>
         </TabContent>
       </TabContainer>
-      <Navbar bg="dark" variant="dark" fixed="top">
-        <Navbar.Brand>RoboDomo</Navbar.Brand>
-      </Navbar>
-      <Navbar
-        className="justify-content-between"
-        bg="dark"
-        variant="dark"
-        fixed="bottom"
-        onSelect={tab => {
-          localStorage.setItem(LOCALSTORAGE_KEY, tab);
-          setActiveTab(tab);
-          console.log("eventKey");
-        }}
-      >
-        <Nav justify fill variant="tabs" defaultActiveKey={activeTab}>
-          <Nav.Item style={style.nav}>
-            <Nav.Link eventKey={1} style={{ margin: 0 }}>
-              <MdDashboard />
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item style={style.nav}>
-            <Nav.Link eventKey={2} style={{ margin: 0 }}>
-              <IoIosTv />
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item style={style.nav}>
-            <Nav.Link eventKey={3} style={{ margin: 0 }}>
-              <TiWeatherCloudy />
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item style={style.nav}>
-            <Nav.Link eventKey={4} style={{ margin: 0 }}>
-              <TiThermometer />
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item style={style.nav}>
-            <Nav.Link eventKey={5} style={{ margin: 0 }}>
-              <IoIosAnalytics />
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item style={style.nav}>
-            <Nav.Link eventKey={6} style={{ margin: 0 }}>
-              <FaSwimmingPool />
-            </Nav.Link>
-          </Nav.Item>
-          <Nav.Item style={style.nav}>
-            <Nav.Link eventKey={7} style={{ margin: 0 }}>
-              <MdMenu />
-            </Nav.Link>
-          </Nav.Item>
-        </Nav>
-      </Navbar>
     </div>
   );
 };
