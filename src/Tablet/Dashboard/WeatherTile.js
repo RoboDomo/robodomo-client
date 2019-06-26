@@ -2,12 +2,14 @@ import React from "react";
 
 import useConfig from "@/hooks/useConfig";
 import useWeather from "@/hooks/useWeather";
-
+import Temperature from "@/common/Temperature";
+import Speed from "@/common/Speed";
 import Tile from "./Tile";
 import { FaFlag } from "react-icons/fa";
 
 const WeatherTile = () => {
   const Config = useConfig();
+  const metric = Config.metric;
   const location = (() => {
     for (const location of Config.weather.locations) {
       if (location.default) {
@@ -51,16 +53,15 @@ const WeatherTile = () => {
           <div style={{ display: "inline" }}>
             <span
               style={{
-                fontSize: 56,
+                fontSize: 44,
               }}
             >
-              {now.temperature}
-              &deg;F
+              <Temperature value={now.temperature} />
             </span>
           </div>
         </div>
         <div style={{ textAlign: "right" }}>
-          {now.highTemperature}&deg;F / {now.lowTemperature}&deg;F
+          <Temperature value={now.highTemperature} /> / <Temperature value={now.lowTemperature} />
         </div>
         <div
           style={{
@@ -70,7 +71,7 @@ const WeatherTile = () => {
             textAlign: "center",
           }}
         >
-          <FaFlag style={{ fontSize: 32 }} /> {now.windDescShort} {now.windSpeed} MPH
+          <FaFlag style={{ fontSize: 32 }} /> {now.windDescShort} <Speed value={now.windSpeed} />
         </div>
       </div>
     </Tile>

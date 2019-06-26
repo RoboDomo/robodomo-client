@@ -17,6 +17,7 @@ const SensorsTab = () => {
   if (!Config || !Array.isArray(Config.sensors)) {
     return null;
   }
+  const metric = Config.metric;
 
   const sensors = useRef({
     contact: {},
@@ -85,7 +86,9 @@ const SensorsTab = () => {
       return (
         <div key={"type" + key++}>
           {sensor.name}
-          <span style={{ float: "right" }}>{sensor.formatted}</span>
+          <span style={{ float: "right" }}>
+            {metric && sensor.metric ? sensor.metric : sensor.formatted}
+          </span>
         </div>
       );
     });

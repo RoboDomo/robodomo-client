@@ -1,7 +1,11 @@
 import React from "react";
 
 import Clock from "@/common/Clock";
+import useConfig from "@/hooks/useConfig";
 import useWeather from "@/hooks/useWeather";
+import Temperature from "@/common/Temperature";
+import Speed from "@/common/Speed";
+import Distance from "@/common/Distance";
 
 import { FaFlag } from "react-icons/fa";
 
@@ -27,6 +31,8 @@ const styles = {
 };
 
 const WeatherTab = ({ location }) => {
+  const Config = useConfig(),
+    metric = Config.metric;
   const weather = useWeather(location.device);
 
   const renderHourly = hourly => {
@@ -70,7 +76,9 @@ const WeatherTab = ({ location }) => {
             >
               <div style={{ fontSize: 12 }}>{localTime}</div>
               <img style={styles.img_small} alt={data.iconName} src={data.iconLink} />
-              <div style={{ fontWeight: "bold", fontSize: 20 }}>{data.temperature}&deg;F</div>
+              <div style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Temperature value={data.temperature} />
+              </div>
             </div>
           );
         })}
@@ -128,7 +136,9 @@ const WeatherTab = ({ location }) => {
               <div>
                 <img alt={o.iconName} style={styles.img_small} src={o.iconLink} />
               </div>
-              <div style={{ fontWeight: "bold", fontSize: 20 }}>{o.temperature}&deg;F</div>
+              <div style={{ fontWeight: "bold", fontSize: 20 }}>
+                <Temperature value={o.temperature} />
+              </div>
               <div>{o.temperatureDesc}</div>
             </div>
           );
@@ -166,25 +176,29 @@ const WeatherTab = ({ location }) => {
           }}
         >
           <div>
-            <FaFlag style={{ fontSize: 40 }} /> {weather.now.windDesc} {weather.now.windSpeed} MPH
+            <FaFlag style={{ fontSize: 40 }} /> {weather.now.windDesc}{" "}
+            <Speed value={weather.now.windSpeed} />
           </div>
           <div style={{ fontSize: 14, textAlign: "right" }}>
             Sunrise: {sunrise} / Sunset: {sunset}
           </div>
           <div style={{ fontSize: 14, textAlign: "right" }}>
-            Visibility {weather.now.visibility}
+            Visibility <Distance value={weather.now.visibility} units={false} />
           </div>
         </div>
         <div style={{ fontSize: 40, float: "left" }}>
           <span style={{ paddingTop: 10, fontSize: 48 }}>
             <img alt={weather.now.iconName} style={styles.img} src={weather.now.iconLink} />{" "}
-            {weather.now.temperature}&deg;F
+            <Temperature value={weather.now.temperature} />
           </span>
           <div style={{ fontSize: 14, textAlign: "right" }}>
-            High {weather.now.highTemperature}&deg; / Low: {weather.now.lowTemperature}&deg;
+            High <Temperature value={weather.now.highTemperature} /> /{" "}
+            <Temperature value={weather.now.lowTemperature} />
           </div>
           <div style={{ fontSize: 14, textAlign: "right" }}>
-            Humidity {weather.now.humidity}% / Dew Point {weather.now.dewPoint}&deg;
+            Humidity {weather.now.humidity}% / Dew Point{" "}
+            <Temperature value={weather.now.dewPoint} units={false} />
+            &deg;
           </div>
         </div>
         <div style={{ clear: "both", marginBottom: 10 }} />

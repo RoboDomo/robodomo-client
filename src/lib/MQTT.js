@@ -75,7 +75,7 @@ class MQTT extends EventEmitter {
     localStorage.setItem(topic, message);
     this.cache[topic] = message;
 
-    console.log(topic, payload, this.listenerCount(topic));
+    //    console.log(topic, payload, this.listenerCount(topic));
     if (this.listenerCount(topic)) {
       console.log(
         "%cMQTT message <<< %c" + topic + " %c" + message.substr(0, 60),
