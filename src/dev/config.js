@@ -75,7 +75,6 @@ module.exports = {
   // If you have no theaters defined, then the client will not show UI for theaters.
   //
   // If you define one or more theaters, each will have its own tab in the UI when the theater display is selected.
-  /*
   theaters: [
     {
       title: "Family Room", // name of theater
@@ -126,7 +125,7 @@ module.exports = {
           type: "bravia",
           favorites: braviaFavorites, // favorite apps to display in the UI
           device: "sony-tv", // hostname or IP of your Sony/Bravia TV
-        }
+        },
       ],
       // Your theater can have one or more activities associated with it.
       // For example, your Watch TV activity might launch by:
@@ -140,54 +139,54 @@ module.exports = {
       activities: [
         {
           name: "TV", // name of activity to be displayed in teh UI
-          defaultDevice: "TiVo",// this is the device control that will be displayed in the UI by default for this activity
+          defaultDevice: "TiVo", // this is the device control that will be displayed in the UI by default for this activity
           // The inputs for this activity... if tv is hdmi1 and avr is TV, then RoboDomo knows your watching TV.
           inputs: {
             tv: "hdmi1",
-            avr: "TV"
+            avr: "TV",
           },
           // To launch your activity, the following script is executed.
           // It does take a bit of knowledge about how the MQTT commands work:
           // topic: name_of_service/device/set/whatever
-          // message: the command 
+          // message: the command
           script: [
             // set harmony activity to Watch TV so your remote works
             {
-              text: "Starting Harmony Activity",// displayed in the UI while the message is sent
-              topic: "harmony/harmony-hub/set/activity",// the topic
-              message: "35943301"// using the dev tools and using your remote, you can determine hte activity number
+              text: "Starting Harmony Activity", // displayed in the UI while the message is sent
+              topic: "harmony/harmony-hub/set/activity", // the topic
+              message: "35943301", // using the dev tools and using your remote, you can determine hte activity number
             },
             // turn on the TV
             {
               text: "Turning on LG TV",
               topic: "lgtv/lgtv/set/command",
-              message: "POWERON"
+              message: "POWERON",
             },
             // set TV to hdmi1
             {
               text: "Setting TV Input to HDMI 1",
               topic: "lgtv/lgtv/set/commnad",
-              message: "LAUNCH-com.webos.app.hdmi1"
+              message: "LAUNCH-com.webos.app.hdmi1",
             },
             // wake TiVo and set it to live tv
             {
               text: "Setting TiVo to Live TV",
               topic: "tivo/tivo-bolt-3tb/set",
-              message: "LIVETV"
+              message: "LIVETV",
             },
             // turn on Denon AVR
             {
               text: "Turning on AVR",
               topic: "denon/denon-avr/set",
-              message: "PWON"
+              message: "PWON",
             },
             // set AVR input to TV
             {
               text: "Setting AVR to TV",
               topic: "denon/denon-avr/set",
-              message: "SITV"
-            }
-          ]
+              message: "SITV",
+            },
+          ],
         },
         // a second activity
         {
@@ -195,35 +194,35 @@ module.exports = {
           defaultDevice: "Apple TV",
           inputs: {
             tv: "hdmi2",
-            avr: "MPLAY"
+            avr: "MPLAY",
           },
           script: [
             {
               text: "Starting Harmony Activity",
               topic: "harmony/harmony-hub/set/activity",
-              message: "35943341"
+              message: "35943341",
             },
             {
               text: "Turning on LG TV",
               topic: "lgtv/lgtv/set",
-              message: "POWERON"
+              message: "POWERON",
             },
             {
               text: "Setting LGTV Input to HDMI2",
               topic: "lgtv/lgtv/set/command",
-              message: "LAUNCH-com.webos.app.hdmi2"
+              message: "LAUNCH-com.webos.app.hdmi2",
             },
             {
               text: "Turning on AVR",
               topic: "denon/denon-avr/set/",
-              message: "PWON"
+              message: "PWON",
             },
             {
               text: "Setting AVR Input to MPLAY",
               topic: "denon/denon-avr/set/",
-              message: "SIMPLAY"
-            }
-          ]
+              message: "SIMPLAY",
+            },
+          ],
         },
         // all off - turn off your theater devices
         {
@@ -231,9 +230,9 @@ module.exports = {
           defaultDevice: null,
           script: [
             { topic: "lgtv/lgtv/set", message: "POWEROFF" },
-            { topic: "denon/denon-avr/set", message: "PWOFF" }
-          ]
-        }
+            { topic: "denon/denon-avr/set", message: "PWOFF" },
+          ],
+        },
       ],
       // RoboDomo's client tries to display the handiest controls you use while controlling your theater.
       // You can add buttons to the right column to control things other than the theater devices.
@@ -243,9 +242,9 @@ module.exports = {
         // Nest Thermostat button (shows weather and thermostat controls)
         {
           name: "Nest", // name of button
-          type: "thermostat",// type of button
-          device: "structure/thermostat_name",// structure and name of thermostat
-          weather: "zip-code"// the zip code for weather to be displayed
+          type: "thermostat", // type of button
+          device: "structure/thermostat_name", // structure and name of thermostat
+          weather: "zip-code", // the zip code for weather to be displayed
         },
         // fan, switch, and dimmer buttons show the state of the device (e.g. on, off, low/med/high, 50%).
         // Use a label to render text above the button.
@@ -269,7 +268,7 @@ module.exports = {
       // Each theater can have handy buttons
     },
   ],
-  */
+
   // Dashboards
   // Dashboards are typically displayed on the device most of the time.  From the dashboard, you can see the state
   // of your home or office at a glance.  You can also control the most commonly used devices from the dashboard.
@@ -294,7 +293,7 @@ module.exports = {
         { type: "clock" },
         // a large 256x256 tile that renders the current weather, updates in real time
         { type: "weather", location: "zip-code" },
-        /*
+
         // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
         { type: "thermostat", device: "structure/thermostat_name" },
         // a 256x128 tile that renders that status of your swimming pool controller.  Background is green if it is running.
@@ -304,13 +303,13 @@ module.exports = {
         // a 256x256 tile that renders that stat of a theater, along with audio controls
         {
           type: "theater",
-          title: "Family Room" // name of theater to display, as defined in the theaters section above
+          title: "Family Room", // name of theater to display, as defined in the theaters section above
         },
         // a 128x128 tile that monitors the state of one or more garage doors.  Renders red if any are open.
         {
           type: "garagedoor",
           title: "Garage Doors",
-          devices: ["Garage Door Sensor", "Cart Door Sensor"]// the doors to monitor
+          devices: ["Garage Door Sensor", "Cart Door Sensor"], // the doors to monitor
         },
         // 128x128 fan tile (rotates off -> low -> medium -> high -> off)
         { device: "Ceiling Fan", type: "fan" },
@@ -321,10 +320,9 @@ module.exports = {
         // macro tiles
         { type: "macro", name: "TV Break", label: "TV Break" },
         { type: "macro", name: "TV Resume", label: "TV Resume" },
-        */
       ],
     },
-    /*
+
     // a second dashboard definition
     // this is for a tablet you keep on your nightstand next to the bed (or on the wall)
     {
@@ -340,7 +338,7 @@ module.exports = {
         {
           type: "garagedoor",
           title: "Garage Doors",
-          devices: ["Garage Door Sensor", "Cart Door Sensor"]
+          devices: ["Garage Door Sensor", "Cart Door Sensor"],
         },
         { device: "Bathroom Light", type: "dimmer" },
         { device: "Bedroom Fan", type: "fan" },
@@ -349,10 +347,9 @@ module.exports = {
         // macro to turn off all the lights in the house and set thermostat for sleeping comfort
         { type: "macro", name: "Good Night", label: "Good Night" },
         // macro to turn on some lights, set thermostat higher so your electric bill is less
-        { type: "macro", name: "Good Morning", label: "Good Morning" }
-      ]
+        { type: "macro", name: "Good Morning", label: "Good Morning" },
+      ],
     },
-    */
   ],
   // weather locations
   weather: {
@@ -427,104 +424,101 @@ module.exports = {
 
   // Nest devices
   // The name fields must match the names you chose in the Nest app.
-  /*
+
   nest: {
     // one or more thermostats
-    thermostats: [
-      { device: "structure/thermostat_name", name: "Hallway Thermostat" }
-    ],
+    thermostats: [{ device: "structure/thermostat_name", name: "Hallway Thermostat" }],
     // one or more Nest Protect (fire/CO2 detector)
     protects: [
       {
-        device: "structure/protect_name", name: "Entryway Nest Protect",
-        name: "Entryway"
-      }
-    ]
+        device: "structure/protect_name",
+        name: "Entryway Nest Protect",
+      },
+    ],
   },
-  */
   // Sensors in your home/office
-  /*
+
   sensors: [
     // a multisensor typically has more than one topic/thing to monitor (e.g. battery, motion, temperature...)
     {
       name: "Multisensor",
       topic: "smartthings/Multisensor/battery", // subscribe to this topic to monitor
-      type: "battery"
+      type: "battery",
     },
     {
       name: "Multisensor",
       topic: "smartthings/Multisensor/humidity",
-      type: "humidity"
+      type: "humidity",
     },
     {
       name: "Multisensor",
       topic: "smartthings/Multisensor/illuminance",
-      type: "illuminance"
+      type: "illuminance",
     },
     {
       name: "Multisensor",
       topic: "smartthings/Multisensor/motion",
-      type: "motion"
+      type: "motion",
     },
     {
       name: "Multisensor",
       topic: "smartthings/Multisensor/temperature",
-      type: "temperature"
+      type: "temperature",
     },
     // garage door sensors
     {
       name: "Cart Door Sensor",
       topic: "smartthings/Cart Door Sensor/contact",
-      type: "contact"
+      type: "contact",
     },
     {
       name: "Garage Door Sensor",
       topic: "smartthings/Garage Door Sensor/contact",
-      type: "contact"
+      type: "contact",
     },
     // door/window sensor
     {
       name: "Sliding Door",
       topic: "smartthings/Sliding Door/contact",
-      type: "contact"
+      type: "contact",
     },
     {
       name: "Sliding Door",
       topic: "smartthings/Sliding Door/temperature",
-      type: "temperature"
+      type: "temperature",
     },
     // ring doorbell
     {
       name: "Front Door",
       topic: "smartthings/Front Door/motion",
-      type: "motion"
+      type: "motion",
     },
     {
       name: "Front Door",
       topic: "smartthings/Front Door/battery",
-      type: "battery"
+      type: "battery",
     },
     // Nest thermostat temperature sensor
     {
       name: "Thermostat",
       topic: "nest/structure/thermostat_name/status/ambient_temperature_f",
-      type: "temperature"
+      type: "temperature",
     },
     {
       name: "Thermostat",
       topic: "nest/structure/thermostat_name/status/humidity",
-      type: "humidity"
+      type: "humidity",
     },
   ],
-  */
+
   // SmartThings MQTT Bridge
   // Here we define every SmartThings (Z Wave/Zigbee) device we want to control via the SmartThings hub.
-  /*
+
   smartthings: {
-    device: "smartthings",// host name or ip address of SmartThings hub
-    name: "SmartThings Hub",// user friendly name
+    device: "smartthings", // host name or ip address of SmartThings hub
+    name: "SmartThings Hub", // user friendly name
     // These are the things reported or controlled by the hub.
-    // In the app UI, when the SmartThings display is selected, there will be one tab for All things and additional tabs 
+    // In the app UI, when the SmartThings display is selected, there will be one tab for All things and additional tabs
     // for the rooms you define here.  A thing may be in one or more rooms, making the things rendered on your defined
     // tabs as useful as possible.
     things: [
@@ -533,32 +527,32 @@ module.exports = {
       {
         name: "Office Dimmer",
         type: "dimmer",
-        rooms: ["Theater", "Office", "Back Room"]
+        rooms: ["Theater", "Office", "Back Room"],
       },
       {
         name: "Office Light",
         type: "dimmer",
-        rooms: ["Theater", "Office", "Back Room"]
+        rooms: ["Theater", "Office", "Back Room"],
       },
       {
         name: "Office Fan",
         type: "fan",
-        rooms: ["Theater", "Office", "Back Room"]
+        rooms: ["Theater", "Office", "Back Room"],
       },
       {
         name: "Entryway Lights",
         type: "switch",
-        rooms: ["Theater", "Office", "Back Room", "Bedroom"]
+        rooms: ["Theater", "Office", "Back Room", "Bedroom"],
       },
       {
         name: "Kitchen Light",
         type: "dimmer",
-        rooms: ["Kitchen", "Theater", "Bedroom"]
+        rooms: ["Kitchen", "Theater", "Bedroom"],
       },
       {
         name: "Bathroom Light",
         type: "dimmer",
-        rooms: ["Bathroom", "Bedroom"]
+        rooms: ["Bathroom", "Bedroom"],
       },
       { name: "Bedroom Lamp", type: "switch", rooms: ["Bedroom"] },
       { name: "Bedroom Fan", type: "fan", rooms: ["Bedroom"] },
@@ -572,28 +566,28 @@ module.exports = {
       {
         name: "Front Door",
         type: "motion",
-        rooms: ["Theater", "Bedroom", "Outside"]
+        rooms: ["Theater", "Bedroom", "Outside"],
       },
       {
         name: "Bathroom Sensor",
         type: "motion",
-        rooms: ["Bathroom", "Bedroom"]
+        rooms: ["Bathroom", "Bedroom"],
       },
       { name: "Sliding Door", type: "acceleration", rooms: ["*"] },
       { name: "Sliding Door", type: "temperature", rooms: ["*"] },
-      { name: "Sliding Door", type: "threeAxis", rooms: ["*"] }
-    ]
+      { name: "Sliding Door", type: "threeAxis", rooms: ["*"] },
+    ],
   },
-  */
+
   // define the TV Guides you want
-  /*
+
   tvguide: {
     // example provider: Cox Los Angeles
-    guides: [{ device: "SchedulesDirect Guide ID", name: "Name of TV Provider" }]
+    guides: [{ device: "SchedulesDirect Guide ID", name: "Name of TV Provider" }],
   },
-  */
+
   // define the TiVos you have in your home/office
-  /*
+
   tivo: {
     guide: "SchedulesDirect Guide ID",
     favorites: tivoFavorites, // favorite channels
@@ -603,62 +597,62 @@ module.exports = {
       // if guide not provided, the global one for tivo (above) is used
       {
         // theater
-        device: "tivo-bolt-3tb",// hostname or ip
+        device: "tivo-bolt-3tb", // hostname or ip
         name: "Theater TiVo",
         denon: "denon",
-        guide: "SchedulesDirect Guide ID"
+        guide: "SchedulesDirect Guide ID",
       },
       {
         // bedroom
-        device: "tivo-bolt",// hostname or ip
+        device: "tivo-bolt", // hostname or ip
         name: "TiVo Bolt",
         denon: "denon-avr2",
-        guide: "SchedulesDirect Guide ID"
+        guide: "SchedulesDirect Guide ID",
       },
       { device: "tivo-office", name: "Mini Office", guide: "SchedulesDirect Guide ID" },
     ],
   },
-  */
+
   // The Denon AVRs in your home/office
-  /*
+
   denon: {
     receivers: [
       { name: "Family Room Receiver", device: "denon-avr" },
-      { name: "Bed Room Receiver", device: "denon-avr2" }
-    ]
+      { name: "Bed Room Receiver", device: "denon-avr2" },
+    ],
   },
-  */
+
   // The LG TVs in your home/office
   // Wake on Lan is used to wake up the TV, so the mac address is required.
-  /*
+
   lgtv: {
     tvs: [
       {
-        name: "Family Room TV",// name to display in the UI
-        device: "lgtv",// hostname or IP
+        name: "Family Room TV", // name to display in the UI
+        device: "lgtv", // hostname or IP
         mac: "00:00:00:00:00:00", // mac address of your LGTV
-        denon: "denon-avr",// hostname or IP of Denon AVR
-        favorites: lgtvFavorites// favorite apps for the TV
-      }
-    ]
+        denon: "denon-avr", // hostname or IP of Denon AVR
+        favorites: lgtvFavorites, // favorite apps for the TV
+      },
+    ],
   },
-  */
+
   // The Sony/Bravia TVs in your home/office
   // Wake on Lan is used to wake up the TV, so the mac address is required.
-  /*
+
   bravia: {
     tvs: [
-      { 
-        name: "Bedroom TV", 
-        device: "sony-tv", 
+      {
+        name: "Bedroom TV",
+        device: "sony-tv",
         favorites: braviaFavorites,
         mac: "00:00:00:00:00:00", // mac address of your TV
       },
-    ]
+    ],
   },
-  */
+
   // The Logitech Harmony remote Hubs in your home/office
-  /*
+
   harmony: {
     hubs: [
       {
@@ -667,16 +661,16 @@ module.exports = {
         ip: "x.x.x.x", // ip address of your hub
         mac: "xx:xx:xx:xx:xx:xx", // mac address of your hub
         denon: "denon-avr",
-      }
-    ]
-  }
-  */
+      },
+    ],
+  },
+
   // The Apple TVs in your home/office
   // Instructions for finding your device's credentials can be found in the appletv-microservice
   // repository.
   //
   // The serial number can be found in settings->general->about on your Apple TV.
-  /*
+
   appletv: {
     devices: [
       {
@@ -684,16 +678,15 @@ module.exports = {
         device: "appletv",
         serial: "C0xxxxxxxxx",
         credentials:
-          "A very long string of random looking characters that you get by pairing with the Apple Tv"
+          "A very long string of random looking characters that you get by pairing with the Apple Tv",
       },
       {
         name: "Bedroom Apple TV",
         device: "appletv2",
         serial: "C0xxxxxxxx",
         credentials:
-          "A very long string of random looking characters that you get by pairing with the Apple Tv"
-      }
-    ]
-  }
-*/
+          "A very long string of random looking characters that you get by pairing with the Apple Tv",
+      },
+    ],
+  },
 };
