@@ -36,8 +36,6 @@ const ConfigProvider = props => {
     }
   }, [mqtt]);
 
-  console.log("config set", config);
-
   return <ConfigContext.Provider value={config}>{props.children}</ConfigContext.Provider>;
 };
 

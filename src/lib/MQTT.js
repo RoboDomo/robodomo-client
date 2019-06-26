@@ -43,7 +43,7 @@ class MQTT extends EventEmitter {
 
     this.host = process.env.REACT_APP_MQTT_HOST || "robodomo";
     this.port = process.env.REACT_APP_MQTT_PORT || 80;
-    console.log("connecting", this.host, this.port);
+
     const mqtt = (this.mqtt = connect({ host: this.host, port: this.port }));
 
     mqtt.on("connect", this.onConnect.bind(this));
@@ -60,7 +60,6 @@ class MQTT extends EventEmitter {
   }
 
   onFailure() {
-    console.log("mqtt", "onFailure");
     this.emit("failure");
     // mosca retries for us
   }
@@ -77,7 +76,6 @@ class MQTT extends EventEmitter {
     localStorage.setItem(topic, message);
     this.cache[topic] = message;
 
-    //    console.log(topic, payload, this.listenerCount(topic));
     if (this.listenerCount(topic)) {
       console.log(
         "%cMQTT message <<< %c" + topic + " %c" + message.substr(0, 60),
