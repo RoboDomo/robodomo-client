@@ -13,9 +13,9 @@ import { Row, Col, Card } from "react-bootstrap";
 
 const SensorsTab = () => {
   const Config = useConfig();
-  if (!Config) {
-    return null;
-  }
+
+  const metric = Config ? Config.metric : false;
+
   const sensors = useRef({
     contact: {},
     motion: {},
@@ -27,19 +27,25 @@ const SensorsTab = () => {
   const types = ["contact", "motion", "battery", "temperature", "illuminance", "humidity"];
 
   const clearSensors = () => {
-    const s = sensors.current;
-    s.contact = {};
-    s.motion = {};
-    s.battery = {};
-    s.temperature = {};
-    s.illuminance = {};
-    s.humidity = {};
+    sensors.current.contact = {};
+    sensors.current.motion = {};
+    sensors.current.battery = {};
+    sensors.current.temperature = {};
+    sensors.current.illuminance = {};
+    sensors.current.humidity = {};
   };
+
   useEffect(() => {
     return () => {
       clearSensors();
+      console.log("Sensors cleared");
     };
-  });
+  }, []);
+
+  if (!Config || !Array.isArray(Config.sensors)) {
+    return null;
+  }
+
   for (const sensor of Config.sensors) {
     switch (sensor.type) {
       case "contact":
@@ -82,7 +88,9 @@ const SensorsTab = () => {
       return (
         <div key={"type" + key++}>
           {sensor.name}
-          <span style={{ float: "right" }}>{sensor.formatted}</span>
+          <span style={{ float: "right" }}>
+            {metric && sensor.metric ? sensor.metric : sensor.formatted}
+          </span>
         </div>
       );
     });
