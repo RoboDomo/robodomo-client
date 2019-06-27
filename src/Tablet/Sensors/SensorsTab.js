@@ -24,7 +24,6 @@ const SensorsTab = () => {
     illuminance: {},
     humidity: {},
   });
-  const types = ["contact", "motion", "battery", "temperature", "illuminance", "humidity"];
 
   const clearSensors = () => {
     sensors.current.contact = {};
@@ -107,18 +106,17 @@ const SensorsTab = () => {
     );
   };
 
-  let col = 0;
   return (
     <div style={{ padding: 20, marginTop: 10 }}>
       <Row>
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
+        {renderCard("contact")}
+        {renderCard("motion")}
+        {renderCard("battery")}
       </Row>
       <Row>
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
+        {renderCard("temperature")}
+        {renderCard("illuminance")}
+        {renderCard("humidity")}
       </Row>
     </div>
   );
