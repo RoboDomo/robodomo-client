@@ -1,4 +1,5 @@
 import React, { Suspense, useState, useEffect, lazy } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import MqttProvider from "@/providers/mqtt";
 import ConfigProvider from "@/providers/config";
 
@@ -43,11 +44,13 @@ const Platform = () => {
 const App = () => {
   return (
     <Suspense fallback={<div className="loader" />}>
-      <MqttProvider>
-        <ConfigProvider>
-          <Platform />
-        </ConfigProvider>
-      </MqttProvider>
+      <Router>
+        <MqttProvider>
+          <ConfigProvider>
+            <Platform />
+          </ConfigProvider>
+        </MqttProvider>
+      </Router>
     </Suspense>
   );
 };

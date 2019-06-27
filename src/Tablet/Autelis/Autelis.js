@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IonContent } from "@ionic/react";
 import useConfig from "@/hooks/useConfig";
 
 import { Tabs, Tab } from "react-bootstrap";
@@ -16,21 +17,23 @@ const Autelis = () => {
   }
 
   return (
-    <Tabs
-      id="autelis-tabs"
-      onSelect={eventKey => {
-        localStorage.setItem(LOCALSTORAGE_KEY, eventKey);
-        setActiveTab(eventKey);
-      }}
-      activeKey={activeTab}
-      variant="pills"
-      mountOnEnter
-      unmountOnExit
-    >
-      <Tab title={Config.autelis.device.toUpperCase()} eventKey="autelis" key="autelis">
-        <AutelisTab />
-      </Tab>
-    </Tabs>
+    <IonContent id="tab-dashboard">
+      <Tabs
+        id="autelis-tabs"
+        onSelect={eventKey => {
+          localStorage.setItem(LOCALSTORAGE_KEY, eventKey);
+          setActiveTab(eventKey);
+        }}
+        activeKey={activeTab}
+        variant="pills"
+        mountOnEnter
+        unmountOnExit
+      >
+        <Tab title={Config.autelis.device.toUpperCase()} eventKey="autelis" key="autelis">
+          <AutelisTab />
+        </Tab>
+      </Tabs>
+    </IonContent>
   );
 };
 

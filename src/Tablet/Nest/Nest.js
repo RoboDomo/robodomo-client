@@ -2,6 +2,7 @@
  * Screen to control Nest products (thermostat, nest protect)
  */
 import React, { useState } from "react";
+import { IonContent } from "@ionic/react";
 import useConfig from "@/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
@@ -19,36 +20,38 @@ const Nest = () => {
   }
 
   return (
-    <Tabs
-      id="nest-tabs"
-      onSelect={eventKey => {
-        localStorage.setItem(LOCALSTORAGE_KEY, eventKey);
-        setActiveTab(eventKey);
-      }}
-      activeKey={activeTab}
-      variant="pills"
-      mountOnEnter
-      unmountOnExit
-    >
-      {Array.isArray(config.nest.thermostats)
-        ? config.nest.thermostats.map(thermostat => {
-            return (
-              <Tab title={thermostat.name} eventKey={thermostat.name} key={thermostat.name}>
-                <ThermostatTab thermostat={thermostat} />
-              </Tab>
-            );
-          })
-        : null}
-      {Array.isArray(config.nest.protects)
-        ? config.nest.protects.map(protect => {
-            return (
-              <Tab title={protect.name} eventKey={protect.name} key={protect.name}>
-                <ProtectTab sensor={protect} />
-              </Tab>
-            );
-          })
-        : null}
-    </Tabs>
+    <IonContent id="tab-dashboard">
+      <Tabs
+        id="nest-tabs"
+        onSelect={eventKey => {
+          localStorage.setItem(LOCALSTORAGE_KEY, eventKey);
+          setActiveTab(eventKey);
+        }}
+        activeKey={activeTab}
+        variant="pills"
+        mountOnEnter
+        unmountOnExit
+      >
+        {Array.isArray(config.nest.thermostats)
+          ? config.nest.thermostats.map(thermostat => {
+              return (
+                <Tab title={thermostat.name} eventKey={thermostat.name} key={thermostat.name}>
+                  <ThermostatTab thermostat={thermostat} />
+                </Tab>
+              );
+            })
+          : null}
+        {Array.isArray(config.nest.protects)
+          ? config.nest.protects.map(protect => {
+              return (
+                <Tab title={protect.name} eventKey={protect.name} key={protect.name}>
+                  <ProtectTab sensor={protect} />
+                </Tab>
+              );
+            })
+          : null}
+      </Tabs>
+    </IonContent>
   );
 };
 

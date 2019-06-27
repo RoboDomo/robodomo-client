@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { IonContent } from "@ionic/react";
+
 import useConfig from "@/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
@@ -15,22 +17,24 @@ const Dashboard = () => {
     setActiveTab(eventKey);
   };
   return (
-    <Tabs
-      id="dashboard-tabs"
-      onSelect={changeTab}
-      activeKey={activeTab}
-      variant="pills"
-      mountOnEnter
-      unmountOnExit
-    >
-      {config.dashboards.map(dashboard => {
-        return (
-          <Tab eventKey={dashboard.key} key={dashboard.key} title={dashboard.title}>
-            <DashboardTab dashboard={dashboard} />
-          </Tab>
-        );
-      })}
-    </Tabs>
+    <IonContent id="tab-dashboard">
+      <Tabs
+        id="dashboard-tabs"
+        onSelect={changeTab}
+        activeKey={activeTab}
+        variant="pills"
+        mountOnEnter
+        unmountOnExit
+      >
+        {config.dashboards.map(dashboard => {
+          return (
+            <Tab eventKey={dashboard.key} key={dashboard.key} title={dashboard.title}>
+              <DashboardTab dashboard={dashboard} />
+            </Tab>
+          );
+        })}
+      </Tabs>
+    </IonContent>
   );
 };
 

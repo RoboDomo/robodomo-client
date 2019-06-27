@@ -1,4 +1,5 @@
-import React /* useState*/ from "react";
+import React from "react";
+import { IonContent } from "@ionic/react";
 
 // TODO: remember tab state
 
@@ -7,11 +8,13 @@ import SensorsTab from "./SensorsTab";
 
 const Sensors = () => {
   return (
-    <Tabs id="sensors-tabs" variant="pills" mountOnEnter unmountOnExit>
-      <Tab title="Sensors" eventKey={1} key={1}>
-        <SensorsTab />
-      </Tab>
-    </Tabs>
+    <IonContent id="tab-dashboard">
+      <Tabs id="sensors-tabs" variant="pills" mountOnEnter unmountOnExit>
+        <Tab title="Sensors" eventKey={1} key={1}>
+          <SensorsTab />
+        </Tab>
+      </Tabs>
+    </IonContent>
   );
 };
 

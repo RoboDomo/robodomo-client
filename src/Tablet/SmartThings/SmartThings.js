@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { IonContent } from "@ionic/react";
 import useConfig from "@/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
@@ -56,31 +57,33 @@ const SmartThings = () => {
   }
 
   return (
-    <Tabs
-      id="smartthings-tabs"
-      onSelect={eventKey => {
-        localStorage.setItem(LOCALSTORAGE_KEY, eventKey);
-        setActiveTab(eventKey);
-      }}
-      activeKey={activeTab}
-      variant="pills"
-      mountOnEnter
-      unmountOnExit
-    >
-      {rooms.current.map((room, ndx) => {
-        const key = `smartthings-room-${room.name}${ndx}`;
-        return (
-          <Tab
-            title={room.name}
-            eventKey={ndx}
-            key={key}
-            style={{ paddingLeft: 10, paddingRight: 10 }}
-          >
-            <SmartThingsTab room={room} />
-          </Tab>
-        );
-      })}
-    </Tabs>
+    <IonContent id="tab-dashboard">
+      <Tabs
+        id="smartthings-tabs"
+        onSelect={eventKey => {
+          localStorage.setItem(LOCALSTORAGE_KEY, eventKey);
+          setActiveTab(eventKey);
+        }}
+        activeKey={activeTab}
+        variant="pills"
+        mountOnEnter
+        unmountOnExit
+      >
+        {rooms.current.map((room, ndx) => {
+          const key = `smartthings-room-${room.name}${ndx}`;
+          return (
+            <Tab
+              title={room.name}
+              eventKey={ndx}
+              key={key}
+              style={{ paddingLeft: 10, paddingRight: 10 }}
+            >
+              <SmartThingsTab room={room} />
+            </Tab>
+          );
+        })}
+      </Tabs>
+    </IonContent>
   );
 };
 

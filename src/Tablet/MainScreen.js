@@ -4,77 +4,81 @@
  * Implements the top bar as tabs and renders app content below
  */
 
-import React, { useState, useEffect, lazy } from "react";
-import { IonContent, IonApp } from "@ionic/react";
+import React, { lazy } from "react";
+import { Redirect, Route } from "react-router";
 
-import { TabContainer, TabContent, TabPane } from "react-bootstrap";
+import {
+  IonApp,
+  IonPage,
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+} from "@ionic/react";
 
-import Dashboard from "Tablet/Dashboard/Dashboard";
-import Theater from "Tablet/Theater/Theater";
-import Weather from "Tablet/Weather/Weather";
-import Nest from "Tablet/Nest/Nest";
-import Sensors from "Tablet/Sensors/Sensors";
-import Autelis from "Tablet/Autelis/Autelis";
-import SmartThings from "Tablet/SmartThings/SmartThings";
+const Dashboard = lazy(() =>
+  import(
+    "Tablet/Dashboard/Dashboard" /* webpackChunkName: "tab-dashboard", webpackPrefetch: true */
+  )
+);
+const Theater = lazy(() =>
+  import("Tablet/Theater/Theater" /* webpackChunkName: "tab-theater", webpackPrefetch: true */)
+);
+const Weather = lazy(() =>
+  import("Tablet/Weather/Weather" /* webpackChunkName: "tab-weather", webpackPrefetch: true */)
+);
+const Nest = lazy(() =>
+  import("Tablet/Nest/Nest" /* webpackChunkName: "tab-nest", webpackPrefetch: true */)
+);
+const Sensors = lazy(() =>
+  import("Tablet/Sensors/Sensors" /* webpackChunkName: "tab-sensors", webpackPrefetch: true */)
+);
+const Autelis = lazy(() =>
+  import("Tablet/Autelis/Autelis" /* webpackChunkName: "tab-autelis", webpackPrefetch: true */)
+);
+const SmartThings = lazy(() =>
+  import(
+    "Tablet/SmartThings/SmartThings" /* webpackChunkName: "tab-smartthings", webpackPrefetch: true */
+  )
+);
 
-import tabInfo from "./tabs";
+const tabs = new Map([
+  ["dashboard", { component: Dashboard, name: "Dashboard", icon: "albums" }],
+  ["theater", { component: Theater, name: "Theater", icon: "tv" }],
+  ["weather", { component: Weather, name: "Weather", icon: "cloudy" }],
+  ["nest", { component: Nest, name: "Nest", icon: "thermometer" }],
+  ["sensors", { component: Sensors, name: "Sensors", icon: "pulse" }],
+  ["autelis", { component: Autelis, name: "Pool/Spa", icon: "medical" }],
+  ["smartthings", { component: SmartThings, name: "SmartThings", icon: "switch" }],
+]);
 
-const Navigation = lazy(() => import("./Navigation" /* webpackChunkName: "navigation" */));
-
-const LOCALSTORAGE_KEY = "mainTabState";
+const Navigation = ({ activeTab }) => (
+  <IonTabs>
+    <IonRouterOutlet>
+      {Array.from(tabs).map(([id, cfg]) => (
+        <Route path={`/:tab(${id})`} component={cfg.component} key={id} />
+      ))}
+    </IonRouterOutlet>
+    <IonTabBar slot="top">
+      {Array.from(tabs).map(([id, cfg]) => (
+        <IonTabButton tab={id} href={`/${id}`} key={id}>
+          <IonIcon name={cfg.icon} />
+          <IonLabel>{cfg.name}</IonLabel>
+        </IonTabButton>
+      ))}
+    </IonTabBar>
+  </IonTabs>
+);
 
 const MainScreen = () => {
-  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "1");
-  useEffect(() => {
-    window.addEventListener(
-      "hashchange",
-      () => {
-        const hash = window.location.hash.substr(1),
-          info = tabInfo[hash];
-        localStorage.setItem(LOCALSTORAGE_KEY, info);
-        setActiveTab(info);
-      },
-      false
-    );
-  }, []);
-
   return (
     <IonApp>
-      <IonContent id="main" style={{ "--color": "#aaaaaa" }}>
-        <TabContainer
-          id="mainTabs"
-          variant="pills"
-          montOnEnter
-          unmountOnExit
-          activeKey={parseInt(activeTab, 10)}
-          onSelect={() => {}}
-        >
-          <Navigation activeTab={activeTab} />
-          <TabContent>
-            <TabPane mountOnEnter unmountOnExit eventKey={1}>
-              <Dashboard />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={2}>
-              <Theater />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={3}>
-              <Weather />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={4}>
-              <Nest />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={5}>
-              <Sensors />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={6}>
-              <Autelis />
-            </TabPane>
-            <TabPane mountOnEnter unmountOnExit eventKey={7}>
-              <SmartThings />
-            </TabPane>
-          </TabContent>
-        </TabContainer>
-      </IonContent>
+      <IonPage>
+        <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
+        <Navigation />
+      </IonPage>
     </IonApp>
   );
 };
