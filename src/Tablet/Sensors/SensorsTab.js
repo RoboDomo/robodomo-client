@@ -8,6 +8,7 @@ import {
   useIlluminance,
   useHumidity,
 } from "@/hooks/useSmartThings";
+import useThermostat from "@/hooks/useThermostat";
 
 import { Row, Col, Card } from "react-bootstrap";
 
@@ -48,22 +49,38 @@ const SensorsTab = () => {
   for (const sensor of Config.sensors) {
     switch (sensor.type) {
       case "contact":
-        sensors.current.contact[sensor.name] = useContact(sensor.name);
+        sensors.current.contact[sensor.name] = useContact(sensor.device || sensor.name, sensor.key);
         break;
       case "motion":
-        sensors.current.motion[sensor.name] = useMotion(sensor.name);
+        sensors.current.motion[sensor.name] = useMotion(sensor.device || sensor.name, sensor.key);
         break;
       case "battery":
-        sensors.current.battery[sensor.name] = useBattery(sensor.name);
+        sensors.current.battery[sensor.name] = useBattery(sensor.device || sensor.name, sensor.key);
         break;
       case "temperature":
-        sensors.current.temperature[sensor.name] = useTemperature(sensor.name);
+        sensors.current.temperature[sensor.name] = useTemperature(
+          sensor.device || sensor.name,
+          sensor.key
+        );
         break;
       case "illuminance":
-        sensors.current.illuminance[sensor.name] = useIlluminance(sensor.name);
+        sensors.current.illuminance[sensor.name] = useIlluminance(
+          sensor.device || sensor.name,
+          sensor.key
+        );
         break;
       case "humidity":
-        sensors.current.humidity[sensor.name] = useHumidity(sensor.name);
+        if (sensor.source === "nest") {
+          sensors.current.humidity[sensor.name] = useThermostat(
+            sensor.device || sensor.name,
+            sensor.key
+          );
+        } else {
+          sensors.current.humidity[sensor.name] = useHumidity(
+            sensor.device || sensor.name,
+            sensor.key
+          );
+        }
         break;
       default:
         break;
@@ -84,6 +101,7 @@ const SensorsTab = () => {
       if (!sensor) {
         return null;
       }
+
       return (
         <div key={"type" + key++}>
           {sensor.name}
