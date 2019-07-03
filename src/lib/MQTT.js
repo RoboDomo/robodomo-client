@@ -72,6 +72,10 @@ class MQTT extends EventEmitter {
   }
 
   onMessageArrived(topic, payload) {
+    if (!payload) {
+      return;
+    }
+
     const message = payload.toString();
     localStorage.setItem(topic, message);
     this.cache[topic] = message;
@@ -190,6 +194,12 @@ class MQTT extends EventEmitter {
       setTimeout(() => {
         this.onMessageArrived(topic.replace(/set/, "status"), message);
       }, Math.floor(Math.random() * 1500));
+      console.log(
+        "%cMQTT message >>> %c" + topic + " %c" + message,
+        "font-weight: bold;",
+        "color:red; font-weight: bold",
+        "color:blue; font-weight: bold"
+      );
       return;
     }
 
