@@ -292,10 +292,10 @@ module.exports = {
         // a large 256x256 tile that renders the current date/time (with seconds) and sunrise/sunset
         { type: "clock" },
         // a large 256x256 tile that renders the current weather, updates in real time
-        { type: "weather", location: "zip-code" },
+        { type: "weather", location: "92211" },
 
         // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
-        { type: "thermostat", device: "structure/thermostat_name" },
+        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
         // a 256x128 tile that renders that status of your swimming pool controller.  Background is green if it is running.
         { type: "pool", controller: "autelis" },
         // a 256x128 tile that renders that status of your spa controller.  Background is red if it is running.
@@ -331,9 +331,9 @@ module.exports = {
       tiles: [
         { type: "clock" },
         // a large 256x256 tile that renders the current weather, updates in real time
-        { type: "weather", location: "zip-code" },
+        { type: "weather", location: "92211" },
         // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
-        { type: "thermostat", device: "structure/thermostat_name" },
+        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
         { type: "spa", controller: "autelis" },
         {
           type: "garagedoor",
