@@ -1,0 +1,22 @@
+{
+  "scripts": {
+    "test:cucumber": "../../packages/wdio-cli/bin/wdio.js ./configs/wdio.conf.local.chrome.js"
+  },
+  "keywords": [
+    "automation",
+    "e2e",
+    "tests",
+    "webdriverio"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "axios": "^0.19.0",
+    "chromedriver": "^2.46.0",
+    "deepmerge": "^3.3.0",
+    "expect": "^23.6.0",
+    "p-retry": "^4.1.0"
+  }
+}

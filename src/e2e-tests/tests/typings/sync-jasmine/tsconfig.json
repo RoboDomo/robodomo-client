@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "types": ["@wdio/sync", "@wdio/jasmine-framework"]
+  }
+}
