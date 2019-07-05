@@ -1,4 +1,4 @@
-require('@babel/register')
+require('@babel/register');
 
 exports.config = {
 
@@ -104,7 +104,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [],//
+    // services: [],
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: http://webdriver.io/guide/testrunner/frameworks.html
@@ -166,10 +166,10 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-    before: function () {
+    before: function (capabilities, specs) {
         // An easy way to double-check that the tests are running in the desired environment.
-        console.log('Application URL:' + this.baseUrl)
-        require('@babel/register')
+        console.log('Application URL:' + this.baseUrl);
+        require('@babel/register');
     },
     /**
      * Runs before a WebdriverIO command gets executed.
@@ -250,4 +250,4 @@ exports.config = {
      */
     // onComplete: function(exitCode, config, capabilities) {
     // }
-}
+};

@@ -18,6 +18,5 @@
     "chromedriver": "^75.0.1",
     "deepmerge": "^3.3.0",
     "expect": "^23.6.0",
-    "wdio-chromedriver-service": "^5.0.2"
   }
 }
