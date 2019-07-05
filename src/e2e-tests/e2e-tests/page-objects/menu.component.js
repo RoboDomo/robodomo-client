@@ -32,66 +32,80 @@ class MenuComponent {
         return $('//ion-tab-button[@tab="smartthings"]')
     }
 
-    clickAutelisButton() {
+    goToAutelisPage() {
         this.autelisButton.click()
     }
 
-    clickDashboardButton() {
+    goToDashboardPage() {
         this.dashboardButton.click()
     }
 
-    clickNestButton() {
+    goToNestPage() {
         this.nestButton.click()
     }
 
-    clickSensorsButton() {
+    goToSensorsPage() {
         this.sensorsButton.click()
     }
 
-    clickSmartThingsButton() {
+    goToSmartThingsPage() {
         this.smartThingsButton.click()
     }
 
-    clickTheaterButton() {
+    goToTheaterPage() {
         this.theaterButton.click()
     }
 
-    clickWeatherButton() {
+    goToWeatherPage() {
         this.weatherButton.click()
     }
 
-    isAutelisTabSelected() {
-        expect(this.autelisButton.getAttribute('aria-selected')).toStrictEqual('true');
+    isAutelisMenuSelected() {
+        browser.waitUntil(() => {
+            return this.autelisButton.getAttribute('aria-selected') === "true";
+        }, 5000);
         expect(this.autelisButton.getAttribute('class')).toContain('tab-selected');
     }
 
-    isDashboardTabSelected() {
-        expect(this.dashboardButton.getAttribute('aria-selected')).toStrictEqual('true');
+    isDashboardMenuSelected() {
+        browser.waitUntil(() => {
+            return this.dashboardButton.getAttribute('aria-selected') === "true";
+        }, 5000);
         expect(this.dashboardButton.getAttribute('class')).toContain('tab-selected');
     }
 
-    isNestTabSelected() {
-        expect(this.nestButton.getAttribute('aria-selected')).toStrictEqual('true');
+    isNestMenuSelected() {
+        browser.waitUntil(() => {
+            return this.nestButton.getAttribute('aria-selected') === "true";
+        }, 5000);
         expect(this.nestButton.getAttribute('class')).toContain('tab-selected');
     }
 
-    isSensorsTabSelected() {
-        expect(this.sensorsButton.getAttribute('aria-selected')).toStrictEqual('true');
+    isSensorsMenuSelected() {
+        browser.waitUntil(() => {
+            return this.sensorsButton.getAttribute('aria-selected') === "true";
+        }, 5000);
         expect(this.sensorsButton.getAttribute('class')).toContain('tab-selected');
     }
 
-    isSmartThingsTabSelected() {
-        expect(this.smartThingsButton.getAttribute('aria-selected')).toStrictEqual('true');
+    isSmartThingsMenuSelected() {
+        browser.waitUntil(() => {
+            return this.smartThingsButton.getAttribute('aria-selected') === "true";
+        }, 5000);
         expect(this.smartThingsButton.getAttribute('class')).toContain('tab-selected');
     }
 
-    isTheaterTabSelected() {
-        expect(this.theaterButton.getAttribute('aria-selected')).toStrictEqual('true');
+    isTheaterMenuSelected() {
+        browser.waitUntil(() => {
+            return this.theaterButton.getAttribute('aria-selected') === "true";
+        }, 5000);
         expect(this.theaterButton.getAttribute('class')).toContain('tab-selected');
     }
 
-    isWeatherTabSelected() {
-        expect(this.weatherButton.getAttribute('aria-selected')).toStrictEqual('true');
+    isWeatherMenuSelected() {
+        browser.waitUntil(() => {
+            return this.weatherButton.getAttribute('aria-selected') === "true";
+        }, 5000);
         expect(this.weatherButton.getAttribute('class')).toContain('tab-selected');
     }
 }
