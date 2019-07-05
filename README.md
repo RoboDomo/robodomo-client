@@ -1,3 +1,5 @@
+<img src="https://avatars1.githubusercontent.com/u/30448185?s=200&v=4" alt="RoboDomo" align="left" height="40" style="margin-right: 8px;" />
+
 # RoboDomo Client
 
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
