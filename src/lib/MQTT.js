@@ -36,6 +36,13 @@ class MQTT extends EventEmitter {
             this.onMessageArrived(...payload);
           }
         }, process.env.REACT_APP_DEMO_TRAFFIC_INTERVAL || 5000);
+
+        this.getMessageByTopic = topic => {
+          const payload = getRandomMessage([topic]);
+          if (payload) {
+            this.onMessageArrived(...payload);
+          }
+        };
       });
 
       return;
@@ -115,6 +122,12 @@ class MQTT extends EventEmitter {
         "font-weight: bold;",
         "color:yellow; font-weight: bold"
       );
+
+      if (process.env.REACT_APP_DEMO === "true") {
+        if (this.getMessageByTopic) {
+          this.getMessageByTopic(topic);
+        }
+      }
 
       return;
     }

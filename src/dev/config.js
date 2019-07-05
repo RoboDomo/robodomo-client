@@ -103,7 +103,7 @@ module.exports = {
           // example config for an Apple TV
           name: "Apple TV", // name to be displayed in the UI
           type: "appletv", // type = appletv
-          device: "appletv", // hostname or IP address of your Apple TV
+          device: "appletv-theater", // hostname or IP address of your Apple TV
         },
         {
           // example config for a Denon AVR (audio visual receiver)
@@ -114,14 +114,14 @@ module.exports = {
         // Your theater has a TV.  Currently, RoboDomo supports LG and Sony/Bravia TVs.
         {
           // example config for an LG
-          name: "TV", // name to be displayed in the UI
+          name: "TVLG", // name to be displayed in the UI
           type: "lgtv", // type = lgtv
           favorites: lgtvFavorites, // favorite apps
           device: "lgtv", // hostname or IP of your LGTV
         },
         // or
         {
-          name: "TV", // name to be displayed in the UI
+          name: "TVSONY", // name to be displayed in the UI
           type: "bravia",
           favorites: braviaFavorites, // favorite apps to display in the UI
           device: "sony-tv", // hostname or IP of your Sony/Bravia TV
@@ -675,14 +675,14 @@ module.exports = {
     devices: [
       {
         name: "Family Room Apple TV",
-        device: "appletv",
+        device: "appletv-theater",
         serial: "C0xxxxxxxxx",
         credentials:
           "A very long string of random looking characters that you get by pairing with the Apple Tv",
       },
       {
         name: "Bedroom Apple TV",
-        device: "appletv2",
+        device: "appletv-mbr",
         serial: "C0xxxxxxxx",
         credentials:
           "A very long string of random looking characters that you get by pairing with the Apple Tv",
