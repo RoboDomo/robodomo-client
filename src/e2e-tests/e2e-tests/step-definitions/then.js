@@ -35,28 +35,39 @@ Then(/^User is redirected to (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater
     }
 });
 
-Then (/^(Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) tab shall be selected$/, {}, (tab) => {
-        switch (tab) {
+Then (/^(Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) tab shall be selected$/, {}, (menuButton) => {
+        switch (menuButton) {
         case 'Autelis':
-            AutelisPage.getMenu().isAutelisTabSelected();
+            AutelisPage.getMenu().isAutelisMenuSelected();
             break;
         case 'Dashboard':
-            DashboardPage.getMenu().isDashboardTabSelected();
+            DashboardPage.getMenu().isDashboardMenuSelected();
             break;
         case 'Nest':
-            NestPage.getMenu().isNestTabSelected();
+            NestPage.getMenu().isNestMenuSelected();
             break;
         case 'Sensors':
-            SensorsPage.getMenu().isSensorsTabSelected();
+            SensorsPage.getMenu().isSensorsMenuSelected();
             break;
         case 'SmartThings':
-            SmartThingsPage.getMenu().isSmartThingsTabSelected();
+            SmartThingsPage.getMenu().isSmartThingsMenuSelected();
             break;
         case 'Theater':
-            TheaterPage.getMenu().isTheaterTabSelected();
+            TheaterPage.getMenu().isTheaterMenuSelected();
             break;
         case 'Weather':
-            WeatherPage.getMenu().isWeatherTabSelected();
+            WeatherPage.getMenu().isWeatherMenuSelected();
+            break;
+    }
+});
+
+Then (/^(Theater|Bedroom) tab is loaded$/, {}, (tabButton) => {
+    switch (tabButton) {
+        case 'Bedroom':
+            DashboardPage.isBedroomTabSelected();
+            break;
+        case 'Theater':
+            DashboardPage.isTheaterTabSelected();
             break;
     }
 });
