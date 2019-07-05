@@ -1,5 +1,0 @@
-{
-  "scripts": {
-    "test": "../../packages/wdio-cli/bin/wdio.js ./wdio.conf.js"
-  }
-}
