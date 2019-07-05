@@ -74,8 +74,8 @@ SAMPLES
 
 E2E testing on mobile devices is brought to you by [BrowserStack](https://browserstack.com).
 
-<p align="center">
-<a href="https://browserstack.com"><img src="./.github/Browserstack-logo.svg" height="60" alt="Modus Labs"/></a>
+<p align="left">
+<a href="https://browserstack.com"><img src="./.github/Browserstack-logo.svg" height="60" alt="Browser stack"/></a>
 </p>
 
 # Modus Create
