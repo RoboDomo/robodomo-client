@@ -77,7 +77,7 @@ module.exports = {
   // If you define one or more theaters, each will have its own tab in the UI when the theater display is selected.
   theaters: [
     {
-      title: "Family Room", // name of theater
+      title: "Home Theater", // name of theater
       key: "theater", // a unique key (used as key param in tabs)
       // if you want TV channel info and network logos, you will need to subscribe ($25US/year) at
       // http://schedulesdirect.com and get the appropriate guide id for your cable TV provider.
