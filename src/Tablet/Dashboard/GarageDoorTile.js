@@ -16,7 +16,7 @@ const GarageDoorTile = ({ config }) => {
 
   for (const k of Object.keys(devices)) {
     doors.push({ ...devices[k], name: k.replace(/\s+Sensor/, "") });
-    if (devices[k] === "open") {
+    if (devices[k].contact === "open") {
       open = true;
     }
   }
