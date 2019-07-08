@@ -16,7 +16,6 @@ exports.config = merge(configBase.config, {
 
     capabilities: [
         {
-            maxInstances: 1,
             browserName: 'chrome',
         },
     ]

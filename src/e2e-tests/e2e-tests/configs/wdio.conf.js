@@ -107,7 +107,21 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/reporters/dot.html
-    reporters: ['spec'],
+    reporters: [
+        'spec',
+        ['junit', {
+            outputDir: './reports',
+            outputFileFormat: function (options) { // optional
+                return `results-${options.cid}.${options.capabilities}.xml`
+            }
+        }],
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: true,
+            useCucumberStepReporter: true,
+        }]
+    ],
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         require: ['./step-definitions/*.js'],        // <string[]> (file/dir) require files before executing features
@@ -159,7 +173,7 @@ exports.config = {
      */
     before: function (capabilities, specs) {
         // An easy way to double-check that the tests are running in the desired environment.
-        console.log('Application URL:' + this.baseUrl);
+        console.log('Application URL:' + browser.baseUrl);
         require('@babel/register');
     },
     /**

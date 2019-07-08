@@ -10,7 +10,7 @@ exports.config = merge(configBase.config, {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 4,
+    maxInstances: 1,
 
     user: 'sergiupopescu2',
     key: 'GnvL9ihmskGTxHsmkyXf',
@@ -21,7 +21,34 @@ exports.config = merge(configBase.config, {
 
     capabilities: [
         {
-            browserName: 'chrome',
+            'os': 'Windows',
+            'os_version': '10',
+            'browser': 'Chrome',
+            'resolution': '1920x1080'
         },
+        {
+            'os': 'Windows',
+            'os_version': '10',
+            'browser': 'Firefox',
+            'resolution': '1920x1080'
+        },
+        {
+            'os': 'OS X',
+            'os_version': 'Mojave',
+            'browser': 'Chrome',
+            'resolution': '1920x1080'
+        },
+        {
+            'os': 'OS X',
+            'os_version': 'Mojave',
+            'browser': 'Firefox',
+            'resolution': '1920x1080'
+        },
+        {
+            'os': 'OS X',
+            'os_version': 'Mojave',
+            'browser': 'Safari',
+            'resolution': '1920x1080'
+        }
     ]
 });

@@ -1,7 +1,7 @@
 {
   "scripts": {
     "test:local_chrome": "../packages/wdio-cli/bin/wdio.js ./configs/wdio.conf.local.chrome.js",
-    "test:bs_chrome": "../packages/wdio-cli/bin/wdio.js ./configs/wdio.conf.bs.chrome.js"
+    "test:bs_cloud": "../packages/wdio-cli/bin/wdio.js ./configs/wdio.conf.bs.cloud.js"
   },
   "keywords": [
     "automation",
