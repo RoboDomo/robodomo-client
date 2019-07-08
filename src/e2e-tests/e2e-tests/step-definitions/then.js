@@ -1,4 +1,4 @@
-import { Then } from 'cucumber'
+import {Then} from 'cucumber'
 import AutelisPage from '../page-objects/autelis.page';
 import DashboardPage from '../page-objects/dashboard.page'
 import NestPage from '../page-objects/nest.page';
@@ -35,8 +35,8 @@ Then(/^User is redirected to (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater
     }
 });
 
-Then (/^(Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) tab shall be selected$/, {}, (menuButton) => {
-        switch (menuButton) {
+Then(/^(Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) tab shall be selected$/, {}, (menuButton) => {
+    switch (menuButton) {
         case 'Autelis':
             AutelisPage.getMenu().isAutelisMenuSelected();
             break;
@@ -61,13 +61,39 @@ Then (/^(Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) tab shall b
     }
 });
 
-Then (/^(Theater|Bedroom) tab is loaded$/, {}, (tabButton) => {
+Then(/^(Theater|Bedroom) tab is loaded$/, {}, (tabButton) => {
     switch (tabButton) {
         case 'Bedroom':
             DashboardPage.isBedroomTabSelected();
             break;
         case 'Theater':
             DashboardPage.isTheaterTabSelected();
+            break;
+    }
+});
+
+Then(/^(HomeTheater) tab is loaded$/, {}, (tabName) => {
+    TheaterPage.isHomeTheaterTabSelected();
+});
+
+Then(/^(Los Angeles, CA|New York, NY) tab is loaded$/, {}, (tabButton) => {
+    switch (tabButton) {
+        case 'Los Angeles, CA':
+            WeatherPage.isLATabSelected();
+            break;
+        case 'New York, NY':
+            WeatherPage.isNYTabSelected();
+            break;
+    }
+});
+
+Then(/^(Hallway Thermostat|Entryway Nest Protect) tab is loaded$/, {}, (tabName) => {
+    switch (tabName) {
+        case 'Entryway Nest Protect':
+            NestPage.isEntrywayTabSelected();
+            break;
+        case 'Hallway Thermostat':
+            NestPage.isHallwayTabSelected();
             break;
     }
 });
