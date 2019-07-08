@@ -201,8 +201,15 @@ exports.config = {
      * Runs after a Cucumber step
      * @param {Object} stepResult step result
      */
-    // afterStep: function (stepResult) {
-    // },
+    afterStep: function (stepResult) {
+        if (stepResult.status === 'failed') {
+            const screenshotName = new Date().toUTCString()
+                + '_' + stepResult.scenario.replace(/ /g, '_') + '_'
+                + stepResult.text.replace(/ /g, '_')
+                + '.png';
+            browser.saveScreenshot(browser.config.screenshotPath + screenshotName);
+        }
+    },
     /**
      * Runs after a Cucumber scenario
      * @param {Object} scenario scenario details
