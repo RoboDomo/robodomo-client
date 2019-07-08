@@ -10,7 +10,7 @@ exports.config = merge(configBase.config, {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 1,
+    maxInstances: 5,
 
     user: 'sergiupopescu2',
     key: 'GnvL9ihmskGTxHsmkyXf',
@@ -20,6 +20,43 @@ exports.config = merge(configBase.config, {
     browserstackOpts: {},
 
     capabilities: [
+        // TODO uncomment when iOS UI is fixed and when tests are updated for Android UI
+        // {
+        //     'device': 'iPad Pro 12.9 2018',
+        //     'os_version': '12',
+        //     "realMobile": true,
+        //     "deviceOrientation": "landscape",
+        // },
+        // {
+        //     'device': 'iPhone 8',
+        //     'os_version': '12',
+        //     "realMobile": true,
+        //     "deviceOrientation": "landscape",
+        // },
+        // {
+        //     'device': 'iPhone XS',
+        //     'os_version': '12',
+        //     "realMobile": true,
+        //     "deviceOrientation": "landscape",
+        // },
+        // {
+        //     'device': 'Google Pixel 3',
+        //     'os_version': '9.0',
+        //     "realMobile": true,
+        //     "deviceOrientation": "landscape",
+        // },
+        // {
+        //     'device': 'Samsung Galaxy S10',
+        //     'os_version': '9.0',
+        //     "realMobile": true,
+        //     "deviceOrientation": "landscape",
+        // },
+        // {
+        //     'device': 'Samsung Galaxy Tab S4',
+        //     'os_version': '8.1',
+        //     "realMobile": true,
+        //     "deviceOrientation": "landscape",
+        // },
         {
             'os': 'Windows',
             'os_version': '10',

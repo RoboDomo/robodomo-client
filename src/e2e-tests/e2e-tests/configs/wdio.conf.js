@@ -1,5 +1,7 @@
 require('@babel/register');
 
+const implicit = 60000, pageLoad = 30000, script = 45000;
+
 exports.config = {
 
     //
@@ -108,19 +110,7 @@ exports.config = {
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/reporters/dot.html
     reporters: [
-        'spec',
-        ['junit', {
-            outputDir: './reports',
-            outputFileFormat: function (options) { // optional
-                return `results-${options.cid}.${options.capabilities}.xml`
-            }
-        }],
-        ['allure', {
-            outputDir: 'allure-results',
-            disableWebdriverStepsReporting: true,
-            disableWebdriverScreenshotsReporting: true,
-            useCucumberStepReporter: true,
-        }]
+        'spec'
     ],
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
@@ -175,6 +165,8 @@ exports.config = {
         // An easy way to double-check that the tests are running in the desired environment.
         console.log('Application URL:' + browser.baseUrl);
         require('@babel/register');
+
+        browser.setTimeouts(implicit, pageLoad, script);
     },
     /**
      * Runs before a WebdriverIO command gets executed.
