@@ -162,8 +162,6 @@ exports.config = {
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
     before: function (capabilities, specs) {
-        // An easy way to double-check that the tests are running in the desired environment.
-        console.log('Application URL:' + browser.baseUrl);
         require('@babel/register');
 
         browser.setTimeouts(implicit, pageLoad, script);

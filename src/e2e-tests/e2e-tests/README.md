@@ -52,7 +52,7 @@ TODO
 To start running tests execute the following commands in `../react-client/src/e2e-tests/e2e-tests` directory:
 
 -   `npm run test:local_chrome` - run tests against local environment using Chrome (UI) browser
--   `npm run test:bs_cloud` - run tests agains cloud test environment on multiple OS/Browsers pairs
+-   `npm run test:bs_cloud -- --baseUrl=URL --user=BROWSERSTACK_USER --key=BROWSERSTACK_KEY` - run tests agains cloud test environment on multiple OS/Browsers pairs
 -   `npm run test:cucumber -- --baseUrl=URL` - run tests against environment defined as URL using Chrome (UI) browser
 
 

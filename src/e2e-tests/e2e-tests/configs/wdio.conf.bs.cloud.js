@@ -12,8 +12,6 @@ exports.config = merge(configBase.config, {
     //
     maxInstances: 5,
 
-    user: 'sergiupopescu2',
-    key: 'GnvL9ihmskGTxHsmkyXf',
 
     services: ['browserstack'],
     browserstackLocal: false,
@@ -21,12 +19,12 @@ exports.config = merge(configBase.config, {
 
     capabilities: [
         // TODO uncomment when iOS UI is fixed and when tests are updated for Android UI
-        // {
-        //     'device': 'iPad Pro 12.9 2018',
-        //     'os_version': '12',
-        //     "realMobile": true,
-        //     "deviceOrientation": "landscape",
-        // },
+        {
+            'device': 'iPad Pro 12.9 2018',
+            'os_version': '12',
+            "realMobile": true,
+            "deviceOrientation": "landscape",
+        },
         // {
         //     'device': 'iPhone 8',
         //     'os_version': '12',
@@ -39,6 +37,12 @@ exports.config = merge(configBase.config, {
         //     "realMobile": true,
         //     "deviceOrientation": "landscape",
         // },
+        {
+            'device': 'Samsung Galaxy Tab S4',
+            'os_version': '8.1',
+            "realMobile": true,
+            "deviceOrientation": "landscape",
+        },
         // {
         //     'device': 'Google Pixel 3',
         //     'os_version': '9.0',
@@ -48,12 +52,6 @@ exports.config = merge(configBase.config, {
         // {
         //     'device': 'Samsung Galaxy S10',
         //     'os_version': '9.0',
-        //     "realMobile": true,
-        //     "deviceOrientation": "landscape",
-        // },
-        // {
-        //     'device': 'Samsung Galaxy Tab S4',
-        //     'os_version': '8.1',
         //     "realMobile": true,
         //     "deviceOrientation": "landscape",
         // },
