@@ -303,7 +303,7 @@ module.exports = {
         // a 256x256 tile that renders that stat of a theater, along with audio controls
         {
           type: "theater",
-          title: "Family Room", // name of theater to display, as defined in the theaters section above
+          title: "Home Theater", // name of theater to display, as defined in the theaters section above
         },
         // a 128x128 tile that monitors the state of one or more garage doors.  Renders red if any are open.
         {
