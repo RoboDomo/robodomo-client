@@ -54,7 +54,7 @@ const useWeather = zip => {
         MQTT.unsubscribe(status_topic + "display_city", handleCityChange);
       }
     };
-  }, [Config.metric, Config.mqtt.weather, Config.weather, zip]);
+  }, [Config.mqtt.weather, zip]);
 
   return {
     now: now || {},

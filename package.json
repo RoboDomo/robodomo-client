@@ -7,7 +7,6 @@
     "@ionic/core": "^4.5.0",
     "@ionic/react": "^0.0.6-3",
     "bootstrap": "^4.3.1",
-    "bootstrap-slider": "^10.6.1",
     "bootswatch": "^4.3.1",
     "bowser": "^2.4.0",
     "jquery": "^3.3.1",

@@ -8,18 +8,18 @@ import Temperature from "@/common/Temperature";
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useSwitch = (device, sw = "switch") => {
+const useSwitch = device => {
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     const handleSwitch = (topic, message) => {
       setToggle(message);
     };
-    MQTT.subscribe(`smartthings/${device}/${sw}`, handleSwitch);
+    MQTT.subscribe(`smartthings/${device}/switch`, handleSwitch);
     return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${sw}`, handleSwitch);
+      MQTT.unsubscribe(`smartthings/${device}/switch`, handleSwitch);
     };
-  }, [device, sw]);
+  }, [device]);
 
   return {
     type: "switch",
@@ -27,10 +27,10 @@ const useSwitch = (device, sw = "switch") => {
     get switch() {
       return toggle;
     },
-    set switch(val) {
-      //      const value = val; // === "off" || val === false ? "off" : "on";
-      MQTT.publish(`smartthings/${device}/${sw}/set`, val);
-      setToggle(val);
+    set switch(sw) {
+      const value = sw; // === "off" || sw === false ? "off" : "on";
+      MQTT.publish(`smartthings/${device}/switch/set`, value);
+      setToggle(value);
     },
   };
 };
@@ -39,7 +39,7 @@ const useSwitch = (device, sw = "switch") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useDimmer = (device, sw = "switch", lvl = "level") => {
+const useDimmer = device => {
   const [toggle, setToggle] = useState(false);
   const [level, setLevel] = useState(0);
 
@@ -50,13 +50,13 @@ const useDimmer = (device, sw = "switch", lvl = "level") => {
     const handleLevel = (topic, message) => {
       setLevel(Number(message));
     };
-    MQTT.subscribe(`smartthings/${device}/${sw}`, handleToggle);
-    MQTT.subscribe(`smartthings/${device}/${lvl}`, handleLevel);
+    MQTT.subscribe(`smartthings/${device}/switch`, handleToggle);
+    MQTT.subscribe(`smartthings/${device}/level`, handleLevel);
     return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${sw}`, handleToggle);
-      MQTT.unsubscribe(`smartthings/${device}/${lvl}`, handleLevel);
+      MQTT.unsubscribe(`smartthings/${device}/switch`, handleToggle);
+      MQTT.unsubscribe(`smartthings/${device}/level`, handleLevel);
     };
-  }, [device, lvl, sw]);
+  }, [device]);
 
   return {
     type: "dimmer",
@@ -66,14 +66,14 @@ const useDimmer = (device, sw = "switch", lvl = "level") => {
     },
     set switch(sw) {
       const value = sw; //  === "off" || sw === false ? "off" : "on";
-      MQTT.publish(`smartthings/${device}/${sw}/set`, value);
+      MQTT.publish(`smartthings/${device}/switch/set`, value);
       setToggle(value);
     },
     get level() {
       return level;
     },
     set level(l) {
-      MQTT.publish(`smartthings/${device}/${lvl}/set`, l);
+      MQTT.publish(`smartthings/${device}/level/set`, l);
       setLevel(Number(l));
     },
   };
@@ -83,7 +83,7 @@ const useDimmer = (device, sw = "switch", lvl = "level") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useFan = (device, sw = "switch", lvl = "level") => {
+const useFan = device => {
   const [toggle, setToggle] = useState(false);
   const [level, setLevel] = useState(0);
 
@@ -94,13 +94,13 @@ const useFan = (device, sw = "switch", lvl = "level") => {
     const handleLevel = (topic, message) => {
       setLevel(Number(message));
     };
-    MQTT.subscribe(`smartthings/${device}/${sw}`, handleToggle);
-    MQTT.subscribe(`smartthings/${device}/${lvl}`, handleLevel);
+    MQTT.subscribe(`smartthings/${device}/switch`, handleToggle);
+    MQTT.subscribe(`smartthings/${device}/level`, handleLevel);
     return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${sw}`, handleToggle);
-      MQTT.unsubscribe(`smartthings/${device}/${lvl}`, handleLevel);
+      MQTT.unsubscribe(`smartthings/${device}/switch`, handleToggle);
+      MQTT.unsubscribe(`smartthings/${device}/level`, handleLevel);
     };
-  }, [device, lvl, sw]);
+  }, [device]);
 
   return {
     type: "fan",
@@ -110,7 +110,7 @@ const useFan = (device, sw = "switch", lvl = "level") => {
     },
     set switch(sw) {
       const value = sw; // === "off" || sw === false ? "off" : "on";
-      MQTT.publish(`smartthings/${device}/${sw}/set`, value);
+      MQTT.publish(`smartthings/${device}/switch/set`, value);
       setToggle(value);
     },
     get level() {
@@ -119,9 +119,9 @@ const useFan = (device, sw = "switch", lvl = "level") => {
     set level(l) {
       l = Number(l);
       if (l === 0) {
-        MQTT.publish(`smartthings/${device}/${lvl}/set`, "off");
+        MQTT.publish(`smartthings/${device}/switch/set`, "off");
       }
-      MQTT.publish(`smartthings/${device}/${lvl}/set`, l);
+      MQTT.publish(`smartthings/${device}/level/set`, l);
       setLevel(l);
     },
   };
@@ -131,19 +131,17 @@ const useFan = (device, sw = "switch", lvl = "level") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useMotion = (device, key = "motion") => {
+const useMotion = device => {
   const [motion, setMotion] = useState("");
-
   useEffect(() => {
     const handleMotion = (topic, message) => {
       setMotion(message);
     };
-    MQTT.subscribe(`smartthings/${device}/${key}`, handleMotion);
+    MQTT.subscribe(`smartthings/${device}/motion`, handleMotion);
     return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${key}`, handleMotion);
+      MQTT.unsubscribe(`smartthings/${device}/motion`, handleMotion);
     };
-  }, [device, key]);
-
+  }, [device]);
   return { type: "motion", name: device, motion: motion, formatted: motion.toUpperCase() };
 };
 
@@ -151,18 +149,17 @@ const useMotion = (device, key = "motion") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const usePresence = (device, key = "presence") => {
+const usePresence = device => {
   const [presence, setPresence] = useState("");
-
   useEffect(() => {
     const handlePresence = (topic, message) => {
       setPresence(message);
     };
-    MQTT.subscribe(`smartthings/${device}/${key}`, handlePresence);
+    MQTT.subscribe(`smartthings/${device}/presence`, handlePresence);
     return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${key}`, handlePresence);
+      MQTT.unsubscribe(`smartthings/${device}/presence`, handlePresence);
     };
-  }, [device, key]);
+  }, [device]);
 
   return { type: "presence", name: device, presence: presence, formatted: presence.toUpperCase() };
 };
@@ -171,18 +168,17 @@ const usePresence = (device, key = "presence") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useButton = (device, key = "button") => {
+const useButton = device => {
   const [button, setButton] = useState("");
-
   useEffect(() => {
     const handleButton = (topic, message) => {
       setButton(message);
     };
-    MQTT.subscribe(`smartthings/${device}/${key}`, handleButton);
+    MQTT.subscribe(`smartthings/${device}/button`, handleButton);
     return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${key}`, handleButton);
+      MQTT.unsubscribe(`smartthings/${device}/button`, handleButton);
     };
-  }, [device, key]);
+  }, [device]);
 
   return { type: "button", name: device, button: button, formatted: button.toUpperCase() };
 };
@@ -191,18 +187,19 @@ const useButton = (device, key = "button") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useTemperature = (device, key = "temperature") => {
+const useTemperature = device => {
   const [temperature, setTemperature] = useState("");
-
   useEffect(() => {
     const handleTemperature = (topic, message) => {
       setTemperature(Number(message));
     };
-    MQTT.subscribe(`smartthings/${device}/${key}`, handleTemperature);
+    MQTT.subscribe(`smartthings/${device}/temperature`, handleTemperature);
+    MQTT.subscribe(`smartthings/${device}/ambient_temperature_f`, handleTemperature);
     return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${key}`, handleTemperature);
+      MQTT.unsubscribe(`smartthings/${device}/temperature`, handleTemperature);
+      MQTT.unsubscribe(`smartthings/${device}/ambient_temperature_f`, handleTemperature);
     };
-  }, [device, key]);
+  }, [device]);
 
   return {
     type: "temperature",
@@ -217,18 +214,15 @@ const useTemperature = (device, key = "temperature") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useContact = (device, key = "contact") => {
+const useContact = device => {
   const [contact, setContact] = useState("closed");
 
   useEffect(() => {
     const handleContact = (topic, message) => {
       setContact(message);
     };
-    MQTT.subscribe(`smartthings/${device}/${key}`, handleContact);
-    return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${key}`, handleContact);
-    };
-  }, [device, key]);
+    MQTT.subscribe(`smartthings/${device}/contact`, handleContact);
+  });
 
   return { type: "contact", name: device, contact: contact, formatted: contact.toUpperCase() };
 };
@@ -237,19 +231,14 @@ const useContact = (device, key = "contact") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useBattery = (device, key = "battery") => {
+const useBattery = device => {
   const [battery, setBattery] = useState("");
-
   useEffect(() => {
     const handleBattery = (topic, message) => {
       setBattery(Number(message));
     };
-    MQTT.subscribe(`smartthings/${device}/${key}`, handleBattery);
-    return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${key}`, handleBattery);
-    };
-  }, [device, key]);
-
+    MQTT.subscribe(`smartthings/${device}/battery`, handleBattery);
+  });
   return {
     type: "battery",
     name: device,
@@ -262,19 +251,14 @@ const useBattery = (device, key = "battery") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useHumidity = (device, key = "humidity") => {
+const useHumidity = device => {
   const [humidity, setHumidity] = useState("");
-
   useEffect(() => {
     const handleHumidity = (topic, message) => {
       setHumidity(Number(message));
     };
-    MQTT.subscribe(`smartthings/${device}/${key}`, handleHumidity);
-    return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${key}`, handleHumidity);
-    };
-  }, [device, key]);
-
+    MQTT.subscribe(`smartthings/${device}/humidity`, handleHumidity);
+  });
   return {
     type: "humidity",
     name: device,
@@ -287,19 +271,14 @@ const useHumidity = (device, key = "humidity") => {
  *****************************************************************************************************
  *****************************************************************************************************/
 
-const useIlluminance = (device, key = "illuminance") => {
+const useIlluminance = device => {
   const [illuminance, setIlluminance] = useState("");
-
   useEffect(() => {
     const handleIlluminance = (topic, message) => {
       setIlluminance(Number(message));
     };
-    MQTT.subscribe(`smartthings/${device}/${key}`, handleIlluminance);
-    return () => {
-      MQTT.unsubscribe(`smartthings/${device}/${key}`, handleIlluminance);
-    };
-  }, [device, key]);
-
+    MQTT.subscribe(`smartthings/${device}/illuminance`, handleIlluminance);
+  });
   return { type: "illuminance", name: device, illuminance: illuminance, formatted: illuminance };
 };
 

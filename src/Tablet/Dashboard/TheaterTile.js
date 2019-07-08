@@ -44,6 +44,7 @@ const TheaterTile = ({ title }) => {
     bravia = deviceMap.bravia ? useBravia(deviceMap.bravia) : {},
     avr = deviceMap.denon ? useDenon(deviceMap.denon) : {},
     appleTV = deviceMap.appletv ? useAppleTV(deviceMap.appletv.device) : {};
+  //    tivo = deviceMap.tivo ? useTiVo(deviceMap.tivo) : {};
 
   const tv = lgtv.name ? lgtv : bravia;
 
@@ -69,10 +70,8 @@ const TheaterTile = ({ title }) => {
         if (tv.power && avr.power) {
           setCurrentActivity(activity.name);
           setActive(activity);
-          currentDevice.current = activity.defaultDevice;
         } else if (currentActivity !== "All Off") {
           setCurrentActivity("All Off");
-          currentDevice.current = "None";
           setActive(null);
         }
       }
@@ -83,7 +82,9 @@ const TheaterTile = ({ title }) => {
   const renderCurrentDevice = () => {
     if (currentDevice.current === "TiVo") {
       return <TiVo device={deviceMap.tivo} />;
-    } else if (currentDevice.current === "Apple TV" || currentDevice.current === "AppleTV") {
+    } else if (currentDevice.current === "Apple TV") {
+      return <AppleTV device={appleTV.device} />;
+    } else if (currentDevice.current === "AppleTV") {
       return <AppleTV device={appleTV.device} />;
     } else {
       return <div>Current Device: {currentDevice.current}</div>;

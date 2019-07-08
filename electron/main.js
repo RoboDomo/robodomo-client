@@ -1,7 +1,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow } = require("electron");
 
-const URL = process.env.ROBODOMO_URL || "http://robodomo:8000";
+const URL = process.env.ROBODOMO_URL || "http://robodomo:5000";
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

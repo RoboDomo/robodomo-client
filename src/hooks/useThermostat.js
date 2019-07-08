@@ -50,8 +50,7 @@ const useThermostat = device => {
   if (thermoState) {
     thermoState.device = device;
   }
-
-  return { type: "thermostat", ...thermoState };
+  return thermoState;
 };
 
 //
