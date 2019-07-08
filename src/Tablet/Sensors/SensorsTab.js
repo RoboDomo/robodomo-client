@@ -8,16 +8,14 @@ import {
   useIlluminance,
   useHumidity,
 } from "@/hooks/useSmartThings";
+import useThermostat from "@/hooks/useThermostat";
 
 import { Row, Col, Card } from "react-bootstrap";
 
 const SensorsTab = () => {
   const Config = useConfig();
 
-  if (!Config || !Array.isArray(Config.sensors)) {
-    return null;
-  }
-  const metric = Config.metric;
+  const metric = Config ? Config.metric : false;
 
   const sensors = useRef({
     contact: {},
@@ -27,7 +25,6 @@ const SensorsTab = () => {
     illuminance: {},
     humidity: {},
   });
-  const types = ["contact", "motion", "battery", "temperature", "illuminance", "humidity"];
 
   const clearSensors = () => {
     sensors.current.contact = {};
@@ -41,28 +38,49 @@ const SensorsTab = () => {
   useEffect(() => {
     return () => {
       clearSensors();
+      console.log("Sensors cleared");
     };
   }, []);
+
+  if (!Config || !Array.isArray(Config.sensors)) {
+    return null;
+  }
 
   for (const sensor of Config.sensors) {
     switch (sensor.type) {
       case "contact":
-        sensors.current.contact[sensor.name] = useContact(sensor.name);
+        sensors.current.contact[sensor.name] = useContact(sensor.device || sensor.name, sensor.key);
         break;
       case "motion":
-        sensors.current.motion[sensor.name] = useMotion(sensor.name);
+        sensors.current.motion[sensor.name] = useMotion(sensor.device || sensor.name, sensor.key);
         break;
       case "battery":
-        sensors.current.battery[sensor.name] = useBattery(sensor.name);
+        sensors.current.battery[sensor.name] = useBattery(sensor.device || sensor.name, sensor.key);
         break;
       case "temperature":
-        sensors.current.temperature[sensor.name] = useTemperature(sensor.name);
+        sensors.current.temperature[sensor.name] = useTemperature(
+          sensor.device || sensor.name,
+          sensor.key
+        );
         break;
       case "illuminance":
-        sensors.current.illuminance[sensor.name] = useIlluminance(sensor.name);
+        sensors.current.illuminance[sensor.name] = useIlluminance(
+          sensor.device || sensor.name,
+          sensor.key
+        );
         break;
       case "humidity":
-        sensors.current.humidity[sensor.name] = useHumidity(sensor.name);
+        if (sensor.source === "nest") {
+          sensors.current.humidity[sensor.name] = useThermostat(
+            sensor.device || sensor.name,
+            sensor.key
+          );
+        } else {
+          sensors.current.humidity[sensor.name] = useHumidity(
+            sensor.device || sensor.name,
+            sensor.key
+          );
+        }
         break;
       default:
         break;
@@ -83,6 +101,7 @@ const SensorsTab = () => {
       if (!sensor) {
         return null;
       }
+
       return (
         <div key={"type" + key++}>
           {sensor.name}
@@ -105,18 +124,17 @@ const SensorsTab = () => {
     );
   };
 
-  let col = 0;
   return (
     <div style={{ padding: 20, marginTop: 10 }}>
       <Row>
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
+        {renderCard("contact")}
+        {renderCard("motion")}
+        {renderCard("battery")}
       </Row>
       <Row>
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
+        {renderCard("temperature")}
+        {renderCard("illuminance")}
+        {renderCard("humidity")}
       </Row>
     </div>
   );
