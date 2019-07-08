@@ -10,13 +10,17 @@ exports.config = merge(configBase.config, {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 1,
+    maxInstances: 4,
 
-    services: ['selenium-standalone'],
+    user: 'sergiupopescu2',
+    key: 'GnvL9ihmskGTxHsmkyXf',
+
+    services: ['browserstack'],
+    browserstackLocal: false,
+    browserstackOpts: {},
 
     capabilities: [
         {
-            maxInstances: 1,
             browserName: 'chrome',
         },
     ]

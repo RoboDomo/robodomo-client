@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test:cucumber": "../packages/wdio-cli/bin/wdio.js ./configs/wdio.conf.local.chrome.js"
+    "test:local_chrome": "../packages/wdio-cli/bin/wdio.js ./configs/wdio.conf.local.chrome.js",
+    "test:bs_chrome": "../packages/wdio-cli/bin/wdio.js ./configs/wdio.conf.bs.chrome.js"
   },
   "keywords": [
     "automation",
