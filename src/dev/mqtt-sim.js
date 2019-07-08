@@ -19172,6 +19172,15 @@ const getRandomMessage = filter => {
 
   const [topic, payload] = messages[index];
 
+  const extractedPayload = typeof payload == "function" ? payload() : payload;
+
+  if (
+    ["[object Array]", "[object Object]"].includes(Object.prototype.toString.call(extractedPayload))
+  ) {
+    // stringify arrays and objects
+    return [topic, JSON.stringify(extractedPayload)];
+  }
+
   // call functions for value randomization
   return [topic, typeof payload == "function" ? payload() : payload];
 };

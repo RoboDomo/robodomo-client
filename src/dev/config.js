@@ -357,7 +357,7 @@ module.exports = {
     locations: [
       // name and zip code or (city name - see naming convention at here.com).
       { name: "New York, NY", device: "10001", default: true }, // default weather location
-      { name: "Los Angeles, CA", device: "90001" },
+      { name: "San Diego, CA", device: "92109" },
     ],
   },
   // pool controller

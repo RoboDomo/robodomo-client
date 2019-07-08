@@ -68,7 +68,26 @@ rm -rd ./node_modules/.cache
 
 The client uses EventEmitter to subscribe to MQTT messages. The UI is reactive and responds instantaneously.
 
-SAMPLES
+### Examples
+
+##### Incoming status messages
+
+```
+smartthings/Sliding Door/contact closed
+smartthings/Bathroom Sensor/motion inactive
+smartthings/Office Dimmer/level 48
+nest/Falsetto/Hallway Thermostat/status/target_temperature_f 77
+```
+
+##### Setting values
+
+```
+smartthings/Outside Light/switch/set off
+autelis/set/poolsp 89
+macros/run Good Morning
+```
+
+You can see MQTT traffic logged in the console of your browser's DevTools.
 
 # Testing
 
