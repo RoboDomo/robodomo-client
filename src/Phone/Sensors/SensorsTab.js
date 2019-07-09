@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import useConfig from "@/hooks/useConfig";
 
 import MQTT from "@/lib/MQTT";
-import { IonCard, IonHeader, IonCardHeader, IonCardContent, IonBadge } from "@ionic/react";
-
-import { Badge, Card } from "react-bootstrap";
+import { IonCard, IonCardHeader, IonCardContent, IonBadge } from "@ionic/react";
 
 const SensorsTab = () => {
   const Config = useConfig();
