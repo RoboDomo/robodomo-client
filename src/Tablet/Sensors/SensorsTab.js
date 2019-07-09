@@ -9,6 +9,8 @@ import {
   useHumidity,
 } from "@/hooks/useSmartThings";
 
+import s from "./SensorsTab.module.css";
+
 import { Row, Col, Card } from "react-bootstrap";
 import { IonCard, IonHeader, IonCardHeader, IonCardContent, IonCol, IonRow } from "@ionic/react";
 
@@ -97,7 +99,7 @@ const SensorsTab = () => {
 
   const renderCard = type => {
     return (
-      <IonCol sm={4} style={{ marginTop: 20 }}>
+      <IonCol sm={4} className={s.column}>
         <IonCard color="dark">
           <IonCardHeader color="medium">{type.toUpperCase()}</IonCardHeader>
           <IonCardContent>{renderType(type)}</IonCardContent>
