@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import useConfig from "@/hooks/useConfig";
 import {
   useContact,
@@ -10,7 +10,7 @@ import {
 } from "@/hooks/useSmartThings";
 
 import { Row, Col, Card } from "react-bootstrap";
-import { IonCard, IonHeader, IonCardHeader, IonCardContent, IonCol, IonRow } from '@ionic/react';
+import { IonCard, IonHeader, IonCardHeader, IonCardContent, IonCol, IonRow } from "@ionic/react";
 
 const SensorsTab = () => {
   const Config = useConfig();
