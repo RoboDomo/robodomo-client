@@ -1,16 +1,5 @@
 import React, { useState } from "react";
-import {
-  IonContent,
-  IonApp,
-  IonPage,
-  IonTab,
-  IonTabs,
-  IonTabBar,
-  IonTabButton,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-} from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 import useConfig from "@/hooks/useConfig";
 
