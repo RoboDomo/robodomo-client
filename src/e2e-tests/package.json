@@ -1,118 +1,32 @@
 {
-  "private": true,
   "scripts": {
-    "create": "node ./scripts/generateSubPackage",
-    "bootstrap": "npm run clean && lerna bootstrap --no-ci && npm run link",
-    "build": "lerna run build",
-    "changelog": "node ./scripts/changelog.js",
-    "clean": "run-p clean:*",
-    "clean:build": "rimraf ./packages/*/build",
-    "clean:pkglock": "rimraf ./packages/*/package-lock.json",
-    "clean:tgz": "rimraf ./packages/*/*.tgz",
-    "clean:node_modules": "rimraf ./packages/*/node_modules ./packages/node_modules",
-    "clean:website": "rimraf docs/_*.md && rimraf docs/api/*.md && rimraf docs/api/**/*.md && rimraf website/sidebars.json",
-    "clean:tests": "rimraf tests/typings/*/*.js && rimraf tests/typings/**/node_modules",
-    "generate:typings": "node ./scripts/type-generation/generate-all-typings.js",
-    "link": "node ./scripts/link",
-    "release": "NODE_ENV=production npm run setup && npm run generate:typings && lerna publish",
-    "setup": "run-s bootstrap build",
-    "docs": "run-s docs:*",
-    "docs:setup": "cd ./website && npm install && cd ..",
-    "docs:generate": "npm run clean:website && ./scripts/docs-generation/generateDocs.js",
-    "docs:build": "cd ./website && npm run build && cd ..",
-    "docs:deploy": "./scripts/updateDocs.js",
-    "test": "run-s test:*",
-    "test:eslint": "eslint packages examples scripts tests",
-    "test:typings": "npm run generate:typings && node tests/typings/copy && npm run ts && npm run clean:tests",
-    "test:coverage": "jest --coverage --detectOpenHandles",
-    "test:smoke": "babel-node ./tests/smoke.runner.js",
-    "ts": "run-p ts:*",
-    "ts:sync": "cd tests/typings/sync && tsc",
-    "ts:sync-mocha": "cd tests/typings/sync-mocha && tsc",
-    "ts:sync-jasmine": "cd tests/typings/sync-jasmine && tsc",
-    "ts:webdriverio": "cd tests/typings/webdriverio && tsc",
-    "ts:webdriverio-mocha": "cd tests/typings/webdriverio-mocha && tsc",
-    "ts:webdriverio-jasmine": "cd tests/typings/webdriverio-jasmine && tsc",
-    "watch": "node ./scripts/watch",
-    "watch:pkg": "lerna exec 'npm run compile -- --watch' --scope"
+    "test:local_chrome": "./node_modules/.bin/wdio ./configs/wdio.conf.local.chrome.js",
+    "test:bs_cloud": "./node_modules/.bin/wdio ./configs/wdio.conf.bs.cloud.js"
   },
+  "keywords": [
+    "automation",
+    "e2e",
+    "tests",
+    "webdriverio"
+  ],
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.4.0",
-    "@babel/node": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/plugin-proposal-export-default-from": "^7.2.0",
-    "@babel/plugin-proposal-function-bind": "^7.2.0",
-    "@babel/plugin-proposal-optional-catch-binding": "^7.2.0",
-    "@babel/plugin-syntax-export-default-from": "^7.2.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/register": "^7.4.0",
-    "aws-sdk": "^2.435.0",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^10.0.1",
-    "babel-jest": "^24.5.0",
-    "babel-plugin-source-map-support": "^2.0.1",
-    "cheerio": "^1.0.0-rc.2",
-    "codecov": "^3.2.0",
-    "copyfiles": "^2.1.0",
-    "cucumber": "^5.1.0",
-    "del": "^4.0.0",
-    "dox": "^0.9.0",
-    "eslint": "^6.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "husky": "^2.3.0",
-    "inquirer": "^6.2.2",
-    "jest": "^24.5.0",
-    "lerna": "^3.13.1",
-    "lerna-changelog": "^0.8.2",
-    "markdox": "^0.1.10",
-    "mime-types": "^2.1.22",
-    "np": "^5.0.2",
-    "npm-run-all": "^4.1.5",
-    "recursive-readdir": "^2.2.2",
-    "rimraf": "^2.6.3",
-    "shelljs": "^0.8.3",
-    "source-map-support": "^0.5.11",
-    "tempy": "^0.3.0",
-    "typescript": "^3.5.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "git diff-index --name-only --diff-filter=d HEAD | grep -E \"(.*)\\.js$\" | xargs node_modules/eslint/bin/eslint.js -c .eslintrc.js",
-      "pre-push": "npm run test:eslint"
-    }
-  },
-  "jest": {
-    "testMatch": [
-      "**/tests/**/*.test.js"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/tests/",
-      "<rootDir>/node_modules/"
-    ],
-    "coverageDirectory": "./coverage/",
-    "collectCoverage": true,
-    "coverageThreshold": {
-      "global": {
-        "branches": 96,
-        "functions": 99,
-        "lines": 99,
-        "statements": 99
-      }
-    },
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "node_modules/",
-      "packages/webdriverio/src/scripts",
-      "packages/wdio-devtools-service/src/scripts",
-      "packages/webdriverio/build",
-      "packages/webdriver/build",
-      "packages/wdio-cucumber-framework/tests/fixtures"
-    ]
-  },
-  "greenkeeper": {
-    "lockfiles": {
-      "outOfRangeUpdatesOnly": true
-    }
+    "@babel/cli": "~7.5.0",
+    "@babel/core": "~7.5.4",
+    "@babel/preset-env": "~7.5.4",
+    "@babel/register": "~7.4.4",
+    "@wdio/appium-service": "5.10.10",
+    "@wdio/browserstack-service": "5.10.8",
+    "@wdio/cli": "5.10.10",
+    "@wdio/cucumber-framework": "5.6.4",
+    "@wdio/local-runner": "5.10.10",
+    "@wdio/selenium-standalone-service": "5.9.3",
+    "@wdio/spec-reporter": "5.9.3",
+    "@wdio/sync": "5.10.8",
+    "appium": "~1.14.0",
+    "axios": "~0.19.0",
+    "chromedriver": "~75.0.1",
+    "deepmerge": "~3.3.0",
+    "expect": "~23.6.0",
+    "webdriverio": "~5.11.0"
   }
 }
