@@ -1,6 +1,0 @@
-{
-  "compilerOptions": {
-    "noImplicitAny": true,
-    "types": ["@wdio/sync", "@wdio/mocha-framework"]
-  }
-}

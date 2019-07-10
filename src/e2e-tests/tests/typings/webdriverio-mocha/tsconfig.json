@@ -1,6 +1,0 @@
-{
-  "compilerOptions": {
-    "noImplicitAny": true,
-    "types": ["webdriverio", "@wdio/mocha-framework"]
-  }
-}

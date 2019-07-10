@@ -1,97 +1,68 @@
-<p align="center">
-    <a href="https://webdriver.io/">
-        <img alt="WebdriverIO" src="http://www.christian-bromann.com/wdio.png" width="546">
-    </a>
-</p>
+# Project Name
 
-<p align="center">
-    Next-gen WebDriver test automation framework for Node.js
-</p>
+[![MIT Licensed](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE)
+[![Powered by Modus_Create](https://img.shields.io/badge/powered_by-Modus_Create-blue.svg?longCache=true&style=flat&logo=data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzIwIDMwMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cGF0aCBkPSJNOTguODI0IDE0OS40OThjMCAxMi41Ny0yLjM1NiAyNC41ODItNi42MzcgMzUuNjM3LTQ5LjEtMjQuODEtODIuNzc1LTc1LjY5Mi04Mi43NzUtMTM0LjQ2IDAtMTcuNzgyIDMuMDkxLTM0LjgzOCA4Ljc0OS01MC42NzVhMTQ5LjUzNSAxNDkuNTM1IDAgMCAxIDQxLjEyNCAxMS4wNDYgMTA3Ljg3NyAxMDcuODc3IDAgMCAwLTcuNTIgMzkuNjI4YzAgMzYuODQyIDE4LjQyMyA2OS4zNiA0Ni41NDQgODguOTAzLjMyNiAzLjI2NS41MTUgNi41Ny41MTUgOS45MjF6TTY3LjgyIDE1LjAxOGM0OS4xIDI0LjgxMSA4Mi43NjggNzUuNzExIDgyLjc2OCAxMzQuNDggMCA4My4xNjgtNjcuNDIgMTUwLjU4OC0xNTAuNTg4IDE1MC41ODh2LTQyLjM1M2M1OS43NzggMCAxMDguMjM1LTQ4LjQ1OSAxMDguMjM1LTEwOC4yMzUgMC0zNi44NS0xOC40My02OS4zOC00Ni41NjItODguOTI3YTk5Ljk0OSA5OS45NDkgMCAwIDEtLjQ5Ny05Ljg5NyA5OC41MTIgOTguNTEyIDAgMCAxIDYuNjQ0LTM1LjY1NnptMTU1LjI5MiAxODIuNzE4YzE3LjczNyAzNS41NTggNTQuNDUgNTkuOTk3IDk2Ljg4OCA1OS45OTd2NDIuMzUzYy02MS45NTUgMC0xMTUuMTYyLTM3LjQyLTEzOC4yOC05MC44ODZhMTU4LjgxMSAxNTguODExIDAgMCAwIDQxLjM5Mi0xMS40NjR6bS0xMC4yNi02My41ODlhOTguMjMyIDk4LjIzMiAwIDAgMS00My40MjggMTQuODg5QzE2OS42NTQgNzIuMjI0IDIyNy4zOSA4Ljk1IDMwMS44NDUuMDAzYzQuNzAxIDEzLjE1MiA3LjU5MyAyNy4xNiA4LjQ1IDQxLjcxNC01MC4xMzMgNC40Ni05MC40MzMgNDMuMDgtOTcuNDQzIDkyLjQzem01NC4yNzgtNjguMTA1YzEyLjc5NC04LjEyNyAyNy41NjctMTMuNDA3IDQzLjQ1Mi0xNC45MTEtLjI0NyA4Mi45NTctNjcuNTY3IDE1MC4xMzItMTUwLjU4MiAxNTAuMTMyLTIuODQ2IDAtNS42NzMtLjA4OC04LjQ4LS4yNDNhMTU5LjM3OCAxNTkuMzc4IDAgMCAwIDguMTk4LTQyLjExOGMuMDk0IDAgLjE4Ny4wMDguMjgyLjAwOCA1NC41NTcgMCA5OS42NjUtNDAuMzczIDEwNy4xMy05Mi44Njh6IiBmaWxsPSIjRkZGIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz4KPC9zdmc+)](https://moduscreate.com)
 
-<p align="center">
-    <a href="https://travis-ci.org/webdriverio/webdriverio.svg?branch=master">
-        <img alt="Build Status" src="https://travis-ci.org/webdriverio/webdriverio.svg?branch=master">
-    </a>
-    <a href="https://codecov.io/gh/webdriverio/webdriverio">
-        <img alt="CodeCov" src="https://codecov.io/gh/webdriverio/webdriverio/branch/master/graph/badge.svg">
-    </a>
-    <a href="https://gitter.im/webdriverio/webdriverio">
-        <img alt="Gitter" src="https://badges.gitter.im/webdriverio/webdriverio.svg">
-    </a>
-</p>
+Robodomo - easy way to control your smart home, using tablet or smartphone.
 
-***
+- [Getting Started](#getting-started)
+- [How it Works](#how-it-works)
+- [Developing](#developing)
+  - [Prerequisites](#prerequisites)
+  - [Testing](#testing)
+  - [Contributing](#contributing)
+- [Modus Create](#modus-create)
+- [License](#license)
 
-<p align="center">
-    <a href="https://webdriver.io">Homepage</a> |
-    <a href="https://webdriver.io/guide.html">Developer Guide</a> |
-    <a href="https://webdriver.io/docs/api.html">API Reference</a> |
-    <a href="https://github.com/webdriverio/webdriverio/blob/master/CONTRIBUTING.md">Contribute</a>
-</p>
+# Getting Started
 
-***
 
-WebdriverIO is a test automation framework that allows you to run tests based on the [Webdriver](https://w3c.github.io/webdriver/webdriver-spec.html) protocol and [Appium](http://appium.io/) automation technology. It provides support for your favorite BDD/TDD test framework and will run your tests locally or in the cloud using Sauce Labs, BrowserStack or TestingBot.
+Install the following:
+
+NodeJS latest LTS version `https://nodejs.org/en/download/`
+
+Java JDK `https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html`
+
+Google Chrome browser latest stable version `https://www.google.com/chrome/`
+
+# How it works
+
+Framework is based on WebdriverIO library, and uses Gherkin language preprocessor to describe business logic.
+
+Webdriver initiates browser instance locally or in cloud instance and runs tests against testing environment.
+
+# Developing
+
+Before tests could be run all required libraries have to be fetched from npm repository.
+
+Run `npm i` in project root `../react-client/src/e2e-tests` 
+
+Run `npm i` in test directory `../react-client/src/e2e-tests`
+
+## Prerequisites
+
+TODO
+
+## Testing
+
+To start running tests execute the following commands in `../react-client/src/e2e-tests/e2e-tests` directory:
+
+-   `npm run test:local_chrome` - run tests against local environment using Chrome (UI) browser
+-   `npm run test:bs_cloud -- --baseUrl=URL --user=BROWSERSTACK_USER --key=BROWSERSTACK_KEY` - run tests agains cloud test environment on multiple OS/Browsers pairs
+-   `npm run test:cucumber -- --baseUrl=URL` - run tests against environment defined as URL using Chrome (UI) browser
+
 
 ## Contributing
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/webdriverio/webdriverio.svg)](https://greenkeeper.io/)
+{How can the community contribute}
 
-Check out our [CONTRIBUTING.md](CONTRIBUTING.md) to get started with setting up the repo.
+# Modus Create
 
-If you're looking for issues to help out with, check out [the issues labelled "good first pick"](https://github.com/webdriverio/webdriverio/issues?q=is%3Aopen+is%3Aissue+label%3A"good+first+pick"). You can also reach out in our [Gitter Channel](https://gitter.im/webdriverio/webdriverio) if you have question on where to start contributing.
+[Modus Create](https://moduscreate.com) is a digital product consultancy. We use a distributed team of the best talent in the world to offer a full suite of digital product design-build services; ranging from consumer facing apps, to digital migration, to agile development training, and business transformation.
 
-## Packages
+<a href="https://github.com/RoboDomo/react-client"><img src="https://res.cloudinary.com/modus-labs/image/upload/h_80/v1533109874/modus/logo-long-black.svg" height="80" alt="Modus Create"/></a>
+<br />
 
-### Core
+# Licensing
 
-- [webdriver](https://github.com/webdriverio/webdriverio/tree/master/packages/webdriver) - A Node.js bindings implementation for the W3C WebDriver and Mobile JSONWire Protocol
-- [webdriverio](https://github.com/webdriverio/webdriverio/blob/master/packages/webdriverio) - A next-gen WebDriver test automation framework for Node.js
-- [@wdio/cli](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-cli) - A WebdriverIO testrunner command line interface
-
-### Helper
-
-- [@wdio/config](https://github.com/webdriverio/webdriverio/blob/master/packages/wdio-config) - A helper utility to parse and validate WebdriverIO options
-- [@wdio/logger](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-logger) - A helper utility for logging of WebdriverIO packages
-- [@wdio/reporter](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-reporter) - A WebdriverIO utility to help reporting all events
-- [@wdio/runner](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-runner) - A WebdriverIO service that runs tests in arbitrary environments
-- [@wdio/sync](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-sync) - A WebdriverIO plugin. Helper module to run WebdriverIO commands synchronously
-- [@wdio/repl](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-repl) - A WDIO helper utility to provide a repl interface for WebdriverIO
-- [@wdio/utils](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-utils) - A WDIO helper utility to provide several utility functions used across the project
-
-### Reporter
-
-- [@wdio/allure-reporter](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-allure-reporter) - A WebdriverIO reporter plugin to create Allure Test Reports
-- [@wdio/concise-reporter](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-concise-reporter) - A WebdriverIO reporter plugin to create concise test reports
-- [@wdio/dot-reporter](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-dot-reporter) - A WebdriverIO plugin to report in dot style
-- [@wdio/spec-reporter](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-spec-reporter) - A WebdriverIO plugin to report in spec style
-- [@wdio/sumologic-reporter](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-sumologic-reporter) - A WebdriverIO reporter that sends test results to Sumologic for data analyses
-- [@wdio/junit-reporter](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-junit-reporter) - A WebdriverIO reporter that creates test results in XML format
-
-### Services
-
-- [@wdio/appium-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-appium-service) - A WebdriverIO service to start & stop Appium Server
-- [@wdio/applitools-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-applitools-service) - A WebdriverIO service for visual regression testing using Applitools
-- [@wdio/devtools-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-devtools-service) - A WebdriverIO service that allows you to run Chrome DevTools commands in your tests
-- [@wdio/firefox-profile-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-firefox-profile-service) - A WebdriverIO service that lets you define your Firefox profile in your wdio.conf.js
-- [@wdio/sauce-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-sauce-service) - A WebdriverIO service that provides a better integration into SauceLabs
-- [@wdio/testingbot-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-testingbot-service) - A WebdriverIO service that provides a better integration into TestingBot
-- [@wdio/selenium-standalone-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-selenium-standalone-service) - A WebdriverIO service that automatically sets up a selenium standalone server
-- [@wdio/browserstack-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-browserstack-service) - A WebdriverIO service that provides a better integration into Browserstack
-- [@wdio/crossbrowsertesting-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-crossbrowsertesting-service) - A WebdriverIO service that provides a better integration into CrossBrowserTesting
-
-### Runner
-
-- [@wdio/local-runner](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-local-runner) - A WebdriverIO runner to run tests locally
-- [@wdio/lambda-runner](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-lambda-runner) - A WebdriverIO plugin that allows you to run tests on AWS using Lambda functions
-
-### Framework Adapters
-
-- [@wdio/mocha-framework](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-mocha-framework) - Adapter for [Mocha](https://mochajs.org/) testing framework.
-- [@wdio/jasmine-framework](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-jasmine-framework) - Adapter for [Jasmine](https://jasmine.github.io/) testing framework
-
-### Others
-
-- [eslint-plugin-wdio](https://github.com/webdriverio/webdriverio/tree/master/packages/eslint-plugin-wdio) - Eslint rules for WebdriverIO
-- [@wdio/webdriver-mock-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-webdriver-mock-service) - A WebdriverIO service to stub all endpoints for internal testing purposes
-- [@wdio/smoke-test-service](https://github.com/webdriverio/webdriverio/tree/master/packages/wdio-smoke-test-service) - A WebdriverIO utility to smoke test services for internal testing purposes
+This project is [MIT licensed](./LICENSE).
