@@ -2,6 +2,12 @@ const configBase = require('./wdio.conf.js');
 const merge = require('deepmerge');
 
 exports.config = merge(configBase.config, {
+    specs: [
+        './features/**/*.feature'
+    ],
+    exclude: [
+        './features/visualRegression/*.feature'
+    ],
     //
     // First, you can define how many instances should be started at the same time. Let's
     // say you have 3 different capabilities (Chrome, Firefox, and Safari) and you have
@@ -22,38 +28,38 @@ exports.config = merge(configBase.config, {
         {
             'device': 'iPad Pro 12.9 2018',
             'os_version': '12',
-            "realMobile": true,
-            "deviceOrientation": "landscape",
+            'realMobile': true,
+            'deviceOrientation': 'landscape',
         },
         // {
         //     'device': 'iPhone 8',
         //     'os_version': '12',
-        //     "realMobile": true,
-        //     "deviceOrientation": "landscape",
+        //     'realMobile': true,
+        //     'deviceOrientation': 'landscape',
         // },
         // {
         //     'device': 'iPhone XS',
         //     'os_version': '12',
-        //     "realMobile": true,
-        //     "deviceOrientation": "landscape",
+        //     'realMobile': true,
+        //     'deviceOrientation': 'landscape',
         // },
         {
             'device': 'Samsung Galaxy Tab S4',
             'os_version': '8.1',
-            "realMobile": true,
-            "deviceOrientation": "landscape",
+            'realMobile': true,
+            'deviceOrientation': 'landscape',
         },
         // {
         //     'device': 'Google Pixel 3',
         //     'os_version': '9.0',
-        //     "realMobile": true,
-        //     "deviceOrientation": "landscape",
+        //     'realMobile': true,
+        //     'deviceOrientation': 'landscape',
         // },
         // {
         //     'device': 'Samsung Galaxy S10',
         //     'os_version': '9.0',
-        //     "realMobile": true,
-        //     "deviceOrientation": "landscape",
+        //     'realMobile': true,
+        //     'deviceOrientation': 'landscape',
         // },
         {
             'os': 'Windows',

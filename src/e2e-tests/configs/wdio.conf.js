@@ -1,9 +1,17 @@
 require('@babel/register');
 
-const implicit = 60000, pageLoad = 30000, script = 45000;
+const implicit = 30000, pageLoad = 30000, script = 15000;
 
 exports.config = {
-
+    //
+    // ====================
+    // Runner Configuration
+    // ====================
+    //
+    // WebdriverIO allows it to run your tests in arbitrary locations (e.g. locally or
+    // on a remote machine).
+    // runner: 'local',
+    // port: 4723,
     //
     // ==================
     // Specify Test Files
@@ -14,10 +22,12 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './features/**/*.feature'
+        // './features/**/*.feature'
     ],
     // Patterns to exclude.
-    exclude: [],
+    exclude: [
+        // 'path/to/excluded/files'
+    ],
     //
     // ============
     // Capabilities
@@ -26,6 +36,15 @@ exports.config = {
     // time. Depending on the number of capabilities, WebdriverIO launches several test
     // sessions. Within your capabilities you can overwrite the spec and exclude options in
     // order to group specific specs to a specific capability.
+    //
+    // First, you can define how many instances should be started at the same time. Let's
+    // say you have 3 different capabilities (Chrome, Firefox, and Safari) and you have
+    // set maxInstances to 1; wdio will spawn 3 processes. Therefore, if you have 10 spec
+    // files and you set maxInstances to 10, all spec files will get tested at the same time
+    // and 30 processes will get spawned. The property handles how many capabilities
+    // from the same test should run tests.
+    //
+    // maxInstances: 10,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -38,26 +57,29 @@ exports.config = {
     // ===================
     // Define all options that are relevant for the WebdriverIO instance here
     //
-    // By default WebdriverIO commands are executed in a synchronous way using
-    // the wdio-sync package. If you still want to run your tests in an async way
-    // e.g. using promises you can set the sync option to false.
-    sync: true,
-    //
-    // Level of logging verbosity: silent | verbose | command | data | result | error
+    // Level of logging verbosity: trace | debug | info | warn | error | silent
     logLevel: 'silent',
+    //
+    // Set specific log levels per logger
+    // loggers:
+    // - webdriver, webdriverio
+    // - @wdio/applitools-service, @wdio/browserstack-service, @wdio/devtools-service, @wdio/sauce-service
+    // - @wdio/mocha-framework, @wdio/jasmine-framework
+    // - @wdio/local-runner, @wdio/lambda-runner
+    // - @wdio/sumologic-reporter
+    // - @wdio/cli, @wdio/config, @wdio/sync, @wdio/utils
+    // Level of logging verbosity: trace | debug | info | warn | error | silent
+    // logLevels: {
+    //     webdriver: 'info',
+    //     '@wdio/applitools-service': 'info'
+    // },
     //
     // Enables colors for log output.
     coloredLogs: true,
     //
-    // Warns when a deprecated command is used
-    deprecationWarnings: true,
-    //
     // If you only want to run your tests until a specific amount of tests have failed use
     // bail (default is 0 - don't bail, run all tests).
     bail: 0,
-    //
-    // Saves a screenshot to a given path if a command fails.
-    screenshotPath: './errorShots/',
     //
     // Set a base URL in order to shorten url command calls. If your `url` parameter starts
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
@@ -73,34 +95,28 @@ exports.config = {
     connectionRetryTimeout: 90000,
     //
     // Default request retries count
-    connectionRetryCount: 2,
-    //
-    // Initialize the browser instance with a WebdriverIO plugin. The object should have the
-    // plugin name as key and the desired plugin options as properties. Make sure you have
-    // the plugin installed before running any tests. The following plugins are currently
-    // available:
-    // WebdriverCSS: https://github.com/webdriverio/webdrivercss
-    // WebdriverRTC: https://github.com/webdriverio/webdriverrtc
-    // Browserevent: https://github.com/webdriverio/browserevent
-    // plugins: {
-    //     webdrivercss: {
-    //         screenshotRoot: 'my-shots',
-    //         failedComparisonsRoot: 'diffs',
-    //         misMatchTolerance: 0.05,
-    //         screenWidth: [320,480,640,1024]
-    //     },
-    //     webdriverrtc: {},
-    //     browserevent: {}
-    // },
+    connectionRetryCount: 3,
     //
     // Test runner services
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    // services: [],
+    // services: ['appium','browserstack','selenium-standalone'],
+    //
+    // Appium Service config
+    // see details: https://webdriver.io/docs/appium-service.html
+    // appium: {
+    //     command: 'appium',
+    // },
+    //
+    // By default WebdriverIO commands are executed in a synchronous way using
+    // the wdio-sync package. If you still want to run your tests in an async way
+    // e.g. using promises you can set the sync option to false.
+    sync: true,
+    //
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
-    // see also: http://webdriver.io/guide/testrunner/frameworks.html
+    // see also: https://webdriver.io/docs/frameworks.html
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
@@ -125,8 +141,8 @@ exports.config = {
         source: true,        // <boolean> hide source uris
         profile: [],         // <string[]> (name) specify the profile to use
         strict: false,       // <boolean> fail if there are any undefined or pending steps
-        tags: [],            // <string[]> (expression) only execute the features or scenarios with tags matching the expression
-        tagExpression: '@automated', // <string> Only execute the features or scenarios with tags matching the expression.
+        tags: ['@automated'],            // <string[]> (expression) only execute the features or scenarios with tags matching the expression
+        tagExpression: '', // <string> Only execute the features or scenarios with tags matching the expression.
         timeout: 20000,       // <number> timeout for step definitions
         ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
     },
@@ -164,7 +180,11 @@ exports.config = {
     before: function (capabilities, specs) {
         require('@babel/register');
 
-        browser.setTimeouts(implicit, pageLoad, script);
+        browser.setTimeout({
+            'implicit': implicit,
+            'pageLoad': pageLoad,
+            'script': script
+        });
     },
     /**
      * Runs before a WebdriverIO command gets executed.
@@ -202,7 +222,7 @@ exports.config = {
                 + '_' + stepResult.scenario.replace(/ /g, '_') + '_'
                 + stepResult.text.replace(/ /g, '_')
                 + '.png';
-            browser.saveScreenshot(browser.config.screenshotPath + screenshotName);
+            browser.saveScreenshot('./errorShots/' + screenshotName);
         }
     },
     /**
@@ -210,8 +230,8 @@ exports.config = {
      * @param {Object} scenario scenario details
      */
     afterScenario: function (scenario) {
-        browser.clearLocalStorage();
-        browser.deleteAllCookies();
+        browser.clearStorageData();
+        browser.clearCache();
     },
     /**
      * Runs after a Cucumber feature
@@ -247,11 +267,20 @@ exports.config = {
     // afterSession: function (config, capabilities, specs) {
     // },
     /**
-     * Gets executed after all workers got shut down and the process is about to exit.
+     * Gets executed after all workers got shut down and the process is about to exit. An error
+     * thrown in the onComplete hook will result in the test run failing.
      * @param {Object} exitCode 0 - success, 1 - fail
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities) {
+    // onComplete: function(exitCode, config, capabilities, results) {
+    // },
+    /**
+     * Gets executed when a refresh happens.
+     * @param {String} oldSessionId session ID of the old session
+     * @param {String} newSessionId session ID of the new session
+     */
+    // onReload: function(oldSessionId, newSessionId) {
     // }
 };
