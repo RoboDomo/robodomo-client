@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import useConfig from "@/hooks/useConfig";
 
 import MQTT from "@/lib/MQTT";
-
-import { Badge, Card } from "react-bootstrap";
+import { IonCard, IonCardHeader, IonCardContent, IonBadge } from "@ionic/react";
 
 const SensorsTab = () => {
   const Config = useConfig();
@@ -41,9 +40,9 @@ const SensorsTab = () => {
       return (
         <div key={"type" + key++}>
           {sensor.name}
-          <Badge variant="secondary" className="float-right">
+          <IonBadge variant="secondary" className="float-right">
             {sensors[sensor.topic]}
-          </Badge>
+          </IonBadge>
         </div>
       );
     });
@@ -52,10 +51,10 @@ const SensorsTab = () => {
   const renderCard = type => {
     return (
       <div style={{ padding: 10, marginTop: 10, fontSize: 18 }}>
-        <Card>
-          <Card.Header>{type.toUpperCase()}</Card.Header>
-          <Card.Body>{renderType(type)}</Card.Body>
-        </Card>
+        <IonCard color="dark">
+          <IonCardHeader color="medium">{type.toUpperCase()}</IonCardHeader>
+          <IonCardContent>{renderType(type)}</IonCardContent>
+        </IonCard>
       </div>
     );
   };
