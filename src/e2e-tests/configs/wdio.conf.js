@@ -185,6 +185,10 @@ exports.config = {
             'pageLoad': pageLoad,
             'script': script
         });
+
+        global.expect = require('chai')
+            .use(require('chai-as-promised'))
+            .use(require('chai-string')).expect;
     },
     /**
      * Runs before a WebdriverIO command gets executed.
