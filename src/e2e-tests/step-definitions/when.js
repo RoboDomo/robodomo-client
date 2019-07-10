@@ -45,8 +45,15 @@ When(/^User clicks on (Bedroom|Theater) tab$/, {wrapperOptions: {retry: 2}}, (me
     }
 });
 
-When(/^User clicks on (HomeTheater) tab$/, {wrapperOptions: {retry: 2}}, (tabName) => {
-    TheaterPage.goToHomeTheaterTab();
+When(/^User clicks on (HomeTheater|Autelis) tab$/, {wrapperOptions: {retry: 2}}, (tabName) => {
+    switch (tabName) {
+        case 'HomeTheater':
+            TheaterPage.goToHomeTheaterTab();
+            break;
+        case 'Autelis':
+            AutelisPage.goToAutelisTab();
+            break;
+    }
 });
 
 When(/^User clicks on (New York, NY|Los Angeles, CA) tab$/, {wrapperOptions: {retry: 2}}, (menuButton) => {
@@ -67,6 +74,52 @@ When(/^User clicks on (Hallway Thermostat|Entryway Nest Protect) tab$/, {wrapper
             break;
         case 'Hallway Thermostat':
             NestPage.goToHallwayTab();
+            break;
+    }
+});
+
+When(/^User clicks on (.*) button on Autelis page/, (buttonName) => {
+    switch (buttonName) {
+        case 'OFF':
+            AutelisPage.clickOffButton();
+            break;
+        case 'POOL':
+            AutelisPage.clickPoolButton();
+            break;
+        case 'SPA':
+            AutelisPage.clickSpaButton();
+            break;
+    }
+});
+
+When(/^User clicks on (.*) button into state (On|Off) on Autelis page/, (buttonName, state) => {
+    switch (buttonName) {
+        case 'Solar':
+            state === 'On' ? AutelisPage.clickSolarOnButton() : AutelisPage.clickSolarOffButton();
+            break;
+        case 'Cleaner':
+            state === 'On' ? AutelisPage.clickCleanerOnButton() : AutelisPage.clickCleanerOffButton();
+            break;
+        case 'Pool Heat':
+            state === 'On' ? AutelisPage.clickPoolHeatOnButton() : AutelisPage.clickPoolHeatOffButton();
+            break;
+        case 'Pool Light':
+            state === 'On' ? AutelisPage.clickPoolLightOnButton() : AutelisPage.clickPoolLightOffButton();
+            break;
+        case 'Waterfall':
+            state === 'On' ? AutelisPage.clickWaterfallOnButton() : AutelisPage.clickWaterfallOffButton();
+            break;
+        case 'Spa Heat':
+            state === 'On' ? AutelisPage.clickSpaHeatOnButton() : AutelisPage.clickSpaHeatOffButton();
+            break;
+        case 'Jets':
+            state === 'On' ? AutelisPage.clickJetsOnButton() : AutelisPage.clickJetsOffButton();
+            break;
+        case 'Spa Light':
+            state === 'On' ? AutelisPage.clickSpaLightOnButton() : AutelisPage.clickSpaLightOffButton();
+            break;
+        case 'Blower':
+            state === 'On' ? AutelisPage.clickBlowerOnButton() : AutelisPage.clickBlowerOffButton();
             break;
     }
 });
