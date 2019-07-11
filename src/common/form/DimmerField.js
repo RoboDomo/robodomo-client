@@ -1,5 +1,6 @@
 import React /*, { useState, useEffect, useRef }*/ from "react";
 
+import s from "./DimmerField.module.css";
 import { IonToggle, IonRange, IonIcon} from '@ionic/react';
 import Toggle from "react-bootstrap-toggle";
 
@@ -29,7 +30,7 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
         <Toggle active={toggled} onClick={handleToggle} style={{ flex: 1, marginRight: 20 }} />
         <div style={{ flex: 1, marginTop: 0 }}>
           <IonRange
-            style={{ flex: 1, paddingTop: 0, paddingBottom: 0, width: "210px" }}
+            className = {s.range}
             value={value || 0}
             step={1}
             onChange={handleSliderChange}
