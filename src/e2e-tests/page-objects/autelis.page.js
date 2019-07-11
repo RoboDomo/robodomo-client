@@ -36,11 +36,11 @@ class AutelisPage extends Page {
     get blowerOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Blower"]/parent::*//button[text()="Off"]')}
 
     // 0 - lower; 1 - higher
-    get poolHeatAdjButtons() {return $$('.row>div:first-of-type .float-right>button')}
-    get poolHeatCounter() {return $('.row>div:first-of-type .float-right>input')}
+    get poolHeatAdjButtons() {return $$('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Pool Heat"]/parent::*//div[@class="float-right"]/button')}
+    get poolHeatCounter() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Pool Heat"]/parent::*//div[@class="float-right"]/input')}
     // 0 - lower; 1 - higher
-    get spaHeatAdjButtons() {return $$('.row>div:last-of-type .float-right>button')}
-    get spaHeatCounter() {return $('.row>div:last-of-type .float-right>input')}
+    get spaHeatAdjButtons() {return $$('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Spa Heat"]/parent::*//div[@class="float-right"]/button')}
+    get spaHeatCounter() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Spa Heat"]/parent::*//div[@class="float-right"]/input')}
 
     checkPoolHeatDecreased() {
         expect(parseInt(this.poolHeatCounter.getValue())).to.equal(counter - 1);
