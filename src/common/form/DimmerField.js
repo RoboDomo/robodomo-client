@@ -1,6 +1,6 @@
 import React /*, { useState, useEffect, useRef }*/ from "react";
 
-import ReactBootstrapSlider from "react-bootstrap-slider";
+import { IonToggle, IonRange, IonIcon} from '@ionic/react';
 import Toggle from "react-bootstrap-toggle";
 
 const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) => {
@@ -27,15 +27,18 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
       <div style={{ marginTop: 10, flex: 1 }}>{label}</div>
       <div style={{ whiteSpace: "nowrap", display: "flex" }}>
         <Toggle active={toggled} onClick={handleToggle} style={{ flex: 1, marginRight: 20 }} />
-        <div style={{ flex: 1, marginTop: 10 }}>
-          <ReactBootstrapSlider
-            style={{ flex: 1, paddingTop: 8 }}
+        <div style={{ flex: 1, marginTop: 0 }}>
+          <IonRange
+            style={{ flex: 1, paddingTop: 0, paddingBottom: 0, width: "210px" }}
             value={value || 0}
             step={1}
-            slideStop={handleSliderChange}
+            onChange={handleSliderChange}
             min={1}
             max={100}
-          />
+          >
+            <IonIcon slot="start" size="small" name="sunny"></IonIcon>
+            <IonIcon slot="end" name="sunny"></IonIcon>
+          </IonRange>
         </div>
       </div>
     </div>
