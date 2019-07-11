@@ -9,29 +9,31 @@ class AutelisPage extends Page {
     get offButton() {return $('//button[text()[contains(., "OFF")]]')}
     get poolButton() {return $('//button[text()[contains(., "POOL")]]')}
     get spaButton() {return $('//button[text()[contains(., "SPA")]]')}
-    get switchMessageMain() {return $('#autelis-tabs-tabpane-autelis>div>div:first-of-type>div:nth-of-type(2)>div:nth-of-type(2)')}
-    get switchMessageSolar() {return $('#autelis-tabs-tabpane-autelis>div>div:first-of-type>div:nth-of-type(3)>div:nth-of-type(2)')}
+    get switchMessageOff() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="All Off"]')}
+    get switchMessagePool() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()[starts-with(., "Pool")]]')}
+    get switchMessageSpa() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()[starts-with(., "Spa")]]')}
+    get switchMessageSolar() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()[starts-with(., "Solar")]]')}
 
-    get solarOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:nth-of-type(3)>div>button:first-of-type')}
-    get solarOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:nth-of-type(3)>div>button:last-of-type')}
-    get cleanerOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:nth-of-type(4)>div>button:first-of-type')}
-    get cleanerOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:nth-of-type(4)>div>button:last-of-type')}
+    get solarOnButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()[starts-with(., "Solar")]]/parent::*//button[text()="On"]')}
+    get solarOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()[starts-with(., "Solar")]]/parent::*//button[text()="Off"]')}
+    get cleanerOnButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Cleaner"]/parent::*//button[text()="On"]')}
+    get cleanerOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Cleaner"]/parent::*//button[text()="Off"]')}
 
-    get poolHeatOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:first-of-type>div>div>div>button:first-of-type')}
-    get poolHeatOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:first-of-type>div>div>div>button:last-of-type')}
-    get poolLightOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:first-of-type>div:nth-of-type(2) button:first-of-type')}
-    get poolLightOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:first-of-type>div:nth-of-type(2) button:last-of-type')}
-    get waterfallOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:first-of-type>div:nth-of-type(3) button:first-of-type')}
-    get waterfallOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:first-of-type>div:nth-of-type(3) button:last-of-type')}
+    get poolHeatOnButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Pool Heat"]/parent::*//button[text()="On"]')}
+    get poolHeatOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Pool Heat"]/parent::*//button[text()="Off"]')}
+    get poolLightOnButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Pool Light"]/parent::*//button[text()="On"]')}
+    get poolLightOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Pool Light"]/parent::*//button[text()="Off"]')}
+    get waterfallOnButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Waterfall"]/parent::*//button[text()="On"]')}
+    get waterfallOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Waterfall"]/parent::*//button[text()="Off"]')}
 
-    get spaHeatOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:last-of-type>div>div>div>button:first-of-type')}
-    get spaHeatOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:last-of-type>div>div>div>button:last-of-type')}
-    get jetsOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2) button:first-of-type')}
-    get jetsOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(2) button:last-of-type')}
-    get spaLightOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(3) button:first-of-type')}
-    get spaLightOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(3) button:last-of-type')}
-    get blowerOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(4) button:first-of-type')}
-    get blowerOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(4) button:last-of-type')}
+    get spaHeatOnButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Spa Heat"]/parent::*//button[text()="On"]')}
+    get spaHeatOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Spa Heat"]/parent::*//button[text()="Off"]')}
+    get jetsOnButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Jets"]/parent::*//button[text()="On"]')}
+    get jetsOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Jets"]/parent::*//button[text()="Off"]')}
+    get spaLightOnButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Spa Light"]/parent::*//button[text()="On"]')}
+    get spaLightOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Spa Light"]/parent::*//button[text()="Off"]')}
+    get blowerOnButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Blower"]/parent::*//button[text()="On"]')}
+    get blowerOffButton() {return $('//*[@id="autelis-tabs-tabpane-autelis"]//div[text()="Blower"]/parent::*//button[text()="Off"]')}
 
     // 0 - lower; 1 - higher
     get poolHeatAdjButtons() {return $$('.row>div:first-of-type .float-right>button')}
@@ -176,14 +178,16 @@ class AutelisPage extends Page {
         browser.waitUntil(() => {
             return this.offButton.getAttribute('class').includes('btn-dark');
         }, 5000);
-        expect(this.switchMessageMain.getText()).to.equal('All Off');
+        browser.waitUntil(() => {
+            return this.switchMessageOff.isDisplayed();
+        }, 5000);
     }
 
     isPoolParameterDisplayed() {
         browser.waitUntil(() => {
             return this.poolButton.getAttribute('class').includes('btn-success');
         }, 5000);
-        expect(this.switchMessageMain.getText()).to.satisfy(poolInfo => {
+        expect(this.switchMessagePool.getText()).to.satisfy(poolInfo => {
             return /^Pool\s\d{2,3}°F$/.test(poolInfo);
         });
     }
@@ -198,7 +202,7 @@ class AutelisPage extends Page {
         browser.waitUntil(() => {
             return this.spaButton.getAttribute('class').includes('btn-danger');
         }, 5000);
-        expect(this.switchMessageMain.getText()).to.satisfy(spaInfo => {
+        expect(this.switchMessageSpa.getText()).to.satisfy(spaInfo => {
             return /^Spa\s\d{2,3}°F$/.test(spaInfo);
         });
     }
