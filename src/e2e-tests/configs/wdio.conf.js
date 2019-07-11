@@ -187,7 +187,6 @@ exports.config = {
         });
 
         global.expect = require('chai')
-            .use(require('chai-as-promised'))
             .use(require('chai-string')).expect;
     },
     /**
