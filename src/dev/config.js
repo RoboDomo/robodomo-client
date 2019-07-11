@@ -77,7 +77,7 @@ module.exports = {
   // If you define one or more theaters, each will have its own tab in the UI when the theater display is selected.
   theaters: [
     {
-      title: "Family Room", // name of theater
+      title: "Home Theater", // name of theater
       key: "theater", // a unique key (used as key param in tabs)
       // if you want TV channel info and network logos, you will need to subscribe ($25US/year) at
       // http://schedulesdirect.com and get the appropriate guide id for your cable TV provider.
@@ -103,7 +103,7 @@ module.exports = {
           // example config for an Apple TV
           name: "Apple TV", // name to be displayed in the UI
           type: "appletv", // type = appletv
-          device: "appletv", // hostname or IP address of your Apple TV
+          device: "appletv-theater", // hostname or IP address of your Apple TV
         },
         {
           // example config for a Denon AVR (audio visual receiver)
@@ -114,14 +114,14 @@ module.exports = {
         // Your theater has a TV.  Currently, RoboDomo supports LG and Sony/Bravia TVs.
         {
           // example config for an LG
-          name: "TV", // name to be displayed in the UI
+          name: "TVLG", // name to be displayed in the UI
           type: "lgtv", // type = lgtv
           favorites: lgtvFavorites, // favorite apps
           device: "lgtv", // hostname or IP of your LGTV
         },
         // or
         {
-          name: "TV", // name to be displayed in the UI
+          name: "TVSONY", // name to be displayed in the UI
           type: "bravia",
           favorites: braviaFavorites, // favorite apps to display in the UI
           device: "sony-tv", // hostname or IP of your Sony/Bravia TV
@@ -292,10 +292,10 @@ module.exports = {
         // a large 256x256 tile that renders the current date/time (with seconds) and sunrise/sunset
         { type: "clock" },
         // a large 256x256 tile that renders the current weather, updates in real time
-        { type: "weather", location: "zip-code" },
+        { type: "weather", location: "92211" },
 
         // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
-        { type: "thermostat", device: "structure/thermostat_name" },
+        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
         // a 256x128 tile that renders that status of your swimming pool controller.  Background is green if it is running.
         { type: "pool", controller: "autelis" },
         // a 256x128 tile that renders that status of your spa controller.  Background is red if it is running.
@@ -303,7 +303,7 @@ module.exports = {
         // a 256x256 tile that renders that stat of a theater, along with audio controls
         {
           type: "theater",
-          title: "Family Room", // name of theater to display, as defined in the theaters section above
+          title: "Home Theater", // name of theater to display, as defined in the theaters section above
         },
         // a 128x128 tile that monitors the state of one or more garage doors.  Renders red if any are open.
         {
@@ -331,9 +331,9 @@ module.exports = {
       tiles: [
         { type: "clock" },
         // a large 256x256 tile that renders the current weather, updates in real time
-        { type: "weather", location: "zip-code" },
+        { type: "weather", location: "92211" },
         // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
-        { type: "thermostat", device: "structure/thermostat_name" },
+        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
         { type: "spa", controller: "autelis" },
         {
           type: "garagedoor",
@@ -357,7 +357,7 @@ module.exports = {
     locations: [
       // name and zip code or (city name - see naming convention at here.com).
       { name: "New York, NY", device: "10001", default: true }, // default weather location
-      { name: "Los Angeles, CA", device: "90001" },
+      { name: "San Diego, CA", device: "92109" },
     ],
   },
   // pool controller
@@ -675,14 +675,14 @@ module.exports = {
     devices: [
       {
         name: "Family Room Apple TV",
-        device: "appletv",
+        device: "appletv-theater",
         serial: "C0xxxxxxxxx",
         credentials:
           "A very long string of random looking characters that you get by pairing with the Apple Tv",
       },
       {
         name: "Bedroom Apple TV",
-        device: "appletv2",
+        device: "appletv-mbr",
         serial: "C0xxxxxxxx",
         credentials:
           "A very long string of random looking characters that you get by pairing with the Apple Tv",

@@ -8,7 +8,7 @@ import SensorsTab from "./SensorsTab";
 
 const Sensors = () => {
   return (
-    <IonContent id="tab-dashboard">
+    <IonContent id="tab-sensors">
       <Tabs id="sensors-tabs" variant="pills" mountOnEnter unmountOnExit>
         <Tab title="Sensors" eventKey={1} key={1}>
           <SensorsTab />

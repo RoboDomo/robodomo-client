@@ -13,7 +13,7 @@ const Theater = () => {
     return null;
   }
   return (
-    <IonContent id="tab-dashboard">
+    <IonContent id="tab-theater">
       <Tabs
         id="theater-tabs"
         onSelect={eventKey => {

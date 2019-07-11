@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import useConfig from "@/hooks/useConfig";
 import {
   useContact,
@@ -9,7 +9,9 @@ import {
   useHumidity,
 } from "@/hooks/useSmartThings";
 
-import { Row, Col, Card } from "react-bootstrap";
+import s from "./SensorsTab.module.css";
+
+import { IonCard, IonCardHeader, IonCardContent, IonCol, IonRow } from "@ionic/react";
 
 const SensorsTab = () => {
   const Config = useConfig();
@@ -96,28 +98,28 @@ const SensorsTab = () => {
 
   const renderCard = type => {
     return (
-      <Col sm={4} style={{ marginTop: 20 }}>
-        <Card>
-          <Card.Header>{type.toUpperCase()}</Card.Header>
-          <Card.Body>{renderType(type)}</Card.Body>
-        </Card>
-      </Col>
+      <IonCol className={s.column}>
+        <IonCard color="dark">
+          <IonCardHeader color="medium">{type.toUpperCase()}</IonCardHeader>
+          <IonCardContent>{renderType(type)}</IonCardContent>
+        </IonCard>
+      </IonCol>
     );
   };
 
   let col = 0;
   return (
     <div style={{ padding: 20, marginTop: 10 }}>
-      <Row>
+      <IonRow>
         {renderCard(types[col++])}
         {renderCard(types[col++])}
         {renderCard(types[col++])}
-      </Row>
-      <Row>
+      </IonRow>
+      <IonRow>
         {renderCard(types[col++])}
         {renderCard(types[col++])}
         {renderCard(types[col++])}
-      </Row>
+      </IonRow>
     </div>
   );
 };

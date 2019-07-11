@@ -16,7 +16,7 @@ const Weather = () => {
     setActiveTab(eventKey);
   };
   return (
-    <IonContent id="tab-dashboard">
+    <IonContent id="tab-weather">
       <Tabs
         id="weather-tabs"
         onSelect={changeTab}

@@ -36,6 +36,13 @@ class MQTT extends EventEmitter {
             this.onMessageArrived(...payload);
           }
         }, process.env.REACT_APP_DEMO_TRAFFIC_INTERVAL || 5000);
+
+        this.getMessageByTopic = topic => {
+          const payload = getRandomMessage([topic]);
+          if (payload) {
+            this.onMessageArrived(...payload);
+          }
+        };
       });
 
       return;
@@ -72,6 +79,10 @@ class MQTT extends EventEmitter {
   }
 
   onMessageArrived(topic, payload) {
+    if (!payload) {
+      return;
+    }
+
     const message = payload.toString();
     localStorage.setItem(topic, message);
     this.cache[topic] = message;
@@ -111,6 +122,12 @@ class MQTT extends EventEmitter {
         "font-weight: bold;",
         "color:yellow; font-weight: bold"
       );
+
+      if (process.env.REACT_APP_DEMO === "true") {
+        if (this.getMessageByTopic) {
+          this.getMessageByTopic(topic);
+        }
+      }
 
       return;
     }
@@ -190,6 +207,12 @@ class MQTT extends EventEmitter {
       setTimeout(() => {
         this.onMessageArrived(topic.replace(/set/, "status"), message);
       }, Math.floor(Math.random() * 1500));
+      console.log(
+        "%cMQTT message >>> %c" + topic + " %c" + message,
+        "font-weight: bold;",
+        "color:red; font-weight: bold",
+        "color:blue; font-weight: bold"
+      );
       return;
     }
 
