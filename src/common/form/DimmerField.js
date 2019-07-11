@@ -2,7 +2,6 @@ import React /*, { useState, useEffect, useRef }*/ from "react";
 
 import s from "./DimmerField.module.css";
 import { IonToggle, IonRange, IonIcon} from '@ionic/react';
-import Toggle from "react-bootstrap-toggle";
 
 const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) => {
   const applyValueChange = val => {
@@ -27,7 +26,7 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
     <div style={{ display: "flex", marginTop: 10 }}>
       <div style={{ marginTop: 10, flex: 1 }}>{label}</div>
       <div style={{ whiteSpace: "nowrap", display: "flex" }}>
-        <Toggle active={toggled} onClick={handleToggle} style={{ flex: 1, marginRight: 20 }} />
+        <IonToggle checked={toggled} onChange={handleToggle} className={s.toggle}></IonToggle>
         <div style={{ flex: 1, marginTop: 0 }}>
           <IonRange
             className = {s.range}
