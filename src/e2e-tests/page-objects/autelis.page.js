@@ -1,6 +1,7 @@
 // autelis.page.js
 import Page from './page';
 import MenuComponent from './menu.component';
+let counter = 0;
 
 class AutelisPage extends Page {
     get pageContent() {return $('//div[contains(@class, "ion-page")]')}
@@ -8,7 +9,8 @@ class AutelisPage extends Page {
     get offButton() {return $('//button[text()[contains(., "OFF")]]')}
     get poolButton() {return $('//button[text()[contains(., "POOL")]]')}
     get spaButton() {return $('//button[text()[contains(., "SPA")]]')}
-    get switchMessage() {return $('#autelis-tabs-tabpane-autelis>div>div:first-of-type>div:nth-of-type(2)>div:nth-of-type(2)')}
+    get switchMessageMain() {return $('#autelis-tabs-tabpane-autelis>div>div:first-of-type>div:nth-of-type(2)>div:nth-of-type(2)')}
+    get switchMessageSolar() {return $('#autelis-tabs-tabpane-autelis>div>div:first-of-type>div:nth-of-type(3)>div:nth-of-type(2)')}
 
     get solarOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:nth-of-type(3)>div>button:first-of-type')}
     get solarOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div>div:nth-of-type(3)>div>button:last-of-type')}
@@ -31,6 +33,29 @@ class AutelisPage extends Page {
     get blowerOnButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(4) button:first-of-type')}
     get blowerOffButton() {return $('#autelis-tabs-tabpane-autelis>div>div:nth-of-type(2)>div:nth-of-type(2)>div:nth-of-type(4) button:last-of-type')}
 
+    // 0 - lower; 1 - higher
+    get poolHeatAdjButtons() {return $$('.row>div:first-of-type .float-right>button')}
+    get poolHeatCounter() {return $('.row>div:first-of-type .float-right>input')}
+    // 0 - lower; 1 - higher
+    get spaHeatAdjButtons() {return $$('.row>div:last-of-type .float-right>button')}
+    get spaHeatCounter() {return $('.row>div:last-of-type .float-right>input')}
+
+    checkPoolHeatDecreased() {
+        expect(parseInt(this.poolHeatCounter.getValue())).to.equal(counter - 1);
+    }
+
+    checkPoolHeatIncreased() {
+        expect(parseInt(this.poolHeatCounter.getValue())).to.equal(counter + 1);
+    }
+
+    checkSpaHeatDecreased() {
+        expect(parseInt(this.spaHeatCounter.getValue())).to.equal(counter - 1);
+    }
+
+    checkSpaHeatIncreased() {
+        expect(parseInt(this.spaHeatCounter.getValue())).to.equal(counter + 1);
+    }
+
     clickBlowerOnButton() {
         this.blowerOnButton.click();
     }
@@ -45,6 +70,26 @@ class AutelisPage extends Page {
 
     clickCleanerOffButton() {
         this.cleanerOffButton.click();
+    }
+
+    clickDecreasePoolHeat() {
+        counter = parseInt(this.poolHeatCounter.getValue());
+        this.poolHeatAdjButtons[0].click();
+    }
+
+    clickDecreaseSpaHeat() {
+        counter = parseInt(this.spaHeatCounter.getValue());
+        this.spaHeatAdjButtons[0].click();
+    }
+
+    clickIncreasePoolHeat() {
+        counter = parseInt(this.poolHeatCounter.getValue());
+        this.poolHeatAdjButtons[1].click();
+    }
+
+    clickIncreaseSpaHeat() {
+        counter = parseInt(this.spaHeatCounter.getValue());
+        this.spaHeatAdjButtons[1].click();
     }
 
     clickJetsOnButton () {
@@ -130,24 +175,30 @@ class AutelisPage extends Page {
     isPoolAndSpaParametersTurnedOff() {
         browser.waitUntil(() => {
             return this.offButton.getAttribute('class').includes('btn-dark');
-        }, 10000);
-        expect(this.switchMessage.getText()).to.equal('All Off');
+        }, 5000);
+        expect(this.switchMessageMain.getText()).to.equal('All Off');
     }
 
-    isPoolParametersAreDisplayed() {
+    isPoolParameterDisplayed() {
         browser.waitUntil(() => {
             return this.poolButton.getAttribute('class').includes('btn-success');
         }, 5000);
-        expect(this.switchMessage.getText()).to.satisfy(poolInfo => {
+        expect(this.switchMessageMain.getText()).to.satisfy(poolInfo => {
             return /^Pool\s\d{2,3}°F$/.test(poolInfo);
         });
     }
 
-    isSpaParametersAreDisplayed() {
+    isSolarParameterDisplayed() {
+        expect(this.switchMessageSolar.getText()).to.satisfy(solarInfo => {
+            return /^Solar\s\d{2,3}°F$/.test(solarInfo);
+        });
+    }
+
+    isSpaParameterDisplayed() {
         browser.waitUntil(() => {
             return this.spaButton.getAttribute('class').includes('btn-danger');
         }, 5000);
-        expect(this.switchMessage.getText()).to.satisfy(spaInfo => {
+        expect(this.switchMessageMain.getText()).to.satisfy(spaInfo => {
             return /^Spa\s\d{2,3}°F$/.test(spaInfo);
         });
     }

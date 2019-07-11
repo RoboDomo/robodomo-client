@@ -98,21 +98,24 @@ Then(/^(Hallway Thermostat|Entryway Nest Protect) tab is loaded$/, {}, (tabName)
     }
 });
 
-Then(/^(All Autelis SPA-POOL parameters should be turned off|Pool parameters are displayed|Spa parameters are displayed)$/, {}, (parametersStatus) => {
+Then(/^(All Autelis SPA-POOL parameters should be turned off|Pool parameters are displayed|Spa parameters are displayed|Solar parameters are displayed)$/, (parametersStatus) => {
     switch (parametersStatus) {
         case 'All Autelis SPA-POOL parameters should be turned off':
             AutelisPage.isPoolAndSpaParametersTurnedOff();
             break;
         case 'Pool parameters are displayed':
-            AutelisPage.isPoolParametersAreDisplayed();
+            AutelisPage.isPoolParameterDisplayed();
             break;
         case 'Spa parameters are displayed':
-            AutelisPage.isSpaParametersAreDisplayed();
+            AutelisPage.isSpaParameterDisplayed();
+            break;
+        case 'Solar parameters are displayed':
+            AutelisPage.isSolarParameterDisplayed();
             break;
     }
 });
 
-Then(/^Autelis (.*) button is (enabled|disabled)$/, {}, (buttonName, state) => {
+Then(/^Autelis (Solar|Cleaner|Pool Heat|Pool Light|Waterfall|Spa Heat|Jets|Spa Light|Blower) button is (enabled|disabled)$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Solar':
             state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.solarOnButton) :
@@ -149,6 +152,17 @@ Then(/^Autelis (.*) button is (enabled|disabled)$/, {}, (buttonName, state) => {
         case 'Blower':
             state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.blowerOnButton) :
                 AutelisPage.isButtonDisabled(AutelisPage.blowerOffButton);
+            break;
+    }
+});
+
+Then(/^(Pool|Spa) heat is (increased|decreased) on Autelis page$/, (type, action) => {
+    switch (type) {
+        case 'Pool':
+            action === 'increased' ? AutelisPage.checkPoolHeatIncreased() : AutelisPage.checkPoolHeatDecreased();
+            break;
+        case 'Spa':
+            action === 'increased' ? AutelisPage.checkSpaHeatIncreased() : AutelisPage.checkSpaHeatDecreased();
             break;
     }
 });

@@ -12,7 +12,6 @@ Given(/^User loads the RoboDomo web app$/, { wrapperOptions: { retry: 2 } }, () 
     new Page('','/').open();
 });
 
-
 Given(/^User navigates to (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) page$/, { wrapperOptions: { retry: 2 } }, (page) => {
         switch (page) {
         case 'Autelis':

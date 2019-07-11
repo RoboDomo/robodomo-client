@@ -78,7 +78,7 @@ When(/^User clicks on (Hallway Thermostat|Entryway Nest Protect) tab$/, {wrapper
     }
 });
 
-When(/^User clicks on (.*) button on Autelis page/, (buttonName) => {
+When(/^User clicks on (OFF|POOL|SPA) button on Autelis page$/, (buttonName) => {
     switch (buttonName) {
         case 'OFF':
             AutelisPage.clickOffButton();
@@ -92,7 +92,7 @@ When(/^User clicks on (.*) button on Autelis page/, (buttonName) => {
     }
 });
 
-When(/^User clicks on (.*) button into state (On|Off) on Autelis page/, (buttonName, state) => {
+When(/^User clicks on (Solar|Cleaner|Pool Heat|Pool Light|Waterfall|Spa Heat|Jets|Spa Light|Blower) button to change state to (On|Off) on Autelis page$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Solar':
             state === 'On' ? AutelisPage.clickSolarOnButton() : AutelisPage.clickSolarOffButton();
@@ -120,6 +120,17 @@ When(/^User clicks on (.*) button into state (On|Off) on Autelis page/, (buttonN
             break;
         case 'Blower':
             state === 'On' ? AutelisPage.clickBlowerOnButton() : AutelisPage.clickBlowerOffButton();
+            break;
+    }
+});
+
+When(/^User (decreases|increases) (Pool|Spa) heat on Autelis page$/, (action, type) => {
+    switch (type) {
+        case 'Pool':
+            action === 'increases' ? AutelisPage.clickIncreasePoolHeat() : AutelisPage.clickDecreasePoolHeat();
+            break;
+        case 'Spa':
+            action === 'increases' ? AutelisPage.clickIncreaseSpaHeat() : AutelisPage.clickDecreaseSpaHeat();
             break;
     }
 });
