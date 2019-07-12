@@ -1,6 +1,6 @@
 require('@babel/register');
 
-const implicit = 30000, pageLoad = 30000, script = 15000;
+const implicit = 15000, pageLoad = 30000, script = 15000;
 
 exports.config = {
     //
@@ -143,7 +143,7 @@ exports.config = {
         strict: false,       // <boolean> fail if there are any undefined or pending steps
         tags: ['@automated'],            // <string[]> (expression) only execute the features or scenarios with tags matching the expression
         tagExpression: '', // <string> Only execute the features or scenarios with tags matching the expression.
-        timeout: 20000,       // <number> timeout for step definitions
+        timeout: 90000,       // <number> timeout for step definitions
         ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
     },
 
@@ -185,10 +185,6 @@ exports.config = {
             'pageLoad': pageLoad,
             'script': script
         });
-
-        global.expect = require('chai')
-            .use(require('chai-as-promised'))
-            .use(require('chai-string')).expect;
     },
     /**
      * Runs before a WebdriverIO command gets executed.
