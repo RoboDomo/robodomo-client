@@ -1,6 +1,8 @@
 import React, { useReducer } from "react";
 import useConfig from "@/hooks/useConfig";
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
+import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react"
+import s from "./AutelisTab.module.css";
 
 import NumberField from "@/common/form/NumberField";
 import Clock from "@/common/Clock";
@@ -82,8 +84,8 @@ const AutelisTab = () => {
   const renderMainSwitch = () => {
     const renderOffButton = () => {
       return (
-        <Button
-          variant={!poolOn && !spaOn ? "dark" : undefined}
+        <IonSegmentButton
+          checked={!poolOn && !spaOn}
           onClick={() => {
             if (poolOn) {
               dispatch({ type: "pump", value: false });
@@ -99,14 +101,14 @@ const AutelisTab = () => {
           }}
         >
           OFF
-        </Button>
+        </IonSegmentButton>
       );
     };
 
     const renderPoolButton = () => {
       return (
-        <Button
-          variant={poolOn ? "success" : undefined}
+        <IonSegmentButton
+          checked={poolOn}
           onClick={() => {
             if (!poolOn) {
               if (!pump) {
@@ -117,14 +119,14 @@ const AutelisTab = () => {
           }}
         >
           POOL
-        </Button>
+        </IonSegmentButton>
       );
     };
 
     const renderSpaButton = () => {
       return (
-        <Button
-          variant={spaOn ? "danger" : undefined}
+        <IonSegmentButton
+          checked={spaOn}
           onClick={() => {
             if (!spaOn) {
               if (!pump) {
@@ -135,7 +137,7 @@ const AutelisTab = () => {
           }}
         >
           SPA
-        </Button>
+        </IonSegmentButton>
       );
     };
 
@@ -163,11 +165,11 @@ const AutelisTab = () => {
           display: "flex",
         }}
       >
-        <ButtonGroup style={{ flex: 1 }}>
+        <IonSegment className={s.mainSwitch}>
           {renderOffButton()}
           {renderPoolButton()}
           {renderSpaButton()}
-        </ButtonGroup>
+        </IonSegment>
         <div
           style={{
             textAlign: "center",
@@ -189,28 +191,26 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <ButtonGroup style={{ flex: 1 }}>
-          <Button
-            variant={solarOn ? "success" : undefined}
+        <IonSegment className={s.toggle}>
+          <IonSegmentButton 
+            checked={solarOn} 
             onClick={() => {
               if (!solarOn) {
                 dispatch({ type: "solarHeat", value: true });
               }
-            }}
-          >
-            On
-          </Button>
-          <Button
-            variant={!solarOn ? "dark" : undefined}
+            }}>
+            <IonLabel>On</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton 
+            checked={!solarOn} 
             onClick={() => {
               if (solarOn) {
                 dispatch({ type: "solarHeat", value: false });
               }
-            }}
-          >
-            Off
-          </Button>
-        </ButtonGroup>
+            }}>
+            <IonLabel>Off</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
         <div
           style={{
             textAlign: "center",
@@ -232,28 +232,28 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <ButtonGroup style={{ flex: 1 }}>
-          <Button
-            variant={cleaner ? "success" : undefined}
+        <IonSegment className={s.toggle}>
+          <IonSegmentButton
+            checked={cleaner}
             onClick={() => {
               if (!cleaner) {
                 dispatch({ type: "cleaner", value: true });
               }
             }}
           >
-            On
-          </Button>
-          <Button
-            variant={!cleaner ? "dark" : undefined}
+            <IonLabel>On</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton
+            checked={!cleaner}
             onClick={() => {
               if (cleaner) {
                 dispatch({ type: "cleaner", value: false });
               }
             }}
           >
-            Off
-          </Button>
-        </ButtonGroup>
+            <IonLabel>Off</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
         <div
           style={{
             textAlign: "center",
@@ -284,28 +284,28 @@ const AutelisTab = () => {
         >
           Waterfall
         </div>
-        <ButtonGroup style={{ flex: 1 }}>
-          <Button
-            variant={waterfall ? "success" : undefined}
+        <IonSegment className={s.toggle}>
+          <IonSegmentButton
+            checked={waterfall}
             onClick={() => {
               if (!waterfall) {
                 dispatch({ type: "waterfall", value: true });
               }
             }}
           >
-            On
-          </Button>
-          <Button
-            variant={!waterfall ? "dark" : undefined}
+            <IonLabel>On</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton
+            checked={!waterfall}
             onClick={() => {
               if (waterfall) {
                 dispatch({ type: "waterfall", value: false });
               }
             }}
           >
-            Off
-          </Button>
-        </ButtonGroup>
+            <IonLabel>Off</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
       </div>
     );
   };
@@ -327,28 +327,28 @@ const AutelisTab = () => {
         >
           Pool Light
         </div>
-        <ButtonGroup style={{ flex: 1 }}>
-          <Button
-            variant={poolLight ? "success" : undefined}
+        <IonSegment className={s.toggle}>
+          <IonSegmentButton
+            checked={poolLight}
             onClick={() => {
               if (!poolLight) {
                 dispatch({ type: "poolLight", value: true });
               }
             }}
           >
-            On
-          </Button>
-          <Button
-            variant={!poolLight ? "dark" : undefined}
+            <IonLabel>On</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton
+            checked={!poolLight}
             onClick={() => {
               if (poolLight) {
                 dispatch({ type: "poolLight", value: false });
               }
             }}
           >
-            Off
-          </Button>
-        </ButtonGroup>
+            <IonLabel>Off</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
       </div>
     );
   };
@@ -371,9 +371,9 @@ const AutelisTab = () => {
           Pool Heat
         </div>
         <div style={{ flex: 0.6, display: "flex" }}>
-          <ButtonGroup style={{ flex: 1 }}>
-            <Button
-              variant={poolHeat ? "danger" : undefined}
+          <IonSegment className={s.toggle}>
+            <IonSegmentButton
+              checked={poolHeat}
               onClick={() => {
                 if (!poolHeat) {
                   if (spaHeat) {
@@ -383,19 +383,19 @@ const AutelisTab = () => {
                 }
               }}
             >
-              On
-            </Button>
-            <Button
-              variant={!poolHeat ? "dark" : undefined}
+              <IonLabel>On</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton
+              checked={!poolHeat}
               onClick={() => {
                 if (poolHeat) {
                   dispatch({ type: "poolHeat", value: false });
                 }
               }}
             >
-              Off
-            </Button>
-          </ButtonGroup>
+              <IonLabel>Off</IonLabel>
+            </IonSegmentButton>
+          </IonSegment>
         </div>
         <div syle={{ flex: 0.2 }}>
           <NumberField
@@ -423,9 +423,9 @@ const AutelisTab = () => {
         }}
       >
         <div style={{ flex: 0.6, display: "flex" }}>
-          <ButtonGroup style={{ flex: 1 }}>
-            <Button
-              variant={spaHeat ? "danger" : undefined}
+          <IonSegment className={s.toggle}>
+            <IonSegmentButton
+              checked={spaHeat}
               onClick={() => {
                 if (!spaHeat) {
                   if (!spa) {
@@ -435,19 +435,19 @@ const AutelisTab = () => {
                 }
               }}
             >
-              On
-            </Button>
-            <Button
-              variant={!spaHeat ? "dark" : undefined}
+              <IonLabel>On</IonLabel>
+            </IonSegmentButton>
+            <IonSegmentButton
+              checked={!spaHeat}
               onClick={() => {
                 if (spaHeat) {
                   dispatch({ type: "spaHeat", value: false });
                 }
               }}
             >
-              Off
-            </Button>
-          </ButtonGroup>
+              <IonLabel>Off</IonLabel>
+            </IonSegmentButton>
+          </IonSegment>
         </div>
         <div syle={{ flex: 0.2 }}>
           <NumberField
@@ -483,28 +483,28 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <ButtonGroup style={{ flex: 1 }}>
-          <Button
-            variant={spaLight ? "success" : undefined}
+        <IonSegment className={s.toggle}>
+          <IonSegmentButton
+            checked={spaLight}
             onClick={() => {
               if (!spaLight) {
                 dispatch({ type: "spaLight", value: true });
               }
             }}
           >
-            On
-          </Button>
-          <Button
-            variant={!spaLight ? "dark" : undefined}
+            <IonLabel>On</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton
+            checked={!spaLight}
             onClick={() => {
               if (spaLight) {
                 dispatch({ type: "spaLight", value: false });
               }
             }}
           >
-            Off
-          </Button>
-        </ButtonGroup>
+            <IonLabel>Off</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
         <div
           style={{
             textAlign: "center",
@@ -526,28 +526,28 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <ButtonGroup style={{ flex: 1 }}>
-          <Button
-            variant={jets ? "success" : undefined}
+        <IonSegment className={s.toggle}>
+          <IonSegmentButton
+            checked={jets}
             onClick={() => {
               if (!jets) {
                 dispatch({ type: "jet", value: true });
               }
             }}
           >
-            On
-          </Button>
-          <Button
-            variant={!jets ? "dark" : undefined}
+            <IonLabel>On</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton
+            checked={!jets}
             onClick={() => {
               if (jets) {
                 dispatch({ type: "jet", value: false });
               }
             }}
           >
-            Off
-          </Button>
-        </ButtonGroup>
+            <IonLabel>Off</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
         <div
           style={{
             textAlign: "center",
@@ -569,28 +569,28 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <ButtonGroup style={{ flex: 1 }}>
-          <Button
-            variant={blower ? "success" : undefined}
+        <IonSegment className={s.toggle}>
+          <IonSegmentButton
+            checked={blower}
             onClick={() => {
               if (!blower) {
                 dispatch({ type: "blower", value: true });
               }
             }}
           >
-            On
-          </Button>
-          <Button
-            variant={!blower ? "dark" : undefined}
+            <IonLabel>On</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton
+            checked={!blower}
             onClick={() => {
               if (blower) {
                 dispatch({ type: "blower", value: false });
               }
             }}
           >
-            Off
-          </Button>
-        </ButtonGroup>
+            <IonLabel>Off</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
         <div
           style={{
             textAlign: "center",
