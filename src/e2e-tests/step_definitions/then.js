@@ -98,7 +98,7 @@ Then(/^(Hallway Thermostat|Entryway Nest Protect) tab is loaded$/, {}, (tabName)
     }
 });
 
-Then(/^(All Autelis SPA-POOL parameters should be turned off|Pool parameters are displayed|Spa parameters are displayed|Solar parameters are displayed)$/, (parametersStatus) => {
+Then(/^(SPA-POOL parameters turned off|Pool parameters are displayed|Spa and Solar parameters are displayed) on Autelis page$/, (parametersStatus) => {
     switch (parametersStatus) {
         case 'All Autelis SPA-POOL parameters should be turned off':
             AutelisPage.isPoolAndSpaParametersTurnedOff();
@@ -106,11 +106,8 @@ Then(/^(All Autelis SPA-POOL parameters should be turned off|Pool parameters are
         case 'Pool parameters are displayed':
             AutelisPage.isPoolParameterDisplayed();
             break;
-        case 'Spa parameters are displayed':
-            AutelisPage.isSpaParameterDisplayed();
-            break;
-        case 'Solar parameters are displayed':
-            AutelisPage.isSolarParameterDisplayed();
+        case 'Spa and Solar parameters are displayed':
+            AutelisPage.isSpaAndSolarParameterDisplayed();
             break;
     }
 });
