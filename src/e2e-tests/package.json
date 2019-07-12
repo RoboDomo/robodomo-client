@@ -25,8 +25,6 @@
     "@wdio/sync": "5.10.8",
     "appium": "~1.14.0",
     "axios": "~0.19.0",
-    "chai": "^4.1.2",
-    "chai-string": "latest",
     "chromedriver": "~75.0.1",
     "deepmerge": "~3.3.0",
     "expect": "~23.6.0",
