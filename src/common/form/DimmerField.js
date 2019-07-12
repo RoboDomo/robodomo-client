@@ -34,6 +34,7 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
             value={value || 0}
             step={1}
             onIonChange={handleSliderChange}
+            debounce={100}
             min={1}
             max={100}
           >
