@@ -1,4 +1,5 @@
 // autelis.page.js
+import expect from 'expect';
 import Page from './page';
 import MenuComponent from './menu.component';
 let counter = 0;
@@ -187,21 +188,15 @@ class AutelisPage extends Page {
         browser.waitUntil(() => {
             return this.poolButton.getAttribute('class').includes('btn-success');
         }, 5000);
-        expect(this.switchMessagePool.getText()).to.satisfy(poolInfo => {
-            return /^Pool\s\d{2,3}°F$/.test(poolInfo);
-        });
+        expect(this.switchMessagePool.getText()).toMatch(/^Pool\s\d{2,3}°F$/);
     }
 
     isSpaAndSolarParameterDisplayed() {
         browser.waitUntil(() => {
             return this.spaButton.getAttribute('class').includes('btn-danger');
         }, 5000);
-        expect(this.switchMessageSpa.getText()).to.satisfy(spaInfo => {
-            return /^Spa\s\d{2,3}°F$/.test(spaInfo);
-        });
-        expect(this.switchMessageSolar.getText()).to.satisfy(solarInfo => {
-            return /^Solar\s\d{2,3}°F$/.test(solarInfo);
-        });
+        expect(this.switchMessageSpa.getText()).toMatch(/^Spa\s\d{2,3}°F$/);
+        expect(this.switchMessageSolar.getText()).toMatch(/^Solar\s\d{2,3}°F$/);
     }
 
     goToAutelisTab() {
