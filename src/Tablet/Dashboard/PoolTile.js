@@ -39,19 +39,17 @@ const PoolTile = ({ device }) => {
     } else {
       return (
         <div>
-          <div style={{ fontSize: 60 }}>{"Pool Off"}</div>
+          <div style={{ fontSize: 50 }}>{"Pool Off"}</div>
         </div>
       );
     }
   };
 
   const on = autelis.pump,
-    backgroundColor = on ? (autelis.poolHeat === "enabled" ? "red" : "green") : undefined,
-    color = on ? "white" : undefined;
+    color = on ? (autelis.poolHeat === "enabled" ? "danger" : "success") : undefined;
 
   return (
     <Tile
-      backgroundColor={backgroundColor}
       color={color}
       width={2}
       height={1}
