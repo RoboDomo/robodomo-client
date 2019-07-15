@@ -1,0 +1,11 @@
+.tile {
+    display: flex!important;
+    font-weight: bold;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px!important;
+    margin-left: 4px!important;
+    margin-right: 4px!important;
+    margin-top: 4px!important;
+}
