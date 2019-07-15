@@ -1,4 +1,5 @@
 import React from "react";
+import { format, parseISO } from "date-fns";
 
 import Clock from "@/common/Clock";
 import useConfig from "@/hooks/useConfig";
@@ -53,14 +54,7 @@ const WeatherTab = ({ location }) => {
           if (data.localTime === undefined) {
             return null;
           }
-          const t = "" + data.localTime,
-            timeStamp = parseInt(t.substr(0, t.length - 8), 10),
-            localTime =
-              timeStamp === 12
-                ? `12:00 PM`
-                : timeStamp > 12
-                ? `${timeStamp - 12}:00 PM`
-                : `${timeStamp}:00 AM`;
+          const localTime = format(parseISO(data.localTime), "h:mm aa");
           return (
             <div
               key={i}
@@ -75,7 +69,12 @@ const WeatherTab = ({ location }) => {
               }}
             >
               <div style={{ fontSize: 12 }}>{localTime}</div>
-              <img style={styles.img_small} alt={data.iconName} src={data.iconLink} />
+              <img
+                style={styles.img_small}
+                alt={data.skyDescription}
+                title={data.description}
+                src={data.iconLink}
+              />
               <div style={{ fontWeight: "bold", fontSize: 20 }}>
                 <Temperature value={data.temperature} />
               </div>

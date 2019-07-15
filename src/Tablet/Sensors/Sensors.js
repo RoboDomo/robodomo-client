@@ -15,17 +15,13 @@ import SensorsTab from "./SensorsTab";
 
 const Sensors = () => {
   return (
-    <IonTabs id="dashboard-tabs">
-      <IonRouterOutlet>
-        <Route path="/:tab(sensors)" component={SensorsTab} exact={true} />
-      </IonRouterOutlet>
-      <IonTabBar slot="top">
-        <IonTabButton>
-          <IonLabel>Sensors</IonLabel>
-          {/* <SensorsTab /> */}
-        </IonTabButton>
-      </IonTabBar>
-    </IonTabs>
+    <IonContent id="tab-sensors">
+      <Tabs id="sensors-tabs" variant="pills" mountOnEnter unmountOnExit>
+        <Tab title="Sensors" eventKey={1} key={1}>
+          <SensorsTab />
+        </Tab>
+      </Tabs>
+    </IonContent>
   );
 };
 

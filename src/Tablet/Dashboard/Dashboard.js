@@ -39,7 +39,31 @@ const Dashboard = () => {
     setActiveTab(eventKey);
   };
   return (
-    <IonSegment>
+    <IonContent id="tab-dashboard">
+      <Tabs
+        id="dashboard-tabs"
+        onSelect={changeTab}
+        activeKey={activeTab}
+        variant="pills"
+        mountOnEnter
+        unmountOnExit
+      >
+        {config.dashboards.map(dashboard => {
+          return (
+            <Tab eventKey={dashboard.key} key={dashboard.key} title={dashboard.title}>
+              <DashboardTab dashboard={dashboard} />
+            </Tab>
+          );
+        })}
+      </Tabs>
+    </IonContent>
+  );
+};
+
+//
+export default Dashboard;
+
+{/* <IonSegment>
       {config.dashboards.map(dashboard => {
         return (
           <IonSegmentButton onIonSelect={changeTab} checked>
@@ -47,33 +71,4 @@ const Dashboard = () => {
           </IonSegmentButton>
         );
       })}
-    </IonSegment>
-  );
-};
-
-//
-export default Dashboard;
-
-{/* <IonTabs id="dashboard-tabs">
-      {config.dashboards.map(dashboard => {
-        return (
-          <IonTab
-            onClick={changeTab}
-            tab={dashboard.key}
-            component={() => <DashboardTab dashboard={dashboard} />}
-          >
-          </IonTab>
-        );
-      })}
-
-      <IonTabBar slot="top">
-        {config.dashboards.map(dashboard => {
-          console.log(dashboard.key);
-          return (
-            <IonTabButton tab={dashboard.key}>
-              <IonLabel>{dashboard.title}</IonLabel>
-            </IonTabButton>
-          );
-        })}
-      </IonTabBar>
-    </IonTabs> */}
+    </IonSegment> */}

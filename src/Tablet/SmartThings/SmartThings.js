@@ -57,7 +57,7 @@ const SmartThings = () => {
   }
 
   return (
-    <IonContent id="tab-dashboard">
+    <IonContent id="tab-smartthings">
       <Tabs
         id="smartthings-tabs"
         onSelect={eventKey => {

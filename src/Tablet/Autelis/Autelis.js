@@ -17,7 +17,7 @@ const Autelis = () => {
   }
 
   return (
-    <IonContent id="tab-dashboard">
+    <IonContent id="tab-autelis">
       <Tabs
         id="autelis-tabs"
         onSelect={eventKey => {
