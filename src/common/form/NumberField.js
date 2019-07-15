@@ -1,8 +1,6 @@
 import React, { useState, useRef } from "react";
 
-import { Button } from "react-bootstrap";
-
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { IonInput, IonButton, IonIcon, IonItem } from "@ionic/react"
 
 //import DelayedTask from "@/lib/DelayedTask";
 
@@ -40,16 +38,15 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
   return (
     <div style={{ display: "flex" }}>
       <div style={{ marginTop: 8, flex: 1 }}>{label}</div>
-      <div className="float-right" style={{ whiteSpace: "nowrap" }}>
-        <Button
-          variant="primary"
+      <IonItem className="float-right">
+        <IonButton 
           onClick={() => {
             change(val - step);
           }}
         >
-          <FaChevronLeft />
-        </Button>
-        <input
+          <IonIcon name="arrow-dropleft"></IonIcon>
+        </IonButton>
+        <IonInput
           type="text"
           style={{
             width: 40,
@@ -59,15 +56,14 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
           value={val}
           readOnly
         />
-        <Button
-          variant="primary"
+        <IonButton
           onClick={() => {
             change(val + step);
           }}
         >
-          <FaChevronRight />
-        </Button>
-      </div>
+          <IonIcon name="arrow-dropright"></IonIcon>
+        </IonButton>
+      </IonItem>
     </div>
   );
 };

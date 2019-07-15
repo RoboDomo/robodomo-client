@@ -15,8 +15,8 @@ class AutelisPage extends Page {
     get switchMessageSpa() {return $('//*[contains(@class, "AutelisTab_mainSwitch")]/parent::*//div[text()[starts-with(., "Spa")]]')}
     get switchMessageSolar() {return $('*//div[text()[starts-with(., "Solar")]]')}
 
-        // 0 - Solar; 1 - Cleaner; 2 - Pool Heat; 3 - Pool Light; 4 - Waterfall; 5 - Spa Heat;
-        // 6 - Jets; 7 - Spa Light; 8 - Blower
+    // 0 - Solar; 1 - Cleaner; 2 - Pool Heat; 3 - Pool Light; 4 - Waterfall; 5 - Spa Heat;
+    // 6 - Jets; 7 - Spa Light; 8 - Blower
     get onButton() {return $$('//*[contains(@class, "AutelisTab_toggle")]//ion-label[text()="On"]')}
     get onButtonStatus() {return $$('//*[contains(@class, "AutelisTab_toggle")]//ion-segment-button[1]')}
     get offButton() {return $$('//*[contains(@class, "AutelisTab_toggle")]//ion-label[text()="Off"]')}
@@ -69,25 +69,25 @@ class AutelisPage extends Page {
     clickDecreasePoolHeat() {
         counter = parseInt(this.poolSpaHeatCounter[0].getValue());
         this.poolSpaHeatAdjButtons[0].click();
-    //    browser.pause(200);
+        //    browser.pause(200);
     }
 
     clickDecreaseSpaHeat() {
         counter = parseInt(this.poolSpaHeatCounter[1].getValue());
         this.poolSpaHeatAdjButtons[2].click();
-    //    browser.pause(200);
+        //    browser.pause(200);
     }
 
     clickIncreasePoolHeat() {
         counter = parseInt(this.poolSpaHeatCounter[0].getValue());
         this.poolSpaHeatAdjButtons[1].click();
-    //    browser.pause(200);
+        //    browser.pause(200);
     }
 
     clickIncreaseSpaHeat() {
         counter = parseInt(this.poolSpaHeatCounter[1].getValue());
         this.poolSpaHeatAdjButtons[3].click();
-   //     browser.pause(200);
+        //     browser.pause(200);
     }
 
     clickJetsOnButton () {
