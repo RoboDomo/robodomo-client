@@ -1,17 +1,5 @@
 import React, { useState } from "react";
-import {
-  IonContent,
-  IonTabs,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonLabel,
-  IonIcon,
-  IonRoute,
-  IonTab,
-  IonSegment,
-  IonSegmentButton,
-} from "@ionic/react";
+import { IonContent } from "@ionic/react";
 
 import Aux from "../../../src/Tablet/hoc/Aux";
 import useConfig from "@/hooks/useConfig";
@@ -62,13 +50,3 @@ const Dashboard = () => {
 
 //
 export default Dashboard;
-
-{/* <IonSegment>
-      {config.dashboards.map(dashboard => {
-        return (
-          <IonSegmentButton onIonSelect={changeTab} checked>
-            <IonLabel>{dashboard.title}</IonLabel>
-          </IonSegmentButton>
-        );
-      })}
-    </IonSegment> */}

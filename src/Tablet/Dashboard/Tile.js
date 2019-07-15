@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { IonCardContent, IonContent, IonCard } from '@ionic/react';
+import { IonCardContent, IonCard } from '@ionic/react';
 
 const Tile = ({
   readOnly, // cannot be pressed if true

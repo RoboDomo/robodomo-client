@@ -45,6 +45,7 @@ const WeatherTile = () => {
           <img
             alt={now.iconName}
             style={{
+              verticalAlign: "bottom",
               display: "block",
               marginLeft: "auto",
               marginRight: "auto",

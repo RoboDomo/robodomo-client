@@ -12,7 +12,7 @@ import SwitchTile from "./SwitchTile";
 import TheaterTile from "./TheaterTile";
 import ThermostatTile from "./ThermostatTile";
 import WeatherTile from "./WeatherTile";
-import { IonGrid, IonRouterOutlet, IonCol, IonRow, IonContent } from '@ionic/react';
+import { IonGrid, IonCol, IonRow } from '@ionic/react';
 
 const DashboardTab = ({ dashboard }) => {
   const tileDefinitions = dashboard.tiles;
