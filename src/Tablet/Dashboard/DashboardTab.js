@@ -116,15 +116,3 @@ const DashboardTab = ({ dashboard }) => {
 };
 export default DashboardTab;
 
-{/* <div
-      style={{
-        display: "inline-grid",
-        gridTemplateColumns: "auto auto auto auto auto auto auto auto",
-        gridTemplateRows: "auto auto auto auto",
-        gridGap: 0,
-        gridAutoRows: "minmax(256px, auto)",
-        gridAutoFlow: "dense",
-      }}
-    >
-      {tiles.current}
-</div> */}
