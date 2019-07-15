@@ -1,4 +1,4 @@
-.tile {
+.card {
     display: flex!important;
     font-weight: bold;
     flex-direction: column;
@@ -8,4 +8,9 @@
     margin-left: 4px!important;
     margin-right: 4px!important;
     margin-top: 4px!important;
+}
+
+.content {
+    padding-left: 4px!important;
+    padding-right: 4px!important;
 }

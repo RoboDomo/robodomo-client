@@ -31,7 +31,7 @@ const Tile = ({
 
   return (
     <IonCard
-      className = {s.tile}
+      className={s.card}
       color={color || "dark"}
       button={!readOnly}
       onClick={handleClick}
@@ -41,8 +41,7 @@ const Tile = ({
         gridColumnEnd: "span " + width,
         gridRowEnd: "span " + height,}}
     >
-      <IonCardContent>
-
+      <IonCardContent className={s.content}>
         {children}
       </IonCardContent>
     </IonCard>
