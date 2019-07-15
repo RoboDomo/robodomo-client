@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { IonCardContent, IonContent, IonCard } from '@ionic/react';
 
 const Tile = ({
   readOnly, // cannot be pressed if true
@@ -29,25 +30,15 @@ const Tile = ({
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: backgroundColor,
-        color: color,
-        width: width * 128,
-        height: height * 128,
-        border: pressed ? "4px inset white" : "4px outset white",
-        gridColumnEnd: "span " + width,
-        gridRowEnd: "span " + height,
-        fontWeight: "bold",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+    <IonCard
+      color="dark"
+      width={width * 128}
+      height={height * 128}
+      backgroundColor={backgroundColor}
       onClick={handleClick}
     >
-      {children}
-    </div>
+      <IonCardContent>{children}</IonCardContent>
+    </IonCard>
   );
 };
 export default Tile;

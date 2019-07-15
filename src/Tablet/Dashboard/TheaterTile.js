@@ -99,7 +99,7 @@ const TheaterTile = ({ title }) => {
     </Tile>
   ) : (
     <Tile width={2} height={2}>
-      <div>Current Activity: {currentActivity}</div>
+      <div style={{ textAlign: "center" }}>Current Activity: {currentActivity}</div>
     </Tile>
   );
 };

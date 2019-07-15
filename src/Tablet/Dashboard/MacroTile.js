@@ -26,7 +26,7 @@ const MacroTile = ({ label, name }) => {
           <FaRunning size={24} />
         </div>
         <div style={{ textAlign: "center" }}>{"Macro"}</div>
-        <div>{label}</div>
+        <div style={{ textAlign: "center" }}>{label}</div>
       </div>
     </Tile>
   );

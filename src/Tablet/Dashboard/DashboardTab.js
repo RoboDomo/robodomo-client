@@ -12,6 +12,7 @@ import SwitchTile from "./SwitchTile";
 import TheaterTile from "./TheaterTile";
 import ThermostatTile from "./ThermostatTile";
 import WeatherTile from "./WeatherTile";
+import { IonGrid, IonRouterOutlet, IonCol, IonRow, IonContent } from '@ionic/react';
 
 const DashboardTab = ({ dashboard }) => {
   const tileDefinitions = dashboard.tiles;
@@ -106,7 +107,16 @@ const DashboardTab = ({ dashboard }) => {
   }
 
   return (
-    <div
+    <IonGrid>
+      <IonRow justify-content-center align-items-center>
+        <IonCol size="12">{tiles.current}</IonCol>
+      </IonRow>
+    </IonGrid>
+  );
+};
+export default DashboardTab;
+
+{/* <div
       style={{
         display: "inline-grid",
         gridTemplateColumns: "auto auto auto auto auto auto auto auto",
@@ -117,7 +127,4 @@ const DashboardTab = ({ dashboard }) => {
       }}
     >
       {tiles.current}
-    </div>
-  );
-};
-export default DashboardTab;
+</div> */}

@@ -6,6 +6,7 @@ import Temperature from "@/common/Temperature";
 import Speed from "@/common/Speed";
 import Tile from "./Tile";
 import { FaFlag } from "react-icons/fa";
+import { blockParams } from 'handlebars';
 
 const WeatherTile = () => {
   const Config = useConfig();
@@ -44,7 +45,9 @@ const WeatherTile = () => {
           <img
             alt={now.iconName}
             style={{
-              verticalAlign: "bottom",
+              display: "block",
+              marginLeft: "auto",
+              marginRight: "auto",
               width: 80,
               height: 80,
             }}
@@ -68,7 +71,7 @@ const WeatherTile = () => {
             fontSize: 24,
             marginTop: 5,
             marginBottom: 10,
-            textAlign: "center",
+            textAlign: "right",
           }}
         >
           <FaFlag style={{ fontSize: 32 }} /> {now.windDescShort} <Speed value={now.windSpeed} />
