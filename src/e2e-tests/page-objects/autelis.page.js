@@ -69,25 +69,21 @@ class AutelisPage extends Page {
     clickDecreasePoolHeat() {
         counter = parseInt(this.poolSpaHeatCounter[0].getValue());
         this.poolSpaHeatAdjButtons[0].click();
-        //    browser.pause(200);
     }
 
     clickDecreaseSpaHeat() {
         counter = parseInt(this.poolSpaHeatCounter[1].getValue());
         this.poolSpaHeatAdjButtons[2].click();
-        //    browser.pause(200);
     }
 
     clickIncreasePoolHeat() {
         counter = parseInt(this.poolSpaHeatCounter[0].getValue());
         this.poolSpaHeatAdjButtons[1].click();
-        //    browser.pause(200);
     }
 
     clickIncreaseSpaHeat() {
         counter = parseInt(this.poolSpaHeatCounter[1].getValue());
         this.poolSpaHeatAdjButtons[3].click();
-        //     browser.pause(200);
     }
 
     clickJetsOnButton () {
