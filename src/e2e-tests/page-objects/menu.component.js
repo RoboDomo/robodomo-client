@@ -33,6 +33,9 @@ class MenuComponent {
     }
 
     goToAutelisPage() {
+        browser.waitUntil(() => {
+            return this.autelisButton.isDisplayed();
+        }, 5000);
         this.autelisButton.click()
     }
 

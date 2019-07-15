@@ -1,6 +1,6 @@
 require('@babel/register');
 
-const implicit = 30000, pageLoad = 30000, script = 15000;
+const implicit = 15000, pageLoad = 30000, script = 15000;
 
 exports.config = {
     //
@@ -130,7 +130,7 @@ exports.config = {
     ],
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
-        require: ['./step-definitions/*.js'],        // <string[]> (file/dir) require files before executing features
+        require: ['./step_definitions/*.js'],        // <string[]> (file/dir) require files before executing features
         backtrace: false,    // <boolean> show full backtrace for errors
         compiler: [],        // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
         dryRun: false,       // <boolean> invoke formatters without executing steps
@@ -143,7 +143,7 @@ exports.config = {
         strict: false,       // <boolean> fail if there are any undefined or pending steps
         tags: ['@automated'],            // <string[]> (expression) only execute the features or scenarios with tags matching the expression
         tagExpression: '', // <string> Only execute the features or scenarios with tags matching the expression.
-        timeout: 20000,       // <number> timeout for step definitions
+        timeout: 90000,       // <number> timeout for step definitions
         ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
     },
 
