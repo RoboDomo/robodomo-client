@@ -1,10 +1,10 @@
 const configBase = require('./wdio.conf.js');
-const {join} = require('path');
+const { join } = require('path');
 const merge = require('deepmerge');
 
 exports.config = merge(configBase.config, {
     specs: [
-        './features/visualRegression/*.feature'
+        './features/visualRegression/dashboard.feature',
     ],
 
     //
@@ -27,7 +27,7 @@ exports.config = merge(configBase.config, {
                 blockOutStatusBar: true,
                 blockOutToolBar: true,
                 clearRuntimeFolder: true,
-                formatImageName: '{tag}-{name}-{width}x{height}',
+                formatImageName: '{tag}-{width}x{height}',
                 screenshotPath: join(process.cwd(), '.tmp/'),
                 savePerInstance: true,
             }],
@@ -37,11 +37,50 @@ exports.config = merge(configBase.config, {
 
     capabilities: [
         {
-            'name': 'Windows_Chrome',
+            'browserName': 'Windows_Chrome',
             'os': 'Windows',
             'os_version': '10',
             'browser': 'Chrome',
-            'resolution': '1920x1080'
+            'resolution': '1920x1080',
         },
-    ]
+        {
+            'browserName': 'Windows_Firefox',
+            'os': 'Windows',
+            'os_version': '10',
+            'browser': 'Firefox',
+            'resolution': '1920x1080',
+        },
+        {
+            'browserName': 'MacOS_Chrome',
+            'os': 'OS X',
+            'os_version': 'Mojave',
+            'browser': 'Chrome',
+            'resolution': '1920x1080',
+        },
+        {
+            'browserName': 'MacOS_Firefox',
+            'os': 'OS X',
+            'os_version': 'Mojave',
+            'browser': 'Firefox',
+            'resolution': '1920x1080',
+        },
+        {
+            'browserName': 'MacOS_Safari',
+            'os': 'OS X',
+            'os_version': 'Mojave',
+            'browser': 'Safari',
+            'resolution': '1920x1080',
+        },
+    ],
+
+    before: function(capabilities, specs) {
+        require('@babel/register');
+
+        browser.setTimeout({
+            'implicit': this.waitTimes.implicit,
+            'pageLoad': this.waitTimes.pageLoad,
+            'script': this.waitTimes.script,
+        });
+        browser.maximizeWindow();
+    },
 });

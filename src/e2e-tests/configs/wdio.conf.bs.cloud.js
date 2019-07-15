@@ -90,6 +90,6 @@ exports.config = merge(configBase.config, {
             'os_version': 'Mojave',
             'browser': 'Safari',
             'resolution': '1920x1080'
-        }
+        },
     ]
 });
