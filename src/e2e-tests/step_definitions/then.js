@@ -3,7 +3,7 @@ import AutelisPage from '../page-objects/autelis.page';
 import DashboardPage from '../page-objects/dashboard.page'
 import NestPage from '../page-objects/nest.page';
 import SensorsPage from '../page-objects/sensors.page';
-import SmartThingsPage from '../page-objects/smartthings.page';
+import SmartThingsPage from '../page-objects/smartThings.page';
 import TheaterPage from '../page-objects/theater.page';
 import WeatherPage from '../page-objects/weather.page';
 import expect from 'expect'
@@ -115,40 +115,40 @@ Then(/^(SPA-POOL parameters turned off|Pool parameters are displayed|Spa and Sol
 Then(/^Autelis (Solar|Cleaner|Pool Heat|Pool Light|Waterfall|Spa Heat|Jets|Spa Light|Blower) button is (enabled|disabled)$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Solar':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.solarOnButton) :
-                AutelisPage.isButtonDisabled(AutelisPage.solarOffButton);
+            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.onButtonStatus[0]) :
+                AutelisPage.isButtonEnabled(AutelisPage.offButtonStatus[0]);
             break;
         case 'Cleaner':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.cleanerOnButton) :
-                AutelisPage.isButtonDisabled(AutelisPage.cleanerOffButton);
+            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.onButtonStatus[1]) :
+                AutelisPage.isButtonEnabled(AutelisPage.offButtonStatus[1]);
             break;
         case 'Pool Heat':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.poolHeatOnButton) :
-                AutelisPage.isButtonDisabled(AutelisPage.poolHeatOffButton);
+            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.onButtonStatus[2]) :
+                AutelisPage.isButtonEnabled(AutelisPage.offButtonStatus[2]);
             break;
         case 'Pool Light':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.poolLightOnButton) :
-                AutelisPage.isButtonDisabled(AutelisPage.poolLightOffButton);
+            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.onButtonStatus[3]) :
+                AutelisPage.isButtonEnabled(AutelisPage.offButtonStatus[3]);
             break;
         case 'Waterfall':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.waterfallOnButton) :
-                AutelisPage.isButtonDisabled(AutelisPage.waterfallOffButton);
+            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.onButtonStatus[4]) :
+                AutelisPage.isButtonEnabled(AutelisPage.offButtonStatus[4]);
             break;
         case 'Spa Heat':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.spaHeatOnButton) :
-                AutelisPage.isButtonDisabled(AutelisPage.spaHeatOffButton);
+            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.onButtonStatus[5]) :
+                AutelisPage.isButtonEnabled(AutelisPage.offButtonStatus[5]);
             break;
         case 'Jets':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.jetsOnButton) :
-                AutelisPage.isButtonDisabled(AutelisPage.jetsOffButton);
+            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.onButtonStatus[6]) :
+                AutelisPage.isButtonEnabled(AutelisPage.offButtonStatus[6]);
             break;
         case 'Spa Light':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.spaLightOnButton) :
-                AutelisPage.isButtonDisabled(AutelisPage.spaLightOffButton);
+            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.onButtonStatus[7]) :
+                AutelisPage.isButtonEnabled(AutelisPage.offButtonStatus[7]);
             break;
         case 'Blower':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.blowerOnButton) :
-                AutelisPage.isButtonDisabled(AutelisPage.blowerOffButton);
+            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.onButtonStatus[8]) :
+                AutelisPage.isButtonEnabled(AutelisPage.offButtonStatus[8]);
             break;
     }
 });

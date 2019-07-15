@@ -7,120 +7,115 @@ let counter = 0;
 class AutelisPage extends Page {
     get pageContent() {return $('//div[contains(@class, "ion-page")]')}
     get autelisTab() {return $('#autelis-tabs-tab-autelis')}
-    get offButton() {return $('//button[text()[contains(., "OFF")]]')}
-    get poolButton() {return $('//button[text()[contains(., "POOL")]]')}
-    get spaButton() {return $('//button[text()[contains(., "SPA")]]')}
+    get allOffButton() {return $('//ion-segment-button[text()[contains(., "OFF")]]')}
+    get poolButton() {return $('//ion-segment-button[text()[contains(., "POOL")]]')}
+    get spaButton() {return $('//ion-segment-button[text()[contains(., "SPA")]]')}
     get switchMessageOff() {return $('//div[text()="All Off"]')}
-    get switchMessagePool() {return $('//div[text()[starts-with(., "Pool")]]')}
-    get switchMessageSpa() {return $('//div[text()[starts-with(., "Spa")]]')}
-    get switchMessageSolar() {return $('//div[text()[starts-with(., "Solar")]]')}
+    get switchMessagePool() {return $('//*[contains(@class, "AutelisTab_mainSwitch")]/parent::*//div[text()[starts-with(., "Pool")]]')}
+    get switchMessageSpa() {return $('//*[contains(@class, "AutelisTab_mainSwitch")]/parent::*//div[text()[starts-with(., "Spa")]]')}
+    get switchMessageSolar() {return $('*//div[text()[starts-with(., "Solar")]]')}
 
-    get solarOnButton() {return $('//div[text()[starts-with(., "Solar")]]/parent::*//button[text()="On"]')}
-    get solarOffButton() {return $('//div[text()[starts-with(., "Solar")]]/parent::*//button[text()="Off"]')}
-    get cleanerOnButton() {return $('//div[text()="Cleaner"]/parent::*//button[text()="On"]')}
-    get cleanerOffButton() {return $('//div[text()="Cleaner"]/parent::*//button[text()="Off"]')}
-
-    get poolHeatOnButton() {return $('//div[text()="Pool Heat"]/parent::*//button[text()="On"]')}
-    get poolHeatOffButton() {return $('//div[text()="Pool Heat"]/parent::*//button[text()="Off"]')}
-    get poolLightOnButton() {return $('//div[text()="Pool Light"]/parent::*//button[text()="On"]')}
-    get poolLightOffButton() {return $('//div[text()="Pool Light"]/parent::*//button[text()="Off"]')}
-    get waterfallOnButton() {return $('//div[text()="Waterfall"]/parent::*//button[text()="On"]')}
-    get waterfallOffButton() {return $('//div[text()="Waterfall"]/parent::*//button[text()="Off"]')}
-
-    get spaHeatOnButton() {return $('//div[text()="Spa Heat"]/parent::*//button[text()="On"]')}
-    get spaHeatOffButton() {return $('//div[text()="Spa Heat"]/parent::*//button[text()="Off"]')}
-    get jetsOnButton() {return $('//div[text()="Jets"]/parent::*//button[text()="On"]')}
-    get jetsOffButton() {return $('//div[text()="Jets"]/parent::*//button[text()="Off"]')}
-    get spaLightOnButton() {return $('//div[text()="Spa Light"]/parent::*//button[text()="On"]')}
-    get spaLightOffButton() {return $('//div[text()="Spa Light"]/parent::*//button[text()="Off"]')}
-    get blowerOnButton() {return $('//div[text()="Blower"]/parent::*//button[text()="On"]')}
-    get blowerOffButton() {return $('//div[text()="Blower"]/parent::*//button[text()="Off"]')}
-
-    // 0 - lower; 1 - higher
-    get poolHeatAdjButtons() {return $$('//div[text()="Pool Heat"]/parent::*//div[@class="float-right"]/button')}
-    get poolHeatCounter() {return $('//div[text()="Pool Heat"]/parent::*//div[@class="float-right"]/input')}
-    // 0 - lower; 1 - higher
-    get spaHeatAdjButtons() {return $$('//div[text()="Spa Heat"]/parent::*//div[@class="float-right"]/button')}
-    get spaHeatCounter() {return $('//div[text()="Spa Heat"]/parent::*//div[@class="float-right"]/input')}
+        // 0 - Solar; 1 - Cleaner; 2 - Pool Heat; 3 - Pool Light; 4 - Waterfall; 5 - Spa Heat;
+        // 6 - Jets; 7 - Spa Light; 8 - Blower
+    get onButton() {return $$('//*[contains(@class, "AutelisTab_toggle")]//ion-label[text()="On"]')}
+    get onButtonStatus() {return $$('//*[contains(@class, "AutelisTab_toggle")]//ion-segment-button[1]')}
+    get offButton() {return $$('//*[contains(@class, "AutelisTab_toggle")]//ion-label[text()="Off"]')}
+    get offButtonStatus() {return $$('//*[contains(@class, "AutelisTab_toggle")]//ion-segment-button[2]')}
+    // 0 - Pool lower; 1 - Pool higher; 2 - Spa lower; 3 - Spa Higher
+    get poolSpaHeatAdjButtons() {return $$('//*[@id="autelis-tabs-tabpane-autelis"]//*[contains(@class, "button-small")]')}
+    // 0 - Pool Counter; 1 - Spa Counter
+    get poolSpaHeatCounter() {return $$('//*[contains(@class, "native-input")]')}
 
     checkPoolHeatDecreased() {
-        expect(parseInt(this.poolHeatCounter.getValue())).to.equal(counter - 1);
+        browser.waitUntil(() => {
+            return parseInt(this.poolSpaHeatCounter[0].getValue()) === counter - 1;
+        }, 10000);
     }
 
     checkPoolHeatIncreased() {
-        expect(parseInt(this.poolHeatCounter.getValue())).to.equal(counter + 1);
+        browser.waitUntil(() => {
+            return parseInt(this.poolSpaHeatCounter[0].getValue()) === counter + 1;
+        }, 10000);
     }
 
     checkSpaHeatDecreased() {
-        expect(parseInt(this.spaHeatCounter.getValue())).to.equal(counter - 1);
+        browser.waitUntil(() => {
+            return parseInt(this.poolSpaHeatCounter[1].getValue()) === counter - 1;
+        }, 10000);
     }
 
     checkSpaHeatIncreased() {
-        expect(parseInt(this.spaHeatCounter.getValue())).to.equal(counter + 1);
+        browser.waitUntil(() => {
+            return parseInt(this.poolSpaHeatCounter[1].getValue()) === counter + 1;
+        }, 10000);
     }
 
     clickBlowerOnButton() {
-        this.blowerOnButton.click();
+        this.onButton[8].click();
     }
 
     clickBlowerOffButton() {
-        this.blowerOffButton.click();
+        this.offButton[8].click();
     }
 
     clickCleanerOnButton() {
-        this.cleanerOnButton.click();
+        this.onButton[1].click();
     }
 
     clickCleanerOffButton() {
-        this.cleanerOffButton.click();
+        this.offButton[1].click();
     }
 
     clickDecreasePoolHeat() {
-        counter = parseInt(this.poolHeatCounter.getValue());
-        this.poolHeatAdjButtons[0].click();
+        counter = parseInt(this.poolSpaHeatCounter[0].getValue());
+        this.poolSpaHeatAdjButtons[0].click();
+    //    browser.pause(200);
     }
 
     clickDecreaseSpaHeat() {
-        counter = parseInt(this.spaHeatCounter.getValue());
-        this.spaHeatAdjButtons[0].click();
+        counter = parseInt(this.poolSpaHeatCounter[1].getValue());
+        this.poolSpaHeatAdjButtons[2].click();
+    //    browser.pause(200);
     }
 
     clickIncreasePoolHeat() {
-        counter = parseInt(this.poolHeatCounter.getValue());
-        this.poolHeatAdjButtons[1].click();
+        counter = parseInt(this.poolSpaHeatCounter[0].getValue());
+        this.poolSpaHeatAdjButtons[1].click();
+    //    browser.pause(200);
     }
 
     clickIncreaseSpaHeat() {
-        counter = parseInt(this.spaHeatCounter.getValue());
-        this.spaHeatAdjButtons[1].click();
+        counter = parseInt(this.poolSpaHeatCounter[1].getValue());
+        this.poolSpaHeatAdjButtons[3].click();
+   //     browser.pause(200);
     }
 
     clickJetsOnButton () {
-        this.jetsOnButton.click();
+        this.onButton[6].click();
     }
 
     clickJetsOffButton () {
-        this.jetsOffButton.click();
+        this.offButton[6].click();
     }
 
     clickPoolHeatOnButton() {
-        this.poolHeatOnButton.click();
+        this.onButton[2].click();
     }
 
     clickPoolHeatOffButton() {
-        this.poolHeatOffButton.click();
+        this.offButton[2].click();
     }
 
     clickPoolLightOnButton() {
-        this.poolLightOnButton.click();
+        this.onButton[3].click();
     }
 
     clickPoolLightOffButton() {
-        this.poolLightOffButton.click();
+        this.offButton[3].click();
     }
 
     clickOffButton() {
-        this.offButton.click();
+        this.allOffButton.click();
     }
 
     clickPoolButton() {
@@ -128,11 +123,11 @@ class AutelisPage extends Page {
     }
 
     clickSolarOnButton() {
-        this.solarOnButton.click();
+        this.onButton[0].click();
     }
 
     clickSolarOffButton() {
-        this.solarOffButton.click();
+        this.offButton[1].click();
     }
 
     clickSpaButton() {
@@ -140,67 +135,58 @@ class AutelisPage extends Page {
     }
 
     clickSpaHeatOnButton() {
-        this.spaHeatOnButton.click();
+        this.onButton[5].click();
     }
 
     clickSpaHeatOffButton() {
-        this.spaHeatOffButton.click();
+        this.offButton[5].click();
     }
 
     clickSpaLightOnButton() {
-        this.spaLightOnButton.click();
+        this.onButton[7].click();
     }
 
     clickSpaLightOffButton() {
-        this.spaLightOffButton.click();
+        this.offButton[7].click();
     }
 
     clickWaterfallOnButton() {
-        this.waterfallOnButton.click();
+        this.onButton[4].click();
     }
 
     clickWaterfallOffButton() {
-        this.waterfallOffButton.click();
-    }
-
-    isButtonDisabled(button) {
-        browser.waitUntil(() => {
-            return button.getAttribute('class').includes('btn-dark');
-        }, 5000);
+        this.offButton[4].click();
     }
 
     isButtonEnabled(button) {
         browser.waitUntil(() => {
-            return (button.getAttribute('class').includes('btn-success') | button.getAttribute('class').includes('btn-danger'));
-        }, 5000);
+            return (button.getAttribute('checked').includes('true'));
+        }, 20000);
     }
 
     isPoolAndSpaParametersTurnedOff() {
-        browser.waitUntil(() => {
-            return this.offButton.getAttribute('class').includes('btn-dark');
-        }, 5000);
+        this.allOffButton(this.spaButton);
         browser.waitUntil(() => {
             return this.switchMessageOff.isDisplayed();
-        }, 5000);
+        }, 10000);
     }
 
     isPoolParameterDisplayed() {
-        browser.waitUntil(() => {
-            return this.poolButton.getAttribute('class').includes('btn-success');
-        }, 5000);
+        this.isButtonEnabled(this.poolButton);
         expect(this.switchMessagePool.getText()).toMatch(/^Pool\s\d{2,3}°F$/);
     }
 
     isSpaAndSolarParameterDisplayed() {
-        browser.waitUntil(() => {
-            return this.spaButton.getAttribute('class').includes('btn-danger');
-        }, 5000);
+        this.isButtonEnabled(this.spaButton);
         expect(this.switchMessageSpa.getText()).toMatch(/^Spa\s\d{2,3}°F$/);
         expect(this.switchMessageSolar.getText()).toMatch(/^Solar\s\d{2,3}°F$/);
     }
 
     goToAutelisTab() {
         this.autelisTab.click();
+        browser.waitUntil(() => {
+            return this.allOffButton.isDisplayed();
+        }, 20000);
     }
 }
 
