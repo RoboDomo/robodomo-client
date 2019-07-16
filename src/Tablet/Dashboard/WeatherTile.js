@@ -60,7 +60,7 @@ const WeatherTile = () => {
             </span>
           </div>
         </div>
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "right" }}>
           <Temperature value={now.highTemperature} /> / <Temperature value={now.lowTemperature} />
         </div>
         <div
@@ -68,7 +68,7 @@ const WeatherTile = () => {
             fontSize: 24,
             marginTop: 5,
             marginBottom: 10,
-            textAlign: "right",
+            textAlign: "center",
           }}
         >
           <FaFlag style={{ fontSize: 32 }} /> {now.windDescShort} <Speed value={now.windSpeed} />
