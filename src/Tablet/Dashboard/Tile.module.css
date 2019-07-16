@@ -4,13 +4,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 4px!important;
-    margin-left: 4px!important;
-    margin-right: 4px!important;
-    margin-top: 4px!important;
+    margin: var(--rd-spc-xxs)!important;
 }
 
 .content {
-    padding-left: 4px!important;
-    padding-right: 4px!important;
+    padding-left: var(--rd-spc-xxs)!important;
+    padding-right: var(--rd-spc-xxs)!important;
 }
