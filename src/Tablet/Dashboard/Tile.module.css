@@ -1,13 +1,13 @@
-.card {
-    display: flex!important;
+#card {
+    display: flex;
     font-weight: bold;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: var(--rd-spc-xxs)!important;
+    margin: var(--rd-spc-xxs);
 }
 
-.content {
-    padding-left: var(--rd-spc-xxs)!important;
-    padding-right: var(--rd-spc-xxs)!important;
+#content {
+    padding-left: var(--rd-spc-xxs);
+    padding-right: var(--rd-spc-xxs);
 }
