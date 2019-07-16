@@ -76,8 +76,8 @@ const MainScreen = () => {
   return (
     <IonApp>
       <IonPage>
-        <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
         <Navigation />
+        <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
       </IonPage>
     </IonApp>
   );
