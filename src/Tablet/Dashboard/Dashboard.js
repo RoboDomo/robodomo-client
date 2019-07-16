@@ -12,8 +12,6 @@ const Dashboard = () => {
   if (!config) {
     return null;
   }
-
-  //console.log("THIS IS THE SET ACTIVE TAB: ", setActiveTab)
   const changeTab = eventKey => {
     localStorage.setItem("dashboardTabState", eventKey);
     setActiveTab(eventKey);
