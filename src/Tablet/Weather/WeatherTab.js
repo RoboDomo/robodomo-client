@@ -128,11 +128,7 @@ const SecondaryConditions = ({ weather }) => {
   );
 };
 
-const WeatherTab = ({
-  match: {
-    params: { tab: zip },
-  },
-}) => {
+const WeatherTab = ({ zip }) => {
   const Config = useConfig(),
     metric = Config.metric;
   const weather = useWeather(zip);
@@ -173,4 +169,4 @@ const WeatherTab = ({
 };
 
 //
-export default withRouter(WeatherTab);
+export default WeatherTab;

@@ -1,46 +1,49 @@
-import React, { useState } from "react";
-import { IonContent } from "@ionic/react";
-import useConfig from "@/hooks/useConfig";
+import React from "react";
+import { Route, Redirect } from "react-router";
+import {
+  IonTabs,
+  IonTabBar,
+  IonTabButton,
+  IonLabel,
+  IonRouterOutlet,
+  IonContent,
+} from "@ionic/react";
+import useConfigGroup from "@/hooks/useConfigGroup";
 
-import { Tab, Tabs } from "react-bootstrap";
 import TheaterTab from "./TheaterTab";
 
 const Theater = () => {
-  const config = useConfig();
-  const [activeTab, setActiveTab] = useState(localStorage.getItem("theaterTabState") || "0");
+  const [theaters, defaultTheater] = useConfigGroup("theaters");
 
-  if (!config) {
+  if (!theaters) {
     return null;
   }
+
   return (
-    <IonContent id="tab-theater">
-      <Tabs
-        id="theater-tabs"
-        onSelect={eventKey => {
-          localStorage.setItem("theaterTabState", eventKey);
-          setActiveTab(eventKey);
-        }}
-        activeKey={activeTab}
-        variant="pills"
-        mountOnEnter
-        unmountOnExit
-      >
-        {Array.isArray(config.theaters)
-          ? config.theaters.map(theater => {
-              //          console.log("theater", theater);
-              return (
-                <Tab
-                  title={theater.title}
-                  eventKey={theater.key}
-                  key={theater.key}
-                  style={{ paddingLeft: 10, paddingRight: 10 }}
-                >
-                  <TheaterTab theater={theater} />
-                </Tab>
-              );
-            })
-          : null}
-      </Tabs>
+    <IonContent id="tab-dashboard">
+      <IonTabs>
+        <IonRouterOutlet>
+          {theaters.map(theater => (
+            <Route
+              path={`/theater/:tab(${theater.key})`}
+              render={() => <TheaterTab theater={theater} />}
+              key={theater.key}
+            />
+          ))}
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          {theaters.map(theater => (
+            <IonTabButton tab={theater.key} href={`/theater/${theater.key}`} key={theater.key}>
+              <IonLabel>{theater.title}</IonLabel>
+            </IonTabButton>
+          ))}
+        </IonTabBar>
+      </IonTabs>
+      <Route
+        exact
+        path="/theater"
+        render={() => <Redirect to={`/theater/${defaultTheater.key}`} />}
+      />
     </IonContent>
   );
 };
