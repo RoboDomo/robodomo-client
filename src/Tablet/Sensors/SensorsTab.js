@@ -11,7 +11,7 @@ import {
 
 import s from "./SensorsTab.module.css";
 
-import { IonCard, IonCardHeader, IonCardContent, IonCol, IonRow } from "@ionic/react";
+import { IonCard, IonCardHeader, IonCardContent } from "@ionic/react";
 
 const SensorsTab = () => {
   const Config = useConfig();
@@ -99,28 +99,22 @@ const SensorsTab = () => {
 
   const renderCard = type => {
     return (
-      <IonCol className={s.column}>
-        <IonCard color="dark">
-          <IonCardHeader color="medium">{type.toUpperCase()}</IonCardHeader>
-          <IonCardContent>{renderType(type)}</IonCardContent>
-        </IonCard>
-      </IonCol>
+      <IonCard color="dark">
+        <IonCardHeader color="medium">{type.toUpperCase()}</IonCardHeader>
+        <IonCardContent>{renderType(type)}</IonCardContent>
+      </IonCard>
     );
   };
 
   let col = 0;
   return (
-    <div style={{ padding: 20, marginTop: 10 }}>
-      <IonRow>
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-      </IonRow>
-      <IonRow>
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-        {renderCard(types[col++])}
-      </IonRow>
+    <div className={s.gridContainer}>
+      <div className={s.gridItem}>{renderCard(types[col++])}</div>
+      <div className={s.gridItem}>{renderCard(types[col++])}</div>
+      <div className={s.gridItem}>{renderCard(types[col++])}</div>
+      <div className={s.gridItem}>{renderCard(types[col++])}</div>
+      <div className={s.gridItem}>{renderCard(types[col++])}</div>
+      <div className={s.gridItem}>{renderCard(types[col++])}</div>
     </div>
   );
 };

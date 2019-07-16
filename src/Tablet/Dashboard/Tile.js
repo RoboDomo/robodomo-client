@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { withRouter } from "react-router";
-
 
 const Tile = ({
   readOnly, // cannot be pressed if true

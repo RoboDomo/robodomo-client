@@ -12,7 +12,6 @@ import SwitchTile from "./SwitchTile";
 import TheaterTile from "./TheaterTile";
 import ThermostatTile from "./ThermostatTile";
 import WeatherTile from "./WeatherTile";
-import { IonGrid, IonCol, IonRow } from '@ionic/react';
 
 const DashboardTab = ({ dashboard }) => {
   const tileDefinitions = dashboard.tiles;
@@ -107,11 +106,18 @@ const DashboardTab = ({ dashboard }) => {
   }
 
   return (
-    <IonGrid>
-      <IonRow justify-content-center align-items-center>
-        <IonCol size="9">{tiles.current}</IonCol>
-      </IonRow>
-    </IonGrid>
+    <div
+      style={{
+        display: "inline-grid",
+        gridTemplateColumns: "auto auto auto auto auto auto auto auto",
+        gridTemplateRows: "auto auto auto auto",
+        gridGap: 0,
+        gridAutoRows: "minmax(256px, auto)",
+        gridAutoFlow: "dense",
+      }}
+    >
+      {tiles.current}
+    </div>
   );
 };
 export default DashboardTab;
