@@ -5,18 +5,9 @@
  */
 
 import React, { lazy } from "react";
-import { Redirect, Route } from "react-router";
+import { Redirect, Route, Switch } from "react-router";
 
-import {
-  IonApp,
-  IonPage,
-  IonTabs,
-  IonTabBar,
-  IonTabButton,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-} from "@ionic/react";
+import { IonApp, IonPage, IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
 
 const Dashboard = lazy(() =>
   import(
@@ -55,21 +46,14 @@ const tabs = new Map([
 ]);
 
 const Navigation = ({ activeTab }) => (
-  <IonTabs>
-    <IonRouterOutlet>
-      {Array.from(tabs).map(([id, cfg]) => (
-        <Route path={`/:tab(${id})`} component={cfg.component} key={id} />
-      ))}
-    </IonRouterOutlet>
-    <IonTabBar slot="top">
-      {Array.from(tabs).map(([id, cfg]) => (
-        <IonTabButton tab={id} href={`/${id}`} key={id}>
-          <IonIcon name={cfg.icon} />
-          <IonLabel>{cfg.name}</IonLabel>
-        </IonTabButton>
-      ))}
-    </IonTabBar>
-  </IonTabs>
+  <IonTabBar slot="top">
+    {Array.from(tabs).map(([id, cfg]) => (
+      <IonTabButton tab={id} href={`/${id}`} key={id}>
+        <IonIcon name={cfg.icon} />
+        <IonLabel>{cfg.name}</IonLabel>
+      </IonTabButton>
+    ))}
+  </IonTabBar>
 );
 
 const MainScreen = () => {
@@ -78,6 +62,11 @@ const MainScreen = () => {
       <IonPage>
         <Navigation />
         <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
+        <Switch>
+          {Array.from(tabs).map(([id, cfg]) => (
+            <Route path={`/:tab(${id})`} component={cfg.component} key={id} />
+          ))}
+        </Switch>
       </IonPage>
     </IonApp>
   );
