@@ -60,7 +60,7 @@ const WeatherTile = () => {
             </span>
           </div>
         </div>
-        <div style={{ textAlign: "right" }}>
+        <div style={{ textAlign: "center" }}>
           <Temperature value={now.highTemperature} /> / <Temperature value={now.lowTemperature} />
         </div>
         <div
