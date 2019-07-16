@@ -10,7 +10,7 @@ const FanTile = ({ name }) => {
 
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
-  const onClick = (e) => {
+  const onClick = e => {
     e.stopPropagation();
 
     let value = 25,
