@@ -10,7 +10,8 @@ const FanTile = ({ name }) => {
 
   const [, forceUpdate] = useReducer(x => x + 1, 0);
 
-  const onClick = () => {
+  const onClick = (e) => {
+    e.stopPropagation();
 
     let value = 25,
       lvl = Number(fan.level);
@@ -58,12 +59,13 @@ const FanTile = ({ name }) => {
   }
 
   return (
-    <Tile width={1} height={1} onClick={onClick}>
+    <Tile width={1} height={1}>
       <div
         style={{
           textAlign: "center",
           color: fan.switch === "on" ? "yellow" : undefined,
         }}
+        onClick={onClick}
       >
         <GiComputerFan size={24} style={{ marginBottom: 10 }} />
         <div>{name}</div>
