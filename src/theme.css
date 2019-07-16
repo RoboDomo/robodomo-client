@@ -18,7 +18,34 @@
 */
 
 :root {
-  --ion-background-color: #1b1b1b;
+  --rd-spc-xxxs: 0.0625rem;
+  --rd-spc-xxs: 0.25rem;
+  --rd-spc-xs: 0.5rem;
+  --rd-spc-s: 1rem;
+  --rd-spc-m: 1.5rem;
+  --rd-spc-l: 2rem;
+  --rd-spc-xl: 4rem;
+  --rd-spc-xxl: 5rem;
+
+  --rd-color-white: #ffffff;
+  --rd-color-black: #1b1b1b;
+  --rd-color-bg-grey: #f5f5f5;
+  --rd-color-border: #d9d9d9;
+  --rd-color-lbl-grey: #999999;
+  --rd-color-text: #2e2e2e;
+  --rd-color-text-light: rgba(153, 153, 153, 0.95);
+  --rd-color-accent-primary: #ff9e59;
+  --rd-color-accent-secondary: #4899c3;
+  --rd-color-success: #33ad73;
+  --rd-color-warning: #f15743;
+
+  --rd-border-radius-s: 0.25rem;
+  --rd-border-radius-m: 0.5rem;
+
+  --rd-font: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+  --ion-background-color: var(--rd-color-black);
   --ion-color-angular: #ac282b;
   --ion-color-communication: #8e8d93;
   --ion-color-tooling: #fe4c52;
@@ -50,7 +77,7 @@
   --ion-color-tertiary-shade: #633ce0;
   --ion-color-tertiary-tint: #7e57ff;
 
-  --ion-color-success: #10dc60;
+  --ion-color-success: var(--rd-color-success);
   --ion-color-success-rgb: 16, 220, 96;
   --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 255, 255, 255;
@@ -180,4 +207,87 @@
 
 ion-content {
   --color: #aaaaaa;
+}
+
+html {
+  font-family: var(--rd-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 100%;
+}
+
+body {
+  touch-action: manipulation;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+:focus {
+  outline: 0;
+}
+:focus-visible {
+  outline: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input::placeholder {
+  color: var(--color-lbl-grey);
+  font-size: inherit;
+}
+
+.border {
+  border: 1px solid var(--rd-color-border);
+}
+
+.border-radius-s {
+  border-radius: var(--rd-border-radius-s);
+}
+
+.border-radius-m {
+  border-radius: var(--rd-border-radius-m);
+}
+
+.flex-h {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-v {
+  display: flex;
+  flex-direction: column;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.small {
+  font-size: 0.8125rem;
+}
+
+.txt-right {
+  text-align: right;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+main {
+  padding: 0 var(--rd-spc-s);
 }
