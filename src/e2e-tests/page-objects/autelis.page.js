@@ -197,9 +197,8 @@ class AutelisPage extends Page {
 
     goToAutelisTab() {
         this.autelisTab.click();
-        browser.waitUntil(() => {
-            return this.offButton.isDisplayed();
-        }, 20000);
+        // TODO Remove after module load fix
+        browser.pause(500);
     }
 }
 
