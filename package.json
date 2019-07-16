@@ -6,9 +6,11 @@
   "dependencies": {
     "@ionic/core": "^4.5.0",
     "@ionic/react": "^0.0.6-3",
+    "@modus/react-idle": "^1.1.1",
     "bootstrap": "^4.3.1",
     "bootswatch": "^4.3.1",
     "bowser": "^2.4.0",
+    "classnames": "^2.2.6",
     "date-fns": "^2.0.0-beta.2",
     "jquery": "^3.3.1",
     "mqtt": "^2.18.8",

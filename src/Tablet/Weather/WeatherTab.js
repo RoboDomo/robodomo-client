@@ -1,5 +1,8 @@
 import React from "react";
 import { format, parseISO } from "date-fns";
+import OnIdle from "@modus/react-idle";
+import cx from "classnames";
+import { FaFlag } from "react-icons/fa";
 
 import Clock from "@/common/Clock";
 import useConfig from "@/hooks/useConfig";
@@ -8,27 +11,120 @@ import Temperature from "@/common/Temperature";
 import Speed from "@/common/Speed";
 import Distance from "@/common/Distance";
 
-import { FaFlag } from "react-icons/fa";
+import s from "./WeatherTab.module.css";
 
-const styles = {
-  img: {
-    verticalAlign: "bottom",
-    width: 64,
-    height: 64,
-    // float:         'left'
-  },
-  img_small: {
-    verticalAlign: "bottom",
-    width: 48,
-    height: 48,
-    //    float: "left",
-  },
-  imgleft: {
-    verticalAlign: "middle",
-    width: 48,
-    height: 48,
-    // float:         'left'
-  },
+const Hourly = ({ data }) => (
+  <div
+    onScroll={e => e.stopPropagation()}
+    className={s.forecastContainer}
+    data-testid="weather-hourly"
+  >
+    {data.map((data, i) => {
+      if (data.localTime === undefined) {
+        return null;
+      }
+
+      const localTime = format(parseISO(data.localTime), "h:mm aa");
+      return (
+        <div key={i} className={s.hourlyItem}>
+          <div className="small" data-testid="weather-hourly-item">
+            {localTime}
+          </div>
+          <img
+            className={s.img_small}
+            alt={data.skyDescription}
+            title={data.description}
+            src={data.iconLink}
+          />
+          <h4>
+            <Temperature value={data.temperature} />
+          </h4>
+        </div>
+      );
+    })}
+  </div>
+);
+
+const Daily = ({ data }) => {
+  let lastDay = "";
+  return (
+    <div
+      onScroll={e => e.stopPropagation()}
+      data-testid="weather-daily"
+      className={s.forecastContainer}
+    >
+      {data.map((o, i) => {
+        if (!o) {
+          return null;
+        }
+        const d = new Date(o.utcTime * 1000),
+          weekday = o.weekday,
+          day = d.getDate(),
+          month = d.getMonth();
+
+        const showDaySeparator = i && lastDay !== o.weekday;
+        lastDay = o.weekday;
+        return (
+          <div
+            key={i}
+            data-testid="weather-daily-item"
+            className={cx(s.dailyItem, { [s.daySeparator]: showDaySeparator })}
+          >
+            <h6>
+              {weekday} {month}/{day}
+            </h6>
+            <div>{o.daySegment}</div>
+            <div>
+              <img alt={o.iconName} className={s.img_small} src={o.iconLink} />
+            </div>
+            <h4>
+              <Temperature value={o.temperature} />
+            </h4>
+            <div>{o.temperatureDesc}</div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+const PrimaryConditions = ({ weather }) => (
+  <aside className={s.primaryConditions}>
+    <img alt={weather.now.iconName} className={s.img} src={weather.now.iconLink} />{" "}
+    <Temperature value={weather.now.temperature} />
+    <div className="small txt-right">
+      <div>
+        High <Temperature value={weather.now.highTemperature} /> /{" "}
+        <Temperature value={weather.now.lowTemperature} />
+      </div>
+      <div>
+        Humidity {weather.now.humidity}% / Dew Point{" "}
+        <Temperature value={weather.now.dewPoint} units={false} />
+        &deg;
+      </div>
+    </div>
+  </aside>
+);
+const SecondaryConditions = ({ weather }) => {
+  const sunrise = new Date(weather.astronomy.sunrise * 1000)
+      .toLocaleTimeString()
+      .replace(":00 ", " "),
+    sunset = new Date(weather.astronomy.sunset * 1000).toLocaleTimeString().replace(":00 ", " ");
+  return (
+    <aside className={s.secondaryConditions}>
+      <FaFlag className={s.flag} />
+      {` ${weather.now.windDesc} `}
+      <Speed value={weather.now.windSpeed} />
+      <div className="small txt-right">
+        <div>
+          Sunrise: {sunrise} / Sunset: {sunset}
+        </div>
+        <div>
+          Visibility <Distance value={weather.now.visibility} units={false} />
+        </div>
+      </div>
+    </aside>
+  );
 };
 
 const WeatherTab = ({ location }) => {
@@ -36,180 +132,37 @@ const WeatherTab = ({ location }) => {
     metric = Config.metric;
   const weather = useWeather(location.device);
 
-  const renderHourly = hourly => {
-    return (
-      <div
-        onScroll={e => e.stopPropagation()}
-        style={{
-          position: "relative",
-          height: 120,
-          width: "100%",
-          textAlign: "left",
-          whiteSpace: "nowrap",
-          overflowX: "auto",
-          overflowY: "hidden",
-        }}
-      >
-        {hourly.map((data, i) => {
-          if (data.localTime === undefined) {
-            return null;
-          }
-          const localTime = format(parseISO(data.localTime), "h:mm aa");
-          return (
-            <div
-              key={i}
-              style={{
-                width: 100,
-                height: 100,
-                display: "inline-block",
-                marginRight: 2,
-                padding: 2,
-                border: "1px solid black",
-                textAlign: "center",
-              }}
-            >
-              <div style={{ fontSize: 12 }}>{localTime}</div>
-              <img
-                style={styles.img_small}
-                alt={data.skyDescription}
-                title={data.description}
-                src={data.iconLink}
-              />
-              <div style={{ fontWeight: "bold", fontSize: 20 }}>
-                <Temperature value={data.temperature} />
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
-  const renderDaily = daily => {
-    let lastDay = "";
-    return (
-      <div
-        onScroll={e => e.stopPropagation()}
-        style={{
-          position: "relative",
-          height: 180,
-          width: "100%",
-          textAlign: "left",
-          whiteSpace: "nowrap",
-          overflowX: "auto",
-          overflowY: "hidden",
-        }}
-      >
-        {daily.map((o, i) => {
-          if (!o) {
-            return null;
-          }
-          const d = new Date(o.utcTime * 1000),
-            weekday = o.weekday,
-            day = d.getDate(),
-            month = d.getMonth(),
-            header = (
-              <div style={{ fontSize: 14, fontWeight: "bold" }}>
-                {weekday} {month}/{day}
-              </div>
-            );
-
-          const marginLeft = i && lastDay !== o.weekday ? 20 : 0;
-          lastDay = o.weekday;
-          return (
-            <div
-              key={i}
-              style={{
-                marginLeft: marginLeft,
-                width: 140,
-                height: 160,
-                display: "inline-block",
-                marginRight: 2,
-                padding: 2,
-                border: "1px solid black",
-                textAlign: "center",
-              }}
-            >
-              {header}
-              <div>{o.daySegment}</div>
-              <div>
-                <img alt={o.iconName} style={styles.img_small} src={o.iconLink} />
-              </div>
-              <div style={{ fontWeight: "bold", fontSize: 20 }}>
-                <Temperature value={o.temperature} />
-              </div>
-              <div>{o.temperatureDesc}</div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
-
   try {
     if (!weather.astronomy || !weather.forecast || !weather.hourly) {
       return null;
     }
-    const header = (
-        <>
-          <div style={{ fontSize: 24, fontWeight: "bold" }}>
-            <Clock /> Weather for {weather.now.city}, {weather.now.state}
-          </div>
-          <div>{weather.now.description}</div>
-        </>
-      ),
-      sunrise = new Date(weather.astronomy.sunrise * 1000)
-        .toLocaleTimeString()
-        .replace(":00 ", " "),
-      sunset = new Date(weather.astronomy.sunset * 1000).toLocaleTimeString().replace(":00 ", " ");
 
     return (
-      <div style={{ padding: 5 }}>
-        {header}
-        <div
-          style={{
-            fontSize: 30,
-            float: "right",
-            marginTop: 5,
-            marginBottom: 10,
-          }}
-        >
-          <div>
-            <FaFlag style={{ fontSize: 40 }} /> {weather.now.windDesc}{" "}
-            <Speed value={weather.now.windSpeed} />
-          </div>
-          <div style={{ fontSize: 14, textAlign: "right" }}>
-            Sunrise: {sunrise} / Sunset: {sunset}
-          </div>
-          <div style={{ fontSize: 14, textAlign: "right" }}>
-            Visibility <Distance value={weather.now.visibility} units={false} />
-          </div>
-        </div>
-        <div style={{ fontSize: 40, float: "left" }}>
-          <span style={{ paddingTop: 10, fontSize: 48 }}>
-            <img alt={weather.now.iconName} style={styles.img} src={weather.now.iconLink} />{" "}
-            <Temperature value={weather.now.temperature} />
-          </span>
-          <div style={{ fontSize: 14, textAlign: "right" }}>
-            High <Temperature value={weather.now.highTemperature} /> /{" "}
-            <Temperature value={weather.now.lowTemperature} />
-          </div>
-          <div style={{ fontSize: 14, textAlign: "right" }}>
-            Humidity {weather.now.humidity}% / Dew Point{" "}
-            <Temperature value={weather.now.dewPoint} units={false} />
-            &deg;
-          </div>
-        </div>
-        <div style={{ clear: "both", marginBottom: 10 }} />
+      <main data-testid="weather-section">
+        <h2>
+          <Clock /> Weather for {weather.now.city}, {weather.now.state}
+        </h2>
+        <div>{weather.now.description}</div>
+        <section className={s.conditions} data-testid="weather-conditions">
+          <PrimaryConditions weather={weather} />
+          <OnIdle>
+            <SecondaryConditions weather={weather} />
+          </OnIdle>
+        </section>
+
         <h4>Hourly Forecast</h4>
-        {renderHourly(weather.hourly)}
-        <h5 style={{ marginTop: 2 }}>7 Day Forecast</h5>
-        {renderDaily(weather.forecast)}
-      </div>
+        <OnIdle>
+          <Hourly data={weather.hourly} />
+        </OnIdle>
+
+        <h5>7 Day Forecast</h5>
+        <OnIdle>
+          <Daily data={weather.forecast} />
+        </OnIdle>
+      </main>
     );
   } catch (e) {
     console.log("exception weather", e.message, e.stack, weather);
-    //    console.log("Weather render exception", e.message, e.stack);
     return null;
   }
 };
