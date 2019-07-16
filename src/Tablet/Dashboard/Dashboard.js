@@ -6,7 +6,6 @@ import useConfig from "@/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
 import DashboardTab from "./DashboardTab";
-import { Route } from "react-router-dom";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem("dashboardTabState") || "1");
