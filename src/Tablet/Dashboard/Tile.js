@@ -31,7 +31,7 @@ const Tile = ({
 
   return (
     <IonCard
-      color={color}
+      color="dark"
       width={width * 128}
       height={height * 128}
       backgroundColor={backgroundColor}

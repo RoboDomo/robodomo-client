@@ -109,7 +109,7 @@ const DashboardTab = ({ dashboard }) => {
   return (
     <IonGrid>
       <IonRow justify-content-center align-items-center>
-        <IonCol size="12">{tiles.current}</IonCol>
+        <IonCol size="9">{tiles.current}</IonCol>
       </IonRow>
     </IonGrid>
   );
