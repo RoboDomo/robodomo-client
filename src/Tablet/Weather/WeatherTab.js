@@ -2,6 +2,7 @@ import React from "react";
 import { format, parseISO } from "date-fns";
 import OnIdle from "@modus/react-idle";
 import cx from "classnames";
+import { withRouter } from "react-router";
 import { FaFlag } from "react-icons/fa";
 
 import Clock from "@/common/Clock";
@@ -127,10 +128,14 @@ const SecondaryConditions = ({ weather }) => {
   );
 };
 
-const WeatherTab = ({ location }) => {
+const WeatherTab = ({
+  match: {
+    params: { tab: zip },
+  },
+}) => {
   const Config = useConfig(),
     metric = Config.metric;
-  const weather = useWeather(location.device);
+  const weather = useWeather(zip);
 
   try {
     if (!weather.astronomy || !weather.forecast || !weather.hourly) {
@@ -168,4 +173,4 @@ const WeatherTab = ({ location }) => {
 };
 
 //
-export default WeatherTab;
+export default withRouter(WeatherTab);
