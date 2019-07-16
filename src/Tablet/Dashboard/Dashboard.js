@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { IonContent } from "@ionic/react";
 
-import Aux from "../../../src/Tablet/hoc/Aux";
+
 import useConfig from "@/hooks/useConfig";
 
 import { Tab, Tabs } from "react-bootstrap";
 import DashboardTab from "./DashboardTab";
 import { Route } from "react-router-dom";
-import Sensors from "@/Phone/Sensors/Sensors";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(localStorage.getItem("dashboardTabState") || "1");
