@@ -42,6 +42,7 @@ const SensorsTab = () => {
 
   useEffect(() => {
     return () => {
+      console.log("CLEARING SENSORS");
       clearSensors();
     };
   }, []);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router";
 
 const Tile = ({
   readOnly, // cannot be pressed if true
@@ -8,6 +9,7 @@ const Tile = ({
   height, // height, in tiles (e.g. 1, 2)
   onClick, // if string, location.hash, if funciton, it is called
   children,
+  history,
 }) => {
   const [pressed, setPressed] = useState(false);
   let timer = null;
@@ -20,7 +22,7 @@ const Tile = ({
       timer = null;
       setPressed(false);
       if (typeof onClick === "string") {
-        window.location.hash = onClick;
+        history.push(onClick);
       } else if (typeof onClick === "function") {
         onClick();
       }
@@ -50,4 +52,4 @@ const Tile = ({
     </div>
   );
 };
-export default Tile;
+export default withRouter(Tile);
