@@ -1,6 +1,5 @@
 import React from "react";
 import { IonContent } from "@ionic/react";
-import { Route } from "react-router";
 // TODO: remember tab state
 
 import { Tab, Tabs } from "react-bootstrap";
