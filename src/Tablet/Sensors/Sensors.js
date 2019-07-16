@@ -1,7 +1,6 @@
 import React from "react";
 import { IonContent } from "@ionic/react";
 // TODO: remember tab state
-
 import { Tab, Tabs } from "react-bootstrap";
 import SensorsTab from "./SensorsTab";
 
