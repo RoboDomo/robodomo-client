@@ -1,0 +1,64 @@
+aliases:
+  - &restore-npm-cache
+    key: v1-dependencies-{{ checksum "yarn.lock" }}
+  - &restore-webpack-cache
+    key: v1-webpackcache-{{ checksum "yarn.lock" }}
+
+defaults: &defaults
+  working_directory: /home/circleci/repo
+  docker:
+    - image: circleci/node:12-browsers
+
+version: 2.1
+jobs:
+  install-dependencies:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache
+      - run:
+          name: Install Node modules
+          command: yarn
+      - save_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+  build-pwa:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache
+      - restore_cache: *restore-webpack-cache
+      - run:
+          name: Build Project
+          command: yarn build
+      - save_cache:
+          key: v1-dist-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - build
+      - save_cache:
+          key: v1-webpackcache-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules/.cache
+
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache
+      - run:
+          name: Run ESLint
+          command: yarn lint
+
+workflows:
+  version: 2
+  build-and-test:
+    jobs:
+      - install-dependencies
+      - lint:
+          requires:
+            - install-dependencies
+      - build-pwa:
+          requires:
+            - install-dependencies
