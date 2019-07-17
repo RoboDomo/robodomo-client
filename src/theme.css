@@ -287,3 +287,7 @@ input::placeholder {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+main {
+  padding: 0 var(--rd-spc-s);
+}

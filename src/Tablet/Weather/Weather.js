@@ -1,43 +1,43 @@
-import React, { useState } from "react";
+import React from "react";
+import { Route, Redirect } from "react-router";
+import { get } from "lodash-es";
+import { IonTabs, IonTabBar, IonTabButton, IonLabel, IonRouterOutlet } from "@ionic/react";
 import { IonContent } from "@ionic/react";
 import useConfig from "@/hooks/useConfig";
 
-import { Tab, Tabs } from "react-bootstrap";
 import WeatherTab from "./WeatherTab";
 
 const Weather = () => {
   const Config = useConfig();
-  const [activeTab, setActiveTab] = useState(localStorage.getItem("weatherTabState") || "0");
-  if (!Config) {
+  const locations = get(Config, "weather.locations", null);
+
+  if (!locations || !Array.isArray(locations)) {
     return null;
   }
-  const changeTab = eventKey => {
-    localStorage.setItem("weatherTabState", eventKey);
-    setActiveTab(eventKey);
-  };
+
+  const defaultLocation = locations.find(loc => loc.default === true) || locations[0];
+
   return (
     <IonContent id="tab-weather">
-      <Tabs
-        id="weather-tabs"
-        onSelect={changeTab}
-        activeKey={activeTab}
-        variant="pills"
-        mountOnEnter
-        unmountOnExit
-      >
-        {Config.weather.locations.map(location => {
-          return (
-            <Tab
-              title={location.name}
-              eventKey={location.name}
-              key={location.name}
-              style={{ paddingLeft: 10, paddingRight: 10 }}
-            >
-              <WeatherTab location={location} />
-            </Tab>
-          );
-        })}
-      </Tabs>
+      <IonTabs>
+        <IonRouterOutlet>
+          {locations.map(({ device: zip }) => (
+            <Route path={`/weather/:tab(${zip})`} component={WeatherTab} key={zip} />
+          ))}
+        </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          {locations.map(({ device: zip, name }) => (
+            <IonTabButton tab={zip} href={`/weather/${zip}`} key={zip}>
+              <IonLabel>{name}</IonLabel>
+            </IonTabButton>
+          ))}
+        </IonTabBar>
+      </IonTabs>
+      <Route
+        exact
+        path="/weather"
+        render={() => <Redirect to={`/weather/${defaultLocation.device}`} />}
+      />
     </IonContent>
   );
 };
