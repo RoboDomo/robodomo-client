@@ -4,7 +4,7 @@ import DashboardPage from '../page-objects/dashboard.page';
 import NestPage from '../page-objects/nest.page';
 import Page from '../page-objects/page'
 import SensorsPage from '../page-objects/sensors.page';
-import SmartThingsPage from '../page-objects/smartthings.page';
+import SmartThingsMenuPage from '../page-objects/smartthings/smartthings.component';
 import TheaterPage from '../page-objects/theater.page';
 import WeatherPage from '../page-objects/weather.page';
 
@@ -81,25 +81,25 @@ When(/^User clicks on (Hallway Thermostat|Entryway Nest Protect) tab$/, {wrapper
 When(/^User clicks on (Theater|Office|Back Room|Bedroom|Kitchen|Bathroom|Outside) tab on SmartThings page$/, (tabName) => {
     switch (tabName) {
         case 'Theater':
-            SmartThingsPage.goToTheaterTab();
+            SmartThingsMenuPage.goToTheaterTab();
             break;
         case 'Office':
-            SmartThingsPage.goToOfficeTab();
+            SmartThingsMenuPage.goToOfficeTab();
             break;
         case 'Back Room':
-            SmartThingsPage.goToBackRoomTab();
+            SmartThingsMenuPage.goToBackRoomTab();
             break;
         case 'Bedroom':
-            SmartThingsPage.goToBedroomTab();
+            SmartThingsMenuPage.goToBedroomTab();
             break;
         case 'Kitchen':
-            SmartThingsPage.goToKitchenTab();
+            SmartThingsMenuPage.goToKitchenTab();
             break;
         case 'Bathroom':
-            SmartThingsPage.goToBathroomTab();
+            SmartThingsMenuPage.goToBathroomTab();
             break;
         case 'Outside':
-            SmartThingsPage.goToOutsideTab();
+            SmartThingsMenuPage.goToOutsideTab();
             break;
     }
 });
@@ -155,10 +155,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Ceiling Fan Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickCeilingFanLightOnSwitch();
+                    SmartThingsMenuPage.getTheaterTab().clickCeilingFanLightOnSwitch();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickCeilingFanLightOffSwitch();
+                    SmartThingsMenuPage.getTheaterTab().clickCeilingFanLightOffSwitch();
                     break;
                 default:
                     break;
@@ -167,16 +167,16 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Ceiling Fan':
             switch (state) {
                 case 'Off':
-                    SmartThingsPage.clickCeilingFanOffButton();
+                    SmartThingsMenuPage.getTheaterTab().clickCeilingFanOffButton();
                     break;
                 case 'Low':
-                    SmartThingsPage.clickCeilingFanLowButton();
+                    SmartThingsMenuPage.getTheaterTab().clickCeilingFanLowButton();
                     break;
                 case 'Medium':
-                    SmartThingsPage.clickCeilingFanMediumButton();
+                    SmartThingsMenuPage.getTheaterTab().clickCeilingFanMediumButton();
                     break;
                 case 'High':
-                    SmartThingsPage.clickCeilingFanHighButton();
+                    SmartThingsMenuPage.getTheaterTab().clickCeilingFanHighButton();
                     break;
                 default:
                     break;
@@ -185,10 +185,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Office Dimmer':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickOfficeDimmerOnSwitch();
+                    SmartThingsMenuPage.getTheaterTab().clickOfficeDimmerOnSwitch();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickOfficeDimmerOffSwitch();
+                    SmartThingsMenuPage.getTheaterTab().clickOfficeDimmerOffSwitch();
                     break;
                 default:
                     break;
@@ -197,10 +197,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Office Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickOfficeLightOnSwitch();
+                    SmartThingsMenuPage.getTheaterTab().clickOfficeLightOnSwitch();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickOfficeLightOffSwitch();
+                    SmartThingsMenuPage.getTheaterTab().clickOfficeLightOffSwitch();
                     break;
                 default:
                     break;
@@ -209,16 +209,16 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Office Fan':
             switch (state) {
                 case 'Off':
-                    SmartThingsPage.clickOfficeFanOffButton();
+                    SmartThingsMenuPage.getTheaterTab().clickOfficeFanOffButton();
                     break;
                 case 'Low':
-                    SmartThingsPage.clickOfficeFanLowButton();
+                    SmartThingsMenuPage.getTheaterTab().clickOfficeFanLowButton();
                     break;
                 case 'Medium':
-                    SmartThingsPage.clickOfficeFanMediumButton();
+                    SmartThingsMenuPage.getTheaterTab().clickOfficeFanMediumButton();
                     break;
                 case 'High':
-                    SmartThingsPage.clickOfficeFanHighButton();
+                    SmartThingsMenuPage.getTheaterTab().clickOfficeFanHighButton();
                     break;
                 default:
                     break;
@@ -227,10 +227,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Entryway Lights':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickEntrywayLightsOnButton();
+                    SmartThingsMenuPage.getTheaterTab().clickEntrywayLightsOnButton();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickEntrywayLightsOffButton();
+                    SmartThingsMenuPage.getTheaterTab().clickEntrywayLightsOffButton();
                     break;
                 default:
                     break;
@@ -239,10 +239,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Kitchen Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickKitchenLightOnSwitch();
+                    SmartThingsMenuPage.getTheaterTab().clickKitchenLightOnSwitch();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickKitchenLightOffSwitch();
+                    SmartThingsMenuPage.getTheaterTab().clickKitchenLightOffSwitch();
                     break;
                 default:
                     break;
@@ -251,10 +251,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Bathroom Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickBathroomLightOnSwitch();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBathroomLightOnSwitch();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickBathroomLightOffSwitch();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBathroomLightOffSwitch();
                     break;
                 default:
                     break;
@@ -263,10 +263,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Bedroom Lamp':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickBedroomLampOnButton();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBedroomLampOnButton();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickBedroomLampOffButton();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBedroomLampOffButton();
                     break;
                 default:
                     break;
@@ -275,16 +275,16 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Bedroom Fan':
             switch (state) {
                 case 'Off':
-                    SmartThingsPage.clickBedroomFanOffButton();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBedroomFanOffButton();
                     break;
                 case 'Low':
-                    SmartThingsPage.clickBedroomFanLowButton();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBedroomFanLowButton();
                     break;
                 case 'Medium':
-                    SmartThingsPage.clickBedroomFanMediumButton();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBedroomFanMediumButton();
                     break;
                 case 'High':
-                    SmartThingsPage.clickBedroomFanHighButton();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBedroomFanHighButton();
                     break;
                 default:
                     break;
@@ -293,10 +293,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Bedroom Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickBedroomLightOnSwitch();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBedroomLightOnSwitch();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickBedroomLightOffSwitch();
+                    SmartThingsMenuPage.getBedroomTabPage().clickBedroomLightOffSwitch();
                     break;
                 default:
                     break;
@@ -305,10 +305,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Porch Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickPorchLightOnButton();
+                    SmartThingsMenuPage.getOutsideTabPage().clickPorchLightOnButton();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickPorchLightOffButton();
+                    SmartThingsMenuPage.getOutsideTabPage().clickPorchLightOffButton();
                     break;
                 default:
                     break;
@@ -317,10 +317,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Outside Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickOutsideLightOnButton();
+                    SmartThingsMenuPage.getOutsideTabPage().clickOutsideLightOnButton();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickOutsideLightOffButton();
+                    SmartThingsMenuPage.getOutsideTabPage().clickOutsideLightOffButton();
                     break;
                 default:
                     break;
@@ -329,10 +329,10 @@ When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|
         case 'Outdoor Lights':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.clickOutdoorLightsOnButton();
+                    SmartThingsMenuPage.getOutsideTabPage().clickOutdoorLightsOnButton();
                     break;
                 case 'Off':
-                    SmartThingsPage.clickOutdoorLightsOffButton();
+                    SmartThingsMenuPage.getOutsideTabPage().clickOutdoorLightsOffButton();
                     break;
                 default:
                     break;
