@@ -3,7 +3,7 @@ import AutelisPage from '../page-objects/autelis.page';
 import DashboardPage from '../page-objects/dashboard.page'
 import NestPage from '../page-objects/nest.page';
 import SensorsPage from '../page-objects/sensors.page';
-import SmartThingsPage from '../page-objects/smartThings.page';
+import SmartThingsPage from '../page-objects/smartthings.page';
 import TheaterPage from '../page-objects/theater.page';
 import WeatherPage from '../page-objects/weather.page';
 import expect from 'expect'
@@ -149,6 +149,197 @@ Then(/^Autelis (Solar|Cleaner|Pool Heat|Pool Light|Waterfall|Spa Heat|Jets|Spa L
         case 'Blower':
             state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.blowerOnButton) :
                 AutelisPage.isButtonEnabled(AutelisPage.blowerOffButton);
+            break;
+    }
+});
+
+Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Office Fan|Entryway Lights|Kitchen Light|Bathroom Light|Bedroom Lamp|Bedroom Fan|Bedroom Light|Porch Light|Outside Light|Outdoor Lights) button is in (On|Off|Low|Medium|High) state$/, (buttonName, state) => {
+    switch (buttonName) {
+        case 'Ceiling Fan Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.ceilingFanLightOnSwitch);
+                    break;
+                case 'Off':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.ceilingFanLightOffSwitch);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Ceiling Fan':
+            switch (state) {
+                case 'Off':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.ceilingFanOffButton);
+                    break;
+                case 'Low':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.ceilingFanLowButton);
+                    break;
+                case 'Medium':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.ceilingFanMediumButton);
+                    break;
+                case 'High':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.ceilingFanHighButton);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Office Dimmer':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.officeDimmerOnSwitch);
+                    break;
+                case 'Off':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.officeDimmerOffSwitch);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Office Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.officeLightOnSwitch);
+                    break;
+                case 'Off':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.officeLightOffSwitch);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Office Fan':
+            switch (state) {
+                case 'Off':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.officeFanOffButton);
+                    break;
+                case 'Low':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.officeFanLowButton);
+                    break;
+                case 'Medium':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.officeFanMediumButton);
+                    break;
+                case 'High':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.officeFanHighButton);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Entryway Lights':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.entrywayLightsOnButton);
+                    break;
+                case 'Off':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.entrywayLightsOffButton);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Kitchen Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.kitchenLightOnSwitch);
+                    break;
+                case 'Off':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.kitchenLightOffSwitch);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Bathroom Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.bathroomLightOnSwitch);
+                    break;
+                case 'Off':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.bathroomLightOffSwitch);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Bedroom Fan':
+            switch (state) {
+                case 'Off':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.bedroomFanOffButton);
+                    break;
+                case 'Low':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.bedroomFanLowButton);
+                    break;
+                case 'Medium':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.bedroomFanMediumButton);
+                    break;
+                case 'High':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.bedroomFanHighButton);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Bedroom Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.bedroomLightOnSwitch);
+                    break;
+                case 'Off':
+                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.bedroomLightOffSwitch);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Bedroom Lamp':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.bedroomLampOnButton);
+                    break;
+                case 'Off':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.bedroomLampOffButton);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Porch Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.porchLightOnButton);
+                    break;
+                case 'Off':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.porchLightOffButton);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Outside Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.outsideLightOnButton);
+                    break;
+                case 'Off':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.outsideLightOffButton);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Outdoor Lights':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.outdoorLightsOnButton);
+                    break;
+                case 'Off':
+                    SmartThingsPage.isButtonEnabled(SmartThingsPage.outdoorLightsOffButton);
+                    break;
+                default:
+                    break;
+            }
             break;
     }
 });

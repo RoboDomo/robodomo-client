@@ -78,6 +78,32 @@ When(/^User clicks on (Hallway Thermostat|Entryway Nest Protect) tab$/, {wrapper
     }
 });
 
+When(/^User clicks on (Theater|Office|Back Room|Bedroom|Kitchen|Bathroom|Outside) tab on SmartThings page$/, (tabName) => {
+    switch (tabName) {
+        case 'Theater':
+            SmartThingsPage.goToTheaterTab();
+            break;
+        case 'Office':
+            SmartThingsPage.goToOfficeTab();
+            break;
+        case 'Back Room':
+            SmartThingsPage.goToBackRoomTab();
+            break;
+        case 'Bedroom':
+            SmartThingsPage.goToBedroomTab();
+            break;
+        case 'Kitchen':
+            SmartThingsPage.goToKitchenTab();
+            break;
+        case 'Bathroom':
+            SmartThingsPage.goToBathroomTab();
+            break;
+        case 'Outside':
+            SmartThingsPage.goToOutsideTab();
+            break;
+    }
+});
+
 When(/^User clicks on (OFF|POOL|SPA) button on Autelis page$/, (buttonName) => {
     switch (buttonName) {
         case 'OFF':
@@ -120,6 +146,197 @@ When(/^User clicks on (Solar|Cleaner|Pool Heat|Pool Light|Waterfall|Spa Heat|Jet
             break;
         case 'Blower':
             state === 'On' ? AutelisPage.clickBlowerOnButton() : AutelisPage.clickBlowerOffButton();
+            break;
+    }
+});
+
+When(/^User clicks on (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Office Fan|Entryway Lights|Kitchen Light|Bathroom Light|Bedroom Lamp|Bedroom Fan|Bedroom Light|Porch Light|Outside Light|Outdoor Lights) button to change state to (On|Off|Low|Medium|High) at SmartThings page$/, (buttonName, state) => {
+    switch (buttonName) {
+        case 'Ceiling Fan Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickCeilingFanLightOnSwitch();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickCeilingFanLightOffSwitch();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Ceiling Fan':
+            switch (state) {
+                case 'Off':
+                    SmartThingsPage.clickCeilingFanOffButton();
+                    break;
+                case 'Low':
+                    SmartThingsPage.clickCeilingFanLowButton();
+                    break;
+                case 'Medium':
+                    SmartThingsPage.clickCeilingFanMediumButton();
+                    break;
+                case 'High':
+                    SmartThingsPage.clickCeilingFanHighButton();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Office Dimmer':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickOfficeDimmerOnSwitch();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickOfficeDimmerOffSwitch();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Office Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickOfficeLightOnSwitch();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickOfficeLightOffSwitch();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Office Fan':
+            switch (state) {
+                case 'Off':
+                    SmartThingsPage.clickOfficeFanOffButton();
+                    break;
+                case 'Low':
+                    SmartThingsPage.clickOfficeFanLowButton();
+                    break;
+                case 'Medium':
+                    SmartThingsPage.clickOfficeFanMediumButton();
+                    break;
+                case 'High':
+                    SmartThingsPage.clickOfficeFanHighButton();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Entryway Lights':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickEntrywayLightsOnButton();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickEntrywayLightsOffButton();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Kitchen Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickKitchenLightOnSwitch();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickKitchenLightOffSwitch();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Bathroom Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickBathroomLightOnSwitch();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickBathroomLightOffSwitch();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Bedroom Lamp':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickBedroomLampOnButton();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickBedroomLampOffButton();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Bedroom Fan':
+            switch (state) {
+                case 'Off':
+                    SmartThingsPage.clickBedroomFanOffButton();
+                    break;
+                case 'Low':
+                    SmartThingsPage.clickBedroomFanLowButton();
+                    break;
+                case 'Medium':
+                    SmartThingsPage.clickBedroomFanMediumButton();
+                    break;
+                case 'High':
+                    SmartThingsPage.clickBedroomFanHighButton();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Bedroom Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickBedroomLightOnSwitch();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickBedroomLightOffSwitch();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Porch Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickPorchLightOnButton();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickPorchLightOffButton();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Outside Light':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickOutsideLightOnButton();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickOutsideLightOffButton();
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case 'Outdoor Lights':
+            switch (state) {
+                case 'On':
+                    SmartThingsPage.clickOutdoorLightsOnButton();
+                    break;
+                case 'Off':
+                    SmartThingsPage.clickOutdoorLightsOffButton();
+                    break;
+                default:
+                    break;
+            }
             break;
     }
 });
