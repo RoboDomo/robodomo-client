@@ -38,7 +38,7 @@ const NumberInput = ({ value, step = 1, min, max, onValueChange, style }) => {
       </Button>
       <input
         type="text"
-        style={{ width: 40, textAlign: "center", marginTop: 16, height: 34 }}
+        style={{ background: "none", width: 40, textAlign: "center", marginTop: 16, height: 34 }}
         value={val}
         readOnly
       />
