@@ -20,8 +20,7 @@ const SpaTile = ({ device }) => {
   };
 
   const on = isOn("spa") || isOn("spaHeat") || isOn("jet") || isOn("blower") || isOn("spaLight"),
-    backgroundColor = on ? "red" : undefined,
-    color = on ? "white" : undefined;
+    color = on ? "danger" : undefined;
 
   const renderControl = (ndx, text, big) => {
     const thing = autelis[ndx];
@@ -64,7 +63,6 @@ const SpaTile = ({ device }) => {
         localStorage.setItem("autelis-radio", "spa");
         window.location.hash = "autelis";
       }}
-      backgroundColor={backgroundColor}
       color={color}
     >
       <div style={{ textAlign: "center" }}>{renderSpa()}</div>

@@ -93,13 +93,13 @@ const TheaterTile = ({ title }) => {
 
   return active ? (
     <Tile width={2} height={2} onClick="theater">
-      <div style={{ fontSize: 24, marginBottom: 0 }}>{currentActivity}</div>
+      <div style={{ fontSize: 24, marginBottom: 0, textAlign: "center" }}>{currentActivity}</div>
       {renderCurrentDevice()}
       <Audio device={avr} />
     </Tile>
   ) : (
     <Tile width={2} height={2}>
-      <div>Current Activity: {currentActivity}</div>
+      <div style={{ textAlign: "center" }}>Current Activity: {currentActivity}</div>
     </Tile>
   );
 };
