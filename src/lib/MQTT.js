@@ -13,7 +13,7 @@ class MQTT extends EventEmitter {
     this.cache = {};
     this.setMaxListeners(250);
 
-    if (process.env.NODE_ENV === "testing") {
+    if (process.env.NODE_ENV === "testing" || process.env.REACT_APP_DEMO === "true") {
       // save a reference for testing
       window.SEND_MQTT_MESSAGE = this.onMessageArrived.bind(this);
     }

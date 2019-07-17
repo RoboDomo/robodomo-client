@@ -17,7 +17,7 @@ const SliderField = ({
   const [val, setVal] = useState(value);
   return (
     <FormGroup style={{ marginBottom: 0 }}>
-      // TODO: componentClass? See react-bootstrap docs
+      {/* TODO: componentClass? See react-bootstrap docs */}
       <Col componentClass={ControlLabel} sm={4} style={{ whiteSpace: "nowrap", float: "left" }}>
         {label}
       </Col>

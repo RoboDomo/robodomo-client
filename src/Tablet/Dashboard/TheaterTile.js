@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 
 import useConfig from "@/hooks/useConfig";
 import useLGTV from "@/hooks/useLGTV";
 import useDenon from "@/hooks/useDenon";
 import useBravia from "@/hooks/useBravia";
-import useTiVo from "@/hooks/useTiVo";
 import useAppleTV from "@/hooks/useAppleTV";
 
 import Tile from "./Tile";
@@ -93,7 +92,7 @@ const TheaterTile = ({ title }) => {
 
   return active ? (
     <Tile width={2} height={2} onClick="theater">
-      <div style={{ fontSize: 24, marginBottom: 0 }}>{currentActivity}</div>
+      <div style={{ fontSize: 24, marginBottom: 0, textAlign: "center" }}>{currentActivity}</div>
       {renderCurrentDevice()}
       <Audio device={avr} />
     </Tile>

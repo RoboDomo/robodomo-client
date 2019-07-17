@@ -43,7 +43,11 @@
       "plugin:prettier/recommended",
       "prettier/babel",
       "prettier/react"
-    ]
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "warn",
+      "no-unused-vars": "error"
+    }
   },
   "husky": {
     "hooks": {

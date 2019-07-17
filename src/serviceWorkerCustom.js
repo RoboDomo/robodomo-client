@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-ignore */
 /* global workbox */
 // uncoment for debugging

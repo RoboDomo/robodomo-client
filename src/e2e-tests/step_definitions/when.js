@@ -2,9 +2,7 @@ import {When} from 'cucumber';
 import AutelisPage from '../page-objects/autelis.page';
 import DashboardPage from '../page-objects/dashboard.page';
 import NestPage from '../page-objects/nest.page';
-import Page from '../page-objects/page'
-import SensorsPage from '../page-objects/sensors.page';
-import SmartThingsPage from '../page-objects/smartthings.page';
+import Page from '../page-objects/page';
 import TheaterPage from '../page-objects/theater.page';
 import WeatherPage from '../page-objects/weather.page';
 
