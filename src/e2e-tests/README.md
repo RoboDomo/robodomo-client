@@ -17,13 +17,24 @@ Robodomo - easy way to control your smart home, using tablet or smartphone.
 # Getting Started
 
 
-Install the following:
+Install the following
 
-NodeJS latest LTS version `https://nodejs.org/en/download/`
+##### Windows users:
 
-Java JDK `https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html`
+NodeJS latest LTS version: `https://nodejs.org/en/download/`
 
-Google Chrome browser latest stable version `https://www.google.com/chrome/`
+Java JDK: `https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html`
+
+Google Chrome browser: `https://www.google.com/chrome/`
+
+##### Mac users:
+
+NodeJS latest LTS version: `brew install node`
+
+Java JDK: `brew cask install java`
+
+Google Chrome browser: `brew cask install google-chrome`
+
 
 # How it works
 
@@ -35,8 +46,6 @@ Webdriver initiates browser instance locally or in cloud instance and runs tests
 
 Before tests could be run all required libraries have to be fetched from npm repository.
 
-Run `npm i` in project root `../react-client/src/e2e-tests` 
-
 Run `npm i` in test directory `../react-client/src/e2e-tests`
 
 ## Prerequisites
@@ -45,7 +54,7 @@ TODO
 
 ## Testing
 
-To start running tests execute the following commands in `../react-client/src/e2e-tests/e2e-tests` directory:
+To start running tests execute the following commands in `../react-client/src/e2e-tests` directory:
 
 -   `npm run test:local_chrome` - run tests against local environment using Chrome (UI) browser
 -   `npm run test:bs_cloud -- --baseUrl=URL --user=BROWSERSTACK_USER --key=BROWSERSTACK_KEY` - run tests agains cloud test environment on multiple OS/Browsers pairs
