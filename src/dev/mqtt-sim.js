@@ -1,4 +1,4 @@
-import { onOrOff, randomTemp, randomPositive } from "./utils";
+import { onOrOff, randomTemp } from "./utils";
 import { getHourly } from "./weather/hourly";
 import { getForecast } from "./weather/forecast";
 import { getObservation } from "./weather/observation";

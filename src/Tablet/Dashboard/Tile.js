@@ -12,7 +12,7 @@ const Tile = ({
   children,
   history,
 }) => {
-  const [pressed, setPressed] = useState(false);
+  const [, setPressed] = useState(false);
   let timer = null;
 
   const handleClick = () => {

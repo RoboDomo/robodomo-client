@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import useConfig from "@/hooks/useConfig";
-import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
 import s from "./AutelisTab.module.css";
 

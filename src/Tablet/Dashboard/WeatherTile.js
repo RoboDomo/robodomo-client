@@ -9,7 +9,7 @@ import { FaFlag } from "react-icons/fa";
 
 const WeatherTile = () => {
   const Config = useConfig();
-  const metric = Config.metric;
+  // const metric = Config.metric;
   const location = (() => {
     for (const location of Config.weather.locations) {
       if (location.default) {

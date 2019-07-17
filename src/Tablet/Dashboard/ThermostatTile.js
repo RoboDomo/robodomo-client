@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import React, { useReducer } from "react";
 
 import useConfig from "@/hooks/useConfig";
 import useThermostat from "@/hooks/useThermostat";
