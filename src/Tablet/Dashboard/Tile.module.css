@@ -1,4 +1,4 @@
-#card {
+.card.card {
     display: flex;
     font-weight: bold;
     flex-direction: column;
@@ -7,7 +7,7 @@
     margin: var(--rd-spc-xxs);
 }
 
-#content {
+.content.content {
     padding-left: var(--rd-spc-xxs);
     padding-right: var(--rd-spc-xxs);
 }
