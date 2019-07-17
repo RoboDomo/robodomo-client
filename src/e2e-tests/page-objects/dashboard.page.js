@@ -10,7 +10,7 @@ class DashboardPage extends Page {
     get bedroomTabButton() { return $('#dashboard-tabs-tab-bedroom') }
     get bedroomTabPane() { return $('#dashboard-tabs-tabpane-bedroom') }
 
-    get bedroomNestCell() { return this.bedroomTabPane.$('//form/parent::div/parent::div') }
+    get bedroomNestCell() { return this.bedroomTabPane.$('//form/parent::div/parent::ion-card-content') }
     get bedroomNestDecreaseButton() { return this.bedroomTabPane.$('//form//button[1]') }
     get bedroomNestTemperatureValue() { return this.bedroomTabPane.$('//form//input') }
     get bedroomNestIncreaseButton() { return this.bedroomTabPane.$('//form//button[2]') }
@@ -18,7 +18,7 @@ class DashboardPage extends Page {
     get theaterTabButton() { return $('#dashboard-tabs-tab-theater') }
     get theaterTabPane() { return $('#dashboard-tabs-tabpane-theater') }
 
-    get theaterNestCell() { return this.theaterTabPane.$('//form/parent::div/parent::div') }
+    get theaterNestCell() { return this.theaterTabPane.$('//form/parent::div/parent::ion-card-content') }
     get theaterNestDecreaseButton() { return this.theaterTabPane.$('//form//button[1]') }
     get theaterNestTemperatureValue() { return this.theaterTabPane.$('//form//input') }
     get theaterNestIncreaseButton() { return this.theaterTabPane.$('//form//button[2]') }

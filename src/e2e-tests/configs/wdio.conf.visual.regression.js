@@ -32,7 +32,7 @@ exports.config = merge(configBase.config, {
                 savePerInstance: true,
             }],
     ],
-    browserstackLocal: false,
+    browserstackLocal: true,
     browserstackOpts: {},
 
     capabilities: [

@@ -1,13 +1,14 @@
-const configBase = require('./wdio.conf.js');
-const merge = require('deepmerge');
+const configBase = require("./wdio.conf.js");
+const { join } = require('path');
+const merge = require("deepmerge");
 
 exports.config = merge(configBase.config, {
     specs: [
-        './features/**/*.feature'
+        "./features/**/*.feature",
     ],
-    exclude: [
-        './features/visualRegression/*.feature'
-    ],
+    // exclude: [
+    //     './features/visualRegression/*.feature'
+    // ],
     //
     // First, you can define how many instances should be started at the same time. Let's
     // say you have 3 different capabilities (Chrome, Firefox, and Safari) and you have
@@ -18,11 +19,23 @@ exports.config = merge(configBase.config, {
     //
     maxInstances: 1,
 
-    services: ['selenium-standalone'],
+    services: [
+        "selenium-standalone",
+        ["image-comparison",
+            {
+                autoSaveBaseline: true,
+                baselineFolder: join(process.cwd(), "./baseScreenshots/"),
+                blockOutStatusBar: true,
+                blockOutToolBar: true,
+                clearRuntimeFolder: true,
+                formatImageName: "{tag}-{width}x{height}",
+                screenshotPath: join(process.cwd(), ".tmp/"),
+                savePerInstance: true,
+            }]],
 
     capabilities: [
         {
-            browserName: 'chrome',
+            browserName: "chrome",
         },
-    ]
+    ],
 });

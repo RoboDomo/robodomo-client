@@ -20,7 +20,7 @@ exports.config = merge(configBase.config, {
 
 
     services: ['browserstack'],
-    browserstackLocal: false,
+    browserstackLocal: true,
     browserstackOpts: {},
 
     capabilities: [
