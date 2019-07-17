@@ -1,9 +1,11 @@
-const configBase = require("./wdio.conf.js");
-const { join } = require("path");
-const merge = require("deepmerge");
+const configBase = require('./wdio.conf.js');
+const { join } = require('path');
+const merge = require('deepmerge');
 
 exports.config = merge(configBase.config, {
-    specs: ["./features/visualRegression/*.feature"],
+    specs: [
+        './features/visualRegression/dashboard.feature',
+    ],
 
     //
     // First, you can define how many instances should be started at the same time. Let's
@@ -15,32 +17,70 @@ exports.config = merge(configBase.config, {
     //
     maxInstances: 1,
 
+
     services: [
-        "browserstack",
-        [
-            "image-comparison",
+        'browserstack',
+        ['image-comparison',
             {
                 autoSaveBaseline: true,
-                baselineFolder: join(process.cwd(), "./baseScreenshots/"),
+                baselineFolder: join(process.cwd(), './baseScreenshots/'),
                 blockOutStatusBar: true,
                 blockOutToolBar: true,
                 clearRuntimeFolder: true,
-                formatImageName: "{tag}-{name}-{width}x{height}",
-                screenshotPath: join(process.cwd(), ".tmp/"),
+                formatImageName: '{tag}-{width}x{height}',
+                screenshotPath: join(process.cwd(), '.tmp/'),
                 savePerInstance: true,
-            },
-        ],
+            }],
     ],
-    browserstackLocal: false,
+    browserstackLocal: true,
     browserstackOpts: {},
 
     capabilities: [
         {
-            name: "Windows_Chrome",
-            os: "Windows",
-            os_version: "10",
-            browser: "Chrome",
-            resolution: "1920x1080",
+            'browserName': 'Windows_Chrome',
+            'os': 'Windows',
+            'os_version': '10',
+            'browser': 'Chrome',
+            'resolution': '1920x1080',
+        },
+        {
+            'browserName': 'Windows_Firefox',
+            'os': 'Windows',
+            'os_version': '10',
+            'browser': 'Firefox',
+            'resolution': '1920x1080',
+        },
+        {
+            'browserName': 'MacOS_Chrome',
+            'os': 'OS X',
+            'os_version': 'Mojave',
+            'browser': 'Chrome',
+            'resolution': '1920x1080',
+        },
+        {
+            'browserName': 'MacOS_Firefox',
+            'os': 'OS X',
+            'os_version': 'Mojave',
+            'browser': 'Firefox',
+            'resolution': '1920x1080',
+        },
+        {
+            'browserName': 'MacOS_Safari',
+            'os': 'OS X',
+            'os_version': 'Mojave',
+            'browser': 'Safari',
+            'resolution': '1920x1080',
         },
     ],
+
+    before: function(capabilities, specs) {
+        require('@babel/register');
+
+        browser.setTimeout({
+            'implicit': this.waitTimes.implicit,
+            'pageLoad': this.waitTimes.pageLoad,
+            'script': this.waitTimes.script,
+        });
+        browser.maximizeWindow();
+    },
 });

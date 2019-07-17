@@ -6,8 +6,7 @@ Feature: RoboDomo Autelis page
 
     @S1 @automated
     Scenario Outline: Check Autelis pool/spa/solar options
-        Given User loads the RoboDomo web app
-        When User clicks Autelis menu button
+        Given User navigates to Autelis page
         Then User is redirected to Autelis page
         Then Autelis tab shall be selected
         When User clicks on Autelis tab
