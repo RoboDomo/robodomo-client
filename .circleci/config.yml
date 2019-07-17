@@ -49,7 +49,7 @@ jobs:
       - restore_cache: *restore-npm-cache
       - run:
           name: Run ESLint
-          command: yarn lint
+          command: yarn eslint src
 
 workflows:
   version: 2
