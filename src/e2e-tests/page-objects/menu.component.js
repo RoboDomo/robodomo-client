@@ -4,16 +4,12 @@ import expect from "expect";
 
 class MenuComponent {
 
+    get autelisButton() {
+        return $('//ion-tab-button[@tab="autelis"]')
+    }
+
     get dashboardButton() {
         return $('//ion-tab-button[@tab="dashboard"]')
-    }
-
-    get theaterButton() {
-        return $('//ion-tab-button[@tab="theater"]')
-    }
-
-    get weatherButton() {
-        return $('//ion-tab-button[@tab="weather"]')
     }
 
     get nestButton() {
@@ -24,19 +20,20 @@ class MenuComponent {
         return $('//ion-tab-button[@tab="sensors"]')
     }
 
-    get autelisButton() {
-        return $('//ion-tab-button[@tab="autelis"]')
-    }
-
     get smartThingsButton() {
         return $('//ion-tab-button[@tab="smartthings"]')
     }
 
+    get theaterButton() {
+        return $('//ion-tab-button[@tab="theater"]')
+    }
+
+    get weatherButton() {
+        return $('//ion-tab-button[@tab="weather"]')
+    }
+
     goToAutelisPage() {
-        browser.waitUntil(() => {
-            return this.autelisButton.isDisplayed();
-        }, 5000);
-        this.autelisButton.click()
+        this.autelisButton.click();
     }
 
     goToDashboardPage() {
@@ -110,6 +107,37 @@ class MenuComponent {
             return this.weatherButton.getAttribute('aria-selected') === "true";
         }, 5000);
         expect(this.weatherButton.getAttribute('class')).toContain('tab-selected');
+    }
+
+    validateElementsScreenshots() {
+
+        expect(browser.checkElement(this.autelisButton, 'MenuComponent_autelisButton')).toEqual(0);
+        this.goToAutelisPage();
+        expect(browser.checkElement(this.autelisButton, 'MenuComponent_autelisButton_Active')).toEqual(0);
+
+        expect(browser.checkElement(this.dashboardButton, 'MenuComponent_dashboardButton')).toEqual(0);
+        this.goToDashboardPage();
+        expect(browser.checkElement(this.dashboardButton, 'MenuComponent_dashboardButton_Active')).toEqual(0);
+
+        expect(browser.checkElement(this.nestButton, 'MenuComponent_nestButton')).toEqual(0);
+        this.goToNestPage();
+        expect(browser.checkElement(this.nestButton, 'MenuComponent_nestButton_Active')).toEqual(0);
+
+        expect(browser.checkElement(this.sensorsButton, 'MenuComponent_sensorsButton')).toEqual(0);
+        this.goToSensorsPage();
+        expect(browser.checkElement(this.sensorsButton, 'MenuComponent_sensorsButton_Active')).toEqual(0);
+
+        expect(browser.checkElement(this.smartThingsButton, 'MenuComponent_smartThingsButton')).toEqual(0);
+        this.goToSmartThingsPage();
+        expect(browser.checkElement(this.smartThingsButton, 'MenuComponent_smartThingsButton_Active')).toEqual(0);
+
+        expect(browser.checkElement(this.theaterButton, 'MenuComponent_theaterButton')).toEqual(0);
+        this.goToTheaterPage();
+        expect(browser.checkElement(this.theaterButton, 'MenuComponent_theaterButton_Active')).toEqual(0);
+
+        expect(browser.checkElement(this.weatherButton, 'MenuComponent_weatherButton')).toEqual(0);
+        this.goToWeatherPage();
+        expect(browser.checkElement(this.weatherButton, 'MenuComponent_weatherButton_Active')).toEqual(0);
     }
 }
 
