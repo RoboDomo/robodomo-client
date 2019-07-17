@@ -91,6 +91,31 @@ You can see MQTT traffic logged in the console of your browser's DevTools.
 
 # Testing
 
+### Simulating MQTT Traffic
+
+When `NODE_ENV=testing` or `REACT_APP_DEMO=true` then you can use global method `SEND_MQTT_MESSAGE` to simulate incoming MQTT messages.
+
+```js
+SEND_MQTT_MESSAGE("smartthings/Bedroom Light/level", 90);
+
+SEND_MQTT_MESSAGE(
+  "weather/92109/status/astronomy",
+  JSON.stringify({
+    sunrise: 1561380120.848,
+    sunset: 1561431600.849,
+    moonrise: "12:34AM",
+    moonset: "12:16PM",
+    moonPhase: -0.633,
+    moonPhaseDesc: "Waning gibbous",
+    iconName: "cw_waning_gibbous",
+    city: "Mission Beach",
+    latitude: 32.76,
+    longitude: -117.23,
+    utcTime: 1561359600,
+  })
+);
+```
+
 E2E testing on mobile devices is brought to you by [BrowserStack](https://browserstack.com).
 
 <p align="left">

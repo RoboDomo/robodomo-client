@@ -21,11 +21,11 @@ const MacroTile = ({ label, name }) => {
 
   return (
     <Tile width={1} height={1}>
-      <div style={{ flexDirection: "column" }} onClick={onClick}>
-        <div style={{ fontSize: 24, textAlign: "center", marginBottom: 10 }}>
+      <div style={{ flexDirection: "column", textAlign: "center" }} onClick={onClick}>
+        <div style={{ fontSize: 24, marginBottom: 10 }}>
           <FaRunning size={24} />
         </div>
-        <div style={{ textAlign: "center" }}>{"Macro"}</div>
+        <div>{"Macro"}</div>
         <div>{label}</div>
       </div>
     </Tile>

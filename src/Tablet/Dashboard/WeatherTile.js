@@ -47,20 +47,15 @@ const WeatherTile = () => {
               verticalAlign: "bottom",
               width: 80,
               height: 80,
+              display: "inline",
             }}
             src={now.iconLink}
           />
-          <div style={{ display: "inline" }}>
-            <span
-              style={{
-                fontSize: 44,
-              }}
-            >
+          <span style={{fontSize: 40,}}>
               <Temperature value={now.temperature} />
             </span>
-          </div>
         </div>
-        <div style={{ textAlign: "right" }}>
+        <div>
           <Temperature value={now.highTemperature} /> / <Temperature value={now.lowTemperature} />
         </div>
         <div
