@@ -51,9 +51,9 @@ const WeatherTile = () => {
             }}
             src={now.iconLink}
           />
-          <span style={{fontSize: 40,}}>
-              <Temperature value={now.temperature} />
-            </span>
+          <span style={{ fontSize: 40 }}>
+            <Temperature value={now.temperature} />
+          </span>
         </div>
         <div>
           <Temperature value={now.highTemperature} /> / <Temperature value={now.lowTemperature} />

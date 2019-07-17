@@ -1,11 +1,9 @@
-const configBase = require('./wdio.conf.js');
-const {join} = require('path');
-const merge = require('deepmerge');
+const configBase = require("./wdio.conf.js");
+const { join } = require("path");
+const merge = require("deepmerge");
 
 exports.config = merge(configBase.config, {
-    specs: [
-        './features/visualRegression/*.feature'
-    ],
+    specs: ["./features/visualRegression/*.feature"],
 
     //
     // First, you can define how many instances should be started at the same time. Let's
@@ -17,31 +15,32 @@ exports.config = merge(configBase.config, {
     //
     maxInstances: 1,
 
-
     services: [
-        'browserstack',
-        ['image-comparison',
+        "browserstack",
+        [
+            "image-comparison",
             {
                 autoSaveBaseline: true,
-                baselineFolder: join(process.cwd(), './baseScreenshots/'),
+                baselineFolder: join(process.cwd(), "./baseScreenshots/"),
                 blockOutStatusBar: true,
                 blockOutToolBar: true,
                 clearRuntimeFolder: true,
-                formatImageName: '{tag}-{name}-{width}x{height}',
-                screenshotPath: join(process.cwd(), '.tmp/'),
+                formatImageName: "{tag}-{name}-{width}x{height}",
+                screenshotPath: join(process.cwd(), ".tmp/"),
                 savePerInstance: true,
-            }],
+            },
+        ],
     ],
     browserstackLocal: false,
     browserstackOpts: {},
 
     capabilities: [
         {
-            'name': 'Windows_Chrome',
-            'os': 'Windows',
-            'os_version': '10',
-            'browser': 'Chrome',
-            'resolution': '1920x1080'
+            name: "Windows_Chrome",
+            os: "Windows",
+            os_version: "10",
+            browser: "Chrome",
+            resolution: "1920x1080",
         },
-    ]
+    ],
 });

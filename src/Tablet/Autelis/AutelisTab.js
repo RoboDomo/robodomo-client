@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import useConfig from "@/hooks/useConfig";
 import { Row, Col, Button, ButtonGroup } from "react-bootstrap";
-import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react"
+import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
 import s from "./AutelisTab.module.css";
 
 import NumberField from "@/common/form/NumberField";
@@ -194,26 +194,25 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <IonSegment 
-          className={s.toggle}
-          color={solarOn ? "success" : undefined}
-          >
-          <IonSegmentButton 
-            checked={solarOn} 
+        <IonSegment className={s.toggle} color={solarOn ? "success" : undefined}>
+          <IonSegmentButton
+            checked={solarOn}
             onClick={() => {
               if (!solarOn) {
                 dispatch({ type: "solarHeat", value: true });
               }
-            }}>
+            }}
+          >
             <IonLabel>On</IonLabel>
           </IonSegmentButton>
-          <IonSegmentButton 
-            checked={!solarOn} 
+          <IonSegmentButton
+            checked={!solarOn}
             onClick={() => {
               if (solarOn) {
                 dispatch({ type: "solarHeat", value: false });
               }
-            }}>
+            }}
+          >
             <IonLabel>Off</IonLabel>
           </IonSegmentButton>
         </IonSegment>
@@ -238,10 +237,7 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <IonSegment 
-          className={s.toggle}
-          color={cleaner ? "success" : undefined}
-          >
+        <IonSegment className={s.toggle} color={cleaner ? "success" : undefined}>
           <IonSegmentButton
             checked={cleaner}
             onClick={() => {
@@ -293,10 +289,7 @@ const AutelisTab = () => {
         >
           Waterfall
         </div>
-        <IonSegment
-          className={s.toggle}
-          color={waterfall ? "success" : undefined}
-        >
+        <IonSegment className={s.toggle} color={waterfall ? "success" : undefined}>
           <IonSegmentButton
             checked={waterfall}
             onClick={() => {
@@ -339,10 +332,7 @@ const AutelisTab = () => {
         >
           Pool Light
         </div>
-        <IonSegment
-          className={s.toggle}
-          color={poolLight ? "success" : undefined}
-        >
+        <IonSegment className={s.toggle} color={poolLight ? "success" : undefined}>
           <IonSegmentButton
             checked={poolLight}
             onClick={() => {
@@ -386,10 +376,7 @@ const AutelisTab = () => {
           Pool Heat
         </div>
         <div style={{ flex: 0.6, display: "flex" }}>
-          <IonSegment 
-            className={s.toggle}
-            color={poolHeat ? "danger" : undefined}
-          >
+          <IonSegment className={s.toggle} color={poolHeat ? "danger" : undefined}>
             <IonSegmentButton
               checked={poolHeat}
               onClick={() => {
@@ -441,10 +428,7 @@ const AutelisTab = () => {
         }}
       >
         <div style={{ flex: 0.6, display: "flex" }}>
-          <IonSegment
-            className={s.toggle}
-            color={spaHeat ? "danger" : undefined}
-          >
+          <IonSegment className={s.toggle} color={spaHeat ? "danger" : undefined}>
             <IonSegmentButton
               checked={spaHeat}
               onClick={() => {
@@ -504,10 +488,7 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <IonSegment
-          className={s.toggle}
-          color={spaLight ? "success" : undefined}
-        >
+        <IonSegment className={s.toggle} color={spaLight ? "success" : undefined}>
           <IonSegmentButton
             checked={spaLight}
             onClick={() => {
@@ -550,10 +531,7 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <IonSegment
-          className={s.toggle}
-          color={jets ? "success" : undefined}
-        >
+        <IonSegment className={s.toggle} color={jets ? "success" : undefined}>
           <IonSegmentButton
             checked={jets}
             onClick={() => {
@@ -596,10 +574,7 @@ const AutelisTab = () => {
           marginTop: 8,
         }}
       >
-        <IonSegment
-          className={s.toggle}
-          color={blower ? "success" : undefined}
-        >
+        <IonSegment className={s.toggle} color={blower ? "success" : undefined}>
           <IonSegmentButton
             checked={blower}
             onClick={() => {
