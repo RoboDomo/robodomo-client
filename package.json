@@ -55,11 +55,11 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx},!src/models": [
+    "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "git add"
     ],
-    "src/**/*.{json,scss,sass,less}": [
+    "src/**/*.{json,css}": [
       "prettier --write",
       "git add"
     ]
