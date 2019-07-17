@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { IonCard, IonCardContent } from "@ionic/react"
-import s from "./Tile.module.css"
+import { IonCard, IonCardContent } from "@ionic/react";
+import s from "./Tile.module.css";
 import { withRouter } from "react-router";
 
 const Tile = ({
@@ -12,7 +12,7 @@ const Tile = ({
   children,
   history,
 }) => {
-  const [pressed, setPressed] = useState(false);
+  const [, setPressed] = useState(false);
   let timer = null;
 
   const handleClick = () => {
@@ -41,11 +41,10 @@ const Tile = ({
         width: width * 128 - 8,
         height: height * 128 - 8,
         gridColumnEnd: "span " + width,
-        gridRowEnd: "span " + height,}}
+        gridRowEnd: "span " + height,
+      }}
     >
-      <IonCardContent class={s.content}>
-        {children}
-      </IonCardContent>
+      <IonCardContent class={s.content}>{children}</IonCardContent>
     </IonCard>
   );
 };

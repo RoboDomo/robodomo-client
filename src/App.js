@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect, lazy } from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import MqttProvider from "@/providers/mqtt";
 import ConfigProvider from "@/providers/config";
@@ -11,8 +11,6 @@ import "react-bootstrap-toggle/dist/bootstrap2-toggle.css";
 import "@ionic/core/css/core.css";
 import "@ionic/core/css/ionic.bundle.css";
 import "./theme.css";
-
-import MQTT from "@/lib/MQTT";
 
 // We only need to calculate platform once.
 import bowser from "bowser";

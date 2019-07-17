@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react"
+import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
 
 const FanField = ({ label, name, toggled, value, onChange }) => {
   if (!name) {

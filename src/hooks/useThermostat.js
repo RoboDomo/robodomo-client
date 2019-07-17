@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import MQTT from "@/lib/MQTT";
 import useConfig from "@/hooks/useConfig";

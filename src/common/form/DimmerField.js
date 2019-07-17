@@ -1,7 +1,7 @@
 import React /*, { useState, useEffect, useRef }*/ from "react";
 
 import s from "./DimmerField.module.css";
-import { IonRange, IonIcon, IonToggle } from '@ionic/react';
+import { IonRange, IonIcon, IonToggle } from "@ionic/react";
 
 const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) => {
   const applyValueChange = val => {
@@ -26,10 +26,10 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
     <div style={{ display: "flex", marginTop: 10 }}>
       <div style={{ marginTop: 10, flex: 1 }}>{label}</div>
       <div style={{ whiteSpace: "nowrap", display: "flex" }}>
-        <IonToggle checked={toggled} onClick={handleToggle} className={s.toggle}/>
+        <IonToggle checked={toggled} onClick={handleToggle} className={s.toggle} />
         <div style={{ flex: 1, marginTop: 0 }}>
           <IonRange
-            className = {s.range}
+            className={s.range}
             value={value || 0}
             step={1}
             onIonChange={handleSliderChange}
@@ -37,8 +37,8 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
             min={1}
             max={100}
           >
-            <IonIcon slot="start" size="small" name="sunny"></IonIcon>
-            <IonIcon slot="end" name="sunny"></IonIcon>
+            <IonIcon slot="start" size="small" name="sunny" />
+            <IonIcon slot="end" name="sunny" />
           </IonRange>
         </div>
       </div>
