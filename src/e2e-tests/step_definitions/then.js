@@ -1,6 +1,6 @@
 import {Then} from 'cucumber'
 import AutelisPage from '../page-objects/autelis.page';
-import DashboardPage from '../page-objects/dashboard.page';
+import DashboardPage from '../page-objects/dashboard.page'
 import NestPage from '../page-objects/nest.page';
 import SensorsPage from '../page-objects/sensors.page';
 import SmartThingsPage from '../page-objects/smartThings.page';
