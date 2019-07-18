@@ -1,8 +1,8 @@
-// bedroomTab.page.js
+// bedroomTab.component.js
 import Page from '../page';
 import MenuComponent from '../menu.component';
 
-class BedroomTabPage extends Page {
+class BedroomTabComponent {
     get entrywayLightsOnButton() {return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="On"]')}
     get entrywayLightsOffButton() {return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="Off"]')}
 
@@ -24,13 +24,13 @@ class BedroomTabPage extends Page {
     get bedroomLightOffSwitch() {return $('//div[text()="Bedroom Light"]/parent::*//ion-toggle[@checked="false"]')}
 
     clickBathroomLightOnSwitch() {
-        if (this.isButtonDisplayed(this.bathroomLightOffSwitch)) {
+        if (this.bathroomLightOffSwitch.isDisplayed()) {
             this.bathroomLightOffSwitch.click();
         }
     }
 
     clickBathroomLightOffSwitch() {
-        if (this.isButtonDisplayed(this.bathroomLightOnSwitch)) {
+        if (this.bathroomLightOnSwitch.isDisplayed()) {
             this.bathroomLightOnSwitch.click();
         }
     }
@@ -60,13 +60,13 @@ class BedroomTabPage extends Page {
     }
 
     clickBedroomLightOnSwitch() {
-        if (this.isButtonDisplayed(this.bedroomLightOffSwitch)) {
+        if (this.bedroomLightOffSwitch.isDisplayed()) {
             this.bedroomLightOffSwitch.click();
         }
     }
 
     clickBedroomLightOffSwitch() {
-        if (this.isButtonDisplayed(this.bedroomLightOnSwitch)) {
+        if (this.bedroomLightOnSwitch.isDisplayed()) {
             this.bedroomLightOnSwitch.click();
         }
     }
@@ -80,16 +80,16 @@ class BedroomTabPage extends Page {
     }
 
     clickKitchenLightOnSwitch() {
-        if (this.isButtonDisplayed(this.kitchenLightOffSwitch)) {
+        if (this.kitchenLightOffSwitch.isDisplayed()) {
             this.kitchenLightOffSwitch.click();
         }
     }
 
     clickKitchenLightOffSwitch() {
-        if (this.isButtonDisplayed(this.kitchenLightOnSwitch)) {
+        if (this.kitchenLightOnSwitch.isDisplayed()) {
             this.kitchenLightOnSwitch.click();
         }
     }
 }
 
-module.exports = new BedroomTabPage('', '/bedroomTab');
+module.exports = new BedroomTabComponent('', '/bedroomTab');

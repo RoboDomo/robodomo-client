@@ -1,8 +1,8 @@
-// outsideTab.page.js
+// outsideTab.component.js
 import Page from '../page';
 import MenuComponent from '../menu.component';
 
-class OutsideTabPage extends Page {
+class OutsideTabComponent {
     get porchLightOnButton() {return $('//div[text()="Porch Light"]/parent::*//ion-segment-button[.="On"]')}
     get porchLightOffButton() {return $('//div[text()="Porch Light"]/parent::*//ion-segment-button[.="Off"]')}
 
@@ -37,4 +37,4 @@ class OutsideTabPage extends Page {
     }
 }
 
-module.exports = new OutsideTabPage('', '/outsideTab');
+module.exports = new OutsideTabComponent('', '/outsideTab');

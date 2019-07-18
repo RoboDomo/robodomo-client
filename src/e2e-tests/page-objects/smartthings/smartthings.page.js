@@ -1,15 +1,15 @@
-// smartthings.component.js
+// smartthings.page.js
 import Page from '../page';
 import MenuComponent from '../menu.component';
-import TheaterTabPage from './theaterTab.page';
-import OfficeTabPage from './officeTab.page';
-import BackRoomTabPage from './backRoomTab.page';
-import BedroomTabPage from './bedroomTab.page';
-import KitchenTabPage from './kitchenTab.page';
-import BathroomTabPage from './bathroomTab.page';
-import OutsideTabPage from './outsideTab.page';
+import TheaterTabPage from './theaterTab.component';
+import OfficeTabPage from './officeTab.component';
+import BackRoomTabPage from './backRoomTab.component';
+import BedroomTabPage from './bedroomTab.component';
+import KitchenTabPage from './kitchenTab.component';
+import BathroomTabPage from './bathroomTab.component';
+import OutsideTabPage from './outsideTab.component';
 
-class SmartThingsComponent extends Page {
+class SmartThingsPage extends Page {
     get pageContent() { return $('//div[contains(@class, "ion-page")]') }
     get theaterTabButton() {return $('//a[text()= "Theater"]')}
     get officeTabButton() { return $('//a[text()= "Office"]') }
@@ -67,4 +67,4 @@ class SmartThingsComponent extends Page {
     getOutsideTabPage() {return OutsideTabPage}
 }
 
-module.exports = new SmartThingsComponent('', '/smartthings');
+module.exports = new SmartThingsPage('', '/smartthings');

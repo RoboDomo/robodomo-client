@@ -1,8 +1,8 @@
-// theaterTab.page.js
+// theaterTab.component.js
 import Page from '../page';
 import MenuComponent from '../menu.component';
 
-class TheaterTabPage extends Page {
+class TheaterTabComponent {
     get ceilingFanLightOnSwitch() {return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle[@checked="true"]')}
     get ceilingFanLightOffSwitch() {return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle[@checked="false"]')}
 
@@ -30,13 +30,13 @@ class TheaterTabPage extends Page {
 
 
     clickCeilingFanLightOnSwitch() {
-        if (this.isButtonDisplayed(this.ceilingFanLightOffSwitch)) {
+        if (this.ceilingFanLightOffSwitch.isDisplayed()) {
             this.ceilingFanLightOffSwitch.click();
         }
     }
 
     clickCeilingFanLightOffSwitch() {
-        if (this.isButtonDisplayed(this.ceilingFanLightOnSwitch)) {
+        if (this.ceilingFanLightOnSwitch.isDisplayed()) {
             this.ceilingFanLightOnSwitch.click();
         }
     }
@@ -66,25 +66,25 @@ class TheaterTabPage extends Page {
     }
 
     clickKitchenLightOnSwitch() {
-        if (this.isButtonDisplayed(this.kitchenLightOffSwitch)) {
+        if (this.kitchenLightOffSwitch.isDisplayed()) {
             this.kitchenLightOffSwitch.click();
         }
     }
 
     clickKitchenLightOffSwitch() {
-        if (this.isButtonDisplayed(this.kitchenLightOnSwitch)) {
+        if (this.kitchenLightOnSwitch.isDisplayed()) {
             this.kitchenLightOnSwitch.click();
         }
     }
 
     clickOfficeDimmerOnSwitch() {
-        if (this.isButtonDisplayed(this.officeDimmerOffSwitch)) {
+        if (this.officeDimmerOffSwitch.isDisplayed()) {
             this.officeDimmerOffSwitch.click();
         }
     }
 
     clickOfficeDimmerOffSwitch() {
-        if (this.isButtonDisplayed(this.officeDimmerOnSwitch)) {
+        if (this.officeDimmerOnSwitch.isDisplayed()) {
             this.officeDimmerOnSwitch.click();
         }
     }
@@ -106,16 +106,16 @@ class TheaterTabPage extends Page {
     }
 
     clickOfficeLightOnSwitch() {
-        if (this.isButtonDisplayed(this.officeLightOffSwitch)) {
+        if (this.officeLightOffSwitch.isDisplayed()) {
             this.officeLightOffSwitch.click();
         }
     }
 
     clickOfficeLightOffSwitch() {
-        if (this.isButtonDisplayed(this.officeLightOnSwitch)) {
+        if (this.officeLightOnSwitch.isDisplayed()) {
             this.officeLightOnSwitch.click();
         }
     }
 }
 
-module.exports = new TheaterTabPage('', '/theaterTab');
+module.exports = new TheaterTabComponent('', '/theaterTab');

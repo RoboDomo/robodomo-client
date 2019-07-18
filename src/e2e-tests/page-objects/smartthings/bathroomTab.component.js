@@ -1,22 +1,22 @@
-// bathroomTab.page.js
+// bathroomTab.component.js
 import Page from '../page';
 import MenuComponent from '../menu.component';
 
-class BathroomTabPage extends Page {
+class BathroomTabComponent {
     get bathroomLightOnSwitch() {return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle[@checked="true"]')}
     get bathroomLightOffSwitch() {return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle[@checked="false"]')}
 
     clickBathroomLightOnSwitch() {
-        if (this.isButtonDisplayed(this.bathroomLightOffSwitch)) {
+        if (this.bathroomLightOffSwitch.isDisplayed()) {
             this.bathroomLightOffSwitch.click();
         }
     }
 
     clickBathroomLightOffSwitch() {
-        if (this.isButtonDisplayed(this.bathroomLightOnSwitch)) {
+        if (this.bathroomLightOnSwitch.isDisplayed()) {
             this.bathroomLightOnSwitch.click();
         }
     }
 }
 
-module.exports = new BathroomTabPage('', '/bathroomTab');
+module.exports = new BathroomTabComponent('', '/bathroomTab');

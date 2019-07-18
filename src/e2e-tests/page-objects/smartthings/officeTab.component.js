@@ -1,8 +1,8 @@
-// backRoomTab.page.js
+// officeTab.component.js
 import Page from '../page';
 import MenuComponent from '../menu.component';
 
-class BackRoomTabPage extends Page {
+class OfficeTabComponent {
     get officeDimmerOnSwitch() {return $('//div[text()="Office Dimmer"]/parent::*//ion-toggle[@checked="true"]')}
     get officeDimmerOffSwitch() {return $('//div[text()="Office Dimmer"]/parent::*//ion-toggle[@checked="false"]')}
 
@@ -26,13 +26,13 @@ class BackRoomTabPage extends Page {
     }
 
     clickOfficeDimmerOnSwitch() {
-        if (this.isButtonDisplayed(this.officeDimmerOffSwitch)) {
+        if (this.officeDimmerOffSwitch.isDisplayed()) {
             this.officeDimmerOffSwitch.click();
         }
     }
 
     clickOfficeDimmerOffSwitch() {
-        if (this.isButtonDisplayed(this.officeDimmerOnSwitch)) {
+        if (this.officeDimmerOnSwitch.isDisplayed()) {
             this.officeDimmerOnSwitch.click();
         }
     }
@@ -54,16 +54,16 @@ class BackRoomTabPage extends Page {
     }
 
     clickOfficeLightOnSwitch() {
-        if (this.isButtonDisplayed(this.officeLightOffSwitch)) {
+        if (this.officeLightOffSwitch.isDisplayed()) {
             this.officeLightOffSwitch.click();
         }
     }
 
     clickOfficeLightOffSwitch() {
-        if (this.isButtonDisplayed(this.officeLightOnSwitch)) {
+        if (this.officeLightOnSwitch.isDisplayed()) {
             this.officeLightOnSwitch.click();
         }
     }
 }
 
-module.exports = new BackRoomTabPage('', '/backRoomTab');
+module.exports = new OfficeTabComponent('', '/officeTab');
