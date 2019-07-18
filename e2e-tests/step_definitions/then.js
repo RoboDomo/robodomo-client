@@ -14,25 +14,25 @@ import WeatherPage from '../page_objects/weather.page';
 Then(/^User is redirected to (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) page$/, {}, (page) => {
     switch (page) {
         case 'Autelis':
-            expect(browser.getUrl()).toContain(AutelisPage.path);
+            browser.waitUntil(() => browser.getUrl().includes(AutelisPage.path), 5000);
             break;
         case 'Dashboard':
-            expect(browser.getUrl()).toContain(DashboardPage.path);
+            browser.waitUntil(() => browser.getUrl().includes(DashboardPage.path), 5000);
             break;
         case 'Nest':
-            expect(browser.getUrl()).toContain(NestPage.path);
+            browser.waitUntil(() => browser.getUrl().includes(NestPage.path), 5000);
             break;
         case 'Sensors':
-            expect(browser.getUrl()).toContain(SensorsPage.path);
+            browser.waitUntil(() => browser.getUrl().includes(SensorsPage.path), 5000);
             break;
         case 'SmartThings':
-            expect(browser.getUrl()).toContain(SmartThingsPage.path);
+            browser.waitUntil(() => browser.getUrl().includes(SmartThingsPage.path), 5000);
             break;
         case 'Theater':
-            expect(browser.getUrl()).toContain(TheaterPage.path);
+            browser.waitUntil(() => browser.getUrl().includes(TheaterPage.path), 5000);
             break;
         case 'Weather':
-            expect(browser.getUrl()).toContain(WeatherPage.path);
+            browser.waitUntil(() => browser.getUrl().includes(WeatherPage.path), 5000);
             break;
         default:
             break;

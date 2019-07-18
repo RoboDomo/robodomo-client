@@ -8,8 +8,8 @@ import Page from './page';
 class TheaterPage extends Page {
     get pageContent() { return $('//div[contains(@class, "ion-page")]'); }
 
-    get homeTheaterTabButton() { return $('#theater-tabs-tab-theater'); }
-    get homeTheaterTabPane() { return $('#theater-tabs-tabpane-theater'); }
+    get homeTheaterTabButton() { return $('#tab-button-theater'); }
+    get homeTheaterTabPane() { return $('#tab-theaters'); }
 
     goToHomeTheaterTab() { this.homeTheaterTabButton.click(); }
 

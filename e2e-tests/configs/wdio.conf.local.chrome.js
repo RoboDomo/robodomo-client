@@ -28,7 +28,7 @@ exports.config = merge(configBase.config, {
                 baselineFolder: join(process.cwd(), './baseScreenshots/'),
                 blockOutStatusBar: true,
                 blockOutToolBar: true,
-                clearRuntimeFolder: true,
+                clearRuntimeFolder: false,
                 formatImageName: '{tag}-{width}x{height}',
                 screenshotPath: join(process.cwd(), '.tmp/'),
                 savePerInstance: true,

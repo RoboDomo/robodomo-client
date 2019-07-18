@@ -1,4 +1,4 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true , 'ignoreRegExpLiterals': true }] */
+/* eslint max-len: ['error', { code: 120, 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true , 'ignoreRegExpLiterals': true }] */
 /* eslint no-unused-expressions: ['error', { 'allowTernary': true}] */
 
 import { When } from 'cucumber';
@@ -6,9 +6,9 @@ import AutelisPage from '../page_objects/autelis.page';
 import DashboardPage from '../page_objects/dashboard.page';
 import NestPage from '../page_objects/nest.page';
 import Page from '../page_objects/page';
+import SmartThingsPage from '../page_objects/smartthings.page';
 import TheaterPage from '../page_objects/theater.page';
 import WeatherPage from '../page_objects/weather.page';
-import SmartThingsPage from '../page_objects/smartthings.page';
 
 When(/^User clicks (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) menu button$/, { wrapperOptions: { retry: 2 } }, (menuButton) => {
     switch (menuButton) {
