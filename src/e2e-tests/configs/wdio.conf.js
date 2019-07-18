@@ -185,6 +185,7 @@ exports.config = {
             'pageLoad': pageLoad,
             'script': script
         });
+        require('./customCommands');
     },
     /**
      * Runs before a WebdriverIO command gets executed.
