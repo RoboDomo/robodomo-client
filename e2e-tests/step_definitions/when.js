@@ -8,7 +8,7 @@ import NestPage from '../page_objects/nest.page';
 import Page from '../page_objects/page';
 import TheaterPage from '../page_objects/theater.page';
 import WeatherPage from '../page_objects/weather.page';
-import * as SmartThingsMenuPage from '../page_objects/smartthings.page';
+import SmartThingsMenuPage from '../page_objects/smartthings.page';
 
 When(/^User clicks (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) menu button$/, { wrapperOptions: { retry: 2 } }, (menuButton) => {
     switch (menuButton) {
