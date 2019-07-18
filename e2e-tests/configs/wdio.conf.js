@@ -1,4 +1,6 @@
 /* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
+/* eslint-disable no-console */
+
 require('@babel/register');
 
 exports.config = {
@@ -189,7 +191,7 @@ exports.config = {
         const customCommands = require('./customCommands');
         Object.getOwnPropertyNames(customCommands).forEach((key) => {
             console.log(`AddingCustomCommand ${key}`); // key
-            customCommands[key];
+            customCommands[key]; // eslint-disable-line no-unused-expressions
         });
 
         try {

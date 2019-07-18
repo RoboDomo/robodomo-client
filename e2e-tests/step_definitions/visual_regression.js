@@ -1,4 +1,4 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true , 'ignoreRegExpLiterals': true }] */
+/* eslint max-len: ['error', { code: 120,  'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true , 'ignoreRegExpLiterals': true }] */
 /* eslint no-unused-expressions: ['error', { 'allowTernary': true}] */
 
 import { Then } from 'cucumber';

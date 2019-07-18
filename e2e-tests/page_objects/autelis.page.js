@@ -1,4 +1,4 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
+/* eslint max-len: ['error', { code: 120,  'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
 /* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
 /* eslint class-methods-use-this: [0] */
 

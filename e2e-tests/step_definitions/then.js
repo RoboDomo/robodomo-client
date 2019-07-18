@@ -1,8 +1,7 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true , 'ignoreRegExpLiterals': true }] */
+/* eslint max-len: ['error', { code: 120,  'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true , 'ignoreRegExpLiterals': true }] */
 /* eslint no-unused-expressions: ['error', { 'allowTernary': true}] */
 
 import { Then } from 'cucumber';
-import expect from 'expect';
 import AutelisPage from '../page_objects/autelis.page';
 import DashboardPage from '../page_objects/dashboard.page';
 import NestPage from '../page_objects/nest.page';
