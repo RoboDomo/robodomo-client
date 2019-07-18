@@ -252,27 +252,37 @@ exports.config = {
     // eslint-disable-next-line no-unused-vars
     afterScenario(scenario) {
         try {
-            browser.clearStorageData();
+            if (typeof browser.clearStorageData === 'function') {
+                browser.clearStorageData();
+            }
         } catch (exeption) {
             console.log(exeption.message);
         }
         try {
-            browser.clearLocalStorage();
+            if (typeof browser.clearStorageData === 'function') {
+                browser.clearLocalStorage();
+            }
         } catch (exeption) {
             console.log(exeption.message);
         }
         try {
-            browser.clearSessionStorage();
+            if (typeof browser.clearStorageData === 'function') {
+                browser.clearSessionStorage();
+            }
         } catch (exeption) {
             console.log(exeption.message);
         }
         try {
-            browser.clearCache();
+            if (typeof browser.clearStorageData === 'function') {
+                browser.clearCache();
+            }
         } catch (exeption) {
             console.log(exeption.message);
         }
         try {
-            browser.deleteAllCookies();
+            if (typeof browser.clearStorageData === 'function') {
+                browser.deleteAllCookies();
+            }
         } catch (exeption) {
             console.log(exeption.message);
         }
