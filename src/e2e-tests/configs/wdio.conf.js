@@ -1,8 +1,12 @@
-require('@babel/register');
-
-const implicit = 15000, pageLoad = 30000, script = 15000;
+require("@babel/register");
 
 exports.config = {
+
+    waitTimes: {
+        implicit: 15000,
+        pageLoad: 30000,
+        script: 15000,
+    },
     //
     // ====================
     // Runner Configuration
@@ -58,7 +62,7 @@ exports.config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: 'silent',
+    logLevel: "silent",
     //
     // Set specific log levels per logger
     // loggers:
@@ -85,7 +89,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: process.env.baseUrl || 'http://localhost:3000',
+    baseUrl: process.env.baseUrl || "http://localhost:3000",
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 10000,
@@ -120,29 +124,29 @@ exports.config = {
     //
     // Make sure you have the wdio adapter package for the specific framework installed
     // before running any tests.
-    framework: 'cucumber',
+    framework: "cucumber",
     //
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/reporters/dot.html
     reporters: [
-        'spec'
+        "spec",
     ],
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
-        require: ['./step_definitions/*.js'],        // <string[]> (file/dir) require files before executing features
+        require: ["./step_definitions/*.js"],        // <string[]> (file/dir) require files before executing features
         backtrace: false,    // <boolean> show full backtrace for errors
         compiler: [],        // <string[]> ("extension:module") require files with the given EXTENSION after requiring MODULE (repeatable)
         dryRun: false,       // <boolean> invoke formatters without executing steps
         failFast: false,     // <boolean> abort the run on first failure
-        format: ['pretty'],  // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
+        format: ["pretty"],  // <string[]> (type[:path]) specify the output format, optionally supply PATH to redirect formatter output (repeatable)
         colors: true,        // <boolean> disable colors in formatter output
         snippets: true,      // <boolean> hide step definition snippets for pending steps
         source: true,        // <boolean> hide source uris
         profile: [],         // <string[]> (name) specify the profile to use
         strict: false,       // <boolean> fail if there are any undefined or pending steps
-        tags: ['@automated'],            // <string[]> (expression) only execute the features or scenarios with tags matching the expression
-        tagExpression: '', // <string> Only execute the features or scenarios with tags matching the expression.
+        tags: ["@automated"],            // <string[]> (expression) only execute the features or scenarios with tags matching the expression
+        tagExpression: "", // <string> Only execute the features or scenarios with tags matching the expression.
         timeout: 90000,       // <number> timeout for step definitions
         ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
     },
@@ -177,13 +181,13 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-    before: function (capabilities, specs) {
-        require('@babel/register');
+    before: function(capabilities, specs) {
+        require("@babel/register");
 
         browser.setTimeout({
-            'implicit': implicit,
-            'pageLoad': pageLoad,
-            'script': script
+            "implicit": this.waitTimes.implicit,
+            "pageLoad": this.waitTimes.pageLoad,
+            "script": this.waitTimes.script,
         });
         require('./customCommands');
     },
@@ -217,22 +221,38 @@ exports.config = {
      * Runs after a Cucumber step
      * @param {Object} stepResult step result
      */
-    afterStep: function (stepResult) {
-        if (stepResult.status === 'failed') {
+    afterStep: function(stepResult) {
+        if (stepResult.status === "failed") {
             const screenshotName = new Date().toUTCString()
-                + '_' + stepResult.scenario.replace(/ /g, '_') + '_'
-                + stepResult.text.replace(/ /g, '_')
-                + '.png';
-            browser.saveScreenshot('./errorShots/' + screenshotName);
+                + "_" + stepResult.scenario.replace(/ /g, "_") + "_"
+                + stepResult.text.replace(/ /g, "_")
+                + ".png";
+            browser.saveScreenshot("./errorShots/" + screenshotName);
         }
     },
     /**
      * Runs after a Cucumber scenario
      * @param {Object} scenario scenario details
      */
-    afterScenario: function (scenario) {
-        browser.clearStorageData();
-        browser.clearCache();
+    afterScenario: function(scenario) {
+        if (typeof browser.clearStorageData === "function") {
+            browser.clearStorageData();
+        }
+        if (typeof browser.clearLocalStorage === "function") {
+            browser.clearLocalStorage();
+        }
+
+        if (typeof browser.clearSessionStorage === "function") {
+            browser.clearSessionStorage();
+        }
+
+        if (typeof browser.clearCache === "function") {
+            browser.clearCache();
+        }
+
+        if (typeof browser.deleteAllCookies === "function") {
+            browser.deleteAllCookies();
+        }
     },
     /**
      * Runs after a Cucumber feature

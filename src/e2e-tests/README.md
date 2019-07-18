@@ -60,6 +60,10 @@ To start running tests execute the following commands in `../react-client/src/e2
 -   `npm run test:bs_cloud -- --baseUrl=URL --user=BROWSERSTACK_USER --key=BROWSERSTACK_KEY` - run tests agains cloud test environment on multiple OS/Browsers pairs
 -   `npm run test:cucumber -- --baseUrl=URL` - run tests against environment defined as URL using Chrome (UI) browser
 
+Note:
+To test on localhost using Browserstack, BS local deamon needs to be started
+- `.e2e-tests/BrowserStackLocal --daemon start --key [BS_API_KEY]` - found [HERE](https://www.browserstack.com/local-testing#command-line) if you are authenticated
+
 
 ## Contributing
 

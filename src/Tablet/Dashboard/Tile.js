@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { IonCard, IonCardContent } from "@ionic/react"
+import s from "./Tile.module.css"
 import { withRouter } from "react-router";
 
 const Tile = ({
   readOnly, // cannot be pressed if true
-  backgroundColor, // background color of entire tile
   color, // text color of rendering on tile
   width, // width, in tiles (e.g. 1, 2)
   height, // height, in tiles (e.g. 1, 2)
@@ -31,25 +32,21 @@ const Tile = ({
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: backgroundColor,
-        color: color,
-        width: width * 128,
-        height: height * 128,
-        border: pressed ? "4px inset white" : "4px outset white",
-        gridColumnEnd: "span " + width,
-        gridRowEnd: "span " + height,
-        fontWeight: "bold",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
+    <IonCard
+      class={s.card}
+      color={color || "dark"}
+      button={!readOnly}
       onClick={handleClick}
+      style={{
+        width: width * 128 - 8,
+        height: height * 128 - 8,
+        gridColumnEnd: "span " + width,
+        gridRowEnd: "span " + height,}}
     >
-      {children}
-    </div>
+      <IonCardContent class={s.content}>
+        {children}
+      </IonCardContent>
+    </IonCard>
   );
 };
 export default withRouter(Tile);
