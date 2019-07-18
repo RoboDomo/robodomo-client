@@ -237,12 +237,6 @@ class AutelisPage extends Page {
         this.waterfallOffButton.click();
     }
 
-    isButtonEnabled(button) {
-        browser.waitUntil(() => {
-            return button.getAttribute("checked").includes("true");
-        }, 20000);
-    }
-
     isPoolAndSpaParametersTurnedOff() {
         this.isButtonEnabled(this.offButton);
         browser.waitUntil(() => {
