@@ -34,8 +34,8 @@ rules:
     - SwitchCase: 1
   max-len:
     - 'error'
-    - 80
-    - ignorePattern: '\s*\/\^(.*)\$\/,$'
+    - 120
+    - { code: 120, ignorePattern: '\s*\/\^(.*)\$\/,$', ignoreComments: true, ignoreStrings: true, ignoreTrailingComments: true, ignoreRegExpLiterals: true }
   new-cap:
     - 'error'
     - newIsCap: true

@@ -191,6 +191,7 @@ exports.config = {
             pageLoad: this.waitTimes.pageLoad,
             script: this.waitTimes.script,
         });
+        require('./customCommands');
     },
     /**
      * Runs before a WebdriverIO command gets executed.
