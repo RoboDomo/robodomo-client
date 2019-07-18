@@ -186,12 +186,27 @@ exports.config = {
     before(capabilities, specs) {
         require('@babel/register');
 
-        browser.setTimeout({
-            implicit: this.waitTimes.implicit,
-            pageLoad: this.waitTimes.pageLoad,
-            script: this.waitTimes.script,
+        const customCommands = require('./customCommands');
+        Object.getOwnPropertyNames(customCommands).forEach((key) => {
+            console.log(`AddingCustomCommand ${key}`); // key
+            customCommands[key];
         });
-        require('./customCommands');
+
+        try {
+            browser.setTimeout({ implicit: this.waitTimes.implicit });
+        } catch (exeption) {
+            console.log(exeption.message);
+        }
+        try {
+            browser.setTimeout({ pageLoad: this.waitTimes.pageLoad });
+        } catch (exeption) {
+            console.log(exeption.message);
+        }
+        try {
+            browser.setTimeout({ script: this.waitTimes.script });
+        } catch (exeption) {
+            console.log(exeption.message);
+        }
     },
     /**
      * Runs before a WebdriverIO command gets executed.
@@ -234,23 +249,30 @@ exports.config = {
      */
     // eslint-disable-next-line no-unused-vars
     afterScenario(scenario) {
-        if (typeof browser.clearStorageData === 'function') {
+        try {
             browser.clearStorageData();
+        } catch (exeption) {
+            console.log(exeption.message);
         }
-        if (typeof browser.clearLocalStorage === 'function') {
+        try {
             browser.clearLocalStorage();
+        } catch (exeption) {
+            console.log(exeption.message);
         }
-
-        if (typeof browser.clearSessionStorage === 'function') {
+        try {
             browser.clearSessionStorage();
+        } catch (exeption) {
+            console.log(exeption.message);
         }
-
-        if (typeof browser.clearCache === 'function') {
+        try {
             browser.clearCache();
+        } catch (exeption) {
+            console.log(exeption.message);
         }
-
-        if (typeof browser.deleteAllCookies === 'function') {
+        try {
             browser.deleteAllCookies();
+        } catch (exeption) {
+            console.log(exeption.message);
         }
     },
     /**

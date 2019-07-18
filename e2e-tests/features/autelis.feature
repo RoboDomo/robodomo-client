@@ -4,27 +4,25 @@ Feature: RoboDomo Autelis page
     I want to press all the switches on Pool/Spa page
     So that I can see the app responses to changes properly
 
-    @S1 @automated
-    Scenario Outline: Check Autelis pool/spa/solar options
+    Background:
         Given User navigates to Autelis page
         Then User is redirected to Autelis page
         Then Autelis tab shall be selected
         When User clicks on Autelis tab
+
+
+    @S1 @automated
+    Scenario Outline: Check Autelis pool/spa/solar options
         When User clicks on <button> button on Autelis page
         Then <parametersDisplay> on Autelis page
         Examples:
-            | button  | parametersDisplay                      |
-            | OFF     | SPA-POOL parameters turned off         |
-            | POOL    | Pool parameters are displayed          |
-            | SPA     | Spa and Solar parameters are displayed |
+            | button | parametersDisplay                      |
+            | OFF    | SPA-POOL parameters turned off         |
+            | POOL   | Pool parameters are displayed          |
+            | SPA    | Spa and Solar parameters are displayed |
 
     @S1 @automated
     Scenario Outline: Check Solar, Cleaner, Pool Heat, Pool light, Waterfall options 'On' and 'Off'
-        Given User loads the RoboDomo web app
-        When User clicks Autelis menu button
-        Then User is redirected to Autelis page
-        Then Autelis tab shall be selected
-        When User clicks on Autelis tab
         When User clicks on <button> button to change state to On on Autelis page
         Then Autelis <button> button is enabled
         When User clicks on <button> button to change state to Off on Autelis page
@@ -43,11 +41,6 @@ Feature: RoboDomo Autelis page
 
     @S1 @automated
     Scenario Outline: Check Pool/Spa heat adjustments to lower and higher values
-        Given User loads the RoboDomo web app
-        When User clicks Autelis menu button
-        Then User is redirected to Autelis page
-        Then Autelis tab shall be selected
-        When User clicks on Autelis tab
         When User decreases <sensor> heat on Autelis page
         Then <sensor> heat is decreased on Autelis page
         When User increases <sensor> heat on Autelis page

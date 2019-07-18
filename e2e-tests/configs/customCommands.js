@@ -1,7 +1,7 @@
 /* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true , 'ignoreRegExpLiterals': true }] */
 /* eslint func-names: ['error', 'never'] */
 
-const custom = {
+module.exports = {
     isButtonEnabled: (function () {
         browser.addCommand('isButtonEnabled', function () {
             const self = this;
@@ -16,5 +16,3 @@ const custom = {
         }, true);
     }()),
 };
-
-module.exports = custom;
