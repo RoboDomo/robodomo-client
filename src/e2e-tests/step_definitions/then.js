@@ -3,7 +3,7 @@ import AutelisPage from '../page-objects/autelis.page';
 import DashboardPage from '../page-objects/dashboard.page'
 import NestPage from '../page-objects/nest.page';
 import SensorsPage from '../page-objects/sensors.page';
-import SmartThingsPage from '../page-objects/smartthings/smartthings.component';
+import SmartThingsPage from '../page-objects/smartthings/smartthings.page';
 import TheaterPage from '../page-objects/theater.page';
 import WeatherPage from '../page-objects/weather.page';
 import expect from 'expect'
@@ -115,40 +115,40 @@ Then(/^(SPA-POOL parameters turned off|Pool parameters are displayed|Spa and Sol
 Then(/^Autelis (Solar|Cleaner|Pool Heat|Pool Light|Waterfall|Spa Heat|Jets|Spa Light|Blower) button is (enabled|disabled)$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Solar':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.solarOnButton) :
-                AutelisPage.isButtonEnabled(AutelisPage.solarOffButton);
+            state === 'enabled' ? AutelisPage.solarOnButton.isButtonEnabled() :
+                AutelisPage.solarOffButton.isButtonEnabled();
             break;
         case 'Cleaner':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.cleanerOnButton) :
-                AutelisPage.isButtonEnabled(AutelisPage.cleanerOffButton);
+            state === 'enabled' ? AutelisPage.cleanerOnButton.isButtonEnabled() :
+                AutelisPage.cleanerOffButton.isButtonEnabled();
             break;
         case 'Pool Heat':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.poolHeatOnButton) :
-                AutelisPage.isButtonEnabled(AutelisPage.poolHeatOffButton);
+            state === 'enabled' ? AutelisPage.poolHeatOnButton.isButtonEnabled() :
+                AutelisPage.poolHeatOffButton.isButtonEnabled();
             break;
         case 'Pool Light':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.poolLightOnButton) :
-                AutelisPage.isButtonEnabled(AutelisPage.poolLightOffButton);
+            state === 'enabled' ? AutelisPage.poolLightOnButton.isButtonEnabled() :
+                AutelisPage.poolLightOffButton.isButtonEnabled();
             break;
         case 'Waterfall':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.waterfallOnButton) :
-                AutelisPage.isButtonEnabled(AutelisPage.waterfallOffButton);
+            state === 'enabled' ? AutelisPage.waterfallOnButton.isButtonEnabled() :
+                AutelisPage.waterfallOffButton.isButtonEnabled();
             break;
         case 'Spa Heat':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.spaHeatOnButton) :
-                AutelisPage.isButtonEnabled(AutelisPage.spaHeatOffButton);
+            state === 'enabled' ? AutelisPage.spaHeatOnButton.isButtonEnabled() :
+                AutelisPage.spaHeatOffButton.isButtonEnabled();
             break;
         case 'Jets':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.jetsOnButton) :
-                AutelisPage.isButtonEnabled(AutelisPage.jetsOffButton);
+            state === 'enabled' ? AutelisPage.jetsOnButton.isButtonEnabled() :
+                AutelisPage.jetsOffButton.isButtonEnabled();
             break;
         case 'Spa Light':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.spaLightOnButton) :
-                AutelisPage.isButtonEnabled(AutelisPage.spaLightOffButton);
+            state === 'enabled' ? AutelisPage.spaLightOnButton.isButtonEnabled() :
+                AutelisPage.spaLightOffButton.isButtonEnabled();
             break;
         case 'Blower':
-            state === 'enabled' ? AutelisPage.isButtonEnabled(AutelisPage.blowerOnButton) :
-                AutelisPage.isButtonEnabled(AutelisPage.blowerOffButton);
+            state === 'enabled' ? AutelisPage.blowerOnButton.isButtonEnabled() :
+                AutelisPage.blowerOffButton.isButtonEnabled();
             break;
     }
 });
@@ -158,10 +158,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Ceiling Fan Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getTheaterTab().ceilingFanLightOnSwitch);
+                    SmartThingsPage.getTheaterTab().ceilingFanLightOnSwitch.waitForButtonToBeDisplayed();
                     break;
                 case 'Off':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getTheaterTab().ceilingFanLightOffSwitch);
+                    SmartThingsPage.getTheaterTab().ceilingFanLightOffSwitch.waitForButtonToBeDisplayed();
                     break;
                 default:
                     break;
@@ -170,16 +170,16 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Ceiling Fan':
             switch (state) {
                 case 'Off':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().ceilingFanOffButton);
+                    SmartThingsPage.getTheaterTab().ceilingFanOffButton.isButtonEnabled();
                     break;
                 case 'Low':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().ceilingFanLowButton);
+                    SmartThingsPage.getTheaterTab().ceilingFanLowButton.isButtonEnabled();
                     break;
                 case 'Medium':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().ceilingFanMediumButton);
+                    SmartThingsPage.getTheaterTab().ceilingFanMediumButton.isButtonEnabled();
                     break;
                 case 'High':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().ceilingFanHighButton);
+                    SmartThingsPage.getTheaterTab().ceilingFanHighButton.isButtonEnabled();
                     break;
                 default:
                     break;
@@ -188,10 +188,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Office Dimmer':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getTheaterTab().officeDimmerOnSwitch);
+                    SmartThingsPage.getTheaterTab().officeDimmerOnSwitch.waitForButtonToBeDisplayed();
                     break;
                 case 'Off':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getTheaterTab().officeDimmerOffSwitch);
+                    SmartThingsPage.getTheaterTab().officeDimmerOffSwitch.waitForButtonToBeDisplayed();
                     break;
                 default:
                     break;
@@ -200,10 +200,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Office Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getTheaterTab().officeLightOnSwitch);
+                    SmartThingsPage.getTheaterTab().officeLightOnSwitch.waitForButtonToBeDisplayed();
                     break;
                 case 'Off':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getTheaterTab().officeLightOffSwitch);
+                    SmartThingsPage.getTheaterTab().officeLightOffSwitch.waitForButtonToBeDisplayed();
                     break;
                 default:
                     break;
@@ -212,16 +212,16 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Office Fan':
             switch (state) {
                 case 'Off':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().officeFanOffButton);
+                    SmartThingsPage.getTheaterTab().officeFanOffButton.isButtonEnabled();
                     break;
                 case 'Low':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().officeFanLowButton);
+                    SmartThingsPage.getTheaterTab().officeFanLowButton.isButtonEnabled();
                     break;
                 case 'Medium':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().officeFanMediumButton);
+                    SmartThingsPage.getTheaterTab().officeFanMediumButton.isButtonEnabled();
                     break;
                 case 'High':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().officeFanHighButton);
+                    SmartThingsPage.getTheaterTab().officeFanHighButton.isButtonEnabled();
                     break;
                 default:
                     break;
@@ -230,10 +230,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Entryway Lights':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().entrywayLightsOnButton);
+                    SmartThingsPage.getTheaterTab().entrywayLightsOnButton.isButtonEnabled();
                     break;
                 case 'Off':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getTheaterTab().entrywayLightsOffButton);
+                    SmartThingsPage.getTheaterTab().entrywayLightsOffButton.isButtonEnabled();
                     break;
                 default:
                     break;
@@ -242,10 +242,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Kitchen Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getTheaterTab().kitchenLightOnSwitch);
+                    SmartThingsPage.getTheaterTab().kitchenLightOnSwitch.waitForButtonToBeDisplayed();
                     break;
                 case 'Off':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getTheaterTab().kitchenLightOffSwitch);
+                    SmartThingsPage.getTheaterTab().kitchenLightOffSwitch.waitForButtonToBeDisplayed();
                     break;
                 default:
                     break;
@@ -254,10 +254,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Bathroom Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getBedroomTabPage().bathroomLightOnSwitch);
+                    SmartThingsPage.getBedroomTabPage().bathroomLightOnSwitch.waitForButtonToBeDisplayed();
                     break;
                 case 'Off':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getBedroomTabPage().bathroomLightOffSwitch);
+                    SmartThingsPage.getBedroomTabPage().bathroomLightOffSwitch.waitForButtonToBeDisplayed();
                     break;
                 default:
                     break;
@@ -266,16 +266,16 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Bedroom Fan':
             switch (state) {
                 case 'Off':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getBedroomTabPage().bedroomFanOffButton);
+                    SmartThingsPage.getBedroomTabPage().bedroomFanOffButton.isButtonEnabled();
                     break;
                 case 'Low':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getBedroomTabPage().bedroomFanLowButton);
+                    SmartThingsPage.getBedroomTabPage().bedroomFanLowButton.isButtonEnabled();
                     break;
                 case 'Medium':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getBedroomTabPage().bedroomFanMediumButton);
+                    SmartThingsPage.getBedroomTabPage().bedroomFanMediumButton.isButtonEnabled();
                     break;
                 case 'High':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getBedroomTabPage().bedroomFanHighButton);
+                    SmartThingsPage.getBedroomTabPage().bedroomFanHighButton.isButtonEnabled();
                     break;
                 default:
                     break;
@@ -284,10 +284,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Bedroom Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getBedroomTabPage().bedroomLightOnSwitch);
+                    SmartThingsPage.getBedroomTabPage().bedroomLightOnSwitch.waitForButtonToBeDisplayed();
                     break;
                 case 'Off':
-                    SmartThingsPage.waitForButtonToBeDisplayed(SmartThingsPage.getBedroomTabPage().bedroomLightOffSwitch);
+                    SmartThingsPage.getBedroomTabPage().bedroomLightOffSwitch.waitForButtonToBeDisplayed();
                     break;
                 default:
                     break;
@@ -296,10 +296,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Bedroom Lamp':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getBedroomTabPage().bedroomLampOnButton);
+                    SmartThingsPage.getBedroomTabPage().bedroomLampOnButton.isButtonEnabled();
                     break;
                 case 'Off':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getBedroomTabPage().bedroomLampOffButton);
+                    SmartThingsPage.getBedroomTabPage().bedroomLampOffButton.isButtonEnabled();
                     break;
                 default:
                     break;
@@ -308,10 +308,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Porch Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getOutsideTabPage().porchLightOnButton);
+                    SmartThingsPage.getOutsideTabPage().porchLightOnButton.isButtonEnabled();
                     break;
                 case 'Off':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getOutsideTabPage().porchLightOffButton);
+                    SmartThingsPage.getOutsideTabPage().porchLightOffButton.isButtonEnabled();
                     break;
                 default:
                     break;
@@ -320,10 +320,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Outside Light':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getOutsideTabPage().outsideLightOnButton);
+                    SmartThingsPage.getOutsideTabPage().outsideLightOnButton.isButtonEnabled();
                     break;
                 case 'Off':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getOutsideTabPage().outsideLightOffButton);
+                    SmartThingsPage.getOutsideTabPage().outsideLightOffButton.isButtonEnabled();
                     break;
                 default:
                     break;
@@ -332,10 +332,10 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
         case 'Outdoor Lights':
             switch (state) {
                 case 'On':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getOutsideTabPage().outdoorLightsOnButton);
+                    SmartThingsPage.getOutsideTabPage().outdoorLightsOnButton.isButtonEnabled();
                     break;
                 case 'Off':
-                    SmartThingsPage.isButtonEnabled(SmartThingsPage.getOutsideTabPage().outdoorLightsOffButton);
+                    SmartThingsPage.getOutsideTabPage().outdoorLightsOffButton.isButtonEnabled();
                     break;
                 default:
                     break;

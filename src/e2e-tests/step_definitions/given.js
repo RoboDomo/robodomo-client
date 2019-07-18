@@ -4,7 +4,7 @@ import DashboardPage from '../page-objects/dashboard.page';
 import NestPage from '../page-objects/nest.page';
 import Page from '../page-objects/page'
 import SensorsPage from '../page-objects/sensors.page';
-import SmartThingsPage from '../page-objects/smartthings/smartthings.component';
+import SmartThingsPage from '../page-objects/smartthings/smartthings.page';
 import TheaterPage from '../page-objects/theater.page';
 import WeatherPage from '../page-objects/weather.page';
 
