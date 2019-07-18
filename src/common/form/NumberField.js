@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-import { IonInput, IonButton, IonIcon, IonItem } from "@ionic/react"
+import { IonInput, IonButton, IonIcon, IonItem } from "@ionic/react";
 
 //import DelayedTask from "@/lib/DelayedTask";
 
@@ -39,12 +39,12 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
     <div style={{ display: "flex" }}>
       <div style={{ marginTop: 8, flex: 1 }}>{label}</div>
       <IonItem className="float-right">
-        <IonButton 
+        <IonButton
           onClick={() => {
             change(val - step);
           }}
         >
-          <IonIcon name="arrow-dropleft"></IonIcon>
+          <IonIcon name="arrow-dropleft" />
         </IonButton>
         <IonInput
           type="text"
@@ -61,7 +61,7 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
             change(val + step);
           }}
         >
-          <IonIcon name="arrow-dropright"></IonIcon>
+          <IonIcon name="arrow-dropright" />
         </IonButton>
       </IonItem>
     </div>

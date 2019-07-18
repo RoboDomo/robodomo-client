@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "@/serviceWorker";
-import MQTT from "@/lib/MQTT";
 
 // We only need to calculate platform once.
 import bowser from "bowser";

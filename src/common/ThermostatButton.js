@@ -18,8 +18,7 @@ import RemoteButton from "@/common/RemoteButton";
 import Clock from "@/common/Clock";
 
 const ThermostatButton = ({ device }) => {
-  const Config = useConfig(),
-    metric = Config.metric;
+  const Config = useConfig();
   const thermostat = useThermostat(device);
   const delayedTask = useRef(null);
 
