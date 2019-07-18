@@ -15,20 +15,4 @@ export default class Page {
     open() {
         browser.url(this.path);
     }
-
-    isButtonDisplayed(button) {
-        return button.isDisplayed();
-    }
-
-    isButtonEnabled(button) {
-        browser.waitUntil(() => {
-            return button.getAttribute('checked').includes('true');
-        }, 5000);
-    }
-
-    waitForButtonToBeDisplayed(button) {
-        browser.waitUntil(() => {
-            return button.isDisplayed();
-        }, 5000);
-    }
 }
