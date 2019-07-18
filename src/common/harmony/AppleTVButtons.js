@@ -1,7 +1,7 @@
 import React from "react";
 
 import RemoteButton from "@/common/RemoteButton";
-import { Row, ButtonGroup } from "react-bootstrap";
+import { ButtonGroup } from "react-bootstrap";
 
 // apple tv commands are similar to XBox (for example)
 // but XBox has eject, and ATV does not.

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useContact } from "@/hooks/useSmartThings";
 
 import Tile from "./Tile";

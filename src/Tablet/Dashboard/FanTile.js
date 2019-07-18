@@ -1,4 +1,4 @@
-import React, { useReducer, useRef, useEffect } from "react";
+import React, { useReducer } from "react";
 
 import { useFan } from "@/hooks/useSmartThings";
 

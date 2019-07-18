@@ -10,7 +10,9 @@ export default class Page {
         //TODO would be nice to have the title within the tab
     }
 
-    getMenu() { return MenuComponent}
+    getMenu() {
+        return MenuComponent;
+    }
 
     open() {
         browser.url(this.path);

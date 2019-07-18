@@ -1,11 +1,11 @@
 // sensors.page.js
-import Page from './page';
-import MenuComponent from './menu.component';
+import Page from "./page";
+import MenuComponent from "./menu.component";
 
 class SensorsPage extends Page {
-
-    get pageContent() { return $('//div[contains(@class, "ion-page")]') }
-
+    get pageContent() {
+        return $('//div[contains(@class, "ion-page")]');
+    }
 }
 
-module.exports = new SensorsPage('', '/sensors');
+module.exports = new SensorsPage("", "/sensors");
