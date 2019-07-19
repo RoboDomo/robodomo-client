@@ -187,7 +187,6 @@ exports.config = {
 
         const customCommands = require('./customCommands');
         Object.getOwnPropertyNames(customCommands).forEach((key) => {
-            console.log(`AddingCustomCommand ${key}`); // key
             customCommands[key]; // eslint-disable-line no-unused-expressions
         });
 
