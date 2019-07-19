@@ -36,7 +36,6 @@ const Tile = ({
     <AnimatedDiv
       animate={{
         opacity: [0.5, 1],
-
         rotateX: [70, 0, 0],
       }}
       transition={{ duration: 0.4 }}
