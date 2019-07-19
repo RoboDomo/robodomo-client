@@ -58,6 +58,10 @@
       "eslint --fix",
       "git add"
     ],
+    "e2e-tests/**/*.js": [
+      "eslint --fix",
+      "git add"
+    ],
     "src/**/*.{json,css}": [
       "prettier --write",
       "git add"
