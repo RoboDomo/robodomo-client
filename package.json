@@ -1,8 +1,7 @@
 {
-  "name": "client",
+  "name": "robodomo-client",
   "version": "0.1.0",
   "private": true,
-  "main": "electron-index.js",
   "dependencies": {
     "@ionic/core": "^4.5.0",
     "@ionic/react": "^0.0.6-3",
@@ -38,7 +37,9 @@
     "autoformat": "lint-staged"
   },
   "eslintConfig": {
+    "root": true,
     "extends": [
+      "react-app",
       "plugin:prettier/recommended",
       "prettier/babel",
       "prettier/react"
@@ -55,6 +56,10 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "git add"
+    ],
+    "e2e-tests/**/*.js": [
       "eslint --fix",
       "git add"
     ],
