@@ -76,6 +76,7 @@ module.exports = function override(config) {
             "react-nest-thermostat",
             "react-popper",
             "react-icons",
+            "framer-motion",
             // cannot DLL ionic due to resolver issues in AutoDLL plugin
           ],
         },

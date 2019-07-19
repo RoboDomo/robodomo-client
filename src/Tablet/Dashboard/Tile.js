@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { IonCard, IonCardContent } from "@ionic/react";
-import s from "./Tile.module.css";
 import { withRouter } from "react-router";
+import s from "./Tile.module.css";
+import AnimatedDiv from "@/common/AnimatedDiv";
 
 const Tile = ({
   readOnly, // cannot be pressed if true
@@ -32,20 +33,34 @@ const Tile = ({
   };
 
   return (
-    <IonCard
-      class={s.card}
-      color={color || "dark"}
-      button={!readOnly}
-      onClick={handleClick}
+    <AnimatedDiv
+      animate={{
+        opacity: [0.5, 1],
+
+        rotateX: [70, 0, 0],
+      }}
+      transition={{ duration: 0.4 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 1.3 }}
       style={{
-        width: width * 128 - 8,
-        height: height * 128 - 8,
         gridColumnEnd: "span " + width,
         gridRowEnd: "span " + height,
+        opacity: 0,
       }}
     >
-      <IonCardContent class={s.content}>{children}</IonCardContent>
-    </IonCard>
+      <IonCard
+        style={{
+          width: width * 128 - 8,
+          height: height * 128 - 8,
+        }}
+        class={s.card}
+        color={color || "dark"}
+        button={!readOnly}
+        onClick={handleClick}
+      >
+        <IonCardContent class={s.content}>{children}</IonCardContent>
+      </IonCard>
+    </AnimatedDiv>
   );
 };
 export default withRouter(Tile);
