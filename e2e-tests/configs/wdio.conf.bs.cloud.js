@@ -9,7 +9,7 @@ exports.config = merge(configBase.config, {
         './features/visualRegression/*.feature',
     ],
 
-    maxInstances: 5,
+    maxInstances: 2,
 
     services: ['browserstack'],
     browserstackLocal: true,

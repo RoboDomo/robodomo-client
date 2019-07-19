@@ -212,7 +212,7 @@ class AutelisPage extends Page {
     goToAutelisTab() {
         this.autelisTab.click();
         // TODO Remove after module load fix
-        browser.pause(2000);
+        browser.pause(2500);
     }
 }
 

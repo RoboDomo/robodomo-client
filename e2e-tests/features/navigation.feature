@@ -4,13 +4,13 @@ Feature: RoboDomo navigation
     I want to navigate to the appropriate screen
     So that I can see all my smart home configurations
 
-    @S1 @automated
+    @S1 @automated @smoke
     Scenario: RoboDomo default tab
         Given User loads the RoboDomo web app
         Then User is redirected to Dashboard page
         Then Dashboard tab shall be selected
 
-    @S1 @automated
+    @S1 @automated @smoke
     Scenario: RoboDomo tab navigation
         Given User loads the RoboDomo web app
         Then User is redirected to Dashboard page
