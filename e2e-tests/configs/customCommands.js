@@ -1,6 +1,3 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true , 'ignoreRegExpLiterals': true }] */
-/* eslint func-names: ['error', 'never'] */
-
 module.exports = {
     isButtonEnabled: (function () {
         browser.addCommand('isButtonEnabled', function () {

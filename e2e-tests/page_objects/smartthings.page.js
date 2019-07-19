@@ -1,7 +1,3 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
-/* eslint class-methods-use-this: [0] */
-
 import Page from './page';
 import TheaterTabPage from './smartthings/theaterTab.component';
 import OfficeTabPage from './smartthings/officeTab.component';

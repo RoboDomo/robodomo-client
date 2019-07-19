@@ -1,7 +1,3 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
-/* eslint class-methods-use-this: [0] */
-
 /** TheaterTabComponent selenium page-object */
 class TheaterTabComponent {
     get ceilingFanLightOnSwitch() { return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle[@checked="true"]'); }
@@ -28,7 +24,6 @@ class TheaterTabComponent {
 
     get kitchenLightOnSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="true"]'); }
     get kitchenLightOffSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="false"]'); }
-
 
     clickCeilingFanLightOnSwitch() {
         if (this.ceilingFanLightOffSwitch.isDisplayed()) {

@@ -1,6 +1,3 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint-disable no-console */
-
 require('@babel/register');
 
 exports.config = {

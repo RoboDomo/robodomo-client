@@ -1,4 +1,4 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
+
 const { join } = require('path');
 const merge = require('deepmerge');
 const configBase = require('./wdio.conf.js');
@@ -17,7 +17,6 @@ exports.config = merge(configBase.config, {
     // from the same test should run tests.
     //
     maxInstances: 1,
-
 
     services: [
         'browserstack',

@@ -1,4 +1,4 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
+
 const { join } = require('path');
 const merge = require('deepmerge');
 const configBase = require('./wdio.conf.js');

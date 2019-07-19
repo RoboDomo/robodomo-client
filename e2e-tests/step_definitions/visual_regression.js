@@ -1,6 +1,3 @@
-/* eslint max-len: ['error', { code: 120,  'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true , 'ignoreRegExpLiterals': true }] */
-/* eslint no-unused-expressions: ['error', { 'allowTernary': true}] */
-
 import { Then } from 'cucumber';
 import DashboardPage from '../page_objects/dashboard.page';
 import Page from '../page_objects/page';

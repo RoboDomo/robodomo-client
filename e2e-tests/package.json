@@ -1,15 +1,9 @@
 {
   "scripts": {
-    "test:bs_cloud": "./node_modules/.bin/wdio ./configs/wdio.conf.bs.cloud.js",
-    "test:lint": "./node_modules/.bin/eslint './configs/**/*.js' 'page_objects/**/*.js' './step_definitions/**/*.js'",
-    "test:local_chrome": "./node_modules/.bin/wdio ./configs/wdio.conf.local.chrome.js",
-    "test:visual_regression": "./node_modules/.bin/wdio ./configs/wdio.conf.visual.regression.js"
-  },
-  "eslintConfig": {
-    "extends": "plugin:wdio/recommended",
-    "plugins": [
-      "wdio"
-    ]
+    "test:bs_cloud": "wdio ./configs/wdio.conf.bs.cloud.js",
+    "test:lint": "eslint --fix './configs/**/*.js' 'page_objects/**/*.js' './step_definitions/**/*.js'",
+    "test:local_chrome": "wdio ./configs/wdio.conf.local.chrome.js",
+    "test:visual_regression": "wdio ./configs/wdio.conf.visual.regression.js"
   },
   "keywords": [
     "automation",
