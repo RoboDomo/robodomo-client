@@ -10,6 +10,16 @@ Feature: RoboDomo Dashboard page
         Then Dashboard tab shall be selected
 
     @S1 @automated
+    Scenario Outline: Dashboard tabs
+        When User clicks on <tabName> tab
+        Then <tabName> tab is loaded
+        Examples:
+            | tabName |
+            | Theater |
+            | Bedroom |
+
+
+    @S1 @automated
     Scenario: Check Time tile at Theater tab
         When User clicks on Theater tab
         Then Theater tab is loaded
@@ -40,23 +50,23 @@ Feature: RoboDomo Dashboard page
         Then Heat is increased at Theater/Bedroom tab of Dashboard page
 
 
-  #  @S1 @automated
-  #  Scenario: Check Pool tile at Theater tab
-  #      When User clicks on Theater tab
-  #      Then Theater tab is loaded
-  #      Then Pool temp is displayed at Theater tab of Dashboard page
-  #      And Filter is displayed at Theater tab of Dashboard page
-  #      And Waterfall is displayed at Theater tab of Dashboard page
-  #      And Pool Heat is displayed at Theater tab of Dashboard page
-  #      And Solar Heat is displayed at Theater tab of Dashboard page
+    @S1 @pending
+    Scenario: Check Pool tile at Theater tab
+        When User clicks on Theater tab
+        Then Theater tab is loaded
+        Then Pool temp is displayed at Theater tab of Dashboard page
+        And Filter is displayed at Theater tab of Dashboard page
+        And Waterfall is displayed at Theater tab of Dashboard page
+        And Pool Heat is displayed at Theater tab of Dashboard page
+        And Solar Heat is displayed at Theater tab of Dashboard page
 
-  #  @S1 @automated
-  #  Scenario: Check Spa, Jets and Light tile at Theater tab
-  #      When User clicks on Theater tab
-  #      Then Theater tab is loaded
-  #      Then Spa is displayed at Theater tab of Dashboard page
-  #      Then Jets is displayed at Theater tab of Dashboard page
-  #      And Light is displayed at Theater tab of Dashboard page
+    @S1 @pending
+    Scenario: Check Spa, Jets and Light tile at Theater tab
+        When User clicks on Theater tab
+        Then Theater tab is loaded
+        Then Spa is displayed at Theater tab of Dashboard page
+        Then Jets is displayed at Theater tab of Dashboard page
+        And Light is displayed at Theater tab of Dashboard page
 
 
     @S1 @automated
@@ -74,7 +84,6 @@ Feature: RoboDomo Dashboard page
             | Ceiling Fan Light |
             | Kitchen Light     |
 
-# --------
 
     @S1 @automated
     Scenario: Check Time tile at Bedroom tab
@@ -107,13 +116,13 @@ Feature: RoboDomo Dashboard page
         When User increases heat at Theater/Bedroom tab of Dashboard page
         Then Heat is increased at Theater/Bedroom tab of Dashboard page
 
-          #  @S1 @automated
-  #  Scenario: Check Spa tile at Bedroom tab
-  #      When User clicks on Bedroom tab
-  #      Then Bedroom tab is loaded
-  #      Then Spa temp is displayed at Bedroom tab of Dashboard page
-  #      And Heat is displayed at Bedroom tab of Dashboard page
-  #      And Blower is displayed at Bedroom tab of Dashboard page
+    @S1 @pending
+    Scenario: Check Spa tile at Bedroom tab
+        When User clicks on Bedroom tab
+        Then Bedroom tab is loaded
+        Then Spa temp is displayed at Bedroom tab of Dashboard page
+        And Heat is displayed at Bedroom tab of Dashboard page
+        And Blower is displayed at Bedroom tab of Dashboard page
 
     @S1 @automated
     Scenario Outline: Check Bedroom Fan, Bedroom Lamp, Bedroom Light, Bathroom Light buttons at Bedroom ta
