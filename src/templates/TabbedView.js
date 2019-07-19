@@ -10,6 +10,7 @@ import {
   IonContent,
 } from "@ionic/react";
 import useConfigGroup from "@/hooks/useConfigGroup";
+import AnimatedDiv from "@/common/AnimatedDiv";
 
 /**
  * @typedef {Object} TabbedViewProps
@@ -50,6 +51,7 @@ const TabbedView = ({
             />
           ))}
         </IonRouterOutlet>
+
         <IonTabBar slot="bottom">
           {/* Render tabbed navigation */}
           {tabs.map(tab => (
@@ -58,7 +60,17 @@ const TabbedView = ({
               href={`/${route}/${tab[sectionKey]}`}
               key={tab[sectionKey]}
             >
-              <IonLabel>{tab[titleKey]}</IonLabel>
+              <AnimatedDiv
+                animate={{
+                  opacity: [0, 0, 1],
+                  y: [100, 0],
+                }}
+                style={{
+                  opacity: 0,
+                }}
+              >
+                <IonLabel>{tab[titleKey]}</IonLabel>
+              </AnimatedDiv>
             </IonTabButton>
           ))}
         </IonTabBar>
