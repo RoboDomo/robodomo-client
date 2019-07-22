@@ -8,7 +8,7 @@ Feature: RoboDomo Dashboard page
     Scenario Outline: Dashboard tabs
         Given User navigates to Dashboard page
         Then User is redirected to Dashboard page
-        Then Dashboard tab shall be selected
+        Then Dashboard menu shall be selected
         When User clicks on <tabName> tab
         Then <tabName> tab is loaded
         Examples:

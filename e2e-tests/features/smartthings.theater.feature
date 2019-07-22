@@ -7,16 +7,16 @@ Feature: RoboDomo SmartThings page
     Background:
         Given User navigates to SmartThings page
         Then User is redirected to SmartThings page
-        Then SmartThings tab shall be selected
+        Then SmartThings menu shall be selected
 
 # --- Theater tab
 
     @S1 @automated
     Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' switches on Theater tab
         When User clicks on Theater tab on SmartThings page
-        And User clicks on <button> button to change state to On on SmartThings page
+        And User changes SmartThings <button> button state to On
         Then SmartThings <button> button is in On state
-        When User clicks on <button> button to change state to Off on SmartThings page
+        When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
         Examples:
             | button            |
@@ -28,7 +28,7 @@ Feature: RoboDomo SmartThings page
     @S1 @automated
     Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' dimming on Theater tab
         When User clicks on Theater tab on SmartThings page
-        And User clicks on <optionName> button to change state to On on SmartThings page
+        And User changes SmartThings <optionName> button state to On
         And MQTT message set <optionName> dimmer to value <value> on SmartThings page
         Then SmartThings <optionName> dimmer value is <value> on SmartThings page
         When User clicks Dashboard menu button
@@ -45,21 +45,21 @@ Feature: RoboDomo SmartThings page
     @S1 @automated
     Scenario: Check 'Entryway Lights' buttons on Theater tab
         When User clicks on Theater tab on SmartThings page
-        And User clicks on Entryway Lights button to change state to Off on SmartThings page
+        And User changes SmartThings Entryway Lights button state to Off
         Then SmartThings Entryway Lights button is in Off state
-        And User clicks on Entryway Lights button to change state to Off on SmartThings page
+        And User changes SmartThings Entryway Lights button state to Off
         Then SmartThings Entryway Lights button is in Off state
 
     @S1 @automated
     Scenario Outline: Check 'Celing Fan', 'Office Fan' buttons on Theater tab
         When User clicks on Theater tab on SmartThings page
-        And User clicks on <button> button to change state to Off on SmartThings page
+        And User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
-        When User clicks on <button> button to change state to Low on SmartThings page
+        When User changes SmartThings <button> button state to Low
         Then SmartThings <button> button is in Low state
-        When User clicks on <button> button to change state to Medium on SmartThings page
+        When User changes SmartThings <button> button state to Medium
         Then SmartThings <button> button is in Medium state
-        When User clicks on <button> button to change state to High on SmartThings page
+        When User changes SmartThings <button> button state to High
         Then SmartThings <button> button is in High state
         Examples:
             | button      |

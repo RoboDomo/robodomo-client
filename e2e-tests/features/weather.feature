@@ -8,7 +8,7 @@ Feature: RoboDomo Weather page
     Scenario Outline: Weather tabs
         Given User navigates to Nest page
         Then User is redirected to Nest page
-        Then Nest tab shall be selected
+        Then Nest menu shall be selected
         When User clicks on <tabName> tab
         Then <tabName> tab is loaded
         Examples:

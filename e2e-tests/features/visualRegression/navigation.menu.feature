@@ -8,5 +8,5 @@ Feature: RoboDomo Visual Regression navigation menu
     Scenario: RoboDomo tab navigation
         Given User loads the RoboDomo web app
         Then User is redirected to Dashboard page
-        Then Dashboard tab shall be selected
+        Then Dashboard menu shall be selected
         Then Menu elements visuals shall match baseline

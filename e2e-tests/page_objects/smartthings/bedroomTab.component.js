@@ -1,14 +1,5 @@
 /** BedroomTabComponent selenium page-object */
 class BedroomTabComponent {
-    get entrywayLightsOnButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="On"]'); }
-    get entrywayLightsOffButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="Off"]'); }
-
-    get kitchenLightOnSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get kitchenLightOffSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="false"]'); }
-
-    get bathroomLightOnSwitch() { return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get bathroomLightOffSwitch() { return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle[@checked="false"]'); }
-
     get bedroomLampOnButton() { return $('//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="On"]'); }
     get bedroomLampOffButton() { return $('//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="Off"]'); }
 
@@ -17,20 +8,8 @@ class BedroomTabComponent {
     get bedroomFanMediumButton() { return $('//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
     get bedroomFanHighButton() { return $('//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="High"]'); }
 
-    get bedroomLightOnSwitch() { return $('//div[text()="Bedroom Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get bedroomLightOffSwitch() { return $('//div[text()="Bedroom Light"]/parent::*//ion-toggle[@checked="false"]'); }
-
-    clickBathroomLightOnSwitch() {
-        if (this.bathroomLightOffSwitch.isDisplayed()) {
-            this.bathroomLightOffSwitch.click();
-        }
-    }
-
-    clickBathroomLightOffSwitch() {
-        if (this.bathroomLightOnSwitch.isDisplayed()) {
-            this.bathroomLightOnSwitch.click();
-        }
-    }
+    get bedroomLightSwitch() { return $('//div[text()="Bedroom Light"]/parent::*//ion-toggle[@checked="true"]'); }
+    get bedroomLightDimm() { return $('//div[text()="Bedroom Light"]/parent::*//ion-range'); }
 
     clickBedroomFanOffButton() {
         this.bedroomFanOffButton.click();
@@ -48,44 +27,51 @@ class BedroomTabComponent {
         this.bedroomFanHighButton.click();
     }
 
-    clickBedroomLampOnButton() {
-        this.bedroomLampOnButton.click();
-    }
-
-    clickBedroomLampOffButton() {
-        this.bedroomLampOffButton.click();
-    }
-
-    clickBedroomLightOnSwitch() {
-        if (this.bedroomLightOffSwitch.isDisplayed()) {
-            this.bedroomLightOffSwitch.click();
+    toggleBedroomLamp(state) {
+        if (this.bedroomLampOnButton.getAttribute('checked') === 'true' && !state) {
+            this.bedroomLampOffButton.click();
+        }
+        if (this.bedroomLampOffButton.getAttribute('checked') === 'true' && state) {
+            this.bedroomLampOnButton.click();
         }
     }
 
-    clickBedroomLightOffSwitch() {
-        if (this.bedroomLightOnSwitch.isDisplayed()) {
-            this.bedroomLightOnSwitch.click();
+    validateBedroomFanState(state) {
+        if (state === 'Off')
+            expect(this.bedroomFanOffButton.getProperty('checked')).toEqual(true);
+        else if (state === 'Low')
+            expect(this.bedroomFanLowButton.getProperty('checked')).toEqual(true);
+        else if (state === 'Medium')
+            expect(this.bedroomFanMediumButton.getProperty('checked')).toEqual(true);
+        else if (state === 'high')
+            expect(this.bedroomFanHighButton.getProperty('checked')).toEqual(true);
+    }
+
+    toggleBedroomLight(state) {
+        if (this.bedroomLightSwitch.getAttribute('checked') === 'true' && !state) {
+            this.bedroomLightSwitch.click();
+        }
+        if (this.bedroomLightSwitch.getAttribute('checked') === 'false' && state) {
+            this.bedroomLightSwitch.click();
         }
     }
 
-    clickEntrywayLightsOnButton() {
-        this.entrywayLightsOnButton.click();
+    validateBedroomLampLightState(state) {
+        if (state === 'On')
+            expect(this.bedroomLightSwitch.getAttribute('checked')).toEqual('true');
+        else if (state === 'Off')
+            expect(this.bedroomLightSwitch.getAttribute('checked')).toEqual('false');
     }
 
-    clickEntrywayLightsOffButton() {
-        this.entrywayLightsOffButton.click();
+    validateBedroomLightState(state) {
+        if (state === 'Off')
+            expect(this.bedroomLampOffButton.getProperty('checked')).toEqual(true);
+        else if (state === 'On')
+            expect(this.bedroomLampOnButton.getProperty('checked')).toEqual(true);
     }
 
-    clickKitchenLightOnSwitch() {
-        if (this.kitchenLightOffSwitch.isDisplayed()) {
-            this.kitchenLightOffSwitch.click();
-        }
-    }
-
-    clickKitchenLightOffSwitch() {
-        if (this.kitchenLightOnSwitch.isDisplayed()) {
-            this.kitchenLightOnSwitch.click();
-        }
+    validateBedroomLightDimmValue(value) {
+        expect(this.bedroomLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 }
 

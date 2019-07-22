@@ -9,28 +9,31 @@ class OutsideTabComponent {
     get outdoorLightsOnButton() { return $('//div[text()="Outdoor Lights"]/parent::*//ion-segment-button[.="On"]'); }
     get outdoorLightsOffButton() { return $('//div[text()="Outdoor Lights"]/parent::*//ion-segment-button[.="Off"]'); }
 
-    clickOutdoorLightsOnButton() {
-        this.outdoorLightsOnButton.click();
+    togglePorchLight() {
+        if (this.porchLightOnButton.getProperty('checked') === 'true' && !state) {
+            this.porchLightOffButton.click();
+        }
+        if (this.porchLightOffButton.getProperty('checked') === 'true' && state) {
+            this.porchLightOnButton.click();
+        }
     }
 
-    clickOutdoorLightsOffButton() {
-        this.outdoorLightsOffButton.click();
+    toggleOutsideLight() {
+        if (this.outsideLightOnButton.getProperty('checked') === 'true' && !state) {
+            this.outsideLightOffButton.click();
+        }
+        if (this.outsideLightOffButton.getProperty('checked') === 'true' && state) {
+            this.outsideLightOnButton.click();
+        }
     }
 
-    clickOutsideLightOnButton() {
-        this.outsideLightOnButton.click();
-    }
-
-    clickOutsideLightOffButton() {
-        this.outsideLightOffButton.click();
-    }
-
-    clickPorchLightOnButton() {
-        this.porchLightOnButton.click();
-    }
-
-    clickPorchLightOffButton() {
-        this.porchLightOffButton.click();
+    toggleOutdoorLights() {
+        if (this.outdoorLightsOnButton.getProperty('checked') === 'true' && !state) {
+            this.outdoorLightsOffButton.click();
+        }
+        if (this.outdoorLightsOffButton.getProperty('checked') === 'true' && state) {
+            this.outdoorLightsOnButton.click();
+        }
     }
 }
 

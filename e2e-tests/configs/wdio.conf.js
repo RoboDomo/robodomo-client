@@ -223,8 +223,10 @@ exports.config = {
      * Runs before a Cucumber scenario
      * @param {Object} scenario scenario details
      */
-    // beforeScenario: function (scenario) {
-    // },
+    // eslint-disable-next-line no-unused-vars
+    beforeScenario: function (scenario) {
+        browser.scenarioContext = {}
+    },
     /**
      * Runs before a Cucumber step
      * @param {Object} step step details

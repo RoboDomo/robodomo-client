@@ -1,18 +1,28 @@
+import expect from 'expect';
+
 /** KitchenTabComponent selenium page-object */
 class KitchenTabComponent {
-    get kitchenLightOnSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get kitchenLightOffSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="false"]'); }
+    get kitchenLightSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle'); }
+    get kitchenLightDimm() { return $('//div[text()="Kitchen Light"]/parent::*//ion-range'); }
 
-    clickKitchenLightOnSwitch() {
-        if (this.kitchenLightOffSwitch.isDisplayed()) {
-            this.kitchenLightOffSwitch.click();
+    toggleKitchenLight(state) {
+        if (this.kitchenLightSwitch.getAttribute('checked') === 'true' && !state) {
+            this.kitchenLightSwitch.click();
+        }
+        if (this.kitchenLightSwitch.getAttribute('checked') === 'false' && state) {
+            this.kitchenLightSwitch.click();
         }
     }
 
-    clickKitchenLightOffSwitch() {
-        if (this.kitchenLightOnSwitch.isDisplayed()) {
-            this.kitchenLightOnSwitch.click();
-        }
+    validateKitchenLightState(state) {
+        if (state === 'On')
+            expect(this.kitchenLightSwitch.getAttribute('checked')).toEqual('true');
+        else if (state === 'Off')
+            expect(this.kitchenLightSwitch.getAttribute('checked')).toEqual('false');
+    }
+
+    validateKitchenLightDimmValue(value) {
+        expect(this.kitchenLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 }
 
