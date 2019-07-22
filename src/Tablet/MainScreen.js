@@ -8,6 +8,7 @@ import React, { lazy } from "react";
 import { Redirect, Route, Switch } from "react-router";
 
 import { IonApp, IonPage, IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
+import AnimatedDiv from "@/common/AnimatedDiv";
 
 const Dashboard = lazy(() =>
   import(
@@ -46,14 +47,36 @@ const tabs = new Map([
 ]);
 
 const Navigation = ({ activeTab }) => (
-  <IonTabBar slot="top">
-    {Array.from(tabs).map(([id, cfg]) => (
-      <IonTabButton tab={id} href={`/${id}`} key={id}>
-        <IonIcon name={cfg.icon} />
-        <IonLabel>{cfg.name}</IonLabel>
-      </IonTabButton>
-    ))}
-  </IonTabBar>
+  <AnimatedDiv
+    animate={{
+      opacity: [0, 0, 1],
+      y: [-100, 0],
+    }}
+    style={{
+      opacity: 0,
+    }}
+  >
+    <IonTabBar slot="top">
+      {Array.from(tabs).map(([id, cfg]) => (
+        <IonTabButton tab={id} href={`/${id}`} key={id}>
+          <IonIcon name={cfg.icon} />
+          <IonLabel>
+            <AnimatedDiv
+              animate={{
+                opacity: [0, 0, 1],
+                scale: [0, 1],
+              }}
+              style={{
+                opacity: 0,
+              }}
+            >
+              {cfg.name}
+            </AnimatedDiv>
+          </IonLabel>
+        </IonTabButton>
+      ))}
+    </IonTabBar>
+  </AnimatedDiv>
 );
 
 const MainScreen = () => {
