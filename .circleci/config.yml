@@ -48,8 +48,8 @@ jobs:
       - checkout
       - restore_cache: *restore-npm-cache
       - run:
-          name: Run ESLint
-          command: yarn eslint src
+          name: Run ESLint for src and E2E tests
+          command: yarn eslint src e2e-tests
 
 workflows:
   version: 2
