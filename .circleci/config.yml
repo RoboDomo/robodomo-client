@@ -25,7 +25,6 @@ jobs:
             - v1-git-
       - checkout
       - restore_cache: *restore-npm-cache
-      - restore_cache: *restore-yarn-cache
       - run:
           name: Install Node modules
           command: yarn install --frozen-lockfile
@@ -46,10 +45,6 @@ jobs:
           key: v1-git-{{ .Branch }}-{{ .Revision }}
           paths:
             - .git
-      - save_cache:
-          key: v1-yarncache-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
 
   build-pwa:
     <<: *defaults
