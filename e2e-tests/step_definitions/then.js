@@ -369,7 +369,7 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
     }
 });
 
-Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) dimmer value is (\d+) on SmartThings page$/, (dimmerName, value) => {
+Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) dimmer value is (\w+) on SmartThings page$/, (dimmerName, value) => {
     switch (dimmerName) {
         case 'Ceiling Fan Light':
             expect(SmartThingsPage.getTheaterTab().ceilingFanLightDimm.getAttribute('value')).toEqual(value.toString());
@@ -388,7 +388,54 @@ Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) 
     }
 });
 
-Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) dimmer value is (\d+) on Dashboard page$/, (dimmerName, value) => {
+Then(/^SmartThings (Entryway Lights|Ceiling Fan|Office Fan) is (\w+) and (\w+) on SmartThings page$/, (dimmerName, state, value) => {
+    switch (dimmerName) {
+        case 'Entryway Lights':
+            switch (state) {
+                case 'on':
+                    expect(SmartThingsPage.getTheaterTab().entrywayLightsOnButton.getProperty('checked')).toEqual(true);
+                    break;
+                case 'off':
+                    expect(SmartThingsPage.getTheaterTab().entrywayLightsOffButton.getProperty('checked')).toEqual(true);
+                    break;
+            }
+            break;
+        case 'Ceiling Fan':
+            if (state === 'off') {
+                expect(SmartThingsPage.getTheaterTab().ceilingFanOffButton.getProperty('checked')).toEqual(true);
+            } else {
+                if (parseInt(value) <= 33) {
+                    expect(SmartThingsPage.getTheaterTab().ceilingFanLowButton.getProperty('checked')).toEqual(true);
+                }
+                if (parseInt(value) > 33 && parseInt(value) <= 66) {
+                    expect(SmartThingsPage.getTheaterTab().ceilingFanMediumButton.getProperty('checked')).toEqual(true);
+                }
+                if (parseInt(value) > 66) {
+                    expect(SmartThingsPage.getTheaterTab().ceilingFanHighButton.getProperty('checked')).toEqual(true);
+                }
+            }
+            break;
+        case 'Office Fan':
+            if (state === 'off') {
+                expect(SmartThingsPage.getTheaterTab().officeFanOffButton.getProperty('checked')).toEqual(true);
+            } else {
+                if (parseInt(value) <= 33) {
+                    expect(SmartThingsPage.getTheaterTab().officeFanLowButton.getProperty('checked')).toEqual(true);
+                }
+                if (parseInt(value) > 33 && parseInt(value) <= 66) {
+                    expect(SmartThingsPage.getTheaterTab().officeFanMediumButton.getProperty('checked')).toEqual(true);
+                }
+                if (parseInt(value) > 66) {
+                    expect(SmartThingsPage.getTheaterTab().officeFanHighButton.getProperty('checked')).toEqual(true);
+                }
+            }
+            break;
+        default:
+            break;
+    }
+});
+
+Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) dimmer value is (\w+) on Dashboard page$/, (dimmerName, value) => {
     switch (dimmerName) {
         case 'Ceiling Fan Light':
             expect(DashboardPage.theaterCeilingFanLightButton.getText()).toEqual(`${dimmerName}\n${value.toString()}%`);

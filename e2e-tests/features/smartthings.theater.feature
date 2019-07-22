@@ -25,11 +25,11 @@ Feature: RoboDomo SmartThings page
             | Office Light      |
             | Kitchen Light     |
 
-    @S1 @automated @this
+    @S1 @automated
     Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' dimming on Theater tab
         When User clicks on Theater tab on SmartThings page
         And User clicks on <optionName> button to change state to On on SmartThings page
-        And MQTT message <optionName> dimmer to value <value> on SmartThings page
+        And MQTT message set <optionName> dimmer to value <value> on SmartThings page
         Then SmartThings <optionName> dimmer value is <value> on SmartThings page
         When User clicks Dashboard menu button
         When User clicks on Theater tab
@@ -66,21 +66,20 @@ Feature: RoboDomo SmartThings page
             | Ceiling Fan |
             | Office Fan  |
 
-    @S1 @automated @this
-    Scenario Outline: Check 'Entryway Lights', 'Celing Fan', 'Office Fan' dimming on Theater tab
+    @S1 @automated
+    Scenario Outline: Check 'Celing Fan', 'Entryway Lights', 'Office Fan' dimming on Theater tab
         When User clicks on Theater tab on SmartThings page
-        And User clicks on <optionName> button to change state to On on SmartThings page
-        And MQTT message <optionName> dimmer to value <value> on SmartThings page
-        Then SmartThings <optionName> dimmer value is <value> on SmartThings page
+        And MQTT message set <optionName> to <state> and <value> on SmartThings page
+        Then SmartThings <optionName> is <state> and <value> on SmartThings page
         When User clicks Dashboard menu button
         When User clicks on Theater tab
         # TODO uncomment this when state will be persisted locally
         # Then SmartThings <optionName> dimmer value is <value> on Dashboard page
         Examples:
             | optionName      | state | value |
-            | Entryway Lights | on    |       |
-            | Entryway Lights | off   |       |
-            | Celing Fan      | on    | 33    |
-            | Celing Fan      | off   | 67    |
+            | Entryway Lights | on    | x     |
+            | Entryway Lights | off   | x     |
+            | Ceiling Fan     | on    | 33    |
+            | Ceiling Fan     | off   | 67    |
             | Office Fan      | on    | 34    |
             | Office Fan      | off   | 99    |

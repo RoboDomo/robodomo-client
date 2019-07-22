@@ -21,3 +21,5 @@ exports.officeFanSwitch = function(value) { mockMQTTMessage('smartthings/Office 
 exports.officeFanLevel = function(value) { mockMQTTMessage('smartthings/Office Fan/level', value); };
 
 exports.entrywayLightsSwitch = function(value) { mockMQTTMessage('smartthings/Entryway Lights/switch', value); };
+
+exports.entrywayLightsLevel = function(value) { mockMQTTMessage('smartthings/Entryway Lights/level', value); };

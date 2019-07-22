@@ -50,12 +50,13 @@ class TheaterTabComponent {
         this.ceilingFanHighButton.click();
     }
 
-    clickEntrywayLightsOnButton() {
-        this.entrywayLightsOnButton.click();
-    }
-
-    clickEntrywayLightsOffButton() {
-        this.entrywayLightsOffButton.click();
+    toggleEntrywayLights(state) {
+        if (this.entrywayLightsOnButton.getProperty('checked') === 'true' && !state) {
+            this.entrywayLightsOffButton.click()
+        }
+        if (this.entrywayLightsOffButton.getProperty('checked') === 'true' && state) {
+            this.entrywayLightsOnButton.click()
+        }
     }
 
     clickKitchenLightSwitch(state) {
