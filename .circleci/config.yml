@@ -67,7 +67,6 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - checkout
-      - restore_cache: *restore-npm-cache
       - run:
           name: Run ESLint
           command: yarn eslint src
