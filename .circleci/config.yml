@@ -1,6 +1,6 @@
 aliases:
   - &restore-npm-cache
-    key: v1-dependencies-{{ checksum "yarn.lock" }}
+    key: v1-yarn-{{ checksum "yarn.lock" }}
   - &restore-webpack-cache
     key: v1-webpackcache-{{ checksum "yarn.lock" }}
 
@@ -25,7 +25,7 @@ jobs:
           name: Install Node modules
           command: yarn
       - save_cache:
-          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          key: v1-yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
       - run:
