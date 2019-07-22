@@ -77,6 +77,7 @@ module.exports = function override(config) {
             "react-popper",
             "react-icons",
             "framer-motion",
+            "idb-keyval",
             // cannot DLL ionic due to resolver issues in AutoDLL plugin
           ],
         },
