@@ -3,6 +3,8 @@
 aliases:
   - &restore-yarn-cache
     key: v1-yarncache-{{ checksum "yarn.lock" }}
+  - &restore-npm-cache
+    key: v1-node-modules-{{ checksum "yarn.lock" }}
   - &restore-webpack-cache
     key: v1-webpackcache-{{ checksum "yarn.lock" }}
 
@@ -16,9 +18,13 @@ jobs:
   install-dependencies:
     <<: *defaults
     steps:
+      - restore_cache:
+          keys:
+            - v1-git-{{ .Branch }}-{{ .Revision }}
+            - v1-git-{{ .Branch }}-
+            - v1-git-
       - checkout
-      - attach_workspace:
-          at: ~/repo
+      - restore_cache: *restore-npm-cache
       - restore_cache: *restore-yarn-cache
       - run:
           name: Install Node modules
@@ -32,13 +38,14 @@ jobs:
             rm -rdf node_modules/.cache
             # git garbage collect
             git gc
-      - persist_to_workspace:
-          root: ~/repo
+      - save_cache:
+          key: v1-node-modules-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+      - save_cache:
+          key: v1-git-{{ .Branch }}-{{ .Revision }}
+          paths:
             - .git
-            - package.json
-            - config-overrides.json
       - save_cache:
           key: v1-yarncache-{{ checksum "yarn.lock" }}
           paths:
@@ -47,17 +54,12 @@ jobs:
   build-pwa:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: ~/repo
       - checkout
+      - restore_cache: *restore-npm-cache
       - restore_cache: *restore-webpack-cache
       - run:
           name: Build Project
           command: yarn build
-      - persist_to_workspace:
-          root: ~/repo
-          paths:
-            - build
       - save_cache:
           key: v1-webpackcache-{{ checksum "yarn.lock" }}
           paths:
@@ -66,9 +68,8 @@ jobs:
   lint:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: ~/repo
       - checkout
+      - restore_cache: *restore-npm-cache
       - run:
           name: Run ESLint
           command: yarn eslint src
