@@ -24,3 +24,5 @@ yarn-error.log*
 /bailout.json
 .env
 package-lock.json
+
+.idea
