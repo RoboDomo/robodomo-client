@@ -41,6 +41,8 @@ jobs:
             - config-overrides.json
       - save_cache:
           key: v1-yarncache-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
 
   build-pwa:
     <<: *defaults
