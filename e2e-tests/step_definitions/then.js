@@ -1,3 +1,4 @@
+import expect from 'expect';
 import { Then } from 'cucumber';
 import AutelisPage from '../page_objects/autelis.page';
 import DashboardPage from '../page_objects/dashboard.page';
@@ -362,6 +363,41 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Office Dimmer|Office Light|Off
                 default:
                     break;
             }
+            break;
+        default:
+            break;
+    }
+});
+
+Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) dimmer value is (\d+) on SmartThings page$/, (dimmerName, value) => {
+    switch (dimmerName) {
+        case 'Ceiling Fan Light':
+            expect(SmartThingsPage.getTheaterTab().ceilingFanLightDimm.getAttribute('value')).toEqual(value.toString());
+            break;
+        case 'Office Dimmer':
+            expect(SmartThingsPage.getTheaterTab().officeDimmerDimm.getAttribute('value')).toEqual(value.toString());
+            break;
+        case 'Office Light':
+            expect(SmartThingsPage.getTheaterTab().officeLightDimm.getAttribute('value')).toEqual(value.toString());
+            break;
+        case 'Kitchen Light':
+            expect(SmartThingsPage.getTheaterTab().kitchenLightDimm.getAttribute('value')).toEqual(value.toString());
+            break;
+        default:
+            break;
+    }
+});
+
+Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) dimmer value is (\d+) on Dashboard page$/, (dimmerName, value) => {
+    switch (dimmerName) {
+        case 'Ceiling Fan Light':
+            expect(DashboardPage.theaterCeilingFanLightButton.getText()).toEqual(`${dimmerName}\n${value.toString()}%`);
+            break;
+        case 'Office Dimmer':
+            break;
+        case 'Office Light':
+            break;
+        case 'Kitchen Light':
             break;
         default:
             break;

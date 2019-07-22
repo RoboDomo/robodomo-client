@@ -1,18 +1,18 @@
 /** TheaterTabComponent selenium page-object */
 class TheaterTabComponent {
-    get ceilingFanLightOnSwitch() { return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get ceilingFanLightOffSwitch() { return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle[@checked="false"]'); }
+    get ceilingFanLightSwitch() { return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle'); }
+    get ceilingFanLightDimm() { return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-range'); }
 
     get ceilingFanOffButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Off"]'); }
     get ceilingFanLowButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Low"]'); }
     get ceilingFanMediumButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
     get ceilingFanHighButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="High"]'); }
 
-    get officeDimmerOnSwitch() { return $('//div[text()="Office Dimmer"]/parent::*//ion-toggle[@checked="true"]'); }
-    get officeDimmerOffSwitch() { return $('//div[text()="Office Dimmer"]/parent::*//ion-toggle[@checked="false"]'); }
+    get officeDimmerSwitch() { return $('//div[text()="Office Dimmer"]/parent::*//ion-toggle'); }
+    get officeDimmerDimm() { return $('//div[text()="Office Dimmer"]/parent::*//ion-range'); }
 
-    get officeLightOnSwitch() { return $('//div[text()="Office Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get officeLightOffSwitch() { return $('//div[text()="Office Light"]/parent::*//ion-toggle[@checked="false"]'); }
+    get officeLightSwitch() { return $('//div[text()="Office Light"]/parent::*//ion-toggle'); }
+    get officeLightDimm() { return $('//div[text()="Office Light"]/parent::*//ion-range'); }
 
     get officeFanOffButton() { return $('//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Off"]'); }
     get officeFanLowButton() { return $('//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Low"]'); }
@@ -22,18 +22,15 @@ class TheaterTabComponent {
     get entrywayLightsOnButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="On"]'); }
     get entrywayLightsOffButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="Off"]'); }
 
-    get kitchenLightOnSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get kitchenLightOffSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="false"]'); }
+    get kitchenLightSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle'); }
+    get kitchenLightDimm() { return $('//div[text()="Kitchen Light"]/parent::*//ion-range'); }
 
-    clickCeilingFanLightOnSwitch() {
-        if (this.ceilingFanLightOffSwitch.isDisplayed()) {
-            this.ceilingFanLightOffSwitch.click();
+    toggleCeilingFanLightSwitch(state) {
+        if (this.ceilingFanLightSwitch.getAttribute('checked') === 'true' && !state) {
+            this.ceilingFanLightSwitch.click();
         }
-    }
-
-    clickCeilingFanLightOffSwitch() {
-        if (this.ceilingFanLightOnSwitch.isDisplayed()) {
-            this.ceilingFanLightOnSwitch.click();
+        if (this.ceilingFanLightSwitch.getAttribute('checked') === 'false' && state) {
+            this.ceilingFanLightSwitch.click();
         }
     }
 
@@ -61,27 +58,21 @@ class TheaterTabComponent {
         this.entrywayLightsOffButton.click();
     }
 
-    clickKitchenLightOnSwitch() {
-        if (this.kitchenLightOffSwitch.isDisplayed()) {
-            this.kitchenLightOffSwitch.click();
+    clickKitchenLightSwitch(state) {
+        if (this.kitchenLightSwitch.getAttribute('checked') === 'true' && !state) {
+            this.kitchenLightSwitch.click();
+        }
+        if (this.kitchenLightSwitch.getAttribute('checked') === 'false' && state) {
+            this.kitchenLightSwitch.click();
         }
     }
 
-    clickKitchenLightOffSwitch() {
-        if (this.kitchenLightOnSwitch.isDisplayed()) {
-            this.kitchenLightOnSwitch.click();
+    clickOfficeDimmerSwitch(state) {
+        if (this.officeDimmerSwitch.getAttribute('checked') === 'true' && !state) {
+            this.officeDimmerSwitch.click();
         }
-    }
-
-    clickOfficeDimmerOnSwitch() {
-        if (this.officeDimmerOffSwitch.isDisplayed()) {
-            this.officeDimmerOffSwitch.click();
-        }
-    }
-
-    clickOfficeDimmerOffSwitch() {
-        if (this.officeDimmerOnSwitch.isDisplayed()) {
-            this.officeDimmerOnSwitch.click();
+        if (this.officeDimmerSwitch.getAttribute('checked') === 'false' && state) {
+            this.officeDimmerSwitch.click();
         }
     }
 
@@ -101,15 +92,12 @@ class TheaterTabComponent {
         this.officeFanHighButton.click();
     }
 
-    clickOfficeLightOnSwitch() {
-        if (this.officeLightOffSwitch.isDisplayed()) {
-            this.officeLightOffSwitch.click();
+    clickOfficeLightSwitch(state) {
+        if (this.officeLightSwitch.getAttribute('checked') === 'true' && !state) {
+            this.officeLightSwitch.click();
         }
-    }
-
-    clickOfficeLightOffSwitch() {
-        if (this.officeLightOnSwitch.isDisplayed()) {
-            this.officeLightOnSwitch.click();
+        if (this.officeLightSwitch.getAttribute('checked') === 'false' && state) {
+            this.officeLightSwitch.click();
         }
     }
 }

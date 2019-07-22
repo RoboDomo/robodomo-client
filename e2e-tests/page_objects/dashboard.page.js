@@ -14,6 +14,8 @@ class DashboardPage extends Page {
     get theaterTabButton() { return $('#dashboard-tabs-tab-theater'); }
     get theaterTabPane() { return $('#dashboard-tabs-tabpane-theater'); }
 
+    get theaterCeilingFanLightButton() { return $('//ion-card[contains(.,"Ceiling Fan Light")]'); }
+
     get theaterNestCell() { return this.theaterTabPane.$('//form/parent::div/parent::ion-card-content'); }
     get theaterNestDecreaseButton() { return this.theaterTabPane.$('//form//button[1]'); }
     get theaterNestTemperatureValue() { return this.theaterTabPane.$('//form//input'); }
