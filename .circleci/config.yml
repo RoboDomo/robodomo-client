@@ -1,6 +1,8 @@
+# RoboDomo CI
+
 aliases:
   - &restore-npm-cache
-    key: v1-yarn-{{ checksum "yarn.lock" }}
+    key: v1-deps-{{ checksum "yarn.lock" }}
   - &restore-webpack-cache
     key: v1-webpackcache-{{ checksum "yarn.lock" }}
 
@@ -24,10 +26,16 @@ jobs:
       - run:
           name: Install Node modules
           command: yarn
+      - run:
+          name: Prune dependencies
+          command: |
+            curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash
+            ./bin/node-prune
+            rm -rdf node_modules/.cache
       - save_cache:
-          key: v1-yarn-{{ checksum "yarn.lock" }}
+          key: v1-deps-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.cache/yarn
+            - node_modules
       - run:
           name: Git garbage collection
           command: git gc
