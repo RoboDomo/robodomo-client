@@ -1,4 +1,4 @@
-# RoboDomo CI
+# RoboDomo CI setup
 
 aliases:
   - &restore-npm-cache
