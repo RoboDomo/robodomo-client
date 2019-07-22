@@ -2,6 +2,7 @@ import { onOrOff, randomTemp } from "./utils";
 import { getHourly } from "./weather/hourly";
 import { getForecast } from "./weather/forecast";
 import { getObservation } from "./weather/observation";
+import { get } from "./state";
 
 const allMessages = [
   ["TOPIC_ROOT/appletv-theater/status/album", ""],
@@ -17691,11 +17692,25 @@ const allMessages = [
  *
  * @param {string[]} filter  Array of topics
  */
-const getRandomMessage = filter => {
-  const messages =
-    Array.isArray(filter) && filter.length
-      ? allMessages.filter(([topic]) => filter.includes(topic))
-      : allMessages;
+const getRandomMessage = async filter => {
+  let messages;
+
+  if (Array.isArray(filter) && filter.length === 1) {
+    // try getting value from state
+    const topic = filter[0];
+    const state = await get(topic);
+
+    if (state) {
+      messages = [[topic, state]];
+    }
+  }
+  if (!messages) {
+    // collect all the possible random payloads if not in state
+    messages =
+      Array.isArray(filter) && filter.length
+        ? allMessages.filter(([topic]) => filter.includes(topic))
+        : allMessages;
+  }
 
   if (!messages.length) {
     return null;
