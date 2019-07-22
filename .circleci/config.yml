@@ -31,15 +31,15 @@ jobs:
           command: |
             curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash
             ./bin/node-prune
+            # remove webpack cache if there
             rm -rdf node_modules/.cache
+            # git garbage collect
+            git gc
       - save_cache:
           key: v1-deps-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
             - ~/.cache/yarn
-      - run:
-          name: Git garbage collection
-          command: git gc
       - save_cache:
           key: v1-git-{{ .Branch }}-{{ .Revision }}
           paths:
