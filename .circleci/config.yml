@@ -14,6 +14,11 @@ jobs:
   install-dependencies:
     <<: *defaults
     steps:
+      - restore_cache:
+          keys:
+            - v1-git-{{ .Branch }}-{{ .Revision }}
+            - v1-git-{{ .Branch }}-
+            - v1-git-
       - checkout
       - restore_cache: *restore-npm-cache
       - run:
@@ -22,7 +27,14 @@ jobs:
       - save_cache:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
+            - ~/.cache/yarn
+      - run:
+          name: Git garbage collection
+          command: git gc
+      - save_cache:
+          key: v1-git-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ".git"
 
   build-pwa:
     <<: *defaults
