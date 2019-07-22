@@ -16,13 +16,8 @@ jobs:
   install-dependencies:
     <<: *defaults
     steps:
-      - restore_cache:
-          keys:
-            - v1-git-{{ .Branch }}-{{ .Revision }}
-            - v1-git-{{ .Branch }}-
-            - v1-git-
-      - checkout
-      - restore_cache: *restore-npm-cache
+      - attach_workspace:
+          at: ~/repo
       - run:
           name: Install Node modules
           command: yarn
@@ -35,20 +30,14 @@ jobs:
             rm -rdf node_modules/.cache
             # git garbage collect
             git gc
-      - save_cache:
-          key: v1-deps-{{ checksum "yarn.lock" }}
-          paths:
-            - node_modules
-            - ~/.cache/yarn
-      - save_cache:
-          key: v1-git-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - ".git"
+      - persist_to_workspace:
+          root: ~/repo
 
   build-pwa:
     <<: *defaults
     steps:
-      - checkout
+      - persist_to_workspace:
+          root: ~/repo
       - restore_cache: *restore-npm-cache
       - restore_cache: *restore-webpack-cache
       - run:
@@ -66,7 +55,8 @@ jobs:
   lint:
     <<: *defaults
     steps:
-      - checkout
+      - persist_to_workspace:
+          root: ~/repo
       - restore_cache: *restore-npm-cache
       - run:
           name: Run ESLint
