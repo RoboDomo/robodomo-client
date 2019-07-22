@@ -7,7 +7,7 @@ aliases:
 defaults: &defaults
   working_directory: /home/circleci/repo
   docker:
-    - image: circleci/node:12-browsers
+    - image: circleci/node:12
 
 version: 2.1
 jobs:
