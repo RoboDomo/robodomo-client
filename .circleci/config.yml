@@ -1,8 +1,8 @@
 # RoboDomo CI setup
 
 aliases:
-  - &restore-npm-cache
-    key: v1-deps-{{ checksum "yarn.lock" }}
+  - &restore-yarn-cache
+    key: v1-yarncache-{{ checksum "yarn.lock" }}
   - &restore-webpack-cache
     key: v1-webpackcache-{{ checksum "yarn.lock" }}
 
@@ -19,9 +19,10 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/repo
+      - restore_cache: *restore-yarn-cache
       - run:
           name: Install Node modules
-          command: yarn
+          command: yarn install --frozen-lockfile
       - run:
           name: Prune dependencies
           command: |
@@ -38,6 +39,8 @@ jobs:
             - .git
             - package.json
             - config-overrides.json
+      - save_cache:
+          key: v1-yarncache-{{ checksum "yarn.lock" }}
 
   build-pwa:
     <<: *defaults
