@@ -36,6 +36,7 @@ jobs:
           key: v1-deps-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+            - ~/.cache/yarn
       - run:
           name: Git garbage collection
           command: git gc
