@@ -45,13 +45,12 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - checkout
-      - restore_cache: *restore-npm-cache
       - restore_cache: *restore-webpack-cache
       - run:
           name: Build Project
           command: yarn build
-      - save_cache:
-          key: v1-dist-{{ .Environment.CIRCLE_SHA1 }}
+      - persist_to_workspace:
+          root: ~/repo
           paths:
             - build
       - save_cache:
