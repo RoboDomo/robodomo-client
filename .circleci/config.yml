@@ -93,6 +93,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: start Browserstack Local
+          background: true
+          command: ./e2e-tests//scripts/BrowserStackLocal_linux --daemon start --key GnvL9ihmskGTxHsmkyXf
+      - run:
           name: Install e2e tests dependencies
           command: yarn --cwd ./e2e-tests install
       - run:
