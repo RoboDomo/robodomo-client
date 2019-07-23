@@ -65,7 +65,7 @@ jobs:
           name: Install Test Node modules
           command: yarn --cwd ./e2e-tests install --frozen-lockfile
       - save_cache:
-          key: v1-node-modules-{{ checksum "./e2e-tests/yarn.lock" }}
+          key: v1-node-modules-tests-{{ checksum "./e2e-tests/yarn.lock" }}
           paths:
             - ./e2e-tests/node_modules
 
@@ -141,3 +141,6 @@ workflows:
           requires:
             - install-test-dependencies
             - run-pwa
+
+
+v1-node-modules-VaW4jJNmtgwDoME19TbauTeZOUHnGdGYD_6Zy0cWFwU=
