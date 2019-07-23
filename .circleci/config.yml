@@ -71,7 +71,7 @@ jobs:
       - restore_cache: *restore-npm-cache
       - run:
           name: Run ESLint
-          command: yarn eslint src && yarn --cwd ./e2e-tests test:lint
+          command: yarn eslint src && yarn eslint ./e2e-tests
 
   run-pwa:
     <<: *defaults
@@ -94,7 +94,7 @@ jobs:
       - checkout
       - run:
           name: start Browserstack Local
-          command: ./e2e-tests//scripts/BrowserStackLocal_linux --daemon start --key GnvL9ihmskGTxHsmkyXf
+          command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key GnvL9ihmskGTxHsmkyXf
       - run:
           name: Install e2e tests dependencies
           command: yarn --cwd ./e2e-tests install
