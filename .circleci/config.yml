@@ -93,13 +93,12 @@ jobs:
 
   lint-tests:
     <<: *defaults
-    working_directory: /home/circleci/repo/e2e-tests
     steps:
       - checkout
       - restore_cache: *restore-npm-cache-tests
       - run:
           name: Lint tests
-          command: yarn eslint .
+          command: yarn --cwd ./e2e-tests ./node-modules/.bin/eslint .
 
   test-pwa:
     <<: *defaults
