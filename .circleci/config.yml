@@ -114,7 +114,7 @@ jobs:
             - v1-app-
       - run:
           name: Run server
-            command: yarn start
+          command: yarn start
           background: true
       - run:
           name: Wait for project to start
