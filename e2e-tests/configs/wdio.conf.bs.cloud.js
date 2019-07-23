@@ -2,9 +2,6 @@ const merge = require('deepmerge');
 const configBase = require('./wdio.conf.js');
 
 exports.config = merge(configBase.config, {
-    specs: ['./features/**/*.feature'],
-    exclude: ['./features/visualRegression/*.feature'],
-
     maxInstances: 2,
 
     services: ['browserstack'],
