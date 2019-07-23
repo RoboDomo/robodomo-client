@@ -9,6 +9,7 @@ class NestPage extends Page {
     get hallwayTabButton() {
         return $('//*[@id="nest-tabs-tab-Entryway Nest Protect"]');
     }
+
     get hallwayTabPane() {
         return $('//*[@id="nest-tabs-tabpane-Entryway Nest Protect"]');
     }
@@ -16,6 +17,7 @@ class NestPage extends Page {
     get entrywayTabButton() {
         return $('//*[@id="nest-tabs-tab-Hallway Thermostat"]');
     }
+
     get entrywayTabPane() {
         return $('//*[@id="nest-tabs-tabpane-Hallway Thermostat"]');
     }

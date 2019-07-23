@@ -9,7 +9,7 @@ import {
     officeDimmerLevel,
     officeFanLevel,
     officeFanSwitch,
-    officeLightLevel,
+    officeLightLevel
 } from '../scripts/testData';
 
 When(

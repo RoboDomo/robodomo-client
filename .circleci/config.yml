@@ -73,6 +73,29 @@ jobs:
           name: Run ESLint
           command: yarn eslint src && yarn --cwd ./e2e-tests test:lint
 
+  run-pwa:
+    <<: *defaults
+      steps:
+        - checkout
+        - restore_cache: *restore-npm-cache
+        - background: true
+        - run:
+            name: Run Project
+            command: yarn start
+        - run:
+            name: Wait for project to start
+            command: wget --retry-connrefused --waitretry=1 --read-timeout=30 --timeout=30 -t 10 http://localhost:3000
+
+  test-pwa:
+    <<: *defaults
+      steps:
+        - checkout
+        - run:
+            name: Run e2e tests
+            command: yarn --cwd ./e2e-tests test:bs_cloud -- --baseUrl=http://bs-local.com:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
+
+
+
 workflows:
   version: 2
   build-and-test:
@@ -84,3 +107,8 @@ workflows:
       - build-pwa:
           requires:
             - install-dependencies
+      - run-pwa:
+          requires:
+            - install-dependencies
+            - build-pwa
+

@@ -57,10 +57,10 @@ When(/^User clicks on (OFF|POOL|SPA) button on Autelis page$/, buttonName => {
 When(/^User (decreases|increases) Autelis (Pool|Spa) heat$/, (action, type) => {
     switch (type) {
         case 'Pool':
-            browser.scenarioContext['initialPoolTemperature'] = AutelisPage.adjustPoolHeat(action);
+            browser.scenarioContext.initialPoolTemperature = AutelisPage.adjustPoolHeat(action);
             break;
         case 'Spa':
-            browser.scenarioContext['initialPoolTemperature'] = AutelisPage.adjustSpaHeat(action);
+            browser.scenarioContext.initialSpaTemperature = AutelisPage.adjustSpaHeat(action);
             break;
         default:
             break;

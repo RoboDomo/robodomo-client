@@ -1,5 +1,7 @@
 require('@babel/register');
 
+const log = (typeof console != 'undefined') && console;
+
 exports.config = {
     waitTimes: {
         implicit: 15000,
@@ -161,8 +163,17 @@ exports.config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    // onPrepare: function (config, capabilities) {
-    // },
+    // eslint-disable-next-line no-unused-vars
+    onPrepare: function(config, capabilities) {
+        let filessystem = require('fs');
+        let dir = './errorShots/';
+
+        if (!filessystem.existsSync(dir)) {
+            filessystem.mkdirSync(dir);
+        } else {
+            log.info('Folder already exists!');
+        }
+    },
     /**
      * Gets executed just before initialising the webdriver session and test framework. It allows you
      * to manipulate configurations depending on the capability or spec.
@@ -190,17 +201,17 @@ exports.config = {
         try {
             browser.setTimeout({ implicit: this.waitTimes.implicit });
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             browser.setTimeout({ pageLoad: this.waitTimes.pageLoad });
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             browser.setTimeout({ script: this.waitTimes.script });
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
     },
     /**
@@ -236,10 +247,7 @@ exports.config = {
      */
     afterStep(stepResult) {
         if (stepResult.status === 'failed') {
-            const screenshotName = `${new Date().toUTCString()}_${stepResult.scenario.replace(
-                / /g,
-                '_'
-            )}_${stepResult.text.replace(/ /g, '_')}.png`;
+            const screenshotName = `${new Date().toUTCString()}_${stepResult.scenario.replace(/ /g, '_')}_${stepResult.text.replace(/ /g, '_')}.png`;
             browser.saveScreenshot(`./errorShots/${screenshotName}`);
         }
     },
@@ -254,35 +262,35 @@ exports.config = {
                 browser.clearStorageData();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             if (typeof browser.clearStorageData === 'function') {
                 browser.clearLocalStorage();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             if (typeof browser.clearStorageData === 'function') {
                 browser.clearSessionStorage();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             if (typeof browser.clearStorageData === 'function') {
                 browser.clearCache();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             if (typeof browser.clearStorageData === 'function') {
                 browser.deleteAllCookies();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
     },
     /**

@@ -10,7 +10,7 @@ Feature: RoboDomo Theater page
         Then User is redirected to Theater page
         Then Theater menu shall be selected
         When User clicks on <tabName> tab
-        Then <tabName> tab is loaded
+        Then Theater <tabName> tab is loaded
         Examples:
             | tabName     |
             | HomeTheater |

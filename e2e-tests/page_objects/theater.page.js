@@ -9,6 +9,7 @@ class TheaterPage extends Page {
     get homeTheaterTabButton() {
         return $('#tab-button-theater');
     }
+
     get homeTheaterTabPane() {
         return $('#tab-theaters');
     }

@@ -1,28 +1,30 @@
+import expect from 'expect';
+
 /** BathroomTabComponent selenium page-object */
 class BathroomTabComponent {
-    get bathroomLightSwitch() {
-        return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle');
-    }
-    get bathroomLightDimm() {
-        return $('//div[text()="Bathroom Light"]/parent::*//ion-range');
-    }
+    get tabPane() { return $('#smartthings-tabs-tabpane-6'); }
+
+    get bathroomLightSwitch() { return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle'); }
+    get bathroomLightDimm() { return $('//div[text()="Bathroom Light"]/parent::*//ion-range'); }
 
     toggleBathroomLight(state) {
-        if (this.bathroomLightSwitch.getAttribute('checked') === 'true' && !state) {
+        if (this.bathroomLightSwitch.getProperty('checked') === true && !state) {
             this.bathroomLightSwitch.click();
         }
-        if (this.bathroomLightSwitch.getAttribute('checked') === 'false' && state) {
+        if (this.bathroomLightSwitch.getProperty('checked') === false && state) {
             this.bathroomLightSwitch.click();
         }
     }
 
-    validatBathroomLightState(state) {
-        if (state === 'On') expect(this.bathroomLightSwitch.getAttribute('checked')).toEqual('true');
-        else if (state === 'Off') expect(this.bathroomLightSwitch.getAttribute('checked')).toEqual('false');
+    validateBathroomLightState(state) {
+        if (state === 'On')
+            expect(this.bathroomLightSwitch.getProperty('checked')).toEqual(true);
+        else if (state === 'Off')
+            expect(this.bathroomLightSwitch.getProperty('checked')).toEqual(false);
     }
 
     validateBathroomLightDimmValue(value) {
-        expect(this.bathroomLightDimm.getAttribute('value')).toEqual(value.toString());
+        expect(this.bathroomLightDimm.getProperty('value')).toEqual(value.toString());
     }
 }
 
