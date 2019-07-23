@@ -1,4 +1,6 @@
 {
+  "name": "robodomo-client-e2e-tests",
+  "version": "0.1.0",
   "scripts": {
     "test:bs_cloud": "wdio ./configs/wdio.conf.bs.cloud.js",
     "test:bs_cloud_smoke": "wdio ./configs/wdio.conf.bs.cloud.smoke.js",
