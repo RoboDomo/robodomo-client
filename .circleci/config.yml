@@ -88,11 +88,11 @@ jobs:
 
   test-pwa:
     <<: *defaults
-      steps:
-        - checkout
-        - run:
-            name: Run e2e tests
-            command: yarn --cwd ./e2e-tests test:bs_cloud -- --baseUrl=http://bs-local.com:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
+    steps:
+      - checkout
+      - run:
+          name: Run e2e tests
+          command: yarn --cwd ./e2e-tests test:bs_cloud -- --baseUrl=http://bs-local.com:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
 
 workflows:
   version: 2
