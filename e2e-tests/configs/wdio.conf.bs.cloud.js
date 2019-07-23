@@ -2,12 +2,8 @@ const merge = require('deepmerge');
 const configBase = require('./wdio.conf.js');
 
 exports.config = merge(configBase.config, {
-    specs: [
-        './features/**/*.feature',
-    ],
-    exclude: [
-        './features/visualRegression/*.feature',
-    ],
+    specs: ['./features/**/*.feature'],
+    exclude: ['./features/visualRegression/*.feature'],
 
     maxInstances: 2,
 
@@ -21,8 +17,8 @@ exports.config = merge(configBase.config, {
             os_version: '12',
             realMobile: true,
             deviceOrientation: 'landscape',
-        // TODO uncomment when iOS UI is fixed
-        // and when tests are updated for Android UI
+            // TODO uncomment when iOS UI is fixed
+            // and when tests are updated for Android UI
         },
         // {
         //     device: 'iPhone 8',

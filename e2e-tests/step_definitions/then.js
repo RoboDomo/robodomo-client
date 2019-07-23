@@ -7,7 +7,7 @@ import SmartThingsPage from '../page_objects/smartthings.page';
 import TheaterPage from '../page_objects/theater.page';
 import WeatherPage from '../page_objects/weather.page';
 
-Then(/^User is redirected to (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) page$/, {}, (page) => {
+Then(/^User is redirected to (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) page$/, {}, page => {
     let path;
     switch (page) {
         case 'Autelis':
@@ -38,7 +38,7 @@ Then(/^User is redirected to (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater
     browser.waitUntil(() => browser.getUrl().includes(path), 5000);
 });
 
-Then(/^(Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) menu shall be selected$/, {}, (menuButton) => {
+Then(/^(Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) menu shall be selected$/, {}, menuButton => {
     switch (menuButton) {
         case 'Autelis':
             AutelisPage.getMenu().isAutelisMenuSelected();
@@ -66,7 +66,7 @@ Then(/^(Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) menu shall b
     }
 });
 
-Then(/^(Theater|Bedroom) tab is loaded$/, {}, (tabButton) => {
+Then(/^(Theater|Bedroom) tab is loaded$/, {}, tabButton => {
     switch (tabButton) {
         case 'Bedroom':
             DashboardPage.isBedroomTabSelected();
@@ -80,11 +80,11 @@ Then(/^(Theater|Bedroom) tab is loaded$/, {}, (tabButton) => {
 });
 
 // eslint-disable-next-line no-unused-vars
-Then(/^(HomeTheater) tab is loaded$/, {}, (tabName) => {
+Then(/^(HomeTheater) tab is loaded$/, {}, tabName => {
     TheaterPage.isHomeTheaterTabSelected();
 });
 
-Then(/^(Los Angeles, CA|New York, NY) tab is loaded$/, {}, (tabButton) => {
+Then(/^(Los Angeles, CA|New York, NY) tab is loaded$/, {}, tabButton => {
     switch (tabButton) {
         case 'Los Angeles, CA':
             WeatherPage.isLATabSelected();
@@ -97,7 +97,7 @@ Then(/^(Los Angeles, CA|New York, NY) tab is loaded$/, {}, (tabButton) => {
     }
 });
 
-Then(/^(Hallway Thermostat|Entryway Nest Protect) tab is loaded$/, {}, (tabName) => {
+Then(/^(Hallway Thermostat|Entryway Nest Protect) tab is loaded$/, {}, tabName => {
     switch (tabName) {
         case 'Entryway Nest Protect':
             NestPage.isEntrywayTabSelected();

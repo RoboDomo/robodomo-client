@@ -10,7 +10,7 @@ Then(/^Dashboard tab buttons visuals shall match baseline$/, {}, () => {
     DashboardPage.validateTabButtonsScreenshots();
 });
 
-Then(/^Dashboard (Bedroom|Theater) Nest cell visuals shall match baseline$/, {}, (tabName) => {
+Then(/^Dashboard (Bedroom|Theater) Nest cell visuals shall match baseline$/, {}, tabName => {
     switch (tabName) {
         case 'Bedroom':
             DashboardPage.validateBedroomNestScreenshots();

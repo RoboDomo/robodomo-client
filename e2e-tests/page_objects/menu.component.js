@@ -2,19 +2,33 @@ import expect from 'expect';
 
 /** MenuComponent selenium page-object */
 class MenuComponent {
-    get autelisButton() { return $('//ion-tab-button[@tab="autelis"]'); }
+    get autelisButton() {
+        return $('//ion-tab-button[@tab="autelis"]');
+    }
 
-    get dashboardButton() { return $('//ion-tab-button[@tab="dashboard"]'); }
+    get dashboardButton() {
+        return $('//ion-tab-button[@tab="dashboard"]');
+    }
 
-    get nestButton() { return $('//ion-tab-button[@tab="nest"]'); }
+    get nestButton() {
+        return $('//ion-tab-button[@tab="nest"]');
+    }
 
-    get sensorsButton() { return $('//ion-tab-button[@tab="sensors"]'); }
+    get sensorsButton() {
+        return $('//ion-tab-button[@tab="sensors"]');
+    }
 
-    get smartThingsButton() { return $('//ion-tab-button[@tab="smartthings"]'); }
+    get smartThingsButton() {
+        return $('//ion-tab-button[@tab="smartthings"]');
+    }
 
-    get theaterButton() { return $('//ion-tab-button[@tab="theater"]'); }
+    get theaterButton() {
+        return $('//ion-tab-button[@tab="theater"]');
+    }
 
-    get weatherButton() { return $('//ion-tab-button[@tab="weather"]'); }
+    get weatherButton() {
+        return $('//ion-tab-button[@tab="weather"]');
+    }
 
     goToAutelisPage() {
         this.autelisButton.click();

@@ -1,6 +1,4 @@
-
 /** BackRoomTabComponent selenium page-object */
-class BackRoomTabComponent {
-}
+class BackRoomTabComponent {}
 
 module.exports = new BackRoomTabComponent();
