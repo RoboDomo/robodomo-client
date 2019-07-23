@@ -118,6 +118,8 @@ workflows:
           requires:
             - install-dependencies
             - build-pwa
+      - install-test-dependencies
       - test-pwa:
           requires:
+            - run-pwa
             - install-test-dependencies
