@@ -71,7 +71,7 @@ jobs:
       - restore_cache: *restore-npm-cache
       - run:
           name: Run ESLint
-          command: yarn eslint src
+          command: yarn eslint src && yarn --cwd ./e2e-tests test:lint
 
 workflows:
   version: 2
