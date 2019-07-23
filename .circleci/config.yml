@@ -62,7 +62,7 @@ jobs:
           command: yarn install --frozen-lockfile
       - run:
           name: Lint
-          command: yarn eslint './configs/**/*.js' './page_objects/**/*.js' './scripts/**/*.js' './step_definitions/**/*.js'
+          command: yarn eslint .
       - save_cache:
           key: v1-node-modules-tests-{{ checksum "yarn.lock" }}
           paths:
@@ -91,7 +91,6 @@ jobs:
     steps:
       - checkout
       - restore_cache: *restore-npm-cache
-      - restore_cache: *restore-npm-cache-tests
       - run:
           name: Run ESLint
           command: yarn eslint src
@@ -100,7 +99,13 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+
+  test-pwa:
+    <<: *defaults
+    steps:
+      - checkout
       - restore_cache: *restore-npm-cache
+      - restore_cache: *restore-npm-cache-tests
       - restore_cache:
           keys:
             - v1-app-{{ .Branch }}-{{ .Revision }}
@@ -115,19 +120,12 @@ jobs:
           command: |
             wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10 http://localhost:3000
             :
-
-  test-pwa:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache: *restore-npm-cache-tests
       - run:
           name: start Browserstack Local
-          command: ./e2e-tests/scripts/BrowserStackLocal_linux --key GnvL9ihmskGTxHsmkyXf
-          background: true
+          command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key GnvL9ihmskGTxHsmkyXf
       - run:
           name: Run e2e tests
-          command: cd ./e2e-tests && yarn run test:bs_cloud_smoke -- --baseUrl=http://localhost:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
+          command: cd ./e2e-tests && yarn run test:bs_cloud_smoke -- --baseUrl=http://bs-local.com:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
 
 workflows:
   version: 2
@@ -138,15 +136,11 @@ workflows:
       - lint:
           requires:
             - install-dependencies
-            - install-test-dependencies
       - build-pwa:
           requires:
             - install-dependencies
-      - run-pwa:
+      - test-pwa:
           requires:
             - install-dependencies
             - build-pwa
-      - test-pwa:
-          requires:
             - install-test-dependencies
-            - run-pwa
