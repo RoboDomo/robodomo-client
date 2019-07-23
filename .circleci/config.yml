@@ -91,13 +91,14 @@ jobs:
       - restore_cache: *restore-npm-cache-tests
       - run:
           name: Run ESLint
-          command: yarn eslint src && cd ./e2e-tests && yarn run test:lint
+          command: yarn eslint src && yarn --cwd ./e2e-tests ./node_modules/.bin/eslint ../e2e-tests
 
-  run-pwa:
+  test-pwa:
     <<: *defaults
     steps:
       - checkout
       - restore_cache: *restore-npm-cache
+      - restore_cache: *restore-npm-cache-tests
       - run:
           name: Run Project
           command: yarn start
@@ -107,16 +108,9 @@ jobs:
           command: |
             wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10 http://localhost:3000
             :
-
-  test-pwa:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache: *restore-npm-cache-tests
       - run:
           name: start Browserstack Local
-          command: ./e2e-tests/scripts/BrowserStackLocal_linux --key GnvL9ihmskGTxHsmkyXf
-          background: true
+          command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key GnvL9ihmskGTxHsmkyXf
       - run:
           name: Run e2e tests
           command: cd ./e2e-tests && yarn run test:bs_cloud_smoke -- --baseUrl=http://localhost:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
@@ -134,12 +128,9 @@ workflows:
       - build-pwa:
           requires:
             - install-dependencies
-      - run-pwa:
-          requires:
-            - install-dependencies
-            - build-pwa
       - test-pwa:
           requires:
+            - install-dependencies
             - install-test-dependencies
-            - run-pwa
+            - build-pwa
 
