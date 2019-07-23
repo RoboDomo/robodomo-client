@@ -98,7 +98,7 @@ jobs:
       - restore_cache: *restore-npm-cache-tests
       - run:
           name: Lint tests
-          command: yarn --cwd ./e2e-tests ./node-modules/.bin/eslint .
+          command:  yarn --cwd ./e2e-tests eslint .
 
   test-pwa:
     <<: *defaults
