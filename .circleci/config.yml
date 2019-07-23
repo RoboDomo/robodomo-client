@@ -62,7 +62,7 @@ jobs:
           command: yarn install --frozen-lockfile
       - run:
           name: Lint
-          command: test:lint
+          command: yarn eslint './configs/**/*.js' './page_objects/**/*.js' './scripts/**/*.js' './step_definitions/**/*.js'
       - save_cache:
           key: v1-node-modules-tests-{{ checksum "yarn.lock" }}
           paths:
