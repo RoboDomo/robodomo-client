@@ -78,13 +78,15 @@ jobs:
     steps:
       - checkout
       - restore_cache: *restore-npm-cache
-      - background: true
       - run:
           name: Run Project
           command: yarn start
+          background: true
       - run:
           name: Wait for project to start
-          command: wget --retry-connrefused --waitretry=1 --read-timeout=30 --timeout=30 -t 10 http://localhost:3000
+          command: |
+            wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10 http://localhost:3032/graphql
+            :
 
   test-pwa:
     <<: *defaults
@@ -109,3 +111,6 @@ workflows:
           requires:
             - install-dependencies
             - build-pwa
+      - test-pwa:
+          requires:
+            - install-dependencies
