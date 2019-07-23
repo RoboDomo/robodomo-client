@@ -88,19 +88,13 @@ jobs:
             wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10 http://localhost:3000
             :
 
-
-  install-test-dependencies:
+  test-pwa:
     <<: *defaults
     steps:
       - checkout
       - run:
           name: Install e2e tests dependencies
           command: yarn --cwd ./e2e-tests install
-
-  test-pwa:
-    <<: *defaults
-    steps:
-      - checkout
       - run:
           name: Run e2e tests
           command: yarn --cwd ./e2e-tests test:bs_cloud -- --baseUrl=http://bs-local.com:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
@@ -120,8 +114,6 @@ workflows:
           requires:
             - install-dependencies
             - build-pwa
-      - install-test-dependencies
       - test-pwa:
           requires:
             - run-pwa
-            - install-test-dependencies
