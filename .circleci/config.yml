@@ -7,6 +7,8 @@ aliases:
     key: v1-node-modules-{{ checksum "yarn.lock" }}
   - &restore-webpack-cache
     key: v1-webpackcache-{{ checksum "yarn.lock" }}
+  - &restore-npm-cache-tests
+    key: v1-node-modules-tests-{{ checksum "yarn.lock" }}
 
 defaults: &defaults
   working_directory: /home/circleci/repo
@@ -50,6 +52,23 @@ jobs:
           paths:
             - ~/.cache/yarn
 
+  install-test-dependencies:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          keys:
+            - v1-git-{{ .Branch }}-{{ .Revision }}
+            - v1-git-{{ .Branch }}-
+            - v1-git-
+      - checkout
+      - run:
+          name: Install Test Node modules
+        command: yarn --cwd ./e2e-tests install --frozen-lockfile
+      - save_cache:
+          key: v1-node-modules-{{ checksum "yarn.lock" }}
+          paths:
+            - ./e2e-tests/node_modules
+
   build-pwa:
     <<: *defaults
     steps:
@@ -69,9 +88,10 @@ jobs:
     steps:
       - checkout
       - restore_cache: *restore-npm-cache
+      - restore_cache: *restore-npm-cache-tests
       - run:
           name: Run ESLint
-          command: yarn eslint src && yarn eslint ./e2e-tests
+          command: yarn eslint src && yarn --cwd ./e2e-tests test:lint
 
   run-pwa:
     <<: *defaults
@@ -92,12 +112,10 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - restore_cache: *restore-npm-cache-tests
       - run:
           name: start Browserstack Local
           command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key GnvL9ihmskGTxHsmkyXf
-      - run:
-          name: Install e2e tests dependencies
-          command: yarn --cwd ./e2e-tests install
       - run:
           name: Run e2e tests
           command: yarn --cwd ./e2e-tests test:bs_cloud -- --baseUrl=http://bs-local.com:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
@@ -107,9 +125,11 @@ workflows:
   build-and-test:
     jobs:
       - install-dependencies
+      - install-test-dependencies
       - lint:
           requires:
             - install-dependencies
+            - install-test-dependencies
       - build-pwa:
           requires:
             - install-dependencies
@@ -119,4 +139,5 @@ workflows:
             - build-pwa
       - test-pwa:
           requires:
+            - install-test-dependencies
             - run-pwa
