@@ -75,16 +75,16 @@ jobs:
 
   run-pwa:
     <<: *defaults
-      steps:
-        - checkout
-        - restore_cache: *restore-npm-cache
-        - background: true
-        - run:
-            name: Run Project
-            command: yarn start
-        - run:
-            name: Wait for project to start
-            command: wget --retry-connrefused --waitretry=1 --read-timeout=30 --timeout=30 -t 10 http://localhost:3000
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache
+      - background: true
+      - run:
+          name: Run Project
+          command: yarn start
+      - run:
+          name: Wait for project to start
+          command: wget --retry-connrefused --waitretry=1 --read-timeout=30 --timeout=30 -t 10 http://localhost:3000
 
   test-pwa:
     <<: *defaults
@@ -93,8 +93,6 @@ jobs:
         - run:
             name: Run e2e tests
             command: yarn --cwd ./e2e-tests test:bs_cloud -- --baseUrl=http://bs-local.com:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
-
-
 
 workflows:
   version: 2
@@ -111,4 +109,3 @@ workflows:
           requires:
             - install-dependencies
             - build-pwa
-
