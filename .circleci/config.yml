@@ -88,6 +88,14 @@ jobs:
             wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10 http://localhost:3032/graphql
             :
 
+  install-test-dependencies:
+    <<: *defaults
+    steps:
+      - checkout- run:
+          name: Install e2e tests dependencies
+          command: yarn --cwd ./e2e-tests install
+
+
   test-pwa:
     <<: *defaults
     steps:
