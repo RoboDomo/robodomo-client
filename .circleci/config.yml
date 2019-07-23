@@ -110,16 +110,15 @@ jobs:
 
   test-pwa:
     <<: *defaults
+    pre:
+      - ./e2e-tests/scripts/BrowserStackLocal_linux --key GnvL9ihmskGTxHsmkyXf
+        background: true
     steps:
       - checkout
       - restore_cache: *restore-npm-cache-tests
       - run:
-          name: start Browserstack Local
-          command: ./e2e-tests/scripts/BrowserStackLocal_linux --key GnvL9ihmskGTxHsmkyXf
-          background: true
-      - run:
           name: Run e2e tests
-          command: cd ./e2e-tests && yarn run test:bs_cloud -- --baseUrl=http://bs-local.com:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
+          command: cd ./e2e-tests && yarn run test:bs_cloud_smoke -- --baseUrl=http://bs-local.com:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
 
 workflows:
   version: 2
