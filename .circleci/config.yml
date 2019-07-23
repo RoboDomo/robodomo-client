@@ -95,7 +95,6 @@ jobs:
           name: Install e2e tests dependencies
           command: yarn --cwd ./e2e-tests install
 
-
   test-pwa:
     <<: *defaults
     steps:
@@ -121,4 +120,4 @@ workflows:
             - build-pwa
       - test-pwa:
           requires:
-            - install-dependencies
+            - install-test-dependencies
