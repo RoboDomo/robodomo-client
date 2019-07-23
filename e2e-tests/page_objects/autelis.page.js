@@ -3,51 +3,110 @@ import Page from './page';
 
 /** AutelisPage selenium page-object */
 class AutelisPage extends Page {
+    get autelisTab() {
+        return $('#autelis-tabs-tab-autelis');
+    }
 
-    get autelisTab() { return $('#autelis-tabs-tab-autelis'); }
+    get offButton() {
+        return $('//ion-segment-button[text()[contains(., "OFF")]]');
+    }
+    get poolButton() {
+        return $('//ion-segment-button[text()[contains(., "POOL")]]');
+    }
+    get spaButton() {
+        return $('//ion-segment-button[text()[contains(., "SPA")]]');
+    }
 
-    get offButton() { return $('//ion-segment-button[text()[contains(., "OFF")]]'); }
-    get poolButton() { return $('//ion-segment-button[text()[contains(., "POOL")]]'); }
-    get spaButton() { return $('//ion-segment-button[text()[contains(., "SPA")]]'); }
+    get switchMessageOff() {
+        return $('//div[text()="All Off"]');
+    }
+    get switchMessagePool() {
+        return $('//*[contains(@class, "AutelisTab_mainSwitch")]/parent::*//div[text()[starts-with(., "Pool")]]');
+    }
+    get switchMessageSpa() {
+        return $('//*[contains(@class, "AutelisTab_mainSwitch")]/parent::*//div[text()[starts-with(., "Spa")]]');
+    }
+    get switchMessageSolar() {
+        return $('*//div[text()[starts-with(., "Solar")]]');
+    }
 
-    get switchMessageOff() { return $('//div[text()="All Off"]'); }
-    get switchMessagePool() { return $('//*[contains(@class, "AutelisTab_mainSwitch")]/parent::*//div[text()[starts-with(., "Pool")]]'); }
-    get switchMessageSpa() { return $('//*[contains(@class, "AutelisTab_mainSwitch")]/parent::*//div[text()[starts-with(., "Spa")]]'); }
-    get switchMessageSolar() { return $('*//div[text()[starts-with(., "Solar")]]'); }
+    get solarOnButton() {
+        return $('//*[contains(text(), "Solar")]/parent::*//ion-segment-button[.="On"]');
+    }
+    get solarOffButton() {
+        return $('//*[contains(text(), "Solar")]/parent::*//ion-segment-button[.="Off"]');
+    }
 
-    get solarOnButton() { return $('//*[contains(text(), "Solar")]/parent::*//ion-segment-button[.="On"]'); }
-    get solarOffButton() { return $('//*[contains(text(), "Solar")]/parent::*//ion-segment-button[.="Off"]'); }
+    get cleanerOnButton() {
+        return $('//div[text()="Cleaner"]/parent::*//ion-segment-button[.="On"]');
+    }
+    get cleanerOffButton() {
+        return $('//div[text()="Cleaner"]/parent::*//ion-segment-button[.="Off"]');
+    }
 
-    get cleanerOnButton() { return $('//div[text()="Cleaner"]/parent::*//ion-segment-button[.="On"]'); }
-    get cleanerOffButton() { return $('//div[text()="Cleaner"]/parent::*//ion-segment-button[.="Off"]'); }
+    get poolHeatOnButton() {
+        return $('//div[text()="Pool Heat"]/parent::*//ion-segment-button[.="On"]');
+    }
+    get poolHeatOffButton() {
+        return $('//div[text()="Pool Heat"]/parent::*//ion-segment-button[.="Off"]');
+    }
 
-    get poolHeatOnButton() { return $('//div[text()="Pool Heat"]/parent::*//ion-segment-button[.="On"]'); }
-    get poolHeatOffButton() { return $('//div[text()="Pool Heat"]/parent::*//ion-segment-button[.="Off"]'); }
+    get poolLightOnButton() {
+        return $('//div[text()="Pool Light"]/parent::*//ion-segment-button[.="On"]');
+    }
+    get poolLightOffButton() {
+        return $('//div[text()="Pool Light"]/parent::*//ion-segment-button[.="Off"]');
+    }
 
-    get poolLightOnButton() { return $('//div[text()="Pool Light"]/parent::*//ion-segment-button[.="On"]'); }
-    get poolLightOffButton() { return $('//div[text()="Pool Light"]/parent::*//ion-segment-button[.="Off"]'); }
+    get waterfallOnButton() {
+        return $('//div[text()="Waterfall"]/parent::*//ion-segment-button[.="On"]');
+    }
+    get waterfallOffButton() {
+        return $('//div[text()="Waterfall"]/parent::*//ion-segment-button[.="Off"]');
+    }
 
-    get waterfallOnButton() { return $('//div[text()="Waterfall"]/parent::*//ion-segment-button[.="On"]'); }
-    get waterfallOffButton() { return $('//div[text()="Waterfall"]/parent::*//ion-segment-button[.="Off"]'); }
+    get spaHeatOnButton() {
+        return $('//div[text()="Spa Heat"]/parent::*//ion-segment-button[.="On"]');
+    }
+    get spaHeatOffButton() {
+        return $('//div[text()="Spa Heat"]/parent::*//ion-segment-button[.="Off"]');
+    }
 
-    get spaHeatOnButton() { return $('//div[text()="Spa Heat"]/parent::*//ion-segment-button[.="On"]'); }
-    get spaHeatOffButton() { return $('//div[text()="Spa Heat"]/parent::*//ion-segment-button[.="Off"]'); }
+    get jetsOnButton() {
+        return $('//div[text()="Jets"]/parent::*//ion-segment-button[.="On"]');
+    }
+    get jetsOffButton() {
+        return $('//div[text()="Jets"]/parent::*//ion-segment-button[.="Off"]');
+    }
 
-    get jetsOnButton() { return $('//div[text()="Jets"]/parent::*//ion-segment-button[.="On"]'); }
-    get jetsOffButton() { return $('//div[text()="Jets"]/parent::*//ion-segment-button[.="Off"]'); }
+    get spaLightOnButton() {
+        return $('//div[text()="Spa Light"]/parent::*//ion-segment-button[.="On"]');
+    }
+    get spaLightOffButton() {
+        return $('//div[text()="Spa Light"]/parent::*//ion-segment-button[.="Off"]');
+    }
 
-    get spaLightOnButton() { return $('//div[text()="Spa Light"]/parent::*//ion-segment-button[.="On"]'); }
-    get spaLightOffButton() { return $('//div[text()="Spa Light"]/parent::*//ion-segment-button[.="Off"]'); }
-
-    get blowerOnButton() { return $('//div[text()="Blower"]/parent::*//ion-segment-button[.="On"]'); }
-    get blowerOffButton() { return $('//div[text()="Blower"]/parent::*//ion-segment-button[.="Off"]'); }
+    get blowerOnButton() {
+        return $('//div[text()="Blower"]/parent::*//ion-segment-button[.="On"]');
+    }
+    get blowerOffButton() {
+        return $('//div[text()="Blower"]/parent::*//ion-segment-button[.="Off"]');
+    }
 
     // 0 - Lower; 1 - Higher
-    get poolHeatAdjButtons() { return $$('//div[text()="Pool Heat"]/parent::*//*[contains(@class, "button-small")]'); }
-    get poolHeatCounter() { return $('//div[text()="Pool Heat"]/parent::*//*[contains(@class, "native-input")]'); }
+    get poolHeatAdjButtons() {
+        return $$('//div[text()="Pool Heat"]/parent::*//*[contains(@class, "button-small")]');
+    }
+    get poolHeatCounter() {
+        return $('//div[text()="Pool Heat"]/parent::*//*[contains(@class, "native-input")]');
+    }
 
-    get spaHeatAdjButtons() { return $$('//div[text()="Spa Heat"]/parent::*//*[contains(@class, "button-small")]'); }
-    get spaHeatCounter() { return $('//div[text()="Spa Heat"]/parent::*//*[contains(@class, "native-input")]'); }
+    get spaHeatAdjButtons() {
+        return $$('//div[text()="Spa Heat"]/parent::*//*[contains(@class, "button-small")]');
+    }
+    get spaHeatCounter() {
+        return $('//div[text()="Spa Heat"]/parent::*//*[contains(@class, "native-input")]');
+    }
 
     adjustPoolHeat(action) {
         let initialTemp = parseInt(AutelisPage.spaHeatCounter.getValue(), 0);

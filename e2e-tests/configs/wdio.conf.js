@@ -1,7 +1,6 @@
 require('@babel/register');
 
 exports.config = {
-
     waitTimes: {
         implicit: 15000,
         pageLoad: 30000,
@@ -129,9 +128,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/reporters/dot.html
-    reporters: [
-        'spec',
-    ],
+    reporters: ['spec'],
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         require: ['./step_definitions/*.js'], // <string[]> (file/dir) require files before executing features
@@ -186,7 +183,7 @@ exports.config = {
         require('@babel/register');
 
         const customCommands = require('./customCommands');
-        Object.getOwnPropertyNames(customCommands).forEach((key) => {
+        Object.getOwnPropertyNames(customCommands).forEach(key => {
             customCommands[key]; // eslint-disable-line no-unused-expressions
         });
 
@@ -224,8 +221,8 @@ exports.config = {
      * @param {Object} scenario scenario details
      */
     // eslint-disable-next-line no-unused-vars
-    beforeScenario: function (scenario) {
-        browser.scenarioContext = {}
+    beforeScenario: function(scenario) {
+        browser.scenarioContext = {};
     },
     /**
      * Runs before a Cucumber step
@@ -239,7 +236,10 @@ exports.config = {
      */
     afterStep(stepResult) {
         if (stepResult.status === 'failed') {
-            const screenshotName = `${new Date().toUTCString()}_${stepResult.scenario.replace(/ /g, '_')}_${stepResult.text.replace(/ /g, '_')}.png`;
+            const screenshotName = `${new Date().toUTCString()}_${stepResult.scenario.replace(
+                / /g,
+                '_'
+            )}_${stepResult.text.replace(/ /g, '_')}.png`;
             browser.saveScreenshot(`./errorShots/${screenshotName}`);
         }
     },
