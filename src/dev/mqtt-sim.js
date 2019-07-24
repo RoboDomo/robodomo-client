@@ -17,17 +17,17 @@ const allMessages = [
     "Byron York says the Mueller report became the world's biggest 'nevermind'",
   ],
   ["TOPIC_ROOT/appletv-theater/status/totalTime", 770],
-  ["appletv/appletv-mbr/status/album", "null"],
-  ["appletv/appletv-mbr/status/appBundleIdentifier", "NONE"],
-  ["appletv/appletv-mbr/status/appDisplayName", "null"],
-  ["appletv/appletv-mbr/status/artist", "null"],
-  ["appletv/appletv-mbr/status/duration", "null"],
-  ["appletv/appletv-mbr/status/elapsedTime", "null"],
-  ["appletv/appletv-mbr/status/info", "null"],
-  ["appletv/appletv-mbr/status/playbackRate", "null"],
-  ["appletv/appletv-mbr/status/playbackState", "NOT PLAYING"],
-  ["appletv/appletv-mbr/status/timestamp", "null"],
-  ["appletv/appletv-mbr/status/title", "Casa Nim in West Ajijic, Chapala Jal. Mexico"],
+  ["appletv/appletv-theater/status/album", "null"],
+  ["appletv/appletv-theater/status/appBundleIdentifier", "NONE"],
+  ["appletv/appletv-theater/status/appDisplayName", "null"],
+  ["appletv/appletv-theater/status/artist", "null"],
+  ["appletv/appletv-theater/status/duration", "null"],
+  ["appletv/appletv-theater/status/elapsedTime", "null"],
+  ["appletv/appletv-theater/status/info", "null"],
+  ["appletv/appletv-theater/status/playbackRate", "null"],
+  ["appletv/appletv-theater/status/playbackState", "NOT PLAYING"],
+  ["appletv/appletv-theater/status/timestamp", "null"],
+  ["appletv/appletv-theater/status/title", "Casa Nim in West Ajijic, Chapala Jal. Mexico"],
   ["appletv/appletv-theater/status/album", ""],
   ["appletv/appletv-theater/status/appBundleIdentifier", "com.google.ios.youtube"],
   ["appletv/appletv-theater/status/appDisplayName", "YouTube"],
@@ -99,327 +99,327 @@ const allMessages = [
   ["autelis/status/version", "1.6.9"],
   ["autelis/status/waterfall", onOrOff],
   [
-    "bravia/sony-810c/status/appsList",
+    "bravia/sony-tv/status/appsList",
     [
       {
         title: "Play Store",
         uri:
           "com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity.png",
       },
       {
         title: "YouTube",
         uri:
           "com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity.png",
       },
       {
         title: "Album",
         uri: "com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity.png",
       },
       {
         title: "Music",
         uri: "com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity.png",
       },
       {
         title: "Program Guide",
         uri: "com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity.png",
       },
       {
         title: "NBA",
         uri:
           "com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity.png",
       },
       {
         title: "Starz Play",
         uri: "com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher.png",
       },
       {
         title: "Prime Video",
         uri: "com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity.png",
       },
       {
         title: "Sony Crackle - Movies &amp; TV",
         uri: "com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity.png",
       },
       {
         title: "Play Music",
         uri: "com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity.png",
       },
       {
         title: "Play Games",
         uri:
           "com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity.png",
       },
       {
         title: "Play Movies &amp; TV",
         uri:
           "com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity.png",
       },
       {
         title: "Netflix",
         uri: "com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity.png",
       },
       {
         title: "Video",
         uri: "com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity.png",
       },
       {
         title: "Sony Promotions",
         uri: "com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity.png",
       },
       {
         title: "VUDU",
         uri: "com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity.png",
       },
       {
         title: "DIRECTV Ready",
         uri: "com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity",
-        icon: "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity.png",
+        icon: "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity.png",
       },
       {
         title: "PlayStation Video",
         uri: "com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity.png",
       },
       {
         title: "Screen mirroring",
         uri: "com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity.png",
       },
       {
         title: "EPIX",
         uri: "com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity.png",
       },
       {
         title: "Live Channels",
         uri: "com.sony.dtv.com.google.android.tv.com.android.tv.TvActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.tv.com.android.tv.TvActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.tv.com.android.tv.TvActivity.png",
       },
       {
         title: "HBO GO",
         uri: "com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity",
-        icon: "http://sony-810c/DIAL/icon/com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity.png",
+        icon: "http://sony-tv/DIAL/icon/com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity.png",
       },
       {
         title: "Hulu",
         uri: "com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity.png",
       },
       {
         title: "Showtime Anytime",
         uri:
           "com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity.png",
       },
       {
         title: "SHOWTIME",
         uri:
           "com.sony.dtv.com.showtime.standalone.com.showtime.showtimeanytime.activities.IntroActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.showtime.standalone.com.showtime.showtimeanytime.activities.IntroActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.showtime.standalone.com.showtime.showtimeanytime.activities.IntroActivity.png",
       },
     ],
   ],
   [
-    "bravia/sony-810c/status/appsMap",
+    "bravia/sony-tv/status/appsMap",
     {
       "Play Store": {
         title: "Play Store",
         uri:
           "com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity.png",
       },
       YouTube: {
         title: "YouTube",
         uri:
           "com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity.png",
       },
       Album: {
         title: "Album",
         uri: "com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity.png",
       },
       Music: {
         title: "Music",
         uri: "com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity.png",
       },
       "Program Guide": {
         title: "Program Guide",
         uri: "com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity.png",
       },
       NBA: {
         title: "NBA",
         uri:
           "com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity.png",
       },
       "Starz Play": {
         title: "Starz Play",
         uri: "com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher.png",
       },
       "Prime Video": {
         title: "Prime Video",
         uri: "com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity.png",
       },
       "Sony Crackle - Movies &amp; TV": {
         title: "Sony Crackle - Movies &amp; TV",
         uri: "com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity.png",
       },
       "Play Music": {
         title: "Play Music",
         uri: "com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity.png",
       },
       "Play Games": {
         title: "Play Games",
         uri:
           "com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity.png",
       },
       "Play Movies &amp; TV": {
         title: "Play Movies &amp; TV",
         uri:
           "com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity.png",
       },
       Netflix: {
         title: "Netflix",
         uri: "com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity.png",
       },
       Video: {
         title: "Video",
         uri: "com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity.png",
       },
       "Sony Promotions": {
         title: "Sony Promotions",
         uri: "com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity.png",
       },
       VUDU: {
         title: "VUDU",
         uri: "com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity.png",
       },
       "DIRECTV Ready": {
         title: "DIRECTV Ready",
         uri: "com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity",
-        icon: "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity.png",
+        icon: "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity.png",
       },
       "PlayStation Video": {
         title: "PlayStation Video",
         uri: "com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity.png",
       },
       "Screen mirroring": {
         title: "Screen mirroring",
         uri: "com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity.png",
       },
       EPIX: {
         title: "EPIX",
         uri: "com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity.png",
       },
       "Live Channels": {
         title: "Live Channels",
         uri: "com.sony.dtv.com.google.android.tv.com.android.tv.TvActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.google.android.tv.com.android.tv.TvActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.tv.com.android.tv.TvActivity.png",
       },
       "HBO GO": {
         title: "HBO GO",
         uri: "com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity",
-        icon: "http://sony-810c/DIAL/icon/com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity.png",
+        icon: "http://sony-tv/DIAL/icon/com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity.png",
       },
       Hulu: {
         title: "Hulu",
         uri: "com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity.png",
       },
       "Showtime Anytime": {
         title: "Showtime Anytime",
         uri:
           "com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity.png",
       },
       SHOWTIME: {
         title: "SHOWTIME",
         uri:
           "com.sony.dtv.com.showtime.standalone.com.showtime.showtimeanytime.activities.IntroActivity",
         icon:
-          "http://sony-810c/DIAL/icon/com.sony.dtv.com.showtime.standalone.com.showtime.showtimeanytime.activities.IntroActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.showtime.standalone.com.showtime.showtimeanytime.activities.IntroActivity.png",
       },
     },
   ],
   [
-    "bravia/sony-810c/status/codes",
+    "bravia/sony-tv/status/codes",
     [
       { name: "Num1", value: "AAAAAQAAAAEAAAAAAw==" },
       { name: "Num2", value: "AAAAAQAAAAEAAAABAw==" },
@@ -540,9 +540,10 @@ const allMessages = [
       { name: "AndroidMenu", value: "AAAAAgAAAMQAAABPAw==" },
     ],
   ],
-  ["bravia/sony-810c/status/input", onOrOff],
+  ["bravia/sony-tv/status/input", "hdmi2"],
+  ["bravia/sony-tv/status/power", "on"],
   [
-    "bravia/sony-810c/status/inputs",
+    "bravia/sony-tv/status/inputs",
     {
       "0": {
         uri: "extInput:hdmi?port=1",
@@ -595,203 +596,203 @@ const allMessages = [
       },
     },
   ],
-  ["bravia/sony-810c/status/nowPlaying", false],
-  ["bravia/sony-810c/status/power", false],
+  ["bravia/sony-tv/status/nowPlaying", false],
+  ["bravia/sony-tv/status/power", false],
   [
-    "bravia/sony-810c/status/volume",
+    "bravia/sony-tv/status/volume",
     {
       speaker: { target: "speaker", volume: 35, mute: false, maxVolume: 100, minVolume: 0 },
       headphone: { target: "headphone", volume: 15, mute: false, maxVolume: 100, minVolume: 0 },
     },
   ],
   [
-    "bravia/sony-850c/status/appsList",
+    "bravia/sony-tv/status/appsList",
     [
       {
         title: "Play Store",
         uri:
           "com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity.png",
       },
       {
         title: "YouTube",
         uri:
           "com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity.png",
       },
       {
         title: "Album",
         uri: "com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity.png",
       },
       {
         title: "Music",
         uri: "com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity.png",
       },
       {
         title: "Program Guide",
         uri: "com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity.png",
       },
       {
         title: "NBA",
         uri:
           "com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity.png",
       },
       {
         title: "Starz Play",
         uri: "com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher.png",
       },
       {
         title: "Prime Video",
         uri: "com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity.png",
       },
       {
         title: "Sony Crackle - Movies &amp; TV",
         uri: "com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity.png",
       },
       {
         title: "Play Music",
         uri: "com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity.png",
       },
       {
         title: "Play Games",
         uri:
           "com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity.png",
       },
       {
         title: "Play Movies &amp; TV",
         uri:
           "com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity.png",
       },
       {
         title: "Netflix",
         uri: "com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity.png",
       },
       {
         title: "Video",
         uri: "com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity.png",
       },
       {
         title: "Sony Promotions",
         uri: "com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity.png",
       },
       {
         title: "VUDU",
         uri: "com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity.png",
       },
       {
         title: "DIRECTV Ready",
         uri: "com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity",
-        icon: "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity.png",
+        icon: "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity.png",
       },
       {
         title: "PlayStation Video",
         uri: "com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity.png",
       },
       {
         title: "Screen mirroring",
         uri: "com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity.png",
       },
       {
         title: "CBS All Access",
         uri: "com.sony.dtv.com.cbs.ott.com.cbs.app.tv.ui.activity.SplashActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.cbs.ott.com.cbs.app.tv.ui.activity.SplashActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.cbs.ott.com.cbs.app.tv.ui.activity.SplashActivity.png",
       },
       {
         title: "Sony Pictures Store",
         uri:
           "com.sony.dtv.com.culver_digital.ultra720.com.culver_digital.sonypicturesstore.SplashActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.culver_digital.ultra720.com.culver_digital.sonypicturesstore.SplashActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.culver_digital.ultra720.com.culver_digital.sonypicturesstore.SplashActivity.png",
       },
       {
         title: "ABC",
         uri:
           "com.sony.dtv.com.disney.datg.videoplatforms.android.abc.com.disney.datg.android.androidtv.SplashScreenActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.disney.datg.videoplatforms.android.abc.com.disney.datg.android.androidtv.SplashScreenActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.disney.datg.videoplatforms.android.abc.com.disney.datg.android.androidtv.SplashScreenActivity.png",
       },
       {
         title: "EPIX",
         uri: "com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity.png",
       },
       {
         title: "HBO GO",
         uri: "com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity",
-        icon: "http://sony-850c/DIAL/icon/com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity.png",
+        icon: "http://sony-tv/DIAL/icon/com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity.png",
       },
       {
         title: "Hulu",
         uri: "com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity.png",
       },
       {
         title: "Harmony",
         uri: "com.sony.dtv.com.logi.harmony.androidtv.com.logi.harmony.ui.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.logi.harmony.androidtv.com.logi.harmony.ui.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.logi.harmony.androidtv.com.logi.harmony.ui.MainActivity.png",
       },
       {
         title: "UltraFlix",
         uri: "com.sony.dtv.com.nanotech.ultra_flix.com.nanotech.ultra_flix.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.nanotech.ultra_flix.com.nanotech.ultra_flix.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.nanotech.ultra_flix.com.nanotech.ultra_flix.MainActivity.png",
       },
       {
         title: "Nest",
         uri: "com.sony.dtv.com.nest.android.com.obsidian.v4.tv.home.TvHomeActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.nest.android.com.obsidian.v4.tv.home.TvHomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.nest.android.com.obsidian.v4.tv.home.TvHomeActivity.png",
       },
       {
         title: "Showtime Anytime",
         uri:
           "com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity.png",
       },
       {
         title: "Spotify",
         uri: "com.sony.dtv.com.spotify.tv.android.com.spotify.tv.android.SpotifyTVActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.spotify.tv.android.com.spotify.tv.android.SpotifyTVActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.spotify.tv.android.com.spotify.tv.android.SpotifyTVActivity.png",
       },
       {
         title: "Activate Enhanced Features",
@@ -941,193 +942,193 @@ const allMessages = [
     ],
   ],
   [
-    "bravia/sony-850c/status/appsMap",
+    "bravia/sony-tv/status/appsMap",
     {
       "Play Store": {
         title: "Play Store",
         uri:
           "com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.android.vending.com.google.android.finsky.tvmainactivity.TvMainActivity.png",
       },
       YouTube: {
         title: "YouTube",
         uri:
           "com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.youtube.tv.com.google.android.apps.youtube.tv.activity.ShellActivity.png",
       },
       Album: {
         title: "Album",
         uri: "com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.album.com.sonyericsson.album.MainActivity.png",
       },
       Music: {
         title: "Music",
         uri: "com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.music.com.sonyericsson.music.MusicActivity.png",
       },
       "Program Guide": {
         title: "Program Guide",
         uri: "com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.tvx.com.sony.dtv.tvx.MainActivity.png",
       },
       NBA: {
         title: "NBA",
         uri:
           "com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.nbadigital.gatv.com.nbadigital.gametimelite.features.splash.SplashActivity.png",
       },
       "Starz Play": {
         title: "Starz Play",
         uri: "com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.starz.starzplay.androidtv.com.starz.amznfiretv.Launcher.png",
       },
       "Prime Video": {
         title: "Prime Video",
         uri: "com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.amazon.amazonvideo.livingroom.com.amazon.ignition.IgnitionActivity.png",
       },
       "Sony Crackle - Movies &amp; TV": {
         title: "Sony Crackle - Movies &amp; TV",
         uri: "com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.crackle.androidtv.com.crackle.alwayson.app.HomeActivity.png",
       },
       "Play Music": {
         title: "Play Music",
         uri: "com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.music.com.google.android.music.tv.HomeActivity.png",
       },
       "Play Games": {
         title: "Play Games",
         uri:
           "com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.play.games.com.google.android.gms.games.pano.activity.MainPanoActivity.png",
       },
       "Play Movies &amp; TV": {
         title: "Play Movies &amp; TV",
         uri:
           "com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.google.android.videos.com.google.android.videos.tv.presenter.activity.TvLauncherActivity.png",
       },
       Netflix: {
         title: "Netflix",
         uri: "com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.netflix.ninja.com.netflix.ninja.MainActivity.png",
       },
       Video: {
         title: "Video",
         uri: "com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.osat.video.com.sonyericsson.video.browser.BrowserActivity.png",
       },
       "Sony Promotions": {
         title: "Sony Promotions",
         uri: "com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.promotions.com.sony.dtv.promotions.MainActivity.png",
       },
       VUDU: {
         title: "VUDU",
         uri: "com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.dtv.vudu.com.sony.dtv.vudu.MainActivity.png",
       },
       "DIRECTV Ready": {
         title: "DIRECTV Ready",
         uri: "com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity",
-        icon: "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity.png",
+        icon: "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.rvu.com.sony.rvu.Activity.png",
       },
       "PlayStation Video": {
         title: "PlayStation Video",
         uri: "com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.sony.snei.video.hhvu.com.sony.snei.video.hhvu.MainActivity.png",
       },
       "Screen mirroring": {
         title: "Screen mirroring",
         uri: "com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.screnmirroring.com.screnmirroring.com.StartScreenMirroringHomeActivity.png",
       },
       "CBS All Access": {
         title: "CBS All Access",
         uri: "com.sony.dtv.com.cbs.ott.com.cbs.app.tv.ui.activity.SplashActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.cbs.ott.com.cbs.app.tv.ui.activity.SplashActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.cbs.ott.com.cbs.app.tv.ui.activity.SplashActivity.png",
       },
       "Sony Pictures Store": {
         title: "Sony Pictures Store",
         uri:
           "com.sony.dtv.com.culver_digital.ultra720.com.culver_digital.sonypicturesstore.SplashActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.culver_digital.ultra720.com.culver_digital.sonypicturesstore.SplashActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.culver_digital.ultra720.com.culver_digital.sonypicturesstore.SplashActivity.png",
       },
       ABC: {
         title: "ABC",
         uri:
           "com.sony.dtv.com.disney.datg.videoplatforms.android.abc.com.disney.datg.android.androidtv.SplashScreenActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.disney.datg.videoplatforms.android.abc.com.disney.datg.android.androidtv.SplashScreenActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.disney.datg.videoplatforms.android.abc.com.disney.datg.android.androidtv.SplashScreenActivity.png",
       },
       EPIX: {
         title: "EPIX",
         uri: "com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.epix.epix.com.epix.epix.main.MainActivity.png",
       },
       "HBO GO": {
         title: "HBO GO",
         uri: "com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity",
-        icon: "http://sony-850c/DIAL/icon/com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity.png",
+        icon: "http://sony-tv/DIAL/icon/com.sony.dtv.com.hbo.go.com.hbo.go.LaunchActivity.png",
       },
       Hulu: {
         title: "Hulu",
         uri: "com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.hulu.livingroomplus.com.hulu.livingroomplus.MainActivity.png",
       },
       Harmony: {
         title: "Harmony",
         uri: "com.sony.dtv.com.logi.harmony.androidtv.com.logi.harmony.ui.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.logi.harmony.androidtv.com.logi.harmony.ui.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.logi.harmony.androidtv.com.logi.harmony.ui.MainActivity.png",
       },
       UltraFlix: {
         title: "UltraFlix",
         uri: "com.sony.dtv.com.nanotech.ultra_flix.com.nanotech.ultra_flix.MainActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.nanotech.ultra_flix.com.nanotech.ultra_flix.MainActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.nanotech.ultra_flix.com.nanotech.ultra_flix.MainActivity.png",
       },
       Nest: {
         title: "Nest",
         uri: "com.sony.dtv.com.nest.android.com.obsidian.v4.tv.home.TvHomeActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.nest.android.com.obsidian.v4.tv.home.TvHomeActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.nest.android.com.obsidian.v4.tv.home.TvHomeActivity.png",
       },
       "Showtime Anytime": {
         title: "Showtime Anytime",
         uri:
           "com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.showtime.showtimeanytime.com.showtime.showtimeanytime.activities.IntroActivity.png",
       },
       Spotify: {
         title: "Spotify",
         uri: "com.sony.dtv.com.spotify.tv.android.com.spotify.tv.android.SpotifyTVActivity",
         icon:
-          "http://sony-850c/DIAL/icon/com.sony.dtv.com.spotify.tv.android.com.spotify.tv.android.SpotifyTVActivity.png",
+          "http://sony-tv/DIAL/icon/com.sony.dtv.com.spotify.tv.android.com.spotify.tv.android.SpotifyTVActivity.png",
       },
       "Activate Enhanced Features": {
         title: "Activate Enhanced Features",
@@ -1277,7 +1278,7 @@ const allMessages = [
     },
   ],
   [
-    "bravia/sony-850c/status/codes",
+    "bravia/sony-tv/status/codes",
     [
       { name: "Num1", value: "AAAAAQAAAAEAAAAAAw==" },
       { name: "Num2", value: "AAAAAQAAAAEAAAABAw==" },
@@ -1398,15 +1399,15 @@ const allMessages = [
       { name: "AndroidMenu", value: "AAAAAgAAAMQAAABPAw==" },
     ],
   ],
-  ["bravia/sony-850c/status/input", onOrOff],
-  ["bravia/sony-850c/status/inputs", {}],
+  ["bravia/sony-tv/status/input", onOrOff],
+  ["bravia/sony-tv/status/inputs", {}],
   [
-    "bravia/sony-850c/status/nowPlaying",
+    "bravia/sony-tv/status/nowPlaying",
     { uri: "extInput:hdmi?port=2", source: "extInput:hdmi", title: "HDMI 2/MHL" },
   ],
-  ["bravia/sony-850c/status/power", false],
+  ["bravia/sony-tv/status/power", false],
   [
-    "bravia/sony-850c/status/volume",
+    "bravia/sony-tv/status/volume",
     {
       speaker: { target: "speaker", volume: 26, mute: false, maxVolume: 100, minVolume: 0 },
       headphone: { target: "headphone", volume: 66, mute: false, maxVolume: 100, minVolume: 0 },
@@ -14767,13 +14768,14 @@ const allMessages = [
   ["here/zipcode:92211/status/windDirection", 320],
   ["here/zipcode:92211/status/windSpeed", 20.68],
   ["homekit/connected", 0],
-  ["lgtv/olede6p/status/CLOSE_APP_URI", {}],
-  ["lgtv/olede6p/status/CLOSE_MEDIA_URI", {}],
-  ["lgtv/olede6p/status/CLOSE_WEBAPP_URI", {}],
-  ["lgtv/olede6p/status/appState", {}],
-  ["lgtv/olede6p/status/appStatus", {}],
+  ["lgtv/lgtv/status/CLOSE_APP_URI", {}],
+  ["lgtv/lgtv/status/CLOSE_MEDIA_URI", {}],
+  ["lgtv/lgtv/status/CLOSE_WEBAPP_URI", {}],
+  ["lgtv/lgtv/status/appState", {}],
+  ["lgtv/lgtv/status/appStatus", {}],
+  ["lgtv/lgtv/status/power", "PWON"],
   [
-    "lgtv/olede6p/status/foregroundApp",
+    "lgtv/lgtv/status/foregroundApp",
     {
       subscribed: true,
       appId: "com.webos.app.hdmi1",
@@ -14782,12 +14784,12 @@ const allMessages = [
       processId: "",
     },
   ],
-  ["lgtv/olede6p/status/mute", { mute: false, returnValue: true, subscribed: true }],
-  ["lgtv/olede6p/status/power", onOrOff],
-  ["lgtv/olede6p/status/powerOff", {}],
-  ["lgtv/olede6p/status/powerOn", {}],
+  ["lgtv/lgtv/status/mute", { mute: false, returnValue: true, subscribed: true }],
+  ["lgtv/lgtv/status/power", onOrOff],
+  ["lgtv/lgtv/status/powerOff", {}],
+  ["lgtv/lgtv/status/powerOn", {}],
   [
-    "lgtv/olede6p/status/volume",
+    "lgtv/lgtv/status/volume",
     {
       returnValue: true,
       volumeMax: 100,
@@ -14805,7 +14807,7 @@ const allMessages = [
     },
   ],
   [
-    "lgtv/olede6p/status/volumeStatus",
+    "lgtv/lgtv/status/volumeStatus",
     {
       returnValue: true,
       volumeMax: 100,
@@ -14822,13 +14824,13 @@ const allMessages = [
       changed: ["volume"],
     },
   ],
-  ["lgtv/olede6p:78:5d:c8:e6:3f:ef/status/CLOSE_APP_URI", {}],
-  ["lgtv/olede6p:78:5d:c8:e6:3f:ef/status/CLOSE_MEDIA_URI", {}],
-  ["lgtv/olede6p:78:5d:c8:e6:3f:ef/status/CLOSE_WEBAPP_URI", {}],
-  ["lgtv/olede6p:78:5d:c8:e6:3f:ef/status/appState", {}],
-  ["lgtv/olede6p:78:5d:c8:e6:3f:ef/status/appStatus", {}],
+  ["lgtv/lgtv:78:5d:c8:e6:3f:ef/status/CLOSE_APP_URI", {}],
+  ["lgtv/lgtv:78:5d:c8:e6:3f:ef/status/CLOSE_MEDIA_URI", {}],
+  ["lgtv/lgtv:78:5d:c8:e6:3f:ef/status/CLOSE_WEBAPP_URI", {}],
+  ["lgtv/lgtv:78:5d:c8:e6:3f:ef/status/appState", {}],
+  ["lgtv/lgtv:78:5d:c8:e6:3f:ef/status/appStatus", {}],
   [
-    "lgtv/olede6p:78:5d:c8:e6:3f:ef/status/foregroundApp",
+    "lgtv/lgtv:78:5d:c8:e6:3f:ef/status/foregroundApp",
     {
       subscribed: true,
       appId: "com.webos.app.hdmi2",
@@ -14837,15 +14839,12 @@ const allMessages = [
       processId: "",
     },
   ],
+  ["lgtv/lgtv:78:5d:c8:e6:3f:ef/status/mute", { mute: false, returnValue: true, subscribed: true }],
+  ["lgtv/lgtv:78:5d:c8:e6:3f:ef/status/power", onOrOff],
+  ["lgtv/lgtv:78:5d:c8:e6:3f:ef/status/powerOff", {}],
+  ["lgtv/lgtv:78:5d:c8:e6:3f:ef/status/powerOn", {}],
   [
-    "lgtv/olede6p:78:5d:c8:e6:3f:ef/status/mute",
-    { mute: false, returnValue: true, subscribed: true },
-  ],
-  ["lgtv/olede6p:78:5d:c8:e6:3f:ef/status/power", onOrOff],
-  ["lgtv/olede6p:78:5d:c8:e6:3f:ef/status/powerOff", {}],
-  ["lgtv/olede6p:78:5d:c8:e6:3f:ef/status/powerOn", {}],
-  [
-    "lgtv/olede6p:78:5d:c8:e6:3f:ef/status/volume",
+    "lgtv/lgtv:78:5d:c8:e6:3f:ef/status/volume",
     {
       changed: ["scenario", "volume"],
       returnValue: true,
@@ -14858,7 +14857,7 @@ const allMessages = [
     },
   ],
   [
-    "lgtv/olede6p:78:5d:c8:e6:3f:ef/status/volumeStatus",
+    "lgtv/lgtv:78:5d:c8:e6:3f:ef/status/volumeStatus",
     {
       changed: ["scenario", "volume"],
       returnValue: true,
@@ -15038,10 +15037,10 @@ const allMessages = [
                   topic: "harmony/harmony-hub/set/activity",
                   message: "35943301",
                 },
-                { text: "Turning on LG TV", topic: "lgtv/olede6p/set/command", message: "POWERON" },
+                { text: "Turning on LG TV", topic: "lgtv/lgtv/set/command", message: "POWERON" },
                 {
                   text: "Setting TV Input to HDMI 1",
-                  topic: "lgtv/olede6p/set/commnad",
+                  topic: "lgtv/lgtv/set/commnad",
                   message: "LAUNCH-com.webos.app.hdmi1",
                 },
                 {
@@ -15063,10 +15062,10 @@ const allMessages = [
                   topic: "harmony/harmony-hub/set/activity",
                   message: "35943341",
                 },
-                { text: "Turning on LG TV", topic: "lgtv/olede6p/set", message: "POWERON" },
+                { text: "Turning on LG TV", topic: "lgtv/lgtv/set", message: "POWERON" },
                 {
                   text: "Setting LGTV Input to HDMI2",
-                  topic: "lgtv/olede6p/set/command",
+                  topic: "lgtv/lgtv/set/command",
                   message: "LAUNCH-com.webos.app.hdmi2",
                 },
                 { text: "Turning on AVR", topic: "denon/denon-s910w/set/", message: "PWON" },
@@ -15082,8 +15081,8 @@ const allMessages = [
               defaultDevice: "Harmony Hub",
               inputs: { tv: "hdmi4", avr: "TV" },
               script: [
-                { topic: "lgtv/olede6p/set/power", message: onOrOff },
-                { topic: "lgtv/olede6p/set", message: "HDMI1" },
+                { topic: "lgtv/lgtv/set/power", message: onOrOff },
+                { topic: "lgtv/lgtv/set", message: "HDMI1" },
                 { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
                 { topic: "roku/roku4-theater/set", message: "SLEEP" },
               ],
@@ -15093,8 +15092,8 @@ const allMessages = [
               defaultDevice: "Harmony Hub",
               inputs: { tv: "hdmi2", avr: "DVD" },
               script: [
-                { topic: "lgtv/olede6p/set", message: "POWERON" },
-                { topic: "lgtv/olede6p/set", message: "HDMI1" },
+                { topic: "lgtv/lgtv/set", message: "POWERON" },
+                { topic: "lgtv/lgtv/set", message: "HDMI1" },
                 { topic: "tivo/tivo-bolt-3tb", message: "LIVE TV" },
                 { topic: "roku/roku4-theater/set", message: "SLEEP" },
               ],
@@ -15103,7 +15102,7 @@ const allMessages = [
               name: "All Off",
               defaultDevice: null,
               script: [
-                { topic: "lgtv/olede6p/set", message: "POWEROFF" },
+                { topic: "lgtv/lgtv/set", message: "POWEROFF" },
                 { topic: "denon/denon-s910w/set", message: "PWOFF" },
               ],
             },
@@ -15147,7 +15146,7 @@ const allMessages = [
                 "fox news",
                 "cbs",
               ],
-              device: "sony-850c",
+              device: "sony-tv",
             },
             { name: "AVR", title: "Denon X2100W", type: "denon", device: "denon-x2100w" },
             {
@@ -15157,7 +15156,7 @@ const allMessages = [
               device: "tivo-bolt",
               guide: "CA68543",
             },
-            { name: "Apple TV", title: "MBR Apple TV", type: "appletv", device: "appletv-mbr" },
+            { name: "Apple TV", title: "MBR Apple TV", type: "appletv", device: "appletv-theater" },
           ],
           activities: [
             {
@@ -15165,8 +15164,8 @@ const allMessages = [
               defaultDevice: "TiVo",
               inputs: { tv: "hdmi2", avr: "TV" },
               script: [
-                { topic: "bravia/sony-850c/set", message: "POWERON" },
-                { topic: "bravia/sony-850c/set", message: "HDMI1" },
+                { topic: "bravia/sony-tv/set", message: "POWERON" },
+                { topic: "bravia/sony-tv/set", message: "HDMI1" },
                 { topic: "tivo/tivo-bolt", message: "LIVE TV" },
                 { topic: "denon/denon-x2100w/set", message: "PWON" },
               ],
@@ -15176,8 +15175,8 @@ const allMessages = [
               default: "AppleTV",
               inputs: { tv: "hdmi3", avr: "TV" },
               script: [
-                { topic: "bravia/sony-850c/set", message: "POWERON" },
-                { topic: "bravia/sony-850c/set", message: "HDMI1" },
+                { topic: "bravia/sony-tv/set", message: "POWERON" },
+                { topic: "bravia/sony-tv/set", message: "HDMI1" },
                 { topic: "tivo/tivo-bolt", message: "LIVE TV" },
               ],
             },
@@ -15185,7 +15184,7 @@ const allMessages = [
               name: "All Off",
               default: null,
               script: [
-                { topic: "bravia/sony-850c/set", message: "POWEROFF" },
+                { topic: "bravia/sony-tv/set", message: "POWEROFF" },
                 { topic: "denon/denon-x2100w/set", message: "PWSTANDBY" },
               ],
             },
@@ -15503,7 +15502,7 @@ const allMessages = [
         tvs: [
           {
             name: "MBR TV",
-            device: "sony-850c",
+            device: "sony-tv",
             favorites: [
               "netflix",
               "amazon",
@@ -15520,7 +15519,7 @@ const allMessages = [
           },
           {
             name: "Office TV",
-            device: "sony-810c",
+            device: "sony-tv",
             favorites: [
               "netflix",
               "amazon",
@@ -15610,7 +15609,7 @@ const allMessages = [
       tvs: [
         {
           name: "MBR TV",
-          device: "sony-850c",
+          device: "sony-tv",
           favorites: [
             "netflix",
             "amazon",
@@ -15627,7 +15626,7 @@ const allMessages = [
         },
         {
           name: "Office TV",
-          device: "sony-810c",
+          device: "sony-tv",
           favorites: [
             "netflix",
             "amazon",
@@ -15936,7 +15935,7 @@ const allMessages = [
               "fox news",
               "cbs",
             ],
-            device: "sony-850c",
+            device: "sony-tv",
           },
           { name: "AVR", title: "Denon X2100W", type: "denon", device: "denon-x2100w" },
           {
@@ -15959,7 +15958,7 @@ const allMessages = [
             device: "tivo-bolt",
             guide: "CA68543",
           },
-          { name: "Apple TV", title: "MBR Apple TV", type: "appletv", device: "appletv-mbr" },
+          { name: "Apple TV", title: "MBR Apple TV", type: "appletv", device: "appletv-theater" },
         ],
         activities: [
           {
