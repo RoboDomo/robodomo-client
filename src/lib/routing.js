@@ -7,6 +7,6 @@
  * @param {string} str
  * @return {string}
  */
-const toRoute = str => str.replace(/[^a-zA-Z0-9/-]+/, "").toLowerCase();
+const toRoute = str => str.replace(/[^a-zA-Z0-9/-]+/g, "").toLowerCase();
 
 export { toRoute };
