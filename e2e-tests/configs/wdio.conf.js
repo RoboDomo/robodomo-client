@@ -1,10 +1,8 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint-disable no-console */
-
 require('@babel/register');
 
-exports.config = {
+const log = (typeof console != 'undefined') && console;
 
+exports.config = {
     waitTimes: {
         implicit: 15000,
         pageLoad: 30000,
@@ -132,9 +130,7 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: http://webdriver.io/guide/reporters/dot.html
-    reporters: [
-        'spec',
-    ],
+    reporters: ['spec'],
     // If you are using Cucumber you need to specify the location of your step definitions.
     cucumberOpts: {
         require: ['./step_definitions/*.js'], // <string[]> (file/dir) require files before executing features
@@ -148,7 +144,7 @@ exports.config = {
         source: true, // <boolean> hide source uris
         profile: [], // <string[]> (name) specify the profile to use
         strict: false, // <boolean> fail if there are any undefined or pending steps
-        tags: ['@automated'], // <string[]> (expression) only execute the features or scenarios with tags matching the expression
+        tags: [], // <string[]> (expression) only execute the features or scenarios with tags matching the expression
         tagExpression: '', // <string> Only execute the features or scenarios with tags matching the expression.
         timeout: 90000, // <number> timeout for step definitions
         ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
@@ -167,8 +163,17 @@ exports.config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    // onPrepare: function (config, capabilities) {
-    // },
+    // eslint-disable-next-line no-unused-vars
+    onPrepare: function(config, capabilities) {
+        let filessystem = require('fs');
+        let dir = './errorShots/';
+
+        if (!filessystem.existsSync(dir)) {
+            filessystem.mkdirSync(dir);
+        } else {
+            log.info('Folder already exists!');
+        }
+    },
     /**
      * Gets executed just before initialising the webdriver session and test framework. It allows you
      * to manipulate configurations depending on the capability or spec.
@@ -189,25 +194,24 @@ exports.config = {
         require('@babel/register');
 
         const customCommands = require('./customCommands');
-        Object.getOwnPropertyNames(customCommands).forEach((key) => {
-            console.log(`AddingCustomCommand ${key}`); // key
+        Object.getOwnPropertyNames(customCommands).forEach(key => {
             customCommands[key]; // eslint-disable-line no-unused-expressions
         });
 
         try {
             browser.setTimeout({ implicit: this.waitTimes.implicit });
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             browser.setTimeout({ pageLoad: this.waitTimes.pageLoad });
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             browser.setTimeout({ script: this.waitTimes.script });
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
     },
     /**
@@ -227,8 +231,10 @@ exports.config = {
      * Runs before a Cucumber scenario
      * @param {Object} scenario scenario details
      */
-    // beforeScenario: function (scenario) {
-    // },
+    // eslint-disable-next-line no-unused-vars
+    beforeScenario: function(scenario) {
+        browser.scenarioContext = {};
+    },
     /**
      * Runs before a Cucumber step
      * @param {Object} step step details
@@ -256,35 +262,35 @@ exports.config = {
                 browser.clearStorageData();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             if (typeof browser.clearStorageData === 'function') {
                 browser.clearLocalStorage();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             if (typeof browser.clearStorageData === 'function') {
                 browser.clearSessionStorage();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             if (typeof browser.clearStorageData === 'function') {
                 browser.clearCache();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
         try {
             if (typeof browser.clearStorageData === 'function') {
                 browser.deleteAllCookies();
             }
         } catch (exeption) {
-            console.log(exeption.message);
+            log.warn(exeption.message);
         }
     },
     /**

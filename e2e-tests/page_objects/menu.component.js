@@ -1,24 +1,34 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
-/* eslint class-methods-use-this: [0] */
-
 import expect from 'expect';
 
 /** MenuComponent selenium page-object */
 class MenuComponent {
-    get autelisButton() { return $('//ion-tab-button[@tab="autelis"]'); }
+    get autelisButton() {
+        return $('//ion-tab-button[@tab="autelis"]');
+    }
 
-    get dashboardButton() { return $('//ion-tab-button[@tab="dashboard"]'); }
+    get dashboardButton() {
+        return $('//ion-tab-button[@tab="dashboard"]');
+    }
 
-    get nestButton() { return $('//ion-tab-button[@tab="nest"]'); }
+    get nestButton() {
+        return $('//ion-tab-button[@tab="nest"]');
+    }
 
-    get sensorsButton() { return $('//ion-tab-button[@tab="sensors"]'); }
+    get sensorsButton() {
+        return $('//ion-tab-button[@tab="sensors"]');
+    }
 
-    get smartThingsButton() { return $('//ion-tab-button[@tab="smartthings"]'); }
+    get smartThingsButton() {
+        return $('//ion-tab-button[@tab="smartthings"]');
+    }
 
-    get theaterButton() { return $('//ion-tab-button[@tab="theater"]'); }
+    get theaterButton() {
+        return $('//ion-tab-button[@tab="theater"]');
+    }
 
-    get weatherButton() { return $('//ion-tab-button[@tab="weather"]'); }
+    get weatherButton() {
+        return $('//ion-tab-button[@tab="weather"]');
+    }
 
     goToAutelisPage() {
         this.autelisButton.click();
@@ -49,37 +59,44 @@ class MenuComponent {
     }
 
     isAutelisMenuSelected() {
-        browser.waitUntil(() => this.autelisButton.getAttribute('aria-selected') === 'true', 5000);
+        browser.waitUntil(() => this.autelisButton.getAttribute('aria-selected') === 'true', 10000);
+        this.autelisButton.waitForEnabled();
         expect(this.autelisButton.getAttribute('class')).toContain('tab-selected');
     }
 
     isDashboardMenuSelected() {
-        browser.waitUntil(() => this.dashboardButton.getAttribute('aria-selected') === 'true', 5000);
+        browser.waitUntil(() => this.dashboardButton.getAttribute('aria-selected') === 'true', 10000);
+        this.dashboardButton.waitForEnabled();
         expect(this.dashboardButton.getAttribute('class')).toContain('tab-selected');
     }
 
     isNestMenuSelected() {
-        browser.waitUntil(() => this.nestButton.getAttribute('aria-selected') === 'true', 5000);
+        browser.waitUntil(() => this.nestButton.getAttribute('aria-selected') === 'true', 10000);
+        this.nestButton.waitForEnabled();
         expect(this.nestButton.getAttribute('class')).toContain('tab-selected');
     }
 
     isSensorsMenuSelected() {
-        browser.waitUntil(() => this.sensorsButton.getAttribute('aria-selected') === 'true', 5000);
+        browser.waitUntil(() => this.sensorsButton.getAttribute('aria-selected') === 'true', 10000);
+        this.sensorsButton.waitForEnabled();
         expect(this.sensorsButton.getAttribute('class')).toContain('tab-selected');
     }
 
     isSmartThingsMenuSelected() {
-        browser.waitUntil(() => this.smartThingsButton.getAttribute('aria-selected') === 'true', 5000);
+        browser.waitUntil(() => this.smartThingsButton.getAttribute('aria-selected') === 'true', 10000);
+        this.smartThingsButton.waitForEnabled();
         expect(this.smartThingsButton.getAttribute('class')).toContain('tab-selected');
     }
 
     isTheaterMenuSelected() {
-        browser.waitUntil(() => this.theaterButton.getAttribute('aria-selected') === 'true', 5000);
+        browser.waitUntil(() => this.theaterButton.getAttribute('aria-selected') === 'true', 10000);
+        this.theaterButton.waitForEnabled();
         expect(this.theaterButton.getAttribute('class')).toContain('tab-selected');
     }
 
     isWeatherMenuSelected() {
-        browser.waitUntil(() => this.weatherButton.getAttribute('aria-selected') === 'true', 5000);
+        browser.waitUntil(() => this.weatherButton.getAttribute('aria-selected') === 'true', 10000);
+        this.weatherButton.waitForEnabled();
         expect(this.weatherButton.getAttribute('class')).toContain('tab-selected');
     }
 

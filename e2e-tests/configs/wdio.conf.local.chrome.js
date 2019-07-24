@@ -1,12 +1,9 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
 const { join } = require('path');
 const merge = require('deepmerge');
 const configBase = require('./wdio.conf.js');
 
 exports.config = merge(configBase.config, {
-    specs: [
-        './features/**/*.feature',
-    ],
+    specs: ['./features/**/*.feature'],
     // exclude: [
     //     './features/visualRegression/*.feature'
     // ],
@@ -22,7 +19,8 @@ exports.config = merge(configBase.config, {
 
     services: [
         'selenium-standalone',
-        ['image-comparison',
+        [
+            'image-comparison',
             {
                 autoSaveBaseline: true,
                 baselineFolder: join(process.cwd(), './baseScreenshots/'),
@@ -32,7 +30,9 @@ exports.config = merge(configBase.config, {
                 formatImageName: '{tag}-{width}x{height}',
                 screenshotPath: join(process.cwd(), '.tmp/'),
                 savePerInstance: true,
-            }]],
+            },
+        ],
+    ],
 
     capabilities: [
         {

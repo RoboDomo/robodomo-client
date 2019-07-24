@@ -1,19 +1,14 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
-/* eslint class-methods-use-this: [0] */
-
 import Page from './page';
-import TheaterTabPage from './smartthings/theaterTab.component';
-import OfficeTabPage from './smartthings/officeTab.component';
-import BackRoomTabPage from './smartthings/backRoomTab.component';
-import BedroomTabPage from './smartthings/bedroomTab.component';
-import KitchenTabPage from './smartthings/kitchenTab.component';
-import BathroomTabPage from './smartthings/bathroomTab.component';
-import OutsideTabPage from './smartthings/outsideTab.component';
+import TheaterTabComponent from './smartthings/theaterTab.component';
+import OfficeTabComponent from './smartthings/officeTab.component';
+import BackRoomTabComponent from './smartthings/backRoomTab.component';
+import BedroomTabComponent from './smartthings/bedroomTab.component';
+import KitchenTabComponent from './smartthings/kitchenTab.component';
+import BathroomTabComponent from './smartthings/bathroomTab.component';
+import OutsideTabComponent from './smartthings/outsideTab.component';
 
 /** SmartThingsPage selenium page-object */
 class SmartThingsPage extends Page {
-    get pageContent() { return $('//div[contains(@class, "ion-page")]'); }
     get theaterTabButton() { return $('//a[text()= "Theater"]'); }
     get officeTabButton() { return $('//a[text()= "Office"]'); }
     get backRoomTabButton() { return $('//a[text()= "Back Room"]'); }
@@ -50,25 +45,60 @@ class SmartThingsPage extends Page {
         this.outsideTabButton.click();
     }
 
+    isTheaterTabSelected() {
+        browser.waitUntil(() => this.theaterTabButton.getAttribute('aria-selected') === 'true', 5000);
+        this.getTheaterTab().tabPane.isDisplayed();
+    }
+
+    isOfficeTabSelected() {
+        browser.waitUntil(() => this.officeTabButton.getAttribute('aria-selected') === 'true', 5000);
+        this.getOfficeTab().tabPane.isDisplayed();
+    }
+
+    isBackRoomTabTabSelected() {
+        browser.waitUntil(() => this.backRoomTabButton.getAttribute('aria-selected') === 'true', 5000);
+        this.getBackRoomTab().tabPane.isDisplayed();
+    }
+
+    isBedroomTabSelected() {
+        browser.waitUntil(() => this.bedroomTabButton.getAttribute('aria-selected') === 'true', 5000);
+        this.getBedroomTab().tabPane.isDisplayed();
+    }
+
+    isKitchenTabSelected() {
+        browser.waitUntil(() => this.kitchenTabButton.getAttribute('aria-selected') === 'true', 5000);
+        this.getKitchenTab().tabPane.isDisplayed();
+    }
+
+    isBathroomTabSelected() {
+        browser.waitUntil(() => this.bathroomTabButton.getAttribute('aria-selected') === 'true', 5000);
+        this.getBathroomTab().tabPane.isDisplayed();
+    }
+
+    isOutsideTabSelected() {
+        browser.waitUntil(() => this.outsideTabButton.getAttribute('aria-selected') === 'true', 5000);
+        this.getOutsideTab().tabPane.isDisplayed();
+    }
+
     getAllTab() {
         return {
-            getTheaterTab() { return TheaterTabPage; },
-            getOfficeTab() { return OfficeTabPage; },
-            getBackRoomTabPage() { return BackRoomTabPage; },
-            getBedroomTabPage() { return BedroomTabPage; },
-            getKitchenTabPage() { return KitchenTabPage; },
-            getBathroomTabPage() { return BathroomTabPage; },
-            getOutsideTabPage() { return OutsideTabPage; },
+            getTheaterTab() { return TheaterTabComponent; },
+            getOfficeTab() { return OfficeTabComponent; },
+            getBackRoomTab() { return BackRoomTabComponent; },
+            getBedroomTab() { return BedroomTabComponent; },
+            getKitchenTab() { return KitchenTabComponent; },
+            getBathroomTab() { return BathroomTabComponent; },
+            getOutsideTab() { return OutsideTabComponent; },
         };
     }
 
-    getTheaterTab() { return TheaterTabPage; }
-    getOfficeTab() { return OfficeTabPage; }
-    getBackRoomTabPage() { return BackRoomTabPage; }
-    getBedroomTabPage() { return BedroomTabPage; }
-    getKitchenTabPage() { return KitchenTabPage; }
-    getBathroomTabPage() { return BathroomTabPage; }
-    getOutsideTabPage() { return OutsideTabPage; }
+    getTheaterTab() { return TheaterTabComponent; }
+    getOfficeTab() { return OfficeTabComponent; }
+    getBackRoomTab() { return BackRoomTabComponent; }
+    getBedroomTab() { return BedroomTabComponent; }
+    getKitchenTab() { return KitchenTabComponent; }
+    getBathroomTab() { return BathroomTabComponent; }
+    getOutsideTab() { return OutsideTabComponent; }
 }
 
 module.exports = new SmartThingsPage('', '/smartthings');

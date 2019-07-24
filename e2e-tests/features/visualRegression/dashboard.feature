@@ -7,7 +7,7 @@ Feature: RoboDomo Visual Regression Dashboard page
     Background:
         Given User navigates to Dashboard page
         Then User is redirected to Dashboard page
-        Then Dashboard tab shall be selected
+        Then Dashboard menu shall be selected
 
 
     @S1 @automated
