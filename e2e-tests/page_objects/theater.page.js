@@ -1,17 +1,22 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
-/* eslint class-methods-use-this: [0] */
-
 import Page from './page';
 
 /** TheaterPage selenium page-object */
 class TheaterPage extends Page {
-    get pageContent() { return $('//div[contains(@class, "ion-page")]'); }
+    get pageContent() {
+        return $('//div[contains(@class, "ion-page")]');
+    }
 
-    get homeTheaterTabButton() { return $('#tab-button-theater'); }
-    get homeTheaterTabPane() { return $('#tab-theaters'); }
+    get homeTheaterTabButton() {
+        return $('#tab-button-theater');
+    }
 
-    goToHomeTheaterTab() { this.homeTheaterTabButton.click(); }
+    get homeTheaterTabPane() {
+        return $('#tab-theaters');
+    }
+
+    goToHomeTheaterTab() {
+        this.homeTheaterTabButton.click();
+    }
 
     isHomeTheaterTabSelected() {
         browser.waitUntil(() => this.homeTheaterTabButton.getAttribute('aria-selected') === 'true', 5000);

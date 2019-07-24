@@ -3,6 +3,8 @@ aliases:
     key: v1-dependencies-{{ checksum "yarn.lock" }}
   - &restore-webpack-cache
     key: v1-webpackcache-{{ checksum "yarn.lock" }}
+  - &restore-npm-cache-tests
+    key: v1-node-modules-tests-{{ checksum "./e2e-tests/yarn.lock" }}
 
 defaults: &defaults
   working_directory: /home/circleci/repo
@@ -24,6 +26,18 @@ jobs:
           paths:
             - node_modules
 
+  install-test-dependencies:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install Test Node modules
+          command: yarn --cwd ./e2e-tests install --frozen-lockfile
+      - save_cache:
+          key: v1-node-modules-tests-{{ checksum "./e2e-tests/yarn.lock" }}
+          paths:
+            - e2e-tests/node_modules
+
   build-pwa:
     <<: *defaults
     steps:
@@ -41,6 +55,10 @@ jobs:
           key: v1-webpackcache-{{ checksum "yarn.lock" }}
           paths:
             - node_modules/.cache
+      - save_cache:
+          key: v1-app-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - build
 
   lint:
     <<: *defaults
@@ -51,14 +69,59 @@ jobs:
           name: Run ESLint
           command: yarn eslint src
 
+  lint-tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache-tests
+      - run:
+          name: Lint tests
+          command: ls ./e2e-tests && ls ./e2e-tests/node_modules/.bin && yarn --cwd ./e2e-tests eslint .
+
+  test-pwa:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache
+      - restore_cache: *restore-npm-cache-tests
+      - restore_cache:
+          keys:
+            - v1-app-{{ .Branch }}-{{ .Revision }}
+            - v1-app-{{ .Branch }}-
+            - v1-app-
+      - run:
+          name: Run server
+          command: yarn start
+          background: true
+      - run:
+          name: Wait for project to start
+          command: |
+            wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 10 http://localhost:3000
+            :
+      - run:
+          name: start Browserstack Local
+          command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key GnvL9ihmskGTxHsmkyXf
+      - run:
+          name: Run e2e tests
+          command: yarn --cwd ./e2e-tests run test:bs_cloud_smoke -- --baseUrl=http://localhost:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
+
 workflows:
   version: 2
   build-and-test:
     jobs:
       - install-dependencies
+      - install-test-dependencies
       - lint:
           requires:
             - install-dependencies
+      - lint-tests:
+          requires:
+            - install-test-dependencies
       - build-pwa:
           requires:
             - install-dependencies
+      - test-pwa:
+          requires:
+            - install-dependencies
+            - build-pwa
+            - install-test-dependencies

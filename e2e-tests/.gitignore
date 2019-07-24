@@ -67,7 +67,7 @@ allure-reporter.d.ts
 webdriver.d.ts
 webdriverio-core.d.ts
 !babel.config.js
-!.eslintrc.yaml
+!.eslintrc.js
 package-lock.json
 .DS_Store
 

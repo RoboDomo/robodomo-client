@@ -5,13 +5,13 @@ Feature: RoboDomo Weather page
     So that I can see all Weather widgets
 
     @S1 @automated
-    Scenario Outline: Weather tabs
-        Given User navigates to Nest page
-        Then User is redirected to Nest page
-        Then Nest tab shall be selected
+    Scenario Outline: Nest tabs
+        Given User navigates to Weather page
+        Then User is redirected to Weather page
+        Then Weather menu shall be selected
         When User clicks on <tabName> tab
-        Then <tabName> tab is loaded
+        Then Weather <tabName> tab is loaded
         Examples:
-            | tabName               |
-            | Hallway Thermostat    |
-            | Entryway Nest Protect |
+            | tabName       |
+            | San Diego, CA |
+            | New York, NY  |

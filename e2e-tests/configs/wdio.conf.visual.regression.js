@@ -1,12 +1,9 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
 const { join } = require('path');
 const merge = require('deepmerge');
 const configBase = require('./wdio.conf.js');
 
 exports.config = merge(configBase.config, {
-    specs: [
-        './features/visualRegression/dashboard.feature',
-    ],
+    specs: ['./features/visualRegression/dashboard.feature'],
 
     //
     // First, you can define how many instances should be started at the same time. Let's
@@ -18,10 +15,10 @@ exports.config = merge(configBase.config, {
     //
     maxInstances: 1,
 
-
     services: [
         'browserstack',
-        ['image-comparison',
+        [
+            'image-comparison',
             {
                 autoSaveBaseline: true,
                 baselineFolder: join(process.cwd(), './baseScreenshots/'),
@@ -31,7 +28,8 @@ exports.config = merge(configBase.config, {
                 formatImageName: '{tag}-{width}x{height}',
                 screenshotPath: join(process.cwd(), '.tmp/'),
                 savePerInstance: true,
-            }],
+            },
+        ],
     ],
     browserstackLocal: true,
     browserstackOpts: {},

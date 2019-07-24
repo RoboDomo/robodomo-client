@@ -2,28 +2,21 @@ const merge = require('deepmerge');
 const configBase = require('./wdio.conf.js');
 
 exports.config = merge(configBase.config, {
-    specs: [
-        './features/**/*.feature',
-    ],
-    exclude: [
-        './features/visualRegression/*.feature',
-    ],
-
-    maxInstances: 5,
+    maxInstances: 2,
 
     services: ['browserstack'],
     browserstackLocal: true,
     browserstackOpts: {},
 
     capabilities: [
-        {
-            device: 'iPad Pro 12.9 2018',
-            os_version: '12',
-            realMobile: true,
-            deviceOrientation: 'landscape',
-        // TODO uncomment when iOS UI is fixed
-        // and when tests are updated for Android UI
-        },
+        // {
+        //     device: 'iPad Pro 12.9 2018',
+        //     os_version: '12',
+        //     realMobile: true,
+        //     deviceOrientation: 'landscape',
+        //     // TODO uncomment when iOS UI is fixed
+        //     // and when tests are updated for Android UI
+        // },
         // {
         //     device: 'iPhone 8',
         //     os_version: '12',
