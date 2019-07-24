@@ -1,0 +1,85 @@
+audits:
+  - heap-snapshot
+  - lighthouse
+  - size
+  # - unused-source
+
+configs:
+  heap-snapshot:
+    threshold:
+      LayoutCount: 10
+      Nodes: 175
+      RecalcStyleCount: 15
+  lighthouse:
+    threshold:
+      accessibility: 50
+      best-practices: 90
+      performance: 0
+      pwa: 0
+      seo: 80
+  route:
+    - /dashboard
+  serve:
+    rewrites:
+      - destination: index.html
+        source: '*'
+  size:
+    - path: ./build/precache-*.js
+      maxSize: 3 KB
+    - path: ./build/dll/vendor_*.dll.js
+      maxSize: 340 KB
+    - path: ./build/static/js/demo-config.*.chunk.js
+      maxSize: 3 KB
+    - path: ./build/static/js/framer.*.chunk.js
+      maxSize: 200 B
+    - path: ./build/static/js/main.*.chunk.js
+      maxSize: 1 KB
+    - path: ./build/static/js/phone.*.chunk.js
+      maxSize: 20 KB
+    - path: ./build/static/js/robodomo.*.chunk.js
+      maxSize: 3 KB
+    - path: ./build/static/js/tab-autelis.*.chunk.js
+      maxSize: 4.5 KB
+    - path: ./build/static/js/tab-dashboard.*.chunk.js
+      maxSize: 6 KB
+    - path: ./build/static/js/tab-nest.*.chunk.js
+      maxSize: 3.75 KB
+    - path: ./build/static/js/tab-sensors.*.chunk.js
+      maxSize: 2 KB
+    - path: ./build/static/js/tab-smartthings.*.chunk.js
+      maxSize: 3.5 KB
+    - path: ./build/static/js/tab-theater.*.chunk.js
+      maxSize: 10 KB
+    - path: ./build/static/js/tab-weather.*.chunk.js
+      maxSize: 3.5 KB
+    - path: ./build/static/js/tablet.*.chunk.js
+      maxSize: 2 KB
+    - path: ./build/static/js/*.chunk.js
+      maxSize: 50 KB
+    - path: ./build/static/js/runtime*.js
+      maxSize: 3.25 KB
+    - path: ./build/static/media/*.svg
+      maxSize: 1.5 KB
+    - path: ./build/img/App/{nest_manager_analytics,protect_icon,remote_sensor_icon,nst_manager_icon@3x,nst_manager_logo,nest_manager_analytics,info_icon,automation_icon,info_icon}.png
+      maxSize: 275 KB
+    - path: ./build/img/App/{weather_icon,thermostat_icon_2,thermostat_automation_icon,nst_manager_icon@2x}*.png
+      maxSize: 200 KB
+    - path: ./build/img/App/{api_diag_icon,day_calendar_icon,help_ring_icon,leak_icon,login_icon,mode_automation_icon,mode_away_icon,mode_home_icon,nest_manager,open_window}*.png
+      maxSize: 150 KB
+    - path: ./build/img/App/{wiki_icon,vthermostat_icon,update_icon,thermostat_icon,temperature_icon,setpoint_automation_icon,rm_icon,presence_icon,nst_manager_icon,no_icon,nest_dev_away_icon,mode_setpoints_icon,mode_icon,hvac_mode_icon,feedback_icon,fan_control_icon,fan_circulation_icon,diag_icon}*.png
+      maxSize: 100 KB
+    - path: ./build/img/App/help_icon.png
+      maxSize: 350 KB
+    - path: ./build/img/App/*.png
+      maxSize: 50 KB
+    - path: ./build/favicon.ico
+      maxSize: 11 KB
+    - path: ./build/index.html
+      maxSize: 5 KB
+    - path: ./build/
+      maxSize: 35 MB
+
+outputs:
+  html: artifacts/gimbal.html
+  json: artifacts/gimbal.json
+  markdown: artifacts/gimbal.md

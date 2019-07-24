@@ -9,6 +9,9 @@ aliases:
     key: v1-webpackcache-{{ checksum "yarn.lock" }}
   - &restore-npm-cache-tests
     key: v1-node-modules-tests-{{ checksum "./e2e-tests/yarn.lock" }}
+  - &restore-dist-cache
+    key: v1-app-{{ .Branch }}-{{ .Revision }}
+    name: Restoring build
 
 defaults: &defaults
   working_directory: /home/circleci/repo
@@ -127,6 +130,20 @@ jobs:
           name: Run e2e tests
           command: yarn --cwd ./e2e-tests run test:bs_cloud_smoke -- --baseUrl=http://localhost:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
 
+  gimbal:
+    <<: *defaults
+    docker:
+      - image: moduscreate/gimbal:1.1-latest
+    steps:
+      - checkout
+      - restore_cache: *restore-npm-cache
+      - restore_cache: *restore-dist-cache
+      - run:
+          name: Run Gimbal
+          command: gimbal
+      - store_artifacts:
+          path: ./artifacts
+
 workflows:
   version: 2
   build-and-test:
@@ -147,3 +164,6 @@ workflows:
             - install-dependencies
             - build-pwa
             - install-test-dependencies
+      - gimbal:
+          requires:
+            - build-pwa
