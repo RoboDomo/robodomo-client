@@ -9,6 +9,7 @@ import {
   IonRouterOutlet,
   IonContent,
 } from "@ionic/react";
+import { toRoute } from "@/lib/routing";
 import useConfigGroup from "@/hooks/useConfigGroup";
 import AnimatedDiv from "@/common/AnimatedDiv";
 
@@ -45,7 +46,7 @@ const TabbedView = ({
           {/* Render sub-routes */}
           {tabs.map(tab => (
             <Route
-              path={`/${route}/:tab(${tab[sectionKey]})`}
+              path={`/${route}/:tab(${toRoute(tab[sectionKey])})`}
               render={() => render(tab)}
               key={tab[sectionKey]}
             />
@@ -56,8 +57,8 @@ const TabbedView = ({
           {/* Render tabbed navigation */}
           {tabs.map(tab => (
             <IonTabButton
-              tab={tab[sectionKey]}
-              href={`/${route}/${tab[sectionKey]}`}
+              tab={toRoute(tab[sectionKey])}
+              href={`/${route}/${toRoute(tab[sectionKey])}`}
               key={tab[sectionKey]}
             >
               <AnimatedDiv

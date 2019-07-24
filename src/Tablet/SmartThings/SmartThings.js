@@ -1,5 +1,6 @@
 import React from "react";
 import { memoize } from "lodash-es";
+import { toRoute } from "@/lib/routing";
 import GroupedView from "@/templates/GroupedView";
 import useConfigGroup from "@/hooks/useConfigGroup";
 import SmartThingsTab from "./SmartThingsTab";
@@ -37,7 +38,7 @@ const getGroups = memoize(things => {
     groups.push({
       name: name,
       things: roomsMap[name],
-      route: name.replace(/[^a-zA-Z0-9/-]+/, "").toLowerCase(),
+      route: toRoute(name),
     });
   }
 
