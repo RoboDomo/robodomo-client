@@ -1,22 +1,30 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
-/* eslint class-methods-use-this: [0] */
+import expect from 'expect';
 
 /** KitchenTabComponent selenium page-object */
 class KitchenTabComponent {
-    get kitchenLightOnSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get kitchenLightOffSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle[@checked="false"]'); }
+    get tabPane() { return $('#smartthings-tabs-tabpane-5'); }
 
-    clickKitchenLightOnSwitch() {
-        if (this.kitchenLightOffSwitch.isDisplayed()) {
-            this.kitchenLightOffSwitch.click();
+    get kitchenLightSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle'); }
+    get kitchenLightDimm() { return $('//div[text()="Kitchen Light"]/parent::*//ion-range'); }
+
+    toggleKitchenLight(state) {
+        if (this.kitchenLightSwitch.getProperty('checked') === true && !state) {
+            this.kitchenLightSwitch.click();
+        }
+        if (this.kitchenLightSwitch.getProperty('checked') === false && state) {
+            this.kitchenLightSwitch.click();
         }
     }
 
-    clickKitchenLightOffSwitch() {
-        if (this.kitchenLightOnSwitch.isDisplayed()) {
-            this.kitchenLightOnSwitch.click();
-        }
+    validateKitchenLightState(state) {
+        if (state === 'On')
+            expect(this.kitchenLightSwitch.getProperty('checked')).toEqual(true);
+        else if (state === 'Off')
+            expect(this.kitchenLightSwitch.getProperty('checked')).toEqual(false);
+    }
+
+    validateKitchenLightDimmValue(value) {
+        expect(this.kitchenLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 }
 

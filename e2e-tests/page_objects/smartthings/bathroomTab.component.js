@@ -1,22 +1,30 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
-/* eslint class-methods-use-this: [0] */
+import expect from 'expect';
 
 /** BathroomTabComponent selenium page-object */
 class BathroomTabComponent {
-    get bathroomLightOnSwitch() { return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get bathroomLightOffSwitch() { return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle[@checked="false"]'); }
+    get tabPane() { return $('#smartthings-tabs-tabpane-6'); }
 
-    clickBathroomLightOnSwitch() {
-        if (this.bathroomLightOffSwitch.isDisplayed()) {
-            this.bathroomLightOffSwitch.click();
+    get bathroomLightSwitch() { return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle'); }
+    get bathroomLightDimm() { return $('//div[text()="Bathroom Light"]/parent::*//ion-range'); }
+
+    toggleBathroomLight(state) {
+        if (this.bathroomLightSwitch.getProperty('checked') === true && !state) {
+            this.bathroomLightSwitch.click();
+        }
+        if (this.bathroomLightSwitch.getProperty('checked') === false && state) {
+            this.bathroomLightSwitch.click();
         }
     }
 
-    clickBathroomLightOffSwitch() {
-        if (this.bathroomLightOnSwitch.isDisplayed()) {
-            this.bathroomLightOnSwitch.click();
-        }
+    validateBathroomLightState(state) {
+        if (state === 'On')
+            expect(this.bathroomLightSwitch.getProperty('checked')).toEqual(true);
+        else if (state === 'Off')
+            expect(this.bathroomLightSwitch.getProperty('checked')).toEqual(false);
+    }
+
+    validateBathroomLightDimmValue(value) {
+        expect(this.bathroomLightDimm.getProperty('value')).toEqual(value.toString());
     }
 }
 

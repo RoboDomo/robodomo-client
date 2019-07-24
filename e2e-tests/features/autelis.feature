@@ -7,14 +7,15 @@ Feature: RoboDomo Autelis page
     Background:
         Given User navigates to Autelis page
         Then User is redirected to Autelis page
-        Then Autelis tab shall be selected
+        Then Autelis menu shall be selected
         When User clicks on Autelis tab
 
 
-    @S1 @automated
+    # TODO NEEDS FIX
+    @S1
     Scenario Outline: Check Autelis pool/spa/solar options
         When User clicks on <button> button on Autelis page
-        Then <parametersDisplay> on Autelis page
+        Then Autelis <parametersDisplay> on Autelis page
         Examples:
             | button | parametersDisplay                      |
             | OFF    | SPA-POOL parameters turned off         |
@@ -23,9 +24,9 @@ Feature: RoboDomo Autelis page
 
     @S1 @automated
     Scenario Outline: Check Solar, Cleaner, Pool Heat, Pool light, Waterfall options 'On' and 'Off'
-        When User clicks on <button> button to change state to On on Autelis page
+        When User changes Autelis <button> button state to On
         Then Autelis <button> button is enabled
-        When User clicks on <button> button to change state to Off on Autelis page
+        When User changes Autelis <button> button state to Off
         Then Autelis <button> button is disabled
         Examples:
             | button     |
@@ -41,10 +42,10 @@ Feature: RoboDomo Autelis page
 
     @S1 @automated
     Scenario Outline: Check Pool/Spa heat adjustments to lower and higher values
-        When User decreases <sensor> heat on Autelis page
-        Then <sensor> heat is decreased on Autelis page
-        When User increases <sensor> heat on Autelis page
-        Then <sensor> heat is increased on Autelis page
+        When User decreases Autelis <sensor> heat
+        Then Autelis <sensor> heat is decreased
+        When User increases Autelis <sensor> heat
+        Then Autelis <sensor> heat is increased
         Examples:
             | sensor |
             | Pool   |

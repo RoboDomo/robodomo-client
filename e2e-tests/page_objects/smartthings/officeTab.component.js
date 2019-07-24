@@ -1,14 +1,14 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
-/* eslint class-methods-use-this: [0] */
+import expect from 'expect';
 
 /** OfficeTabComponent selenium page-object */
 class OfficeTabComponent {
-    get officeDimmerOnSwitch() { return $('//div[text()="Office Dimmer"]/parent::*//ion-toggle[@checked="true"]'); }
-    get officeDimmerOffSwitch() { return $('//div[text()="Office Dimmer"]/parent::*//ion-toggle[@checked="false"]'); }
+    get TabPane() { return $('#smartthings-tabs-tabpane-2'); }
 
-    get officeLightOnSwitch() { return $('//div[text()="Office Light"]/parent::*//ion-toggle[@checked="true"]'); }
-    get officeLightOffSwitch() { return $('//div[text()="Office Light"]/parent::*//ion-toggle[@checked="false"]'); }
+    get officeDimmerSwitch() { return $('//div[text()="Office Dimmer"]/parent::*//ion-toggle'); }
+    get officeDimmerDimm() { return $('//div[text()="Office Dimmer"]/parent::*//ion-range'); }
+
+    get officeLightSwitch() { return $('//div[text()="Office Light"]/parent::*//ion-toggle'); }
+    get officeLightDimm() { return $('//div[text()="Office Light"]/parent::*//ion-range'); }
 
     get officeFanOffButton() { return $('//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Off"]'); }
     get officeFanLowButton() { return $('//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Low"]'); }
@@ -17,26 +17,6 @@ class OfficeTabComponent {
 
     get entrywayLightsOnButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="On"]'); }
     get entrywayLightsOffButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="Off"]'); }
-
-    clickEntrywayLightsOnButton() {
-        this.entrywayLightsOnButton.click();
-    }
-
-    clickEntrywayLightsOffButton() {
-        this.entrywayLightsOffButton.click();
-    }
-
-    clickOfficeDimmerOnSwitch() {
-        if (this.officeDimmerOffSwitch.isDisplayed()) {
-            this.officeDimmerOffSwitch.click();
-        }
-    }
-
-    clickOfficeDimmerOffSwitch() {
-        if (this.officeDimmerOnSwitch.isDisplayed()) {
-            this.officeDimmerOnSwitch.click();
-        }
-    }
 
     clickOfficeFanOffButton() {
         this.officeFanOffButton.click();
@@ -54,16 +34,71 @@ class OfficeTabComponent {
         this.officeFanHighButton.click();
     }
 
-    clickOfficeLightOnSwitch() {
-        if (this.officeLightOffSwitch.isDisplayed()) {
-            this.officeLightOffSwitch.click();
+    toggleEntrywayLights(state) {
+        if (this.entrywayLightsOnButton.getProperty('checked') === true && !state) {
+            this.entrywayLightsOffButton.click();
+        }
+        if (this.entrywayLightsOffButton.getProperty('checked') === true && state) {
+            this.entrywayLightsOnButton.click();
         }
     }
 
-    clickOfficeLightOffSwitch() {
-        if (this.officeLightOnSwitch.isDisplayed()) {
-            this.officeLightOnSwitch.click();
+    toggleOfficeDimmer(state) {
+        if (this.officeDimmerSwitch.getProperty('checked') === true && !state) {
+            this.officeDimmerSwitch.click();
         }
+        if (this.officeDimmerSwitch.getProperty('checked') === false && state) {
+            this.officeDimmerSwitch.click();
+        }
+    }
+
+    toggleOfficeLight(state) {
+        if (this.officeLightSwitch.getProperty('checked') === true && !state) {
+            this.officeLightSwitch.click();
+        }
+        if (this.officeLightSwitch.getProperty('checked') === false && state) {
+            this.officeLightSwitch.click();
+        }
+    }
+
+    validateEntrywayLightsState(state) {
+        if (state === 'Off')
+            browser.wait(this.entrywayLightsOffButton.getProperty('checked')).toEqual(false);
+        else if (state === 'On')
+            expect(this.entrywayLightsOnButton.getProperty('checked')).toEqual(true);
+    }
+
+    validateOfficeDimmValue(value) {
+        expect(this.officeDimmerDimm.getAttribute('value')).toEqual(value.toString());
+    }
+
+    validateOfficeDimmerState(state) {
+        if (state === 'Off')
+            expect(this.officeDimmerSwitch.getProperty('checked')).toEqual(false);
+        else if (state === 'On')
+            expect(this.officeDimmerSwitch.getProperty('checked')).toEqual(true);
+    }
+
+    validateOfficeFanState(state) {
+        if (state === 'Off')
+            expect(this.officeFanOffButton.getProperty('checked')).toEqual(true);
+        else if (state === 'Low')
+            expect(this.officeFanLowButton.getProperty('checked')).toEqual(true);
+        else if (state === 'Medium')
+            expect(this.officeFanMediumButton.getProperty('checked')).toEqual(true);
+        else if (state === 'high')
+            expect(this.officeFanHighButton.getProperty('checked')).toEqual(true);
+    }
+
+    validateOfficeLightState(state) {
+        if (state === 'Off')
+            expect(this.officeLightSwitch.getProperty('checked')).toEqual(false);
+        else if (state === 'On')
+            expect(this.officeLightSwitch.getProperty('checked')).toEqual(true);
+    }
+
+    validateOfficeLightDimmValue(value) {
+        expect(this.officeLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 }
 

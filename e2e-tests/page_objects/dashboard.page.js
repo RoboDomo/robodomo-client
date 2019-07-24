@@ -1,27 +1,59 @@
-/* eslint max-len: ['error', { 'ignoreComments': true, 'ignoreStrings': true, 'ignoreTrailingComments': true }] */
-/* eslint lines-between-class-members: ["error", "always", { exceptAfterSingleLine: true }] */
-/* eslint class-methods-use-this: [0] */
-
 import expect from 'expect';
 import Page from './page';
 
 /** DashboardPage selenium page-object */
 class DashboardPage extends Page {
-    get bedroomTabButton() { return $('#dashboard-tabs-tab-bedroom'); }
-    get bedroomTabPane() { return $('#dashboard-tabs-tabpane-bedroom'); }
+    get bedroomTabButton() {
+        return $('#dashboard-tabs-tab-bedroom');
+    }
 
-    get bedroomNestCell() { return this.bedroomTabPane.$('//form/parent::div/parent::ion-card-content'); }
-    get bedroomNestDecreaseButton() { return this.bedroomTabPane.$('//form//button[1]'); }
-    get bedroomNestTemperatureValue() { return this.bedroomTabPane.$('//form//input'); }
-    get bedroomNestIncreaseButton() { return this.bedroomTabPane.$('//form//button[2]'); }
+    get bedroomTabPane() {
+        return $('#dashboard-tabs-tabpane-bedroom');
+    }
 
-    get theaterTabButton() { return $('#dashboard-tabs-tab-theater'); }
-    get theaterTabPane() { return $('#dashboard-tabs-tabpane-theater'); }
+    get bedroomNestCell() {
+        return this.bedroomTabPane.$('//form/parent::div/parent::ion-card-content');
+    }
 
-    get theaterNestCell() { return this.theaterTabPane.$('//form/parent::div/parent::ion-card-content'); }
-    get theaterNestDecreaseButton() { return this.theaterTabPane.$('//form//button[1]'); }
-    get theaterNestTemperatureValue() { return this.theaterTabPane.$('//form//input'); }
-    get theaterNestIncreaseButton() { return this.theaterTabPane.$('//form//button[2]'); }
+    get bedroomNestDecreaseButton() {
+        return this.bedroomTabPane.$('//form//button[1]');
+    }
+
+    get bedroomNestTemperatureValue() {
+        return this.bedroomTabPane.$('//form//input');
+    }
+
+    get bedroomNestIncreaseButton() {
+        return this.bedroomTabPane.$('//form//button[2]');
+    }
+
+    get theaterTabButton() {
+        return $('#dashboard-tabs-tab-theater');
+    }
+
+    get theaterTabPane() {
+        return $('#dashboard-tabs-tabpane-theater');
+    }
+
+    get theaterCeilingFanLightButton() {
+        return $('//ion-card[contains(.,"Ceiling Fan Light")]');
+    }
+
+    get theaterNestCell() {
+        return this.theaterTabPane.$('//form/parent::div/parent::ion-card-content');
+    }
+
+    get theaterNestDecreaseButton() {
+        return this.theaterTabPane.$('//form//button[1]');
+    }
+
+    get theaterNestTemperatureValue() {
+        return this.theaterTabPane.$('//form//input');
+    }
+
+    get theaterNestIncreaseButton() {
+        return this.theaterTabPane.$('//form//button[2]');
+    }
 
     goToBedroomTab() {
         this.bedroomTabButton.click();
