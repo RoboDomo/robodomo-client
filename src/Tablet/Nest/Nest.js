@@ -8,7 +8,7 @@ import ProtectTab from "./ProtectTab";
 const Nest = () => {
   const config = useConfig();
 
-  const nest = config.nest;
+  const nest = config && config.nest;
 
   if (!nest) {
     console.error(`Nest config doesn't exist`);
