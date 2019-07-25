@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "test:bs_cloud": "wdio ./configs/wdio.conf.bs.cloud.js",
-    "test:bs_cloud_smoke": "wdio ./configs/wdio.conf.bs.cloud.smoke.js",
+    "test:bs_cloud_smoke": "wdio ./configs/wdio.conf.bs.cloud.smoke.js --baseUrl=http://localhost:3000 --user=$BS_USER --key=$BS_KEY --cucumberOpts.tagExpression='@automated and @smoke'",
     "test:local_chrome": "wdio ./configs/wdio.conf.local.chrome.js",
     "test:visual_regression": "wdio ./configs/wdio.conf.visual.regression.js"
   },
