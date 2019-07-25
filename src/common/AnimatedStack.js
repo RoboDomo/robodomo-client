@@ -40,7 +40,13 @@ const AnimatedStack = ({ className, render, children, ...rest }) => {
 
   if (Container && Item) {
     return (
-      <Container {...rest} className={cx(s.container, className)} variants={container}>
+      <Container
+        initial="hidden"
+        animate="visible"
+        {...rest}
+        className={cx(s.container, className)}
+        variants={container}
+      >
         {children.map((child, idx) => (
           <Item variants={item} key={idx}>
             {child}

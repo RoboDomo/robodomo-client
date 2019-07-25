@@ -193,7 +193,7 @@ const SmartThingsTab = ({ room }) => {
   };
 
   return (
-    <AnimatedStack initial="hidden" animate="visible" className={s.container}>
+    <AnimatedStack className={s.container}>
       {room.things.map((thing, ndx) => {
         const key = `${room.name}-${thing.name}`;
         return (
