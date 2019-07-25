@@ -17,9 +17,9 @@ const container = {
 };
 
 const item = {
-  hidden: { y: 20, opacity: 0 },
+  hidden: { x: 20, opacity: 0 },
   visible: {
-    y: 0,
+    x: 0,
     opacity: 1,
   },
 };

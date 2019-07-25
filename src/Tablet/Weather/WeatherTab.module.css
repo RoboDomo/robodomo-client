@@ -1,4 +1,5 @@
-.forecastContainer {
+.forecastContainerDaily,
+.forecastContainerHourly {
   text-align: left;
   white-space: nowrap;
   overflow-x: auto;
@@ -6,17 +7,19 @@
   margin-bottom: var(--rd-spc-m);
 }
 
+.forecastContainerHourly li,
+.forecastContainerDaily li {
+  display: inline-block;
+  margin-right: var(--rd-spc-xxs);
+  padding: var(--rd-spc-xxs);
+  text-align: center;
+}
 .hourlyItem,
 .dailyItem {
   composes: border-radius-s from global;
   width: 6.25rem;
-  display: inline-block;
-  margin-right: var(--rd-spc-xxs);
-  padding: var(--rd-spc-xxs);
   border: 1px solid var(--rd-color-black);
-  /* border-radius: var(--rd-border-radius-s); */
   background-color: #1f1f1f;
-  text-align: center;
 }
 
 .dailyItem {
