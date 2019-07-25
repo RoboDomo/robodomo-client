@@ -14,51 +14,51 @@ class OutsideTabComponent {
     get outdoorLightsOffButton() { return $('//div[text()="Outdoor Lights"]/parent::*//ion-segment-button[.="Off"]'); }
 
     togglePorchLight(state) {
-        if (this.porchLightOnButton.getProperty('checked') === true && !state) {
+        if (this.porchLightOnButton.getAttribute('checked') === 'true' && !state) {
             this.porchLightOffButton.click();
         }
-        if (this.porchLightOffButton.getProperty('checked') === true && state) {
+        if (this.porchLightOffButton.getAttribute('checked') === 'true' && state) {
             this.porchLightOnButton.click();
         }
     }
 
     toggleOutsideLight(state) {
-        if (this.outsideLightOnButton.getProperty('checked') === true && !state) {
+        if (this.outsideLightOnButton.getAttribute('checked') === 'true' && !state) {
             this.outsideLightOffButton.click();
         }
-        if (this.outsideLightOffButton.getProperty('checked') === true && state) {
+        if (this.outsideLightOffButton.getAttribute('checked') === 'true' && state) {
             this.outsideLightOnButton.click();
         }
     }
 
     toggleOutdoorLights(state) {
-        if (this.outdoorLightsOnButton.getProperty('checked') === true && !state) {
+        if (this.outdoorLightsOnButton.getAttribute('checked') === 'true' && !state) {
             this.outdoorLightsOffButton.click();
         }
-        if (this.outdoorLightsOffButton.getProperty('checked') === true && state) {
+        if (this.outdoorLightsOffButton.getAttribute('checked') === 'true' && state) {
             this.outdoorLightsOnButton.click();
         }
     }
 
     validatePorchLightState(state) {
         if (state === 'Off')
-            expect(this.porchLightOffButton.getProperty('checked')).toEqual(true);
+            expect(this.porchLightOffButton.getAttribute('checked')).toEqual('true');
         else if (state === 'On')
-            expect(this.porchLightOnButton.getProperty('checked')).toEqual(true);
+            expect(this.porchLightOnButton.getAttribute('checked')).toEqual('true');
     }
 
     validateOutsideLightState(state) {
         if (state === 'Off')
-            expect(this.outsideLightOffButton.getProperty('checked')).toEqual(true);
+            expect(this.outsideLightOffButton.getAttribute('checked')).toEqual('true');
         else if (state === 'On')
-            expect(this.outsideLightOnButton.getProperty('checked')).toEqual(true);
+            expect(this.outsideLightOnButton.getAttribute('checked')).toEqual('true');
     }
 
     validateOutdoorLightsState(state) {
         if (state === 'Off')
-            expect(this.outdoorLightsOffButton.getProperty('checked')).toEqual(true);
+            expect(this.outdoorLightsOffButton.getAttribute('checked')).toEqual('true');
         else if (state === 'On')
-            expect(this.outdoorLightsOnButton.getProperty('checked')).toEqual(true);
+            expect(this.outdoorLightsOnButton.getAttribute('checked')).toEqual('true');
     }
 }
 

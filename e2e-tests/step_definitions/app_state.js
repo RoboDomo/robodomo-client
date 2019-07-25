@@ -10,7 +10,7 @@ import {
     officeFanLevel,
     officeFanSwitch,
     officeLightLevel
-} from '../scripts/testData';
+} from '../configs/testData';
 
 When(
     /^MQTT message set (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) dimmer to value (\w+) on SmartThings page$/,

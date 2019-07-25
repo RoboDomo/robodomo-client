@@ -2,7 +2,7 @@ const merge = require('deepmerge');
 const configBase = require('./wdio.conf.js');
 
 exports.config = merge(configBase.config, {
-    maxInstances: 2,
+    maxInstances: 3,
 
     services: ['browserstack'],
     browserstackLocal: true,
@@ -29,12 +29,12 @@ exports.config = merge(configBase.config, {
         //     realMobile: true,
         //     deviceOrientation: 'landscape',
         // },
-        {
-            device: 'Samsung Galaxy Tab S4',
-            os_version: '8.1',
-            realMobile: true,
-            deviceOrientation: 'landscape',
-        },
+        // {
+        //     device: 'Samsung Galaxy Tab S4',
+        //     os_version: '8.1',
+        //     realMobile: true,
+        //     deviceOrientation: 'landscape',
+        // },
         // {
         //     device: 'Google Pixel 3',
         //     os_version: '9.0',
@@ -53,29 +53,29 @@ exports.config = merge(configBase.config, {
             browser: 'Chrome',
             resolution: '1920x1080',
         },
-        {
-            os: 'Windows',
-            os_version: '10',
-            browser: 'Firefox',
-            resolution: '1920x1080',
-        },
-        {
-            os: 'OS X',
-            os_version: 'Mojave',
-            browser: 'Chrome',
-            resolution: '1920x1080',
-        },
-        {
-            os: 'OS X',
-            os_version: 'Mojave',
-            browser: 'Firefox',
-            resolution: '1920x1080',
-        },
-        {
-            os: 'OS X',
-            os_version: 'Mojave',
-            browser: 'Safari',
-            resolution: '1920x1080',
-        },
+        // {
+        //     os: 'Windows',
+        //     os_version: '10',
+        //     browser: 'Firefox',
+        //     resolution: '1920x1080',
+        // },
+        // {
+        //     os: 'OS X',
+        //     os_version: 'Mojave',
+        //     browser: 'Chrome',
+        //     resolution: '1920x1080',
+        // },
+        // {
+        //     os: 'OS X',
+        //     os_version: 'Mojave',
+        //     browser: 'Firefox',
+        //     resolution: '1920x1080',
+        // },
+        // {
+        //     os: 'OS X',
+        //     os_version: 'Mojave',
+        //     browser: 'Safari',
+        //     resolution: '1920x1080',
+        // },
     ],
 });

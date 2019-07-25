@@ -35,37 +35,37 @@ class OfficeTabComponent {
     }
 
     toggleEntrywayLights(state) {
-        if (this.entrywayLightsOnButton.getProperty('checked') === true && !state) {
+        if (this.entrywayLightsOnButton.getAttribute('checked') === 'true' && !state) {
             this.entrywayLightsOffButton.click();
         }
-        if (this.entrywayLightsOffButton.getProperty('checked') === true && state) {
+        if (this.entrywayLightsOffButton.getAttribute('checked') === 'true' && state) {
             this.entrywayLightsOnButton.click();
         }
     }
 
     toggleOfficeDimmer(state) {
-        if (this.officeDimmerSwitch.getProperty('checked') === true && !state) {
+        if (this.officeDimmerSwitch.getAttribute('checked') === 'true' && !state) {
             this.officeDimmerSwitch.click();
         }
-        if (this.officeDimmerSwitch.getProperty('checked') === false && state) {
+        if (this.officeDimmerSwitch.getAttribute('checked') === 'false' && state) {
             this.officeDimmerSwitch.click();
         }
     }
 
     toggleOfficeLight(state) {
-        if (this.officeLightSwitch.getProperty('checked') === true && !state) {
+        if (this.officeLightSwitch.getAttribute('checked') === 'true' && !state) {
             this.officeLightSwitch.click();
         }
-        if (this.officeLightSwitch.getProperty('checked') === false && state) {
+        if (this.officeLightSwitch.getAttribute('checked') === 'false' && state) {
             this.officeLightSwitch.click();
         }
     }
 
     validateEntrywayLightsState(state) {
         if (state === 'Off')
-            browser.wait(this.entrywayLightsOffButton.getProperty('checked')).toEqual(false);
+            expect(this.entrywayLightsOffButton.getAttribute('checked')).toEqual('true');
         else if (state === 'On')
-            expect(this.entrywayLightsOnButton.getProperty('checked')).toEqual(true);
+            expect(this.entrywayLightsOnButton.getAttribute('checked')).toEqual('true');
     }
 
     validateOfficeDimmValue(value) {
@@ -74,27 +74,27 @@ class OfficeTabComponent {
 
     validateOfficeDimmerState(state) {
         if (state === 'Off')
-            expect(this.officeDimmerSwitch.getProperty('checked')).toEqual(false);
+            expect(this.officeDimmerSwitch.getAttribute('checked')).toEqual('false');
         else if (state === 'On')
-            expect(this.officeDimmerSwitch.getProperty('checked')).toEqual(true);
+            expect(this.officeDimmerSwitch.getAttribute('checked')).toEqual('true');
     }
 
     validateOfficeFanState(state) {
         if (state === 'Off')
-            expect(this.officeFanOffButton.getProperty('checked')).toEqual(true);
+            expect(this.officeFanOffButton.getAttribute('checked')).toEqual('true');
         else if (state === 'Low')
-            expect(this.officeFanLowButton.getProperty('checked')).toEqual(true);
+            expect(this.officeFanLowButton.getAttribute('checked')).toEqual('true');
         else if (state === 'Medium')
-            expect(this.officeFanMediumButton.getProperty('checked')).toEqual(true);
+            expect(this.officeFanMediumButton.getAttribute('checked')).toEqual('true');
         else if (state === 'high')
-            expect(this.officeFanHighButton.getProperty('checked')).toEqual(true);
+            expect(this.officeFanHighButton.getAttribute('checked')).toEqual('true');
     }
 
     validateOfficeLightState(state) {
         if (state === 'Off')
-            expect(this.officeLightSwitch.getProperty('checked')).toEqual(false);
+            expect(this.officeLightSwitch.getAttribute('checked')).toEqual('false');
         else if (state === 'On')
-            expect(this.officeLightSwitch.getProperty('checked')).toEqual(true);
+            expect(this.officeLightSwitch.getAttribute('checked')).toEqual('true');
     }
 
     validateOfficeLightDimmValue(value) {

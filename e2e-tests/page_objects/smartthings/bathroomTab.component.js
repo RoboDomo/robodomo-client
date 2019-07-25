@@ -8,19 +8,19 @@ class BathroomTabComponent {
     get bathroomLightDimm() { return $('//div[text()="Bathroom Light"]/parent::*//ion-range'); }
 
     toggleBathroomLight(state) {
-        if (this.bathroomLightSwitch.getProperty('checked') === true && !state) {
+        if (this.bathroomLightSwitch.getAttribute('checked') === 'true' && !state) {
             this.bathroomLightSwitch.click();
         }
-        if (this.bathroomLightSwitch.getProperty('checked') === false && state) {
+        if (this.bathroomLightSwitch.getAttribute('checked') === 'false' && state) {
             this.bathroomLightSwitch.click();
         }
     }
 
     validateBathroomLightState(state) {
         if (state === 'On')
-            expect(this.bathroomLightSwitch.getProperty('checked')).toEqual(true);
+            expect(this.bathroomLightSwitch.getAttribute('checked')).toEqual('true');
         else if (state === 'Off')
-            expect(this.bathroomLightSwitch.getProperty('checked')).toEqual(false);
+            expect(this.bathroomLightSwitch.getAttribute('checked')).toEqual('false');
     }
 
     validateBathroomLightDimmValue(value) {

@@ -32,46 +32,46 @@ class BedroomTabComponent {
     }
 
     toggleBedroomLamp(state) {
-        if (this.bedroomLampOnButton.getProperty('checked') === true && !state) {
+        if (this.bedroomLampOnButton.getAttribute('checked') === 'true' && !state) {
             this.bedroomLampOffButton.click();
         }
-        if (this.bedroomLampOffButton.getProperty('checked') === true && state) {
+        if (this.bedroomLampOffButton.getAttribute('checked') === 'true' && state) {
             this.bedroomLampOnButton.click();
         }
     }
 
     toggleBedroomLight(state) {
-        if (this.bedroomLightSwitch.getProperty('checked') === true && !state) {
+        if (this.bedroomLightSwitch.getAttribute('checked') === 'true' && !state) {
             this.bedroomLightSwitch.click();
         }
-        if (this.bedroomLightSwitch.getProperty('checked') === false && state) {
+        if (this.bedroomLightSwitch.getAttribute('checked') === 'false' && state) {
             this.bedroomLightSwitch.click();
         }
     }
 
     validateBedroomFanState(state) {
         if (state === 'Off')
-            expect(this.bedroomFanOffButton.getProperty('checked')).toEqual(true);
+            expect(this.bedroomFanOffButton.getAttribute('checked')).toEqual('true');
         else if (state === 'Low')
-            expect(this.bedroomFanLowButton.getProperty('checked')).toEqual(true);
+            expect(this.bedroomFanLowButton.getAttribute('checked')).toEqual('true');
         else if (state === 'Medium')
-            expect(this.bedroomFanMediumButton.getProperty('checked')).toEqual(true);
+            expect(this.bedroomFanMediumButton.getAttribute('checked')).toEqual('true');
         else if (state === 'high')
-            expect(this.bedroomFanHighButton.getProperty('checked')).toEqual(true);
+            expect(this.bedroomFanHighButton.getAttribute('checked')).toEqual('true');
     }
 
     validateBedroomLampState(state) {
         if (state === 'Off')
-            expect(this.bedroomLampOffButton.getProperty('checked')).toEqual(true);
+            expect(this.bedroomLampOffButton.getAttribute('checked')).toEqual('true');
         else if (state === 'On')
-            expect(this.bedroomLampOnButton.getProperty('checked')).toEqual(true);
+            expect(this.bedroomLampOnButton.getAttribute('checked')).toEqual('true');
     }
 
     validateBedroomLightState(state) {
         if (state === 'Off')
-            expect(this.bedroomLightSwitch.getProperty('checked')).toEqual(false);
+            expect(this.bedroomLightSwitch.getAttribute('checked')).toEqual('false');
         else if (state === 'On')
-            expect(this.bedroomLightSwitch.getProperty('checked')).toEqual(true);
+            expect(this.bedroomLightSwitch.getAttribute('checked')).toEqual('true');
     }
 
     validateBedroomLightDimmValue(value) {

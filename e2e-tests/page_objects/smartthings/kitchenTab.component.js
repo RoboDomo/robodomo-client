@@ -8,19 +8,19 @@ class KitchenTabComponent {
     get kitchenLightDimm() { return $('//div[text()="Kitchen Light"]/parent::*//ion-range'); }
 
     toggleKitchenLight(state) {
-        if (this.kitchenLightSwitch.getProperty('checked') === true && !state) {
+        if (this.kitchenLightSwitch.getAttribute('checked') === 'true' && !state) {
             this.kitchenLightSwitch.click();
         }
-        if (this.kitchenLightSwitch.getProperty('checked') === false && state) {
+        if (this.kitchenLightSwitch.getAttribute('checked') === 'false' && state) {
             this.kitchenLightSwitch.click();
         }
     }
 
     validateKitchenLightState(state) {
         if (state === 'On')
-            expect(this.kitchenLightSwitch.getProperty('checked')).toEqual(true);
+            expect(this.kitchenLightSwitch.getAttribute('checked')).toEqual('true');
         else if (state === 'Off')
-            expect(this.kitchenLightSwitch.getProperty('checked')).toEqual(false);
+            expect(this.kitchenLightSwitch.getAttribute('checked')).toEqual('false');
     }
 
     validateKitchenLightDimmValue(value) {
