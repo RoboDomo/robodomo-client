@@ -19,6 +19,12 @@ configs:
       seo: 80
   route:
     - /dashboard
+    - /theater/theater
+    - /weather/10001
+    - /nest
+    - /sensors
+    - /autelis
+    - /smartthings
   serve:
     rewrites:
       - destination: index.html
