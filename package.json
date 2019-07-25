@@ -77,6 +77,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@modus/gimbal-plugin-axe": "1.1.9",
+    "@modus/gimbal-plugin-last-value": "1.1.9",
+    "@modus/gimbal-plugin-mysql": "1.1.9",
+    "@modus/gimbal-plugin-source-map-explorer": "1.1.9",
     "autodll-webpack-plugin": "https://github.com/ModusCreateOrg/autodll-webpack-plugin",
     "electron": "^5.0.2",
     "eslint": "^5.16.0",

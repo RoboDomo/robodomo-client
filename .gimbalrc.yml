@@ -1,14 +1,16 @@
 audits:
+  - axe
   - heap-snapshot
   - lighthouse
   - size
+  - source-map-explorer
   # - unused-source
 
 configs:
   heap-snapshot:
     threshold:
       LayoutCount: 10
-      Nodes: 175
+      Nodes: 350
       RecalcStyleCount: 15
   lighthouse:
     threshold:
@@ -86,6 +88,36 @@ configs:
       maxSize: 35 MB
 
 outputs:
+  cli: false
   html: artifacts/gimbal.html
   json: artifacts/gimbal.json
   markdown: artifacts/gimbal.md
+
+plugins:
+  - plugin: '@modus/gimbal-plugin-axe'
+    thresholds:
+      aria-allowed-role: minor
+      bypass: serious
+      landmark-one-main: moderate
+      meta-viewport: critical
+      page-has-heading-one: moderate
+      region: moderate
+  - plugin: '@modus/gimbal-plugin-source-map-explorer'
+    bundles:
+      - path: '**/main.*.js'
+        thresholds:
+          ../delegated 0 from dll-reference vendor*: 50 B
+          ../external "vendor_*": 75 B
+          ../delegated 65 from dll-reference vendor_*: 50 B
+          ../delegated 1252 from dll-reference vendor_*: 150 B
+          serviceWorker.js: 300 B
+          index.js: 500 B
+          <unmapped>: 150 B
+      - path: '**/*.chunk.js'
+        thresholds:
+          '../**/*.js': 400 KB
+          '**/*.js': 400 KB
+          <unmapped>: 300 B
+      - '!precache-manifest*'
+      - '!service-worker.js'
+      - '!**/runtime*.js'
