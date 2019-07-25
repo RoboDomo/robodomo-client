@@ -126,9 +126,7 @@ jobs:
           command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key ${BS_KEY}
       - run:
           name: Run e2e tests
-          command: |
-            find . -type f -name 'test_pwa.sh' | wc -l
-            find . -type f -name 'test_pwa.sh' | xargs shellcheck --external-sources
+          command: sh ./.circleci/test_pwa.sh
 
 workflows:
   version: 2
