@@ -1,3 +1,13 @@
-.column {
+.gridContainer {
   margin-top: 20px;
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 0px;
+  padding-right: 5%;
+  padding-left: 5%;
+}
+
+.gridContainer > li {
+  display: grid;
 }

@@ -10,12 +10,14 @@ import Temperature from "@/common/Temperature";
 import Speed from "@/common/Speed";
 import Distance from "@/common/Distance";
 
+import AnimatedStack from "@/common/AnimatedStack";
+
 import s from "./WeatherTab.module.css";
 
 const Hourly = ({ data }) => (
-  <div
+  <AnimatedStack
     onScroll={e => e.stopPropagation()}
-    className={s.forecastContainer}
+    className={s.forecastContainerHourly}
     data-testid="weather-hourly"
   >
     {data.map((data, i) => {
@@ -41,16 +43,16 @@ const Hourly = ({ data }) => (
         </div>
       );
     })}
-  </div>
+  </AnimatedStack>
 );
 
 const Daily = ({ data }) => {
   let lastDay = "";
   return (
-    <div
+    <AnimatedStack
       onScroll={e => e.stopPropagation()}
       data-testid="weather-daily"
-      className={s.forecastContainer}
+      className={s.forecastContainerDaily}
     >
       {data.map((o, i) => {
         if (!o) {
@@ -83,7 +85,7 @@ const Daily = ({ data }) => {
           </div>
         );
       })}
-    </div>
+    </AnimatedStack>
   );
 };
 
