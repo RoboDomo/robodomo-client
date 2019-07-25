@@ -80,7 +80,7 @@ const TabbedView = ({
       <Route
         exact
         path={`/${route}`}
-        render={() => <Redirect to={`/${route}/${defaultTab[sectionKey]}`} />}
+        render={() => <Redirect to={`/${route}/${toRoute(defaultTab[sectionKey])}`} />}
       />
     </IonContent>
   );
