@@ -1,6 +1,6 @@
 {
-  "short_name": "RoboDomo React",
-  "name": "RooDomo React Client",
+  "short_name": "RoboDomo",
+  "name": "RooDomo Client",
   "icons": [
     {
       "src": "favicon.ico",

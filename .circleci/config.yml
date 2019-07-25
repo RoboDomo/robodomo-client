@@ -110,12 +110,11 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache: *restore-npm-cache
       - restore_cache: *restore-npm-cache-tests
       - restore_cache: *restore-app-cache
       - run:
           name: Run server
-          command: yarn serve -l 3000 build
+          command: npx serve -l 3000 build
           background: true
       - run:
           name: Wait for project to start
@@ -124,10 +123,10 @@ jobs:
             :
       - run:
           name: start Browserstack Local
-          command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key GnvL9ihmskGTxHsmkyXf
+          command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key ${BS_KEY}
       - run:
           name: Run e2e tests
-          command: yarn --cwd ./e2e-tests run test:bs_cloud_smoke -- --baseUrl=http://localhost:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
+          command: yarn --cwd ./e2e-tests run test:bs_cloud_smoke -- --baseUrl=http://localhost:3000 --user=${BS_USER} --key=${BS_KEY} --cucumberOpts.tagExpression='@automated and @smoke'
 
 workflows:
   version: 2
