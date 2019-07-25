@@ -126,7 +126,7 @@ jobs:
           command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key ${BS_KEY}
       - run:
           name: Run e2e tests
-          command: yarn --cwd ./e2e-tests run test:bs_cloud_smoke --baseUrl=http://localhost:3000 --user=${BS_USER} --key=${BS_KEY} --cucumberOpts.tagExpression='@automated and @smoke'
+          command: yarn --cwd ./e2e-tests run test:bs_cloud_smoke'
 
 workflows:
   version: 2
