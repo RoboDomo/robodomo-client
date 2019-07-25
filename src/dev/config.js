@@ -427,11 +427,11 @@ module.exports = {
 
   nest: {
     // one or more thermostats
-    thermostats: [{ device: "structure/thermostat_name", name: "Hallway Thermostat" }],
+    thermostats: [{ device: "Falsetto/Hallway Thermostat", name: "Hallway Thermostat" }],
     // one or more Nest Protect (fire/CO2 detector)
     protects: [
       {
-        device: "structure/protect_name",
+        device: "Falsetto/Entryway Nest Protect",
         name: "Entryway Nest Protect",
       },
     ],

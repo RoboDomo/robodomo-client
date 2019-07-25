@@ -1,0 +1,7 @@
+.container {
+  width: 50%;
+  margin: auto;
+  overflow: scroll;
+  height: 100%;
+  padding-bottom: 10vh;
+}
