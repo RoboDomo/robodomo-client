@@ -14,6 +14,94 @@ import ToggleField from "@/common/form/ToggleField";
 import DimmerField from "@/common/form/DimmerField";
 import FanField from "@/common/form/FanField";
 import DisplayField from "@/common/form/DisplayField";
+import AnimatedStack from "@/common/AnimatedStack";
+
+import s from "./SmartThingsTab.module.css";
+
+const Thing = ({ thing, things, handleFanChange, toggleSwitch, toggleDimmer, ToggleField }) => {
+  let t;
+
+  switch (thing.type) {
+    case "switch":
+      t = things.current.switch[thing.name];
+      if (!t) {
+        return null;
+      }
+      const toggled = t.switch === "on";
+      return (
+        <ToggleField
+          name={thing.name}
+          label={thing.name}
+          toggled={toggled}
+          onToggle={toggleSwitch}
+        />
+      );
+    case "dimmer":
+      t = things.current.dimmer[thing.name];
+      if (!t) {
+        return null;
+      }
+      return (
+        <DimmerField
+          name={thing.name}
+          label={thing.name}
+          value={t.level}
+          toggled={t.switch === "on"}
+          onToggle={toggleDimmer}
+          onValueChange={(name, level) => {
+            t.level = level;
+          }}
+        />
+      );
+    case "fan":
+      t = things.current.fan[thing.name];
+      if (!t) {
+        return null;
+      }
+      return (
+        <FanField
+          name={thing.name}
+          label={thing.name}
+          toggled={t.switch === "on"}
+          value={t.level}
+          onChange={handleFanChange}
+        />
+      );
+    case "motion":
+      t = things.current.motion[thing.name];
+      if (!t) {
+        return null;
+      }
+      return <DisplayField label={thing.name} value={"motion " + t.motion} />;
+    case "presence":
+      t = things.current.presence[thing.name];
+      if (!t) {
+        return null;
+      }
+      return <DisplayField label={thing.name} value={t.presence} />;
+    case "contact":
+      t = things.current.contact[thing.name];
+      if (!t) {
+        return null;
+      }
+      return <DisplayField label={thing.name} value={"contact " + t.contact} />;
+    case "temperature":
+      t = things.current.temperature[thing.name];
+      if (!t) {
+        return null;
+      }
+      return <DisplayField label={thing.name} value={t.temperature} />;
+    case "acceleration":
+    case "threeAxis":
+      return null;
+    default:
+      return (
+        <div>
+          {thing.name} {thing.type}
+        </div>
+      );
+  }
+};
 
 const SmartThingsTab = ({ room }) => {
   const things = useRef({
@@ -105,102 +193,16 @@ const SmartThingsTab = ({ room }) => {
   };
 
   return (
-    <div style={{ overflow: "scroll", height: "100vh", paddingBottom: 300 }}>
-      <div
-        style={{
-          width: "50%",
-          margin: "auto",
-        }}
-      >
-        {room.things.map((thing, ndx) => {
-          const key = `${room.name}-${thing.name}-${ndx}`;
-          let t;
-          switch (thing.type) {
-            case "switch":
-              t = things.current.switch[thing.name];
-              if (!t) {
-                return null;
-              }
-              const toggled = t.switch === "on";
-              return (
-                <ToggleField
-                  key={key}
-                  name={thing.name}
-                  label={thing.name}
-                  toggled={toggled}
-                  onToggle={toggleSwitch}
-                />
-              );
-            case "dimmer":
-              t = things.current.dimmer[thing.name];
-              if (!t) {
-                return null;
-              }
-              return (
-                <DimmerField
-                  key={key}
-                  name={thing.name}
-                  label={thing.name}
-                  value={t.level}
-                  toggled={t.switch === "on"}
-                  onToggle={toggleDimmer}
-                  onValueChange={(name, level) => {
-                    t.level = level;
-                  }}
-                />
-              );
-            case "fan":
-              t = things.current.fan[thing.name];
-              if (!t) {
-                return null;
-              }
-              return (
-                <FanField
-                  key={key}
-                  name={thing.name}
-                  label={thing.name}
-                  toggled={t.switch === "on"}
-                  value={t.level}
-                  onChange={handleFanChange}
-                />
-              );
-            case "motion":
-              t = things.current.motion[thing.name];
-              if (!t) {
-                return null;
-              }
-              return <DisplayField key={key} label={thing.name} value={"motion " + t.motion} />;
-            case "presence":
-              t = things.current.presence[thing.name];
-              if (!t) {
-                return null;
-              }
-              return <DisplayField key={key} label={thing.name} value={t.presence} />;
-            case "contact":
-              t = things.current.contact[thing.name];
-              if (!t) {
-                return null;
-              }
-              return <DisplayField key={key} label={thing.name} value={"contact " + t.contact} />;
-            case "temperature":
-              t = things.current.temperature[thing.name];
-              if (!t) {
-                return null;
-              }
-              return <DisplayField key={key} label={thing.name} value={t.temperature} />;
-            case "acceleration":
-            case "threeAxis":
-              return null;
-            default:
-              return (
-                <div key={key}>
-                  {thing.name} {thing.type}
-                </div>
-              );
-          }
-        })}
-      </div>
-    </div>
+    <AnimatedStack initial="hidden" animate="visible" className={s.container}>
+      {room.things.map((thing, ndx) => {
+        const key = `${room.name}-${thing.name}`;
+        return (
+          <Thing
+            {...{ thing, things, handleFanChange, toggleSwitch, toggleDimmer, ToggleField, key }}
+          />
+        );
+      })}
+    </AnimatedStack>
   );
 };
 
