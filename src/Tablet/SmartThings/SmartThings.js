@@ -1,91 +1,68 @@
-import React, { useState, useRef } from "react";
-import { IonContent } from "@ionic/react";
-import useConfig from "@/hooks/useConfig";
-
-import { Tab, Tabs } from "react-bootstrap";
+import React from "react";
+import { memoize } from "lodash-es";
+import { toRoute } from "@/lib/routing";
+import GroupedView from "@/templates/GroupedView";
+import useConfigGroup from "@/hooks/useConfigGroup";
 import SmartThingsTab from "./SmartThingsTab";
 
-const LOCALSTORAGE_KEY = "smartthingsTabletTabs";
+const getGroups = memoize(things => {
+  const roomsMap = {
+    All: [],
+  };
 
-const SmartThings = () => {
-  const config = useConfig();
-  const [activeTab, setActiveTab] = useState(localStorage.getItem(LOCALSTORAGE_KEY) || "0");
-  const rooms = useRef(null);
-  if (!config || !config.smartthings || !Array.isArray(config.smartthings.things)) {
-    return null;
-  }
-
-  if (!rooms.current) {
-    try {
-      const roomsMap = {
-        All: [],
-      };
-
-      for (const thing of config.smartthings.things) {
-        roomsMap.All.push(thing);
-        for (const room of thing.rooms) {
-          if (room !== "*") {
-            roomsMap[room] = roomsMap[room] || [];
-            roomsMap[room].push(thing);
-          }
-        }
+  for (const thing of things) {
+    roomsMap.All.push(thing);
+    for (const room of thing.rooms) {
+      if (room !== "*") {
+        roomsMap[room] = roomsMap[room] || [];
+        roomsMap[room].push(thing);
       }
-
-      for (const thing of config.smartthings.things) {
-        for (const room of thing.rooms) {
-          if (room === "*") {
-            for (const r in roomsMap) {
-              if (r !== "All") {
-                roomsMap[r].push(thing);
-              }
-            }
-          }
-        }
-      }
-
-      // flatten rooms
-      rooms.current = [];
-      for (const name in roomsMap) {
-        rooms.current.push({
-          name: name,
-          things: roomsMap[name],
-        });
-      }
-    } catch (e) {
-      console.log("exception", e);
     }
   }
 
+  for (const thing of things) {
+    for (const room of thing.rooms) {
+      if (room === "*") {
+        for (const r in roomsMap) {
+          if (r !== "All") {
+            roomsMap[r].push(thing);
+          }
+        }
+      }
+    }
+  }
+
+  // flatten rooms
+  const groups = [];
+  for (const name in roomsMap) {
+    groups.push({
+      name: name,
+      things: roomsMap[name],
+      route: toRoute(name),
+    });
+  }
+
+  return groups;
+});
+
+const SmartThings = () => {
+  const [things] = useConfigGroup("smartthings.things");
+
+  if (!things) {
+    console.error(`SmartThings config doesn't exist`);
+    return null;
+  }
+
+  const groups = getGroups(things);
+
   return (
-    <IonContent id="tab-smartthings">
-      <Tabs
-        id="smartthings-tabs"
-        onSelect={eventKey => {
-          localStorage.setItem(LOCALSTORAGE_KEY, eventKey);
-          setActiveTab(eventKey);
-        }}
-        activeKey={activeTab}
-        variant="pills"
-        mountOnEnter
-        unmountOnExit
-      >
-        {rooms.current.map((room, ndx) => {
-          const key = `smartthings-room-${room.name}${ndx}`;
-          return (
-            <Tab
-              title={room.name}
-              eventKey={ndx}
-              key={key}
-              style={{ paddingLeft: 10, paddingRight: 10 }}
-            >
-              <SmartThingsTab room={room} />
-            </Tab>
-          );
-        })}
-      </Tabs>
-    </IonContent>
+    <GroupedView
+      id="tab-smartthings"
+      tabs={groups}
+      route="smartthings"
+      render={room => <SmartThingsTab room={room} />}
+    />
   );
 };
 
-//
 export default SmartThings;

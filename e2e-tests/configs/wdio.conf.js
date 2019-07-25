@@ -4,8 +4,8 @@ const log = (typeof console != 'undefined') && console;
 
 exports.config = {
     waitTimes: {
-        implicit: 15000,
-        pageLoad: 30000,
+        implicit: 30000,
+        pageLoad: 60000,
         script: 15000,
     },
     //

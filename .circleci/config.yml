@@ -9,6 +9,16 @@ aliases:
     key: v1-webpackcache-{{ checksum "yarn.lock" }}
   - &restore-npm-cache-tests
     key: v1-node-modules-tests-{{ checksum "./e2e-tests/yarn.lock" }}
+  - &restore-app-cache
+    keys:
+      - v1-app-{{ .Branch }}-{{ .Revision }}
+      - v1-app-{{ .Branch }}-
+      - v1-app-
+  - &restore-git-cache
+    keys:
+      - v1-git-{{ .Branch }}-{{ .Revision }}
+      - v1-git-{{ .Branch }}-
+      - v1-git-
 
 defaults: &defaults
   working_directory: /home/circleci/repo
@@ -20,11 +30,7 @@ jobs:
   install-dependencies:
     <<: *defaults
     steps:
-      - restore_cache:
-          keys:
-            - v1-git-{{ .Branch }}-{{ .Revision }}
-            - v1-git-{{ .Branch }}-
-            - v1-git-
+      - restore_cache: *restore-git-cache
       - checkout
       - restore_cache: *restore-yarn-cache
       - run:
@@ -104,16 +110,11 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache: *restore-npm-cache
       - restore_cache: *restore-npm-cache-tests
-      - restore_cache:
-          keys:
-            - v1-app-{{ .Branch }}-{{ .Revision }}
-            - v1-app-{{ .Branch }}-
-            - v1-app-
+      - restore_cache: *restore-app-cache
       - run:
           name: Run server
-          command: yarn start
+          command: npx serve -l 3000 build
           background: true
       - run:
           name: Wait for project to start
@@ -122,10 +123,10 @@ jobs:
             :
       - run:
           name: start Browserstack Local
-          command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key GnvL9ihmskGTxHsmkyXf
+          command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key ${BS_KEY}
       - run:
           name: Run e2e tests
-          command: yarn --cwd ./e2e-tests run test:bs_cloud_smoke -- --baseUrl=http://localhost:3000 --user=sergiupopescu2 --key=GnvL9ihmskGTxHsmkyXf --cucumberOpts.tagExpression='@automated and @smoke'
+          command: yarn --cwd ./e2e-tests run test:bs_cloud_smoke --baseUrl=http://localhost:3000 --user=${BS_USER} --key=${BS_KEY} --cucumberOpts.tagExpression='@automated and @smoke'
 
 workflows:
   version: 2
