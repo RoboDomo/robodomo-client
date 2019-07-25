@@ -121,3 +121,15 @@ plugins:
       - '!precache-manifest*'
       - '!service-worker.js'
       - '!**/runtime*.js'
+  # - '@modus/gimbal-plugin-last-value'
+  # - plugin: '@modus/gimbal-plugin-mysql'
+  #   enabled: ${env:CI, true, false}
+  #   commandPrefix:
+  #     - robodomo-${env:CIRCLE_USERNAME}-${env:CIRCLE_BRANCH}
+  #     - robodomo-${env:CIRCLE_BRANCH}
+  #     - robodomo
+  #   lastValue:
+  #     database: robodomo_gimbal
+  #   host: ${env:GIMBAL_MYSQL_HOST}
+  #   password: ${env:GIMBAL_MYSQL_PASSWORD}
+  #   user: ${env:GIMBAL_MYSQL_USERNAME}
