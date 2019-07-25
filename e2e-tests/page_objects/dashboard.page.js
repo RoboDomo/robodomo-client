@@ -3,57 +3,19 @@ import Page from './page';
 
 /** DashboardPage selenium page-object */
 class DashboardPage extends Page {
-    get bedroomTabButton() {
-        return $('#dashboard-tabs-tab-bedroom');
-    }
 
-    get bedroomTabPane() {
-        return $('#dashboard-tabs-tabpane-bedroom');
-    }
+    get bedroomTabButton() { return $('#tab-button-theater'); }
+    get bedroomNestCell() { return $('//form/parent::div/parent::ion-card-content'); }
+    get bedroomNestDecreaseButton() { return $('//form//button[1]'); }
+    get bedroomNestTemperatureValue() { return $('//form//input'); }
+    get bedroomNestIncreaseButton() { return $('//form//button[2]'); }
 
-    get bedroomNestCell() {
-        return this.bedroomTabPane.$('//form/parent::div/parent::ion-card-content');
-    }
-
-    get bedroomNestDecreaseButton() {
-        return this.bedroomTabPane.$('//form//button[1]');
-    }
-
-    get bedroomNestTemperatureValue() {
-        return this.bedroomTabPane.$('//form//input');
-    }
-
-    get bedroomNestIncreaseButton() {
-        return this.bedroomTabPane.$('//form//button[2]');
-    }
-
-    get theaterTabButton() {
-        return $('#dashboard-tabs-tab-theater');
-    }
-
-    get theaterTabPane() {
-        return $('#dashboard-tabs-tabpane-theater');
-    }
-
-    get theaterCeilingFanLightButton() {
-        return $('//ion-card[contains(.,"Ceiling Fan Light")]');
-    }
-
-    get theaterNestCell() {
-        return this.theaterTabPane.$('//form/parent::div/parent::ion-card-content');
-    }
-
-    get theaterNestDecreaseButton() {
-        return this.theaterTabPane.$('//form//button[1]');
-    }
-
-    get theaterNestTemperatureValue() {
-        return this.theaterTabPane.$('//form//input');
-    }
-
-    get theaterNestIncreaseButton() {
-        return this.theaterTabPane.$('//form//button[2]');
-    }
+    get theaterTabButton() { return $('#tab-button-bedroom'); }
+    get theaterCeilingFanLightButton() { return $('//ion-card[contains(.,"Ceiling Fan Light")]'); }
+    get theaterNestCell() { return $('//form/parent::div/parent::ion-card-content'); }
+    get theaterNestDecreaseButton() { return $('//form//button[1]'); }
+    get theaterNestTemperatureValue() { return $('//form//input'); }
+    get theaterNestIncreaseButton() { return $('//form//button[2]'); }
 
     goToBedroomTab() {
         this.bedroomTabButton.click();
@@ -65,12 +27,10 @@ class DashboardPage extends Page {
 
     isBedroomTabSelected() {
         browser.waitUntil(() => this.bedroomTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.bedroomTabPane.isDisplayed();
     }
 
     isTheaterTabSelected() {
         browser.waitUntil(() => this.theaterTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.theaterTabPane.isDisplayed();
     }
 
     validateTabButtonsScreenshots() {

@@ -1,4 +1,4 @@
-@dashboard
+@dashboard @this
 Feature: RoboDomo Dashboard page
     As a User
     I want to see Dashboard page

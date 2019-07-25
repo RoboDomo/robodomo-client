@@ -5,7 +5,7 @@ const log = (typeof console != 'undefined') && console;
 exports.config = {
     waitTimes: {
         implicit: 30000,
-        pageLoad: 60000,
+        pageLoad: 45000,
         script: 15000,
     },
     //
@@ -146,7 +146,7 @@ exports.config = {
         strict: false, // <boolean> fail if there are any undefined or pending steps
         tags: [], // <string[]> (expression) only execute the features or scenarios with tags matching the expression
         tagExpression: '', // <string> Only execute the features or scenarios with tags matching the expression.
-        timeout: 90000, // <number> timeout for step definitions
+        timeout: 60000, // <number> timeout for step definitions
         ignoreUndefinedDefinitions: false, // <boolean> Enable this config to treat undefined definitions as warnings.
     },
 

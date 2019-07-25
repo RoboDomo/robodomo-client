@@ -9,13 +9,13 @@ import OutsideTabComponent from './smartthings/outsideTab.component';
 
 /** SmartThingsPage selenium page-object */
 class SmartThingsPage extends Page {
-    get theaterTabButton() { return $('//a[text()= "Theater"]'); }
-    get officeTabButton() { return $('//a[text()= "Office"]'); }
-    get backRoomTabButton() { return $('//a[text()= "Back Room"]'); }
-    get bedroomTabButton() { return $('//a[text()= "Bedroom"]'); }
-    get kitchenTabButton() { return $('//a[text()= "Kitchen"]'); }
-    get bathroomTabButton() { return $('//a[text()= "Bathroom"]'); }
-    get outsideTabButton() { return $('//a[text()= "Outside"]'); }
+    get theaterTabButton() { return $('//ion-tab-button[@tab = "theater"]'); }
+    get officeTabButton() { return $('//ion-tab-button[@tab = "office"]'); }
+    get backRoomTabButton() { return $('//ion-tab-button[@tab = "backroom"]'); }
+    get bedroomTabButton() { return $('//ion-tab-button[@tab = "bedroom"]'); }
+    get kitchenTabButton() { return $('//ion-tab-button[@tab = "kitchen"]'); }
+    get bathroomTabButton() { return $('//ion-tab-button[@tab = "bathroom"]'); }
+    get outsideTabButton() { return $('//ion-tab-button[@tab = "outside"]'); }
 
     goToTheaterTab() {
         this.theaterTabButton.click();
