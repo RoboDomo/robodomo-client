@@ -2,12 +2,14 @@ import Page from './page';
 
 /** TheaterPage selenium page-object */
 class TheaterPage extends Page {
-    get pageContent() { return $('//div[contains(@class, "ion-page")]'); }
+    get tabContent() { return $('//ion-content[@id="tab-theaters"]'); }
 
-    get homeTheaterTabButton() { return $('#tab-button-theater'); }
-    get homeTheaterTabPane() { return $('#tab-theaters'); }
+    get homeTheaterTabButton() { return this.tabContent.$('#tab-button-theater'); }
+    get homeTheaterTabDiv() { return this.homeTheaterTabButton.$('./div'); }
+    get homeTheaterTabPane() { return this.tabContent.$('#tab-theaters'); }
 
     goToHomeTheaterTab() {
+        this.homeTheaterTabDiv.waitForAnimation();
         this.homeTheaterTabButton.click();
     }
 

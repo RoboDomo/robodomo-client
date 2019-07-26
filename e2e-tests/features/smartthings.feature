@@ -20,12 +20,16 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
+    @smoke
         Examples:
             | button        |
             | Office Dimmer |
-            | Office Light  |
 
-    @S1 @automated @this
+        Examples:
+            | button       |
+            | Office Light |
+
+    @S1 @automated
     Scenario: Check 'Entryway Lights' buttons on Office tab
         When User clicks on Office tab on SmartThings page
         Then SmartThings Office tab is loaded
@@ -62,9 +66,12 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
+        @smoke
         Examples:
             | button        |
             | Office Dimmer |
+        Examples:
+            | button        |
             | Office Light  |
 
     @S1 @automated
@@ -103,9 +110,12 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
+        @smoke
         Examples:
             | button         |
             | Kitchen Light  |
+        Examples:
+            | button         |
             | Bathroom Light |
             | Bedroom Light  |
 
@@ -150,6 +160,7 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
+        @smoke
         Examples:
             | button        |
             | Kitchen Light |
@@ -180,8 +191,11 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
+        @smoke
         Examples:
             | button         |
             | Porch Light    |
+        Examples:
+            | button         |
             | Outside Light  |
             | Outdoor Lights |

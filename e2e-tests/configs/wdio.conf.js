@@ -247,7 +247,7 @@ exports.config = {
      */
     afterStep(stepResult) {
         if (stepResult.status === 'failed') {
-            const screenshotName = `${new Date().toUTCString()}_${stepResult.scenario.replace(/ /g, '_')}_${stepResult.text.replace(/ /g, '_')}.png`;
+            const screenshotName = `${new Date().toUTCString()}_${stepResult.scenario.replace(/ /g, '_')}_${browser.sessionId}.png`;
             browser.saveScreenshot(`./errorShots/${screenshotName}`);
         }
     },

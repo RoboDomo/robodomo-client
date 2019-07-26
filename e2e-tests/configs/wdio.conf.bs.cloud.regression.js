@@ -11,14 +11,14 @@ exports.config = merge(configBase.config, {
             os_version: '12',
             realMobile: true,
             deviceOrientation: 'landscape',
-            // TODO uncomment when iOS UI is fixed
-            // and when tests are updated for Android UI
+            exclude: ['./features/mqtt/*.feature'],
         },
         {
             device: 'Samsung Galaxy Tab S4',
             os_version: '8.1',
             realMobile: true,
             deviceOrientation: 'landscape',
+            exclude: ['./features/mqtt/*.feature'],
         },
         {
             os: 'Windows',

@@ -8,7 +8,6 @@ Feature: RoboDomo Autelis page
         Given User navigates to Autelis page
         Then User is redirected to Autelis page
         Then Autelis menu shall be selected
-        When User clicks on Autelis tab
 
 
     # TODO NEEDS FIX
@@ -28,10 +27,13 @@ Feature: RoboDomo Autelis page
         Then Autelis <button> button is enabled
         When User changes Autelis <button> button state to Off
         Then Autelis <button> button is disabled
+        @smoke
         Examples:
             | button     |
             | Solar      |
             | Cleaner    |
+        Examples:
+            | button     |
             | Pool Heat  |
             | Pool Light |
             | Waterfall  |
@@ -46,6 +48,7 @@ Feature: RoboDomo Autelis page
         Then Autelis <sensor> heat is decreased
         When User increases Autelis <sensor> heat
         Then Autelis <sensor> heat is increased
+        @smoke
         Examples:
             | sensor |
             | Pool   |

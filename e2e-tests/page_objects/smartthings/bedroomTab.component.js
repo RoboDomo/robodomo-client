@@ -2,36 +2,48 @@ import expect from 'expect';
 
 /** BedroomTabComponent selenium page-object */
 class BedroomTabComponent {
-    get tabContent() { return $('//ion-content//div[@class="ion-page"]'); }
+    constructor(parent) {
+        this.parent = parent
+    }
 
-    get bedroomLampOnButton() { return this.tabContent.$('.//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="On"]'); }
-    get bedroomLampOffButton() { return this.tabContent.$('.//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="Off"]'); }
+    get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get bedroomFanOffButton() { return this.tabContent.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Off"]'); }
-    get bedroomFanLowButton() { return this.tabContent.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Low"]'); }
-    get bedroomFanMediumButton() { return this.tabContent.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
-    get bedroomFanHighButton() { return this.tabContent.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get bedroomLampOnButton() { return this.activeTab.$('.//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="On"]'); }
+    get bedroomLampOffButton() { return this.activeTab.$('.//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="Off"]'); }
+    get bedroomLampLi() { return this.bedroomLampOnButton.$('./ancestor::li')}
 
-    get bedroomLightSwitch() { return this.tabContent.$('.//div[text()="Bedroom Light"]/parent::*//ion-toggle'); }
-    get bedroomLightDimm() { return this.tabContent.$('.//div[text()="Bedroom Light"]/parent::*//ion-range'); }
+    get bedroomFanOffButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Off"]'); }
+    get bedroomFanLowButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Low"]'); }
+    get bedroomFanMediumButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
+    get bedroomFanHighButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get bedroomFanLi() { return this.bedroomFanOffButton.$('./ancestor::li'); }
+
+    get bedroomLightSwitch() { return this.activeTab.$('.//div[text()="Bedroom Light"]/parent::*//ion-toggle'); }
+    get bedroomLightDimm() { return this.activeTab.$('.//div[text()="Bedroom Light"]/parent::*//ion-range'); }
+    get bedroomLightLi() { return this.bedroomLightSwitch.$('./ancestor::li')}
 
     clickBedroomFanOffButton() {
+        this.bedroomFanLi.waitForAnimation();
         this.bedroomFanOffButton.click();
     }
 
     clickBedroomFanLowButton() {
+        this.bedroomFanLi.waitForAnimation();
         this.bedroomFanLowButton.click();
     }
 
     clickBedroomFanMediumButton() {
+        this.bedroomFanLi.waitForAnimation();
         this.bedroomFanMediumButton.click();
     }
 
     clickBedroomFanHighButton() {
+        this.bedroomFanLi.waitForAnimation();
         this.bedroomFanHighButton.click();
     }
 
     toggleBedroomLamp(state) {
+        this.bedroomLampLi.waitForAnimation();
         if (this.bedroomLampOnButton.getAttribute('checked') === 'true' && !state) {
             this.bedroomLampOffButton.click();
         }
@@ -41,10 +53,11 @@ class BedroomTabComponent {
     }
 
     toggleBedroomLight(state) {
-        if (this.bedroomLightSwitch.getAttribute('checked') === 'true' && !state) {
+        this.bedroomLightLi.waitForAnimation();
+        if (this.bedroomLightSwitch.getAttribute('aria-checked') === 'true' && !state) {
             this.bedroomLightSwitch.click();
         }
-        if (this.bedroomLightSwitch.getAttribute('checked') === 'false' && state) {
+        if (this.bedroomLightSwitch.getAttribute('aria-checked') === 'false' && state) {
             this.bedroomLightSwitch.click();
         }
     }
@@ -69,9 +82,9 @@ class BedroomTabComponent {
 
     validateBedroomLightState(state) {
         if (state === 'Off')
-            expect(this.bedroomLightSwitch.getAttribute('checked')).toEqual('false');
+            expect(this.bedroomLightSwitch.getAttribute('aria-checked')).toEqual('false');
         else if (state === 'On')
-            expect(this.bedroomLightSwitch.getAttribute('checked')).toEqual('true');
+            expect(this.bedroomLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateBedroomLightDimmValue(value) {
@@ -79,4 +92,4 @@ class BedroomTabComponent {
     }
 }
 
-module.exports = new BedroomTabComponent();
+module.exports = BedroomTabComponent;

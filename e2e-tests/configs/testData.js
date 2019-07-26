@@ -1,5 +1,5 @@
 const mockMQTTMessage = function(topic, value) {
-    browser.executeScript(
+    browser.execute(
         (topic, value) => {
             SEND_MQTT_MESSAGE(topic, value);
         },

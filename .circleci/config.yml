@@ -123,10 +123,10 @@ jobs:
             :
       - run:
           name: start Browserstack Local
-          command: ./e2e-tests/scripts/BrowserStackLocal_linux --daemon start --key ${BS_KEY}
+          command: sh ./.circleci/bs_local.sh
       - run:
           name: Run e2e tests
-          command: yarn --cwd ./e2e-tests run test:bs_cloud_smoke --baseUrl='http://localhost:3000' --user=${BS_USER} --key=${BS_KEY} --cucumberOpts.tagExpression='@automated and @smoke'
+          command: sh ./.circleci/test_pwa.sh
 
 workflows:
   version: 2

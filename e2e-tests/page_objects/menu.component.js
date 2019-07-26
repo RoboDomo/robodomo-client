@@ -2,52 +2,57 @@ import expect from 'expect';
 
 /** MenuComponent selenium page-object */
 class MenuComponent {
-    get autelisButton() {return $( '//ion-tab-button[@tab="autelis"]' ); }
 
-    get dashboardButton() { return $('//ion-tab-button[@tab="dashboard"]' ); }
+    get menuContainer() { return $('//ion-tab-bar[@slot="top"]'); }
 
-    get nestButton() { return $('//ion-tab-button[@tab="nest"]'); }
+    get menuContainerDiv() { return this.menuContainer.$('./parent::div') }
 
-    get sensorsButton() { return $('//ion-tab-button[@tab="sensors"]'); }
+    get autelisButton() { return this.menuContainer.$('.//ion-tab-button[@tab="autelis"]' ); }
 
-    get smartThingsButton() { return $('//ion-tab-button[@tab="smartthings"]'); }
+    get dashboardButton() { return this.menuContainer.$('.//ion-tab-button[@tab="dashboard"]' ); }
 
-    get theaterButton() { return $('//ion-tab-button[@tab="theater"]'); }
+    get nestButton() { return this.menuContainer.$('.//ion-tab-button[@tab="nest"]'); }
 
-    get weatherButton() { return $('//ion-tab-button[@tab="weather"]'); }
+    get sensorsButton() { return this.menuContainer.$('.//ion-tab-button[@tab="sensors"]'); }
+
+    get smartThingsButton() { return this.menuContainer.$('.//ion-tab-button[@tab="smartthings"]'); }
+
+    get theaterButton() { return this.menuContainer.$('.//ion-tab-button[@tab="theater"]'); }
+
+    get weatherButton() { return this.menuContainer.$('.//ion-tab-button[@tab="weather"]'); }
 
     goToAutelisPage() {
-        this.autelisButton.waitForAnimation();
+        this.menuContainerDiv.waitForAnimation();
         this.autelisButton.click();
     }
 
     goToDashboardPage() {
-        this.dashboardButton.waitForAnimation();
+        this.menuContainerDiv.waitForAnimation();
         this.dashboardButton.click();
     }
 
     goToNestPage() {
-        this.nestButton.waitForAnimation();
+        this.menuContainerDiv.waitForAnimation();
         this.nestButton.click();
     }
 
     goToSensorsPage() {
-        this.sensorsButton.waitForAnimation();
+        this.menuContainerDiv.waitForAnimation();
         this.sensorsButton.click();
     }
 
     goToSmartThingsPage() {
-        this.smartThingsButton.waitForAnimation();
+        this.menuContainerDiv.waitForAnimation();
         this.smartThingsButton.click();
     }
 
     goToTheaterPage() {
-        this.theaterButton.waitForAnimation();
+        this.menuContainerDiv.waitForAnimation();
         this.theaterButton.click();
     }
 
     goToWeatherPage() {
-        this.weatherButton.waitForAnimation();
+        this.menuContainerDiv.waitForAnimation();
         this.weatherButton.click();
     }
 

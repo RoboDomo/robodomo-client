@@ -9,7 +9,7 @@ Feature: RoboDomo Nest page
         Given User navigates to Nest page
         Then User is redirected to Nest page
         Then Nest menu shall be selected
-        When User clicks on <tabName> tab
+        When User clicks on <tabName> tab on Nest page
         Then Nest <tabName> tab is loaded
         Examples:
             | tabName               |

@@ -3,25 +3,32 @@ import Page from './page';
 
 /** DashboardPage selenium page-object */
 class DashboardPage extends Page {
+    get tabContent() { return $('//ion-content[@id="tab-dashboard"]'); }
 
-    get bedroomTabButton() { return $('#tab-button-theater'); }
-    get bedroomNestCell() { return $('//form/parent::div/parent::ion-card-content'); }
-    get bedroomNestDecreaseButton() { return $('//form//button[1]'); }
-    get bedroomNestTemperatureValue() { return $('//form//input'); }
-    get bedroomNestIncreaseButton() { return $('//form//button[2]'); }
+    get bedroomTabButton() { return this.tabContent.$('.//ion-tab-button[@id="tab-button-bedroom"]'); }
+    get bedroomTabDiv() { return this.bedroomTabButton.$('./div'); }
+    get theaterTabButton() { return this.tabContent.$('.//ion-tab-button[@id="tab-button-theater"]'); }
+    get theaterTabDiv() { return this.theaterTabButton.$('./div'); }
 
-    get theaterTabButton() { return $('#tab-button-bedroom'); }
-    get theaterCeilingFanLightButton() { return $('//ion-card[contains(.,"Ceiling Fan Light")]'); }
-    get theaterNestCell() { return $('//form/parent::div/parent::ion-card-content'); }
-    get theaterNestDecreaseButton() { return $('//form//button[1]'); }
-    get theaterNestTemperatureValue() { return $('//form//input'); }
-    get theaterNestIncreaseButton() { return $('//form//button[2]'); }
+    get bedroomNestCell() { return this.tabContent.$('.//form/parent::div/parent::ion-card-content'); }
+    get bedroomNestDecreaseButton() { return this.tabContent.$('.//form//button[1]'); }
+    get bedroomNestTemperatureValue() { return this.tabContent.$('.//form//input'); }
+    get bedroomNestIncreaseButton() { return this.tabContent.$('.//form//button[2]'); }
+
+    get theaterCeilingFanLightButton() { return this.tabContent.$('.//ion-card[contains(.,"Ceiling Fan Light")]/parent::div'); }
+    get theaterCeilingFanLightDiv() { return this.theaterCeilingFanLightButton.$('./parent::div'); }
+    get theaterNestCell() { return this.tabContent.$('.//form/parent::div/parent::ion-card-content'); }
+    get theaterNestDecreaseButton() { return this.tabContent.$('.//form//button[1]'); }
+    get theaterNestTemperatureValue() { return this.tabContent.$('.//form//input'); }
+    get theaterNestIncreaseButton() { return this.tabContent.$('.//form//button[2]'); }
 
     goToBedroomTab() {
+        this.bedroomTabDiv.waitForAnimation();
         this.bedroomTabButton.click();
     }
 
     goToTheaterTab() {
+        this.theaterTabDiv.waitForAnimation();
         this.theaterTabButton.click();
     }
 

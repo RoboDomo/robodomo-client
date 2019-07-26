@@ -1,4 +1,4 @@
-
+import expect from 'expect';
 import { Then } from 'cucumber';
 import SmartThingsPage from '../page_objects/smartthings.page';
 import DashboardPage from '../page_objects/dashboard.page';
@@ -193,7 +193,8 @@ Then(/^SmartThings (Entryway Lights|Ceiling Fan|Office Fan) is (\w+) and (\w+) o
 Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) dimmer value is (\w+) on Dashboard page$/, (dimmerName, value) => {
     switch (dimmerName) {
         case 'Ceiling Fan Light':
-            expect(DashboardPage.theaterCeilingFanLightButton.getText()).toEqual(`${dimmerName}\n${value.toString()}%`);
+            DashboardPage.theaterCeilingFanLightDiv.waitForAnimation();
+            expect(DashboardPage.theaterCeilingFanLightButton.getText()).toEqual(`${dimmerName}${value.toString()}%`);
             break;
         case 'Office Dimmer':
             break;

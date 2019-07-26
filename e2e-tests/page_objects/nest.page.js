@@ -2,15 +2,20 @@ import Page from './page';
 
 /** NestPage selenium page-object */
 class NestPage extends Page {
-    get hallwayTabButton() { return $('//*[@id="tab-button-hallwaythermostat"]'); }
+    get tabContent() { return $('//ion-content[@id="tab-nest"]'); }
 
-    get entrywayTabButton() { return $('//*[@id="tab-button-entrywaynestprotect"]'); }
+    get hallwayTabButton() { return this.tabContent.$('.//*[@id="tab-button-hallwaythermostat"]'); }
+    get hallwayTabDiv() { return this.hallwayTabButton.$('./div'); }
+    get entrywayTabButton() { return this.tabContent.$('.//*[@id="tab-button-entrywaynestprotect"]'); }
+    get entrywayTabDiv() { return this.entrywayTabButton.$('./div'); }
 
     goToHallwayTab() {
+        this.hallwayTabDiv.waitForAnimation();
         this.hallwayTabButton.click();
     }
 
     goToEntrywayTab() {
+        this.entrywayTabDiv.waitForAnimation();
         this.entrywayTabButton.click();
     }
 

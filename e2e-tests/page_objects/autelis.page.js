@@ -3,8 +3,6 @@ import Page from './page';
 
 /** AutelisPage selenium page-object */
 class AutelisPage extends Page {
-    get autelisTab() { return $('#tab-button-autelis'); }
-
     get offButton() { return $('//ion-segment-button[text()[contains(., "OFF")]]'); }
     get poolButton() { return $('//ion-segment-button[text()[contains(., "POOL")]]'); }
     get spaButton() { return $('//ion-segment-button[text()[contains(., "SPA")]]'); }
@@ -138,7 +136,6 @@ class AutelisPage extends Page {
 
     goToAutelisTab() {
         this.autelisTab.click();
-        // TODO Remove after module load fix
         browser.pause(2000);
     }
 }

@@ -4,12 +4,12 @@ Feature: RoboDomo Dashboard page
     I want to see Dashboard page
     So that I can see all Dashboard widgets
 
-    @S1 @automated
+    @S1 @automated @smoke
     Scenario Outline: Dashboard tabs
         Given User navigates to Dashboard page
         Then User is redirected to Dashboard page
         Then Dashboard menu shall be selected
-        When User clicks on <tabName> tab
+        When User clicks on <tabName> tab on Dashboard page
         Then Dashboard <tabName> tab is loaded
         Examples:
             | tabName |

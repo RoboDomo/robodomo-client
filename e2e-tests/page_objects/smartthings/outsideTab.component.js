@@ -2,18 +2,26 @@ import expect from 'expect';
 
 /** OutsideTabComponent selenium page-object */
 class OutsideTabComponent {
-    get tabContent() { return $('//ion-content//div[@class="ion-page"]'); }
+    constructor(parent) {
+        this.parent = parent
+    }
 
-    get porchLightOnButton() { return this.tabContent.$('.//div[text()="Porch Light"]/parent::*//ion-segment-button[.="On"]'); }
-    get porchLightOffButton() { return this.tabContent.$('.//div[text()="Porch Light"]/parent::*//ion-segment-button[.="Off"]'); }
+    get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get outsideLightOnButton() { return this.tabContent.$('.//div[text()="Outside Light"]/parent::*//ion-segment-button[.="On"]'); }
-    get outsideLightOffButton() { return this.tabContent.$('.//div[text()="Outside Light"]/parent::*//ion-segment-button[.="Off"]'); }
+    get porchLightOnButton() { return this.activeTab.$('.//div[text()="Porch Light"]/parent::*//ion-segment-button[.="On"]'); }
+    get porchLightOffButton() { return this.activeTab.$('.//div[text()="Porch Light"]/parent::*//ion-segment-button[.="Off"]'); }
+    get porchLightLi() { return this.porchLightOnButton.$('./ancestor::li')}
 
-    get outdoorLightsOnButton() { return this.tabContent.$('.//div[text()="Outdoor Lights"]/parent::*//ion-segment-button[.="On"]'); }
-    get outdoorLightsOffButton() { return this.tabContent.$('.//div[text()="Outdoor Lights"]/parent::*//ion-segment-button[.="Off"]'); }
+    get outsideLightOnButton() { return this.activeTab.$('.//div[text()="Outside Light"]/parent::*//ion-segment-button[.="On"]'); }
+    get outsideLightOffButton() { return this.activeTab.$('.//div[text()="Outside Light"]/parent::*//ion-segment-button[.="Off"]'); }
+    get outsideLightLi() { return this.outsideLightOnButton.$('./ancestor::li')}
+
+    get outdoorLightsOnButton() { return this.activeTab.$('.//div[text()="Outdoor Lights"]/parent::*//ion-segment-button[.="On"]'); }
+    get outdoorLightsOffButton() { return this.activeTab.$('.//div[text()="Outdoor Lights"]/parent::*//ion-segment-button[.="Off"]'); }
+    get outdoorLightsLi() { return this.outdoorLightsOnButton.$('./ancestor::li')}
 
     togglePorchLight(state) {
+        this.porchLightLi.waitForAnimation();
         if (this.porchLightOnButton.getAttribute('checked') === 'true' && !state) {
             this.porchLightOffButton.click();
         }
@@ -23,6 +31,7 @@ class OutsideTabComponent {
     }
 
     toggleOutsideLight(state) {
+        this.outsideLightLi.waitForAnimation();
         if (this.outsideLightOnButton.getAttribute('checked') === 'true' && !state) {
             this.outsideLightOffButton.click();
         }
@@ -32,6 +41,7 @@ class OutsideTabComponent {
     }
 
     toggleOutdoorLights(state) {
+        this.outdoorLightsLi.waitForAnimation();
         if (this.outdoorLightsOnButton.getAttribute('checked') === 'true' && !state) {
             this.outdoorLightsOffButton.click();
         }
@@ -62,4 +72,4 @@ class OutsideTabComponent {
     }
 }
 
-module.exports = new OutsideTabComponent();
+module.exports = OutsideTabComponent;

@@ -2,25 +2,31 @@ import expect from 'expect';
 
 /** BathroomTabComponent selenium page-object */
 class BathroomTabComponent {
-    get tabContent() { return $('//ion-content//div[@class="ion-page"]'); }
+    constructor(parent) {
+        this.parent = parent
+    }
 
-    get bathroomLightSwitch() { return this.tabContent.$('.//div[text()="Bathroom Light"]/parent::*//ion-toggle'); }
-    get bathroomLightDimm() { return this.tabContent.$('.//div[text()="Bathroom Light"]/parent::*//ion-range'); }
+    get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
+
+    get bathroomLightSwitch() { return this.activeTab.$('.//div[text()="Bathroom Light"]/parent::*//ion-toggle'); }
+    get bathroomLightDimm() { return this.activeTab.$('.//div[text()="Bathroom Light"]/parent::*//ion-range'); }
+    get bathroomLightLi() { return this.bathroomLightSwitch.$('./ancestor::li')}
 
     toggleBathroomLight(state) {
-        if (this.bathroomLightSwitch.getAttribute('checked') === 'true' && !state) {
+        this.bathroomLightLi.waitForAnimation();
+        if (this.bathroomLightSwitch.getAttribute('aria-checked') === 'true' && !state) {
             this.bathroomLightSwitch.click();
         }
-        if (this.bathroomLightSwitch.getAttribute('checked') === 'false' && state) {
+        if (this.bathroomLightSwitch.getAttribute('aria-checked') === 'false' && state) {
             this.bathroomLightSwitch.click();
         }
     }
 
     validateBathroomLightState(state) {
-        if (state === 'On')
-            expect(this.bathroomLightSwitch.getAttribute('checked')).toEqual('true');
-        else if (state === 'Off')
-            expect(this.bathroomLightSwitch.getAttribute('checked')).toEqual('false');
+        if (state === 'Off')
+            expect(this.bathroomLightSwitch.getAttribute('aria-checked')).toEqual('false');
+        else if (state === 'On')
+            expect(this.bathroomLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateBathroomLightDimmValue(value) {
@@ -28,4 +34,4 @@ class BathroomTabComponent {
     }
 }
 
-module.exports = new BathroomTabComponent();
+module.exports = BathroomTabComponent;

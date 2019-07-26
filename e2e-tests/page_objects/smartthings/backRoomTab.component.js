@@ -1,7 +1,11 @@
 
 /** BackRoomTabComponent selenium page-object */
 class BackRoomTabComponent {
-    get tabContent() { return $('//ion-content//div[@class="ion-page"]'); }
+    constructor(parent) {
+        this.parent = parent
+    }
+
+    get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 }
 
 module.exports = new BackRoomTabComponent();

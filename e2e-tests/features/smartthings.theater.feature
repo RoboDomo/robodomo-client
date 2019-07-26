@@ -11,7 +11,6 @@ Feature: RoboDomo SmartThings page
         When User clicks on Theater tab on SmartThings page
         Then SmartThings Theater tab is loaded
 
-# --- Theater tab
 
     @S1 @automated
     Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' switches on Theater tab
@@ -19,28 +18,15 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
+        @smoke
         Examples:
             | button            |
             | Ceiling Fan Light |
+        Examples:
+            | button            |
             | Office Dimmer     |
             | Office Light      |
             | Kitchen Light     |
-
-    @S1 @automated
-    Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' dimming on Theater tab
-        And User changes SmartThings <optionName> button state to On
-        And MQTT message set <optionName> dimmer to value <value> on SmartThings page
-        Then SmartThings <optionName> dimmer value is <value> on SmartThings page
-        When User clicks Dashboard menu button
-        When User clicks on Theater tab
-        # TODO uncomment this when state will be persisted locally
-         Then SmartThings <optionName> dimmer value is <value> on Dashboard page
-        Examples:
-            | optionName        | value |
-            | Ceiling Fan Light | 20    |
-            | Office Dimmer     | 25    |
-            | Office Light      | 30    |
-            | Kitchen Light     | 35    |
 
     @S1 @automated
     Scenario Outline: Check 'Celing Fan', 'Entryway Lights', 'Office Fan' buttons on Theater tab

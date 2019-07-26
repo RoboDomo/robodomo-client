@@ -2,54 +2,60 @@ import expect from 'expect';
 
 /** OfficeTabComponent selenium page-object */
 class OfficeTabComponent {
-    get tabContent() { return $('//ion-content//div[@class="ion-page"]'); }
+    constructor(parent) {
+        this.parent = parent
+    }
 
-    get officeDimmerSwitch() { return this.tabContent.$('.//div[text()="Office Dimmer"]/parent::*//ion-toggle'); }
-    get officeDimmerDimm() { return this.tabContent.$('.//div[text()="Office Dimmer"]/parent::*//ion-range'); }
+    get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get officeLightSwitch() { return this.tabContent.$('.//div[text()="Office Light"]/parent::*//ion-toggle'); }
-    get officeLightDimm() { return this.tabContent.$('.//div[text()="Office Light"]/parent::*//ion-range'); }
+    get officeDimmerSwitch() { return this.activeTab.$('.//div[text()="Office Dimmer"]/parent::*//ion-toggle'); }
+    get officeDimmerDimm() { return this.activeTab.$('.//div[text()="Office Dimmer"]/parent::*//ion-range'); }
+    get officeDimmerLi() { return this.officeDimmerSwitch.$('./ancestor::li')}
 
-    get officeFanOffButton() { return this.tabContent.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Off"]'); }
-    get officeFanLowButton() { return this.tabContent.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Low"]'); }
-    get officeFanMediumButton() { return this.tabContent.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
-    get officeFanHighButton() { return this.tabContent.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get officeLightSwitch() { return this.activeTab.$('.//div[text()="Office Light"]/parent::*//ion-toggle'); }
+    get officeLightDimm() { return this.activeTab.$('.//div[text()="Office Light"]/parent::*//ion-range'); }
+    get officeLightLi() { return this.officeLightSwitch.$('./ancestor::li')}
 
-    get entrywayLightsOnButton() { return this.tabContent.$('.//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="On"]'); }
-    get entrywayLightsOffButton() { return this.tabContent.$('.//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="Off"]'); }
+    get officeFanOffButton() { return this.activeTab.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Off"]'); }
+    get officeFanLowButton() { return this.activeTab.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Low"]'); }
+    get officeFanMediumButton() { return this.activeTab.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
+    get officeFanHighButton() { return this.activeTab.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get officeFanLi() { return this.officeFanOffButton.$('./ancestor::li')}
 
     clickOfficeFanOffButton() {
+        this.officeFanLi.waitForAnimation();
         this.officeFanOffButton.click();
     }
 
     clickOfficeFanLowButton() {
+        this.officeFanLi.waitForAnimation();
         this.officeFanLowButton.click();
     }
 
     clickOfficeFanMediumButton() {
+        this.officeFanLi.waitForAnimation();
         this.officeFanMediumButton.click();
     }
 
     clickOfficeFanHighButton() {
+        this.officeFanLi.waitForAnimation();
         this.officeFanHighButton.click();
     }
 
     toggleOfficeDimmer(state) {
-        if (this.officeDimmerSwitch.getAttribute('checked') === 'true' && !state) {
+        this.officeDimmerLi.waitForAnimation();
+        if (this.officeDimmerSwitch.getAttribute('aria-checked') === 'true' && !state)
             this.officeDimmerSwitch.click();
-        }
-        if (this.officeDimmerSwitch.getAttribute('checked') === 'false' && state) {
+        if (this.officeDimmerSwitch.getAttribute('aria-checked') === 'false' && state)
             this.officeDimmerSwitch.click();
-        }
     }
 
     toggleOfficeLight(state) {
-        if (this.officeLightSwitch.getAttribute('checked') === 'true' && !state) {
+        this.officeLightLi.waitForAnimation();
+        if (this.officeLightSwitch.getAttribute('aria-checked') === 'true' && !state)
             this.officeLightSwitch.click();
-        }
-        if (this.officeLightSwitch.getAttribute('checked') === 'false' && state) {
+        if (this.officeLightSwitch.getAttribute('aria-checked') === 'false' && state)
             this.officeLightSwitch.click();
-        }
     }
 
     validateOfficeDimmValue(value) {
@@ -58,9 +64,9 @@ class OfficeTabComponent {
 
     validateOfficeDimmerState(state) {
         if (state === 'Off')
-            expect(this.officeDimmerSwitch.getAttribute('checked')).toEqual('false');
+            expect(this.officeDimmerSwitch.getAttribute('aria-checked')).toEqual('false');
         else if (state === 'On')
-            expect(this.officeDimmerSwitch.getAttribute('checked')).toEqual('true');
+            expect(this.officeDimmerSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateOfficeFanState(state) {
@@ -76,9 +82,9 @@ class OfficeTabComponent {
 
     validateOfficeLightState(state) {
         if (state === 'Off')
-            expect(this.officeLightSwitch.getAttribute('checked')).toEqual('false');
+            expect(this.officeLightSwitch.getAttribute('aria-checked')).toEqual('false');
         else if (state === 'On')
-            expect(this.officeLightSwitch.getAttribute('checked')).toEqual('true');
+            expect(this.officeLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateOfficeLightDimmValue(value) {
@@ -86,4 +92,4 @@ class OfficeTabComponent {
     }
 }
 
-module.exports = new OfficeTabComponent();
+module.exports = OfficeTabComponent;
