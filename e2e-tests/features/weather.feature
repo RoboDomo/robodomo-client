@@ -11,10 +11,8 @@ Feature: RoboDomo Weather page
         Then Weather menu shall be selected
         When User clicks on <tabName> tab on Weather page
         Then Weather <tabName> tab is loaded
-        @smoke
+
         Examples:
             | tabName       |
             | San Diego, CA |
-        Examples:
-            | tabName       |
             | New York, NY  |
