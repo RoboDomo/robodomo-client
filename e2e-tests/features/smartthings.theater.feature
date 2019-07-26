@@ -34,7 +34,7 @@ Feature: RoboDomo SmartThings page
         When User clicks Dashboard menu button
         When User clicks on Theater tab
         # TODO uncomment this when state will be persisted locally
-        # Then SmartThings <optionName> dimmer value is <value> on Dashboard page
+         Then SmartThings <optionName> dimmer value is <value> on Dashboard page
         Examples:
             | optionName        | value |
             | Ceiling Fan Light | 20    |
@@ -43,26 +43,17 @@ Feature: RoboDomo SmartThings page
             | Kitchen Light     | 35    |
 
     @S1 @automated
-    Scenario: Check 'Entryway Lights' buttons on Theater tab
-        And User changes SmartThings Entryway Lights button state to On
-        Then SmartThings Entryway Lights button is in On state
-        And User changes SmartThings Entryway Lights button state to Off
-        Then SmartThings Entryway Lights button is in Off state
-
-    @S1 @automated
-    Scenario Outline: Check 'Celing Fan', 'Office Fan' buttons on Theater tab
-        And User changes SmartThings <button> button state to Off
-        Then SmartThings <button> button is in Off state
-        When User changes SmartThings <button> button state to Low
-        Then SmartThings <button> button is in Low state
-        When User changes SmartThings <button> button state to Medium
-        Then SmartThings <button> button is in Medium state
-        When User changes SmartThings <button> button state to High
-        Then SmartThings <button> button is in High state
+    Scenario Outline: Check 'Celing Fan', 'Entryway Lights', 'Office Fan' buttons on Theater tab
+        And User changes SmartThings <button> button state to <state>
+        Then SmartThings <button> button is in <state> state
         Examples:
-            | button      |
-            | Ceiling Fan |
-            | Office Fan  |
+            | button          | state  |
+            | Ceiling Fan     | Off    |
+            | Ceiling Fan     | Medium |
+            | Office Fan      | Low    |
+            | Office Fan      | High   |
+            | Entryway Lights | On     |
+            | Entryway Lights | Off    |
 
     @S1
     Scenario Outline: Check 'Celing Fan', 'Entryway Lights', 'Office Fan' dimming on Theater tab

@@ -2,10 +2,10 @@ import expect from 'expect';
 
 /** KitchenTabComponent selenium page-object */
 class KitchenTabComponent {
-    get tabPane() { return $('#smartthings-tabs-tabpane-5'); }
+    get tabContent() { return $('//ion-content//div[@class="ion-page"]'); }
 
-    get kitchenLightSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle'); }
-    get kitchenLightDimm() { return $('//div[text()="Kitchen Light"]/parent::*//ion-range'); }
+    get kitchenLightSwitch() { return this.tabContent.$('.//div[text()="Kitchen Light"]/parent::*//ion-toggle'); }
+    get kitchenLightDimm() { return this.tabContent.$('.//div[text()="Kitchen Light"]/parent::*//ion-range'); }
 
     toggleKitchenLight(state) {
         if (this.kitchenLightSwitch.getAttribute('checked') === 'true' && !state) {

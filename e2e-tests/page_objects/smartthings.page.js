@@ -18,66 +18,66 @@ class SmartThingsPage extends Page {
     get outsideTabButton() { return $('//ion-tab-button[@tab = "outside"]'); }
 
     goToTheaterTab() {
+        this.theaterTabButton.waitForAnimation();
         this.theaterTabButton.click();
     }
 
     goToOfficeTab() {
+        this.officeTabButton.waitForAnimation();
         this.officeTabButton.click();
     }
 
     goToBackRoomTab() {
+        this.backRoomTabButton.waitForAnimation();
         this.backRoomTabButton.click();
     }
 
     goToBedroomTab() {
+        this.bedroomTabButton.waitForAnimation();
         this.bedroomTabButton.click();
     }
 
     goToKitchenTab() {
+        this.kitchenTabButton.waitForAnimation();
         this.kitchenTabButton.click();
     }
 
     goToBathroomTab() {
+        this.bathroomTabButton.waitForAnimation();
         this.bathroomTabButton.click();
     }
 
     goToOutsideTab() {
+        this.outsideTabButton.waitForAnimation();
         this.outsideTabButton.click();
     }
 
     isTheaterTabSelected() {
         browser.waitUntil(() => this.theaterTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.getTheaterTab().tabPane.isDisplayed();
     }
 
     isOfficeTabSelected() {
         browser.waitUntil(() => this.officeTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.getOfficeTab().tabPane.isDisplayed();
     }
 
     isBackRoomTabTabSelected() {
         browser.waitUntil(() => this.backRoomTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.getBackRoomTab().tabPane.isDisplayed();
     }
 
     isBedroomTabSelected() {
         browser.waitUntil(() => this.bedroomTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.getBedroomTab().tabPane.isDisplayed();
     }
 
     isKitchenTabSelected() {
         browser.waitUntil(() => this.kitchenTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.getKitchenTab().tabPane.isDisplayed();
     }
 
     isBathroomTabSelected() {
         browser.waitUntil(() => this.bathroomTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.getBathroomTab().tabPane.isDisplayed();
     }
 
     isOutsideTabSelected() {
         browser.waitUntil(() => this.outsideTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.getOutsideTab().tabPane.isDisplayed();
     }
 
     getAllTab() {

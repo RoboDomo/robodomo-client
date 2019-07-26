@@ -2,18 +2,18 @@ import expect from 'expect';
 
 /** TheaterTabComponent selenium page-object */
 class TheaterTabComponent {
-    get tabPane() { return $('#smartthings-tabs-tabpane-1'); }
+    get tabContent() { return $('//ion-content//div[@class="ion-page"]'); }
 
-    get ceilingFanLightSwitch() { return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle'); }
-    get ceilingFanLightDimm() { return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-range'); }
+    get ceilingFanLightSwitch() { return this.tabContent.$('.//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle'); }
+    get ceilingFanLightDimm() { return this.tabContent.$('.//div[text()="Ceiling Fan Light"]/parent::*//ion-range'); }
 
-    get ceilingFanOffButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Off"]'); }
-    get ceilingFanLowButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Low"]'); }
-    get ceilingFanMediumButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
-    get ceilingFanHighButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get ceilingFanOffButton() { return this.tabContent.$('.//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Off"]'); }
+    get ceilingFanLowButton() { return this.tabContent.$('.//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Low"]'); }
+    get ceilingFanMediumButton() { return this.tabContent.$('.//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
+    get ceilingFanHighButton() { return this.tabContent.$('.//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="High"]'); }
 
-    get entrywayLightsOnButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="On"]'); }
-    get entrywayLightsOffButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="Off"]'); }
+    get entrywayLightsOnButton() { return this.tabContent.$('.//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="On"]'); }
+    get entrywayLightsOffButton() { return this.tabContent.$('.//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="Off"]'); }
 
     clickCeilingFanOffButton() {
         this.ceilingFanOffButton.click();

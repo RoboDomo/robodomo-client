@@ -1,4 +1,4 @@
-@weather @this
+@weather
 Feature: RoboDomo Nest page
     As a User
     I want to see Weather page

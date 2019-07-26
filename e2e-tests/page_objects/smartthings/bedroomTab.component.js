@@ -2,18 +2,18 @@ import expect from 'expect';
 
 /** BedroomTabComponent selenium page-object */
 class BedroomTabComponent {
-    get tabPane() { return $('#smartthings-tabs-tabpane-4'); }
+    get tabContent() { return $('//ion-content//div[@class="ion-page"]'); }
 
-    get bedroomLampOnButton() { return $('//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="On"]'); }
-    get bedroomLampOffButton() { return $('//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="Off"]'); }
+    get bedroomLampOnButton() { return this.tabContent.$('.//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="On"]'); }
+    get bedroomLampOffButton() { return this.tabContent.$('.//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="Off"]'); }
 
-    get bedroomFanOffButton() { return $('//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Off"]'); }
-    get bedroomFanLowButton() { return $('//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Low"]'); }
-    get bedroomFanMediumButton() { return $('//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
-    get bedroomFanHighButton() { return $('//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get bedroomFanOffButton() { return this.tabContent.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Off"]'); }
+    get bedroomFanLowButton() { return this.tabContent.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Low"]'); }
+    get bedroomFanMediumButton() { return this.tabContent.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
+    get bedroomFanHighButton() { return this.tabContent.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="High"]'); }
 
-    get bedroomLightSwitch() { return $('//div[text()="Bedroom Light"]/parent::*//ion-toggle'); }
-    get bedroomLightDimm() { return $('//div[text()="Bedroom Light"]/parent::*//ion-range'); }
+    get bedroomLightSwitch() { return this.tabContent.$('.//div[text()="Bedroom Light"]/parent::*//ion-toggle'); }
+    get bedroomLightDimm() { return this.tabContent.$('.//div[text()="Bedroom Light"]/parent::*//ion-range'); }
 
     clickBedroomFanOffButton() {
         this.bedroomFanOffButton.click();
