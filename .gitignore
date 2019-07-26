@@ -11,6 +11,9 @@ node_modules
 # production
 /build
 
+# gimbal
+/artifacts
+
 # misc
 .DS_Store
 .env.local

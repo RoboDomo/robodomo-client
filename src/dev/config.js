@@ -1,3 +1,5 @@
+// mschwartz touched this to cause a changed file for comments
+
 /**
  * DEMO configuration file for RoboDomo.
  */
@@ -292,10 +294,10 @@ module.exports = {
         // a large 256x256 tile that renders the current date/time (with seconds) and sunrise/sunset
         { type: "clock" },
         // a large 256x256 tile that renders the current weather, updates in real time
-        { type: "weather", location: "92211" },
+        { type: "weather", location: "92109" },
 
         // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
-        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
+        { type: "thermostat", device: "Thermostat" },
         // a 256x128 tile that renders that status of your swimming pool controller.  Background is green if it is running.
         { type: "pool", controller: "autelis" },
         // a 256x128 tile that renders that status of your spa controller.  Background is red if it is running.
@@ -331,9 +333,9 @@ module.exports = {
       tiles: [
         { type: "clock" },
         // a large 256x256 tile that renders the current weather, updates in real time
-        { type: "weather", location: "92211" },
+        { type: "weather", location: "92109" },
         // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
-        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
+        { type: "thermostat", device: "Thermostat" },
         { type: "spa", controller: "autelis" },
         {
           type: "garagedoor",
@@ -427,11 +429,11 @@ module.exports = {
 
   nest: {
     // one or more thermostats
-    thermostats: [{ device: "Falsetto/Hallway Thermostat", name: "Hallway Thermostat" }],
+    thermostats: [{ device: "Thermostat", name: "Hallway Thermostat" }],
     // one or more Nest Protect (fire/CO2 detector)
     protects: [
       {
-        device: "Falsetto/Entryway Nest Protect",
+        device: "Nest Protect",
         name: "Entryway Nest Protect",
       },
     ],
