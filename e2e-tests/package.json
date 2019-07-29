@@ -33,7 +33,7 @@
     "@wdio/sync": "5.10.8",
     "appium": "^1.14.0",
     "babel-eslint": "^10.0.2",
-    "chromedriver": "^75.0.1",
+    "chromedriver": "^75.1.0",
     "deepmerge": "^3.3.0",
     "eslint": "^6.0.0",
     "eslint-plugin-import": "^2.18.0",

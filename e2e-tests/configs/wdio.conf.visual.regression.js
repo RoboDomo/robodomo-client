@@ -71,15 +71,4 @@ exports.config = merge(configBase.config, {
             resolution: '1920x1080',
         },
     ],
-
-    before() {
-        require('@babel/register');
-
-        browser.setTimeout({
-            implicit: this.waitTimes.implicit,
-            pageLoad: this.waitTimes.pageLoad,
-            script: this.waitTimes.script,
-        });
-        browser.maximizeWindow();
-    },
 });

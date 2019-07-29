@@ -213,6 +213,11 @@ exports.config = {
         } catch (exeption) {
             log.warn(exeption.message);
         }
+        try {
+            browser.maximizeWindow();
+        } catch (exeption) {
+            log.warn(exeption.message);
+        }
     },
     /**
      * Runs before a WebdriverIO command gets executed.
