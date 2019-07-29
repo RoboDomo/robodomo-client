@@ -6,7 +6,6 @@ class TheaterPage extends Page {
 
     get homeTheaterTabButton() { return this.tabContent.$('#tab-button-theater'); }
     get homeTheaterTabDiv() { return this.homeTheaterTabButton.$('./div'); }
-    get homeTheaterTabPane() { return this.tabContent.$('#tab-theaters'); }
 
     goToHomeTheaterTab() {
         this.homeTheaterTabDiv.waitForAnimation();
@@ -15,7 +14,6 @@ class TheaterPage extends Page {
 
     isHomeTheaterTabSelected() {
         browser.waitUntil(() => this.homeTheaterTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.homeTheaterTabPane.isDisplayed();
     }
 }
 
