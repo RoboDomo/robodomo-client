@@ -247,6 +247,8 @@ exports.config = {
      */
     afterStep(stepResult) {
         if (stepResult.status === 'failed') {
+            log.warn(`Spec ${stepResult.feature} ${stepResult.scenario} failed`);
+            log.warn(`Browser sessionId=${browser.sessionId}`);
             const screenshotName = `${new Date().toUTCString()}_${stepResult.scenario.replace(/ /g, '_')}_${browser.sessionId}.png`;
             browser.saveScreenshot(`./errorShots/${screenshotName}`);
         }
