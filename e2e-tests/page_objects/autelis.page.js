@@ -60,14 +60,17 @@ class AutelisPage extends Page {
 
     clickOffButton() {
         this.offButton.click();
+        browser.pause(1500);
     }
 
     clickPoolButton() {
         this.poolButton.click();
+        browser.pause(1500);
     }
 
     clickSpaButton() {
         this.spaButton.click();
+        browser.pause(1500);
     }
 
     toggleBlower(state) {
@@ -76,6 +79,7 @@ class AutelisPage extends Page {
 
     toggleCleaner(state) {
         state === 'On' ? this.cleanerOnButton.click() : this.cleanerOffButton.click();
+        browser.pause(1500);
     }
 
     toggleJets(state) {
@@ -92,6 +96,7 @@ class AutelisPage extends Page {
 
     toggleSolar(state) {
         state === 'On' ? this.solarOnButton.click() : this.solarOffButton.click();
+        browser.pause(1500);
     }
 
     toggleSpaHeat(state) {

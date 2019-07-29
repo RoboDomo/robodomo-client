@@ -10,6 +10,7 @@ exports.config = merge(configBase.config, {
             os_version: '12',
             realMobile: true,
             deviceOrientation: 'landscape',
+            exclude: ['./features/mqtt/*.feature'],
         },
         // {
         //     device: 'iPhone 8',
@@ -28,6 +29,7 @@ exports.config = merge(configBase.config, {
             os_version: '8.1',
             realMobile: true,
             deviceOrientation: 'landscape',
+            exclude: ['./features/mqtt/*.feature'],
         },
         // {
         //     device: 'Google Pixel 3',

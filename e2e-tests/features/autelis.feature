@@ -30,10 +30,10 @@ Feature: RoboDomo Autelis page
         @smoke
         Examples:
             | button     |
-            | Solar      |
             | Cleaner    |
         Examples:
             | button     |
+            | Solar      |
             | Pool Heat  |
             | Pool Light |
             | Waterfall  |

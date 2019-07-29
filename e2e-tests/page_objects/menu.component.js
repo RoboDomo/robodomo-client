@@ -57,30 +57,37 @@ class MenuComponent {
     }
 
     isAutelisMenuSelected() {
+        this.menuContainerDiv.waitForAnimation();
         browser.waitUntil(() => this.autelisButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isDashboardMenuSelected() {
+        this.menuContainerDiv.waitForAnimation();
         browser.waitUntil(() => this.dashboardButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isNestMenuSelected() {
+        this.menuContainerDiv.waitForAnimation();
         browser.waitUntil(() => this.nestButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isSensorsMenuSelected() {
+        this.menuContainerDiv.waitForAnimation();
         browser.waitUntil(() => this.sensorsButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isSmartThingsMenuSelected() {
+        this.menuContainerDiv.waitForAnimation();
         browser.waitUntil(() => this.smartThingsButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isTheaterMenuSelected() {
+        this.menuContainerDiv.waitForAnimation();
         browser.waitUntil(() => this.theaterButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isWeatherMenuSelected() {
+        this.menuContainerDiv.waitForAnimation();
         browser.waitUntil(() => this.weatherButton.getAttribute('aria-selected') === 'true', 20000);
     }
 

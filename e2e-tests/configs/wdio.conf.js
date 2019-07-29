@@ -181,8 +181,13 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that are to be run
      */
-    // beforeSession: function (config, capabilities, specs) {
-    // },
+    // eslint-disable-next-line no-unused-vars
+    beforeSession: function(config, capabilities, specs) {
+        Object.assign(capabilities, {
+            'browserstack.networkLogs': 'true',
+            'browserstack.console': 'verbose',
+        });
+    },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
@@ -253,7 +258,7 @@ exports.config = {
     afterStep(stepResult) {
         if (stepResult.status === 'failed') {
             log.warn(`Spec ${stepResult.feature} ${stepResult.scenario} failed`);
-            log.warn(`Browser sessionId=${browser.sessionId}`);
+            log.warn(`Browser sessionId= ${browser.sessionId}`);
             const screenshotName = `${new Date().toUTCString()}_${stepResult.scenario.replace(/ /g, '_')}_${browser.sessionId}.png`;
             browser.saveScreenshot(`./errorShots/${screenshotName}`);
         }
