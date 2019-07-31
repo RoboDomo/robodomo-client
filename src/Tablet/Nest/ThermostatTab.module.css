@@ -14,10 +14,12 @@
   justify-content: center;
 }
 
-.main > svg {
+.selfCenter {
   justify-self: center;
 }
 
-.selfCenter {
-  justify-self: center;
+.thermostat {
+  composes: selfCenter;
+  opacity: 0;
+  scale: 0.5;
 }

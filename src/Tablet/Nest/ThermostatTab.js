@@ -18,8 +18,67 @@ import useThermostat from "@/hooks/useThermostat";
 import thermostatReducer from "@/hooks/reducers/thermostatReducer";
 import Locale from "@/lib/Locale";
 import Temperature from "@/common/Temperature";
+import AnimatedStack from "@/common/AnimatedStack";
+import AnimatedDiv from "@/common/AnimatedDiv";
 
 import s from "./ThermostatTab.module.css";
+
+const TargetButton = ({ target, color, thermostat, handler }) => {
+  let icon = <IonIcon name="arrow-dropright" />,
+    disabled = false;
+
+  if (thermostat.target_temperature_f > target) {
+    icon = <IonIcon name="arrow-dropdown" />;
+  } else if (thermostat.target_temperature_f < target) {
+    icon = <IonIcon name="arrow-dropup" />;
+  } else {
+    icon = <IonIcon name="arrow-dropright" />;
+    disabled = true;
+  }
+  return (
+    <IonItem>
+      <IonButton disabled={disabled} color={color} onClick={() => handler(target)}>
+        {icon} Set to <Temperature value={target} />
+      </IonButton>
+    </IonItem>
+  );
+};
+
+const TargetTemperatures = ({ mode, thermostat, handler }) => {
+  switch (mode) {
+    case "Off":
+    default:
+      return null;
+    case "heat":
+      return (
+        <IonList>
+          {Array.from(new Array(9), (_, idx) => (
+            <TargetButton
+              target={idx + 69}
+              color="primary"
+              thermostat={thermostat}
+              handler={handler}
+            />
+          )).reverse()}
+        </IonList>
+      );
+    case "cool":
+      return (
+        <IonList>
+          <AnimatedStack>
+            {Array.from(new Array(9), (_, idx) => (
+              <TargetButton
+                target={idx + 73}
+                color="secondary"
+                thermostat={thermostat}
+                handler={handler}
+              />
+            )).reverse()}
+          </AnimatedStack>
+        </IonList>
+      );
+  }
+};
 
 const ThermostatTab = ({ thermostat }) => {
   const device = thermostat.device;
@@ -58,51 +117,6 @@ const ThermostatTab = ({ thermostat }) => {
     if (!thermostat || !thermostat.away) {
       return null;
     }
-
-    const TargetButton = ({ target, color }) => {
-      let icon = <IonIcon name="arrow-dropright" />,
-        disabled = false;
-
-      if (thermostat.target_temperature_f > target) {
-        icon = <IonIcon name="arrow-dropdown" />;
-      } else if (thermostat.target_temperature_f < target) {
-        icon = <IonIcon name="arrow-dropup" />;
-      } else {
-        icon = <IonIcon name="arrow-dropright" />;
-        disabled = true;
-      }
-      return (
-        <IonItem>
-          <IonButton disabled={disabled} color={color} onClick={() => setTargetTemperature(target)}>
-            {icon} Set to <Temperature value={target} />
-          </IonButton>
-        </IonItem>
-      );
-    };
-
-    const TargetTemperatures = () => {
-      switch (thermoState.hvac_mode) {
-        case "Off":
-        default:
-          return null;
-        case "heat":
-          return (
-            <IonList>
-              {Array.from(new Array(9), (_, idx) => (
-                <TargetButton target={idx + 69} color="primary" />
-              )).reverse()}
-            </IonList>
-          );
-        case "cool":
-          return (
-            <IonList>
-              {Array.from(new Array(9), (_, idx) => (
-                <TargetButton target={idx + 73} color="secondary" />
-              )).reverse()}
-            </IonList>
-          );
-      }
-    };
 
     // RENDER
     if (!thermostat.ambient_temperature_f || !thermostat.target_temperature_f) {
@@ -159,14 +173,25 @@ const ThermostatTab = ({ thermostat }) => {
         </div>
         {/* Center screen */}
         <div className={s.main}>
-          <Thermostat
+          <AnimatedDiv
             className={s.thermostat}
-            away={Boolean(thermostat.away !== "home")}
-            ambientTemperature={Locale.ftoc(thermostat.ambient_temperature_f, metric)}
-            targetTemperature={Locale.ftoc(thermostat.target_temperature_f, metric)}
-            hvacMode={thermostat.hvac_state}
-            leaf={thermostat.has_leaf}
-          />
+            animate={{ scale: [0.7, 1.05, 1], opacity: [0.5, 1] }}
+            transition={{
+              type: "spring",
+              stiffness: 260,
+              damping: 20,
+              duration: 0.7,
+              ease: "easeOut",
+            }}
+          >
+            <Thermostat
+              away={Boolean(thermostat.away !== "home")}
+              ambientTemperature={Locale.ftoc(thermostat.ambient_temperature_f, metric)}
+              targetTemperature={Locale.ftoc(thermostat.target_temperature_f, metric)}
+              hvacMode={thermostat.hvac_state}
+              leaf={thermostat.has_leaf}
+            />
+          </AnimatedDiv>
           <IonButtons slot="primary" className={s.selfCenter}>
             {Array.from(new Array(6), (_, idx) => {
               const value = idx - 3;
@@ -199,7 +224,11 @@ const ThermostatTab = ({ thermostat }) => {
               <Temperature value={thermostat.time_to_target} />
             </IonItem>
           </IonList>
-          <TargetTemperatures />
+          <TargetTemperatures
+            thermostat={thermostat}
+            handler={setTargetTemperature}
+            mode={thermoState.hvac_mode}
+          />
         </div>
       </section>
     );
