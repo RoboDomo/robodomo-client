@@ -194,7 +194,8 @@ Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) 
     switch (dimmerName) {
         case 'Ceiling Fan Light':
             DashboardPage.theaterCeilingFanLightDiv.waitForAnimation();
-            expect(DashboardPage.theaterCeilingFanLightButton.getText()).toEqual(`${dimmerName}${value.toString()}%`);
+            expect(DashboardPage.theaterCeilingFanLightButton.getText()).toContain(`${dimmerName}`);
+            expect(DashboardPage.theaterCeilingFanLightButton.getText()).toContain(`${value.toString()}%`);
             break;
         case 'Office Dimmer':
             break;

@@ -12,21 +12,27 @@ Feature: RoboDomo SmartThings page
         Then SmartThings Theater tab is loaded
 
 
+    @S1 @automated @smoke
+    Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' switches on Theater tab
+        And User changes SmartThings <button> button state to On
+        Then SmartThings <button> button is in On state
+        When User changes SmartThings <button> button state to Off
+        Then SmartThings <button> button is in Off state
+        Examples:
+            | button            |
+            | Ceiling Fan Light |
+
     @S1 @automated
     Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' switches on Theater tab
         And User changes SmartThings <button> button state to On
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
-        @smoke
         Examples:
-            | button            |
-            | Ceiling Fan Light |
-        Examples:
-            | button            |
-            | Office Dimmer     |
-            | Office Light      |
-            | Kitchen Light     |
+            | button        |
+            | Office Dimmer |
+            | Office Light  |
+            | Kitchen Light |
 
     @S1 @automated
     Scenario Outline: Check 'Celing Fan', 'Entryway Lights', 'Office Fan' buttons on Theater tab
@@ -46,7 +52,7 @@ Feature: RoboDomo SmartThings page
         When MQTT message set <optionName> to <state> and <value> on SmartThings page
         Then SmartThings <optionName> is <state> and <value> on SmartThings page
         When User clicks Dashboard menu button
-        When User clicks on Theater tab
+        When User clicks on Theater tab on Dashboard page
         # TODO uncomment this when state will be persisted locally
         # Then SmartThings <optionName> dimmer value is <value> on Dashboard page
         Examples:

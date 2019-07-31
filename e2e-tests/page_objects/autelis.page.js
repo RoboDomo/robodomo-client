@@ -128,9 +128,10 @@ class AutelisPage extends Page {
         browser.waitUntil(() => this.switchMessageOff.isDisplayed(), 10000);
     }
 
-    isPoolParameterDisplayed() {
+    isPoolandSolarParameterDisplayed() {
         this.poolButton.isButtonEnabled();
         expect(this.switchMessagePool.getText()).toMatch(/^Pool\s\d{2,3}°F$/);
+        expect(this.switchMessageSolar.getText()).toMatch(/^Solar\s\d{2,3}°F$/);
     }
 
     isSpaAndSolarParameterDisplayed() {

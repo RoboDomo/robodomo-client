@@ -12,6 +12,18 @@ Feature: RoboDomo SmartThings page
 
 # --- Office tab
 
+    @S1 @automated @smoke
+    Scenario Outline: Check 'Office Dimmer', 'Office Light' switches on Office tab
+        When User clicks on Office tab on SmartThings page
+        Then SmartThings Office tab is loaded
+        And User changes SmartThings <button> button state to On
+        Then SmartThings <button> button is in On state
+        When User changes SmartThings <button> button state to Off
+        Then SmartThings <button> button is in Off state
+        Examples:
+            | button        |
+            | Office Dimmer |
+
     @S1 @automated
     Scenario Outline: Check 'Office Dimmer', 'Office Light' switches on Office tab
         When User clicks on Office tab on SmartThings page
@@ -20,11 +32,6 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
-    @smoke
-        Examples:
-            | button        |
-            | Office Dimmer |
-
         Examples:
             | button       |
             | Office Light |
@@ -58,6 +65,18 @@ Feature: RoboDomo SmartThings page
 
 # --- Back Room tab
 
+    @S1 @automated @smoke
+    Scenario Outline: Check 'Office Dimmer', 'Office Light' switches on Back Room tab
+        When User clicks on Back Room tab on SmartThings page
+        Then SmartThings Back Room tab is loaded
+        And User changes SmartThings <button> button state to On
+        Then SmartThings <button> button is in On state
+        When User changes SmartThings <button> button state to Off
+        Then SmartThings <button> button is in Off state
+        Examples:
+            | button        |
+            | Office Dimmer |
+
     @S1 @automated
     Scenario Outline: Check 'Office Dimmer', 'Office Light' switches on Back Room tab
         When User clicks on Back Room tab on SmartThings page
@@ -66,13 +85,9 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
-        @smoke
         Examples:
-            | button        |
-            | Office Dimmer |
-        Examples:
-            | button        |
-            | Office Light  |
+            | button       |
+            | Office Light |
 
     @S1 @automated
     Scenario: Check 'Entryway Lights' buttons on Back Room tab
@@ -102,6 +117,18 @@ Feature: RoboDomo SmartThings page
 
 # --- Bedroom tab
 
+    @S1 @automated @smoke
+    Scenario Outline: Check 'Kitchen Light', 'Bathroom Light', 'Bedroom Light' switches on Bedroom tab
+        When User clicks on Bedroom tab on SmartThings page
+        Then SmartThings Bedroom tab is loaded
+        And User changes SmartThings <button> button state to On
+        Then SmartThings <button> button is in On state
+        When User changes SmartThings <button> button state to Off
+        Then SmartThings <button> button is in Off state
+        Examples:
+            | button        |
+            | Kitchen Light |
+
     @S1 @automated
     Scenario Outline: Check 'Kitchen Light', 'Bathroom Light', 'Bedroom Light' switches on Bedroom tab
         When User clicks on Bedroom tab on SmartThings page
@@ -110,10 +137,6 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
-        @smoke
-        Examples:
-            | button         |
-            | Kitchen Light  |
         Examples:
             | button         |
             | Bathroom Light |
@@ -152,7 +175,7 @@ Feature: RoboDomo SmartThings page
 
 # --- Kitchen tab
 
-    @S1 @automated
+    @S1 @automated @smoke
     Scenario Outline: Check 'Kitchen Light' switch on Kitchen tab
         When User clicks on Kitchen tab on SmartThings page
         Then SmartThings Kitchen tab is loaded
@@ -160,7 +183,6 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
-        @smoke
         Examples:
             | button        |
             | Kitchen Light |
@@ -168,7 +190,7 @@ Feature: RoboDomo SmartThings page
 
 # --- Bathroom tab
 
-    @S1 @automated
+    @S1 @automated @smoke
     Scenario Outline: Check 'Bathroom Light' switch on Bathroom tab
         When User clicks on Bathroom tab on SmartThings page
         Then SmartThings Bathroom tab is loaded
@@ -183,6 +205,18 @@ Feature: RoboDomo SmartThings page
 
 # --- Outside tab
 
+    @S1 @automated @smoke
+    Scenario Outline: Check 'Kitchen Light', 'Bathroom Light', 'Bedroom Light' switches on Outside tab
+        When User clicks on Outside tab on SmartThings page
+        Then SmartThings Outside tab is loaded
+        And User changes SmartThings <button> button state to On
+        Then SmartThings <button> button is in On state
+        When User changes SmartThings <button> button state to Off
+        Then SmartThings <button> button is in Off state
+        Examples:
+            | button      |
+            | Porch Light |
+
     @S1 @automated
     Scenario Outline: Check 'Kitchen Light', 'Bathroom Light', 'Bedroom Light' switches on Outside tab
         When User clicks on Outside tab on SmartThings page
@@ -191,10 +225,6 @@ Feature: RoboDomo SmartThings page
         Then SmartThings <button> button is in On state
         When User changes SmartThings <button> button state to Off
         Then SmartThings <button> button is in Off state
-        @smoke
-        Examples:
-            | button         |
-            | Porch Light    |
         Examples:
             | button         |
             | Outside Light  |

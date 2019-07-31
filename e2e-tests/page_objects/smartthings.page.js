@@ -27,38 +27,52 @@ class SmartThingsPage extends Page {
     get outsideTabDiv() { return this.outsideTabButton.$('./div'); }
 
     goToTheaterTab() {
-        this.theaterTabDiv.waitForAnimation();
-        this.theaterTabButton.click();
+        if (this.theaterTabButton.getAttribute('aria-selected') !== 'true') {
+            this.theaterTabDiv.waitForAnimation();
+            this.theaterTabButton.click();
+        }
     }
 
     goToOfficeTab() {
-        this.officeTabDiv.waitForAnimation();
-        this.officeTabButton.click();
+        if (this.officeTabButton.getAttribute('aria-selected') !== 'true') {
+            this.officeTabDiv.waitForAnimation();
+            this.officeTabButton.click();
+        }
     }
 
     goToBackRoomTab() {
-        this.backRoomTabDiv.waitForAnimation();
-        this.backRoomTabButton.click();
+        if (this.backRoomTabButton.getAttribute('aria-selected') !== 'true') {
+            this.backRoomTabDiv.waitForAnimation();
+            this.backRoomTabButton.click();
+        }
     }
 
     goToBedroomTab() {
-        this.bedroomTabDiv.waitForAnimation();
-        this.bedroomTabButton.click();
+        if (this.bedroomTabButton.getAttribute('aria-selected') !== 'true') {
+            this.bedroomTabDiv.waitForAnimation();
+            this.bedroomTabButton.click();
+        }
     }
 
     goToKitchenTab() {
-        this.kitchenTabDiv.waitForAnimation();
-        this.kitchenTabButton.click();
+        if (this.kitchenTabButton.getAttribute('aria-selected') !== 'true') {
+            this.kitchenTabDiv.waitForAnimation();
+            this.kitchenTabButton.click();
+        }
     }
 
     goToBathroomTab() {
-        this.bathroomTabDiv.waitForAnimation();
-        this.bathroomTabButton.click();
+        if (this.bathroomTabButton.getAttribute('aria-selected') !== 'true') {
+            this.bathroomTabDiv.waitForAnimation();
+            this.bathroomTabButton.click();
+        }
     }
 
     goToOutsideTab() {
-        this.outsideTabDiv.waitForAnimation();
-        this.outsideTabButton.click();
+        if (this.outsideTabButton.getAttribute('aria-selected') !== 'true') {
+            this.outsideTabDiv.waitForAnimation();
+            this.outsideTabButton.click();
+        }
     }
 
     isTheaterTabSelected() {
