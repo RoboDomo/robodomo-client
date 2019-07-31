@@ -172,7 +172,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - Cron-job
     jobs:
       - install-dependencies
       - install-test-dependencies
