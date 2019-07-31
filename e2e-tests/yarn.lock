@@ -1217,7 +1217,7 @@
   dependencies:
     "@types/node" "*"
 
-"@wdio/appium-service@5.11.10":
+"@wdio/appium-service@5.11.4":
   version "5.11.4"
   resolved "https://registry.yarnpkg.com/@wdio/appium-service/-/appium-service-5.11.4.tgz#e91665221b9d026b9d7b65d1e23a77620825ecc7"
   integrity sha512-n2W8nRUXKphZpTRlw6PcIgOOyUdEl9Bp3GgT/EwJXGhUfkjp+intshKIiEP/EQfLf7A6fr4CEofQu8VUFxELWw==
@@ -1226,7 +1226,7 @@
     fs-extra "^8.0.1"
     param-case "^2.1.1"
 
-"@wdio/browserstack-service@5.11.10":
+"@wdio/browserstack-service@5.11.8":
   version "5.11.8"
   resolved "https://registry.yarnpkg.com/@wdio/browserstack-service/-/browserstack-service-5.11.8.tgz#4fded0e0ac061bbe1b74a28b324f876ac781223c"
   integrity sha512-ZNvGSfPnL780sqPLEO34XZKJNRqLgPBb2J40TCZzOERk46oQb1TSDhRzTIeCW5KxvBxkhPk9h4GCx+B13nmxRg==
@@ -1328,7 +1328,7 @@
     gaze "^1.1.2"
     webdriverio "^5.11.10"
 
-"@wdio/selenium-standalone-service@5.11.10":
+"@wdio/selenium-standalone-service@5.11.2":
   version "5.11.2"
   resolved "https://registry.yarnpkg.com/@wdio/selenium-standalone-service/-/selenium-standalone-service-5.11.2.tgz#d827817cbd2939d450cfa5ed958172662750a4c6"
   integrity sha512-iFFVCNAb0I3riDfUwuxXGOrFI8T0kAgkCfHM6jbH7JGsvHdkrwFb4mmTP2IN7UcvtgE6SeR7t65LLn/yBSvQ6Q==
@@ -1338,7 +1338,7 @@
     fs-extra "^8.0.1"
     selenium-standalone "^6.15.1"
 
-"@wdio/spec-reporter@5.11.10":
+"@wdio/spec-reporter@5.11.7":
   version "5.11.7"
   resolved "https://registry.yarnpkg.com/@wdio/spec-reporter/-/spec-reporter-5.11.7.tgz#68218ea7a4add38eed8f37fdb765b0a7e0a7b8b9"
   integrity sha512-JVz85bL26PJjhZsFQy2ynkMyB96r1Nw4o4lbLUmer0eYycVC25jjekFyp5XE6+NmGSY2PVVz1uWmDamFy5TLdA==
