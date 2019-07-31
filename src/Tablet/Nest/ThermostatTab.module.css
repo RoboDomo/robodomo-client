@@ -1,0 +1,23 @@
+.hvacTabTitle {
+  text-transform: capitalize;
+}
+
+.layoutContainer {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+}
+
+.main {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.main > svg {
+  justify-self: center;
+}
+
+.selfCenter {
+  justify-self: center;
+}
