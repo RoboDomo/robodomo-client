@@ -1,7 +1,6 @@
 import React, { useReducer } from "react";
 
-import { FaVolumeMute, FaVolumeUp, FaVolumeDown } from "react-icons/fa";
-import { ButtonGroup } from "react-bootstrap";
+import { IonIcon, IonList, IonListHeader, IonItem, IonLabel } from "@ionic/react";
 
 import ActionButton from "@/common/ActionButton";
 
@@ -35,35 +34,37 @@ const AudioControl = ({ avr }) => {
     }
 
     return (
-      <ActionButton variant={variant} dispatch={dispatch} action={action}>
-        {children}
-      </ActionButton>
+      <IonItem>
+        <ActionButton variant={variant} dispatch={dispatch} action={action}>
+          {children}
+        </ActionButton>
+      </IonItem>
     );
   };
 
   return (
     <>
-      <ButtonGroup vertical>
-        <div>Master Volume</div>
-        {button("mute", <FaVolumeMute />, avr.mute ? "danger" : "primary")}
-        {button("masterup", <FaVolumeUp />)}
-        <div style={{ textAlign: "center", width: "100%" }}>{format(avr.masterVolume)}</div>
-        {button("masterdown", <FaVolumeDown />)}
-      </ButtonGroup>
+      <IonList>
+        <IonListHeader>Master Volume</IonListHeader>
+        {button("mute", <IonIcon name="volume-off" />, avr.mute ? "danger" : "primary")}
+        {button("masterup", <IonIcon name="volume-high" />)}
+        <IonLabel>{format(avr.masterVolume)}</IonLabel>
+        {button("masterdown", <IonIcon name="volume-low" />)}
+      </IonList>
 
-      <ButtonGroup vertical>
-        <div style={{ marginTop: 16 }}>Center Channel</div>
-        {button("centerup", <FaVolumeUp />)}
-        <div style={{ textAlign: "center", width: "100%" }}>{format(avr.centerVolume)}</div>
-        {button("centerdown", <FaVolumeDown />)}
-      </ButtonGroup>
+      <IonList>
+        <IonListHeader>Center Channel</IonListHeader>
+        {button("centerup", <IonIcon name="volume-high" />)}
+        <IonLabel>{format(avr.centerVolume)}</IonLabel>
+        {button("centerdown", <IonIcon name="volume-low" />)}
+      </IonList>
 
-      <ButtonGroup vertical>
-        <div style={{ textAlign: "center", width: "100%", marginTop: 16 }}>{avr.surroundMode}</div>
+      <IonList>
+        <IonListHeader>{avr.surroundMode}</IonListHeader>
         {button("auto", "Auto")}
         {button("movie", "Movie")}
         {button("music", "Music")}
-      </ButtonGroup>
+      </IonList>
     </>
   );
 };

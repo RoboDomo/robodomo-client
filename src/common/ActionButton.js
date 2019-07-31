@@ -10,7 +10,7 @@
  */
 import React from "react";
 
-import { Button } from "react-bootstrap";
+import { IonButton } from "@ionic/react";
 
 const ActionButton = ({ variant, dispatch, action, mini, children, onClick }) => {
   const w = Math.min(window.screen.availWidth / 5 - 4, 100);
@@ -18,7 +18,6 @@ const ActionButton = ({ variant, dispatch, action, mini, children, onClick }) =>
     width: mini ? 46 : w,
     height: 40,
     fontSize: 14,
-    paddingBottom: 22,
   };
   if (variant === "none") {
     return (
@@ -35,8 +34,8 @@ const ActionButton = ({ variant, dispatch, action, mini, children, onClick }) =>
   }
 
   return (
-    <Button
-      variant={variant}
+    <IonButton
+      color={variant}
       style={style}
       onClick={e => {
         e.preventDefault();
@@ -49,7 +48,7 @@ const ActionButton = ({ variant, dispatch, action, mini, children, onClick }) =>
       }}
     >
       {children}
-    </Button>
+    </IonButton>
   );
 };
 export default ActionButton;
