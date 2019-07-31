@@ -108,6 +108,7 @@ const ThermostatTab = ({ thermostat }) => {
     if (!thermostat.ambient_temperature_f || !thermostat.target_temperature_f) {
       return null;
     }
+
     return (
       <section className={s.layoutContainer}>
         <div>
@@ -180,7 +181,7 @@ const ThermostatTab = ({ thermostat }) => {
           </IonButtons>
           <IonSegment onIonChange={e => hvacModeChange(e.detail.value)}>
             {["off", "heat", "cool", "heat-cool", "eco"].map(value => (
-              <IonSegmentButton value={value}>
+              <IonSegmentButton value={value} checked={thermostat.hvac_mode === value}>
                 <IonLabel className={s.hvacTabTitle}>{value.replace("-", "/")}</IonLabel>
               </IonSegmentButton>
             ))}
