@@ -2,22 +2,22 @@ import React from "react";
 import { format, parseISO } from "date-fns";
 import OnIdle from "@modus/react-idle";
 import cx from "classnames";
-import { withRouter } from "react-router";
 import { FaFlag } from "react-icons/fa";
 
 import Clock from "@/common/Clock";
-import useConfig from "@/hooks/useConfig";
 import useWeather from "@/hooks/useWeather";
 import Temperature from "@/common/Temperature";
 import Speed from "@/common/Speed";
 import Distance from "@/common/Distance";
 
+import AnimatedStack from "@/common/AnimatedStack";
+
 import s from "./WeatherTab.module.css";
 
 const Hourly = ({ data }) => (
-  <div
+  <AnimatedStack
     onScroll={e => e.stopPropagation()}
-    className={s.forecastContainer}
+    className={s.forecastContainerHourly}
     data-testid="weather-hourly"
   >
     {data.map((data, i) => {
@@ -43,16 +43,16 @@ const Hourly = ({ data }) => (
         </div>
       );
     })}
-  </div>
+  </AnimatedStack>
 );
 
 const Daily = ({ data }) => {
   let lastDay = "";
   return (
-    <div
+    <AnimatedStack
       onScroll={e => e.stopPropagation()}
       data-testid="weather-daily"
-      className={s.forecastContainer}
+      className={s.forecastContainerDaily}
     >
       {data.map((o, i) => {
         if (!o) {
@@ -85,7 +85,7 @@ const Daily = ({ data }) => {
           </div>
         );
       })}
-    </div>
+    </AnimatedStack>
   );
 };
 
@@ -128,13 +128,8 @@ const SecondaryConditions = ({ weather }) => {
   );
 };
 
-const WeatherTab = ({
-  match: {
-    params: { tab: zip },
-  },
-}) => {
-  const Config = useConfig(),
-    metric = Config.metric;
+const WeatherTab = ({ zip }) => {
+  // metric = Config.metric;
   const weather = useWeather(zip);
 
   try {
@@ -173,4 +168,4 @@ const WeatherTab = ({
 };
 
 //
-export default withRouter(WeatherTab);
+export default WeatherTab;

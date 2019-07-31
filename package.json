@@ -1,8 +1,7 @@
 {
-  "name": "client",
+  "name": "robodomo-client",
   "version": "0.1.0",
   "private": true,
-  "main": "electron-index.js",
   "dependencies": {
     "@ionic/core": "^4.5.0",
     "@ionic/react": "^0.0.6-3",
@@ -12,6 +11,8 @@
     "bowser": "^2.4.0",
     "classnames": "^2.2.6",
     "date-fns": "^2.0.0-beta.2",
+    "framer-motion": "^1.2.4",
+    "idb-keyval": "^3.2.0",
     "jquery": "^3.3.1",
     "lodash-es": "^4.17.14",
     "mqtt": "^2.18.8",
@@ -38,12 +39,17 @@
     "autoformat": "lint-staged"
   },
   "eslintConfig": {
+    "root": true,
     "extends": [
       "react-app",
       "plugin:prettier/recommended",
       "prettier/babel",
       "prettier/react"
-    ]
+    ],
+    "rules": {
+      "react-hooks/rules-of-hooks": "warn",
+      "no-unused-vars": "error"
+    }
   },
   "husky": {
     "hooks": {
@@ -51,11 +57,15 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx},!src/models": [
+    "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --fix",
       "git add"
     ],
-    "src/**/*.{json,scss,sass,less}": [
+    "e2e-tests/**/*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "src/**/*.{json,css}": [
       "prettier --write",
       "git add"
     ]
@@ -67,6 +77,10 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@modus/gimbal-plugin-axe": "1.1.9",
+    "@modus/gimbal-plugin-last-value": "1.1.9",
+    "@modus/gimbal-plugin-mysql": "1.1.9",
+    "@modus/gimbal-plugin-source-map-explorer": "1.1.9",
     "autodll-webpack-plugin": "https://github.com/ModusCreateOrg/autodll-webpack-plugin",
     "electron": "^5.0.2",
     "eslint": "^5.16.0",

@@ -15,7 +15,7 @@ const onOrOff = () => (Math.random() < 0.5 ? "off" : "on");
 /**
  * @return {number} Random temperature in F
  */
-const randomTemp = () => Math.floor(Math.random() * 60 + 60);
+const randomTemp = (min = 60, max = 120) => Math.floor(Math.random() * (max - min) + min);
 
 /**
  * @param {number} max Maximum number

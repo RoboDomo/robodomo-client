@@ -1,3 +1,5 @@
+// mschwartz touched this to cause a changed file for comments
+
 /**
  * DEMO configuration file for RoboDomo.
  */
@@ -244,7 +246,7 @@ module.exports = {
           name: "Nest", // name of button
           type: "thermostat", // type of button
           device: "structure/thermostat_name", // structure and name of thermostat
-          weather: "zip-code", // the zip code for weather to be displayed
+          weather: "92109", // the zip code for weather to be displayed
         },
         // fan, switch, and dimmer buttons show the state of the device (e.g. on, off, low/med/high, 50%).
         // Use a label to render text above the button.
@@ -292,10 +294,10 @@ module.exports = {
         // a large 256x256 tile that renders the current date/time (with seconds) and sunrise/sunset
         { type: "clock" },
         // a large 256x256 tile that renders the current weather, updates in real time
-        { type: "weather", location: "92211" },
+        { type: "weather", location: "92109" },
 
         // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
-        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
+        { type: "thermostat", device: "Thermostat" },
         // a 256x128 tile that renders that status of your swimming pool controller.  Background is green if it is running.
         { type: "pool", controller: "autelis" },
         // a 256x128 tile that renders that status of your spa controller.  Background is red if it is running.
@@ -331,9 +333,9 @@ module.exports = {
       tiles: [
         { type: "clock" },
         // a large 256x256 tile that renders the current weather, updates in real time
-        { type: "weather", location: "92211" },
+        { type: "weather", location: "92109" },
         // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
-        { type: "thermostat", device: "Falsetto/Hallway Thermostat" },
+        { type: "thermostat", device: "Thermostat" },
         { type: "spa", controller: "autelis" },
         {
           type: "garagedoor",
@@ -366,7 +368,7 @@ module.exports = {
     device: "autelis", // host or IP address
     name: "Pool Control",
     url: "http://poolcontrol", // where the http page is
-    location: "zip-code", // location for weather display
+    location: "92109", // location for weather display
     // credentials to log in to the pool control HTTP UI.
     credentials: {
       // These are the defaults and will work unless you've changed them via the http UI.
@@ -427,11 +429,11 @@ module.exports = {
 
   nest: {
     // one or more thermostats
-    thermostats: [{ device: "structure/thermostat_name", name: "Hallway Thermostat" }],
+    thermostats: [{ device: "Thermostat", name: "Hallway Thermostat" }],
     // one or more Nest Protect (fire/CO2 detector)
     protects: [
       {
-        device: "structure/protect_name",
+        device: "Nest Protect",
         name: "Entryway Nest Protect",
       },
     ],

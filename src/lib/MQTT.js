@@ -13,7 +13,7 @@ class MQTT extends EventEmitter {
     this.cache = {};
     this.setMaxListeners(250);
 
-    if (process.env.NODE_ENV === "testing") {
+    if (process.env.NODE_ENV === "testing" || process.env.REACT_APP_DEMO === "true") {
       // save a reference for testing
       window.SEND_MQTT_MESSAGE = this.onMessageArrived.bind(this);
     }
@@ -23,22 +23,22 @@ class MQTT extends EventEmitter {
     // Don't attempt to connect if we are in a DEMO environment
     if (process.env.REACT_APP_DEMO === "true") {
       import("@/dev/mqtt-sim" /* webpackChunkName: "mqtt-sim" */).then(({ getRandomMessage }) => {
-        setInterval(() => {
+        setInterval(async () => {
           // get a list of subscribed topics
           const subscriptions = Array.from(this.subscriptionQueue)
             .map(([topic]) => topic)
             .filter(Boolean);
 
           // filter by current subscriptions
-          const payload = getRandomMessage(subscriptions);
+          const payload = await getRandomMessage(subscriptions);
 
           if (payload) {
             this.onMessageArrived(...payload);
           }
         }, process.env.REACT_APP_DEMO_TRAFFIC_INTERVAL || 5000);
 
-        this.getMessageByTopic = topic => {
-          const payload = getRandomMessage([topic]);
+        this.getMessageByTopic = async topic => {
+          const payload = await getRandomMessage([topic]);
           if (payload) {
             this.onMessageArrived(...payload);
           }
@@ -203,6 +203,10 @@ class MQTT extends EventEmitter {
 
   publish(topic, message) {
     if (process.env.REACT_APP_DEMO === "true") {
+      // save state
+      const { set } = require("@/dev/state");
+      set(topic.replace(/\/set$/, ""), message);
+
       // respond back with status after a while to simulate lag
       setTimeout(() => {
         this.onMessageArrived(topic.replace(/set/, "status"), message);

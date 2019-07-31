@@ -1,0 +1,2 @@
+/e2e-tests/node-modules/**/*.js
+/node-modules/**/*.js

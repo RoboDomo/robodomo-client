@@ -1,6 +1,5 @@
 import React, { useReducer } from "react";
 import lgtvReducer from "@/hooks/reducers/lgtvReducer";
-import useConfig from "@/hooks/useConfig";
 
 import { Image, ButtonGroup, Tooltip, OverlayTrigger } from "react-bootstrap";
 

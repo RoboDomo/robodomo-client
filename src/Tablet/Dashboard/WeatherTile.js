@@ -9,7 +9,7 @@ import { FaFlag } from "react-icons/fa";
 
 const WeatherTile = () => {
   const Config = useConfig();
-  const metric = Config.metric;
+  // const metric = Config.metric;
   const location = (() => {
     for (const location of Config.weather.locations) {
       if (location.default) {
@@ -51,9 +51,9 @@ const WeatherTile = () => {
             }}
             src={now.iconLink}
           />
-          <span style={{fontSize: 40,}}>
-              <Temperature value={now.temperature} />
-            </span>
+          <span style={{ fontSize: 40 }}>
+            <Temperature value={now.temperature} />
+          </span>
         </div>
         <div>
           <Temperature value={now.highTemperature} /> / <Temperature value={now.lowTemperature} />
