@@ -1,18 +1,16 @@
 import React, { useReducer } from "react";
+import Thermostat from "react-nest-thermostat";
 
 import {
-  ButtonGroup,
-  Button,
-  ToggleButton,
-  ToggleButtonGroup,
-  Row,
-  Col,
-  ListGroup,
-  ListGroupItem,
-} from "react-bootstrap";
-
-import Thermostat from "react-nest-thermostat";
-import { FaChevronUp, FaChevronDown, FaChevronRight } from "react-icons/fa";
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
+  IonList,
+  IonItem,
+  IonButton,
+  IonButtons,
+  IonIcon,
+} from "@ionic/react";
 
 import useConfig from "@/hooks/useConfig";
 import useWeather from "@/hooks/useWeather";
@@ -20,6 +18,8 @@ import useThermostat from "@/hooks/useThermostat";
 import thermostatReducer from "@/hooks/reducers/thermostatReducer";
 import Locale from "@/lib/Locale";
 import Temperature from "@/common/Temperature";
+
+import s from "./ThermostatTab.module.css";
 
 const ThermostatTab = ({ thermostat }) => {
   const device = thermostat.device;
@@ -52,20 +52,6 @@ const ThermostatTab = ({ thermostat }) => {
     } catch (e) {}
   };
 
-  const adjustTemperatureButton = delta => {
-    const d = metric ? parseInt((10 * delta) / 1.8) / 10 : delta;
-    return (
-      <Button
-        onClick={() => {
-          adjustTemperature(d);
-        }}
-      >
-        {delta < 0 ? <FaChevronDown /> : <FaChevronUp />}
-        {d}
-      </Button>
-    );
-  };
-
   const render = () => {
     const thermostat = thermoState;
 
@@ -73,59 +59,47 @@ const ThermostatTab = ({ thermostat }) => {
       return null;
     }
 
-    const target = n => {
-      let icon = <FaChevronRight />,
+    const TargetButton = ({ target, color }) => {
+      let icon = <IonIcon name="arrow-dropright" />,
         disabled = false;
 
-      if (thermostat.target_temperature_f > n) {
-        icon = <FaChevronDown />;
-      } else if (thermostat.target_temperature_f < n) {
-        icon = <FaChevronUp />;
+      if (thermostat.target_temperature_f > target) {
+        icon = <IonIcon name="arrow-dropdown" />;
+      } else if (thermostat.target_temperature_f < target) {
+        icon = <IonIcon name="arrow-dropup" />;
       } else {
-        icon = <FaChevronRight />;
+        icon = <IonIcon name="arrow-dropright" />;
         disabled = true;
       }
       return (
-        <Button block disabled={disabled} onClick={() => setTargetTemperature(n)}>
-          {icon} Set to <Temperature value={n} />
-        </Button>
+        <IonItem>
+          <IonButton disabled={disabled} color={color} onClick={() => setTargetTemperature(target)}>
+            {icon} Set to <Temperature value={target} />
+          </IonButton>
+        </IonItem>
       );
     };
 
-    const renderTargets = () => {
+    const TargetTemperatures = () => {
       switch (thermoState.hvac_mode) {
         case "Off":
         default:
           return null;
         case "heat":
           return (
-            <ButtonGroup vertical style={{ width: "100%" }}>
-              {target(78)}
-              {target(77)}
-              {target(76)}
-              {target(75)}
-              {target(74)}
-              {target(73)}
-              {target(72)}
-              {target(71)}
-              {target(70)}
-              {target(69)}
-            </ButtonGroup>
+            <IonList>
+              {Array.from(new Array(9), (_, idx) => (
+                <TargetButton target={idx + 69} color="primary" />
+              )).reverse()}
+            </IonList>
           );
         case "cool":
           return (
-            <ButtonGroup vertical style={{ width: "100%" }}>
-              {target(82)}
-              {target(81)}
-              {target(80)}
-              {target(79)}
-              {target(78)}
-              {target(77)}
-              {target(76)}
-              {target(75)}
-              {target(74)}
-              {target(73)}
-            </ButtonGroup>
+            <IonList>
+              {Array.from(new Array(9), (_, idx) => (
+                <TargetButton target={idx + 73} color="secondary" />
+              )).reverse()}
+            </IonList>
           );
       }
     };
@@ -135,114 +109,98 @@ const ThermostatTab = ({ thermostat }) => {
       return null;
     }
     return (
-      <Row style={{ marginTop: 6 }}>
-        <Col sm={3}>
-          <ListGroup>
-            <ListGroupItem>
-              Presence
-              <span style={{ float: "right" }}>{thermostat.away.toUpperCase()}</span>
-            </ListGroupItem>
-            <ListGroupItem>
-              Ambient Temperature
-              <span style={{ float: "right" }}>
+      <section className={s.layoutContainer}>
+        <div>
+          <IonList lines="full">
+            <IonItem>
+              <IonLabel>Presence</IonLabel>
+              <span>{thermostat.away.toUpperCase()}</span>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Ambient Temperature</IonLabel>
+              <span>
                 <Temperature value={thermostat.ambient_temperature_f} />
               </span>
-            </ListGroupItem>
-            <ListGroupItem>
-              Ambient Humidity
-              <span style={{ float: "right" }}>{thermostat.humidity}%</span>
-            </ListGroupItem>
-            <ListGroupItem>
-              Mode
-              <span style={{ float: "right" }}>{thermostat.hvac_mode}</span>
-            </ListGroupItem>
-            <ListGroupItem>
-              Operating State
-              <span style={{ float: "right" }}>{thermostat.hvac_state}</span>
-            </ListGroupItem>
-          </ListGroup>
-          <ListGroup>
-            <ListGroupItem>
-              {thermostat.structure_name}
-              <span style={{ float: "right" }}>{thermostat.postal_code}</span>
-            </ListGroupItem>
-            <ListGroupItem>
-              Outside Temperature
-              <span style={{ float: "right" }}>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Ambient Humidity</IonLabel>
+              <span>{thermostat.humidity}%</span>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Mode</IonLabel>
+              <span>{thermostat.hvac_mode}</span>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Operating State</IonLabel>
+              <span>{thermostat.hvac_state}</span>
+            </IonItem>
+          </IonList>
+          <IonList lines="full">
+            <IonItem>
+              <IonLabel>{thermostat.structure_name}</IonLabel>
+              <span>{thermostat.postal_code}</span>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Outside Temperature</IonLabel>
+              <span>
                 <Temperature value={now.temperature} />
               </span>
-            </ListGroupItem>
-            <ListGroupItem>
-              Outside Humidity
-              <span style={{ float: "right" }}>{now.humidity}%</span>
-            </ListGroupItem>
-            <ListGroupItem>
-              Conditions
-              <span style={{ float: "right" }}>{now.description}</span>
-            </ListGroupItem>
-          </ListGroup>
-        </Col>
-        <Col sm={6}>
-          <div style={{ textAlign: "center" }}>
-            <Thermostat
-              style={{ textAlign: "center " }}
-              width="400px"
-              height="400px"
-              away={Boolean(thermostat.away !== "home")}
-              ambientTemperature={Locale.ftoc(thermostat.ambient_temperature_f, metric)}
-              targetTemperature={Locale.ftoc(thermostat.target_temperature_f, metric)}
-              hvacMode={thermostat.hvac_state}
-              leaf={thermostat.has_leaf}
-            />
-            <ButtonGroup style={{ marginBottom: 8 }}>
-              {adjustTemperatureButton(-3)}
-              {adjustTemperatureButton(-2)}
-              {adjustTemperatureButton(-1)}
-              {adjustTemperatureButton(1)}
-              {adjustTemperatureButton(2)}
-              {adjustTemperatureButton(3)}
-            </ButtonGroup>
-            <ToggleButtonGroup
-              onChange={hvacModeChange}
-              type="radio"
-              size="lg"
-              name="hvac"
-              value={thermostat.hvac_mode}
-            >
-              <ToggleButton style={{ width: 85, fontSize: 14 }} value="off">
-                Off
-              </ToggleButton>
-              <ToggleButton style={{ width: 85, fontSize: 14 }} value="heat">
-                Heat
-              </ToggleButton>
-              <ToggleButton style={{ width: 85, fontSize: 14 }} value="cool">
-                Cool
-              </ToggleButton>
-              <ToggleButton style={{ width: 110, fontSize: 14 }} value="heat-cool">
-                Heat/Cool
-              </ToggleButton>
-              <ToggleButton style={{ width: 85, fontSize: 14 }} value="Eco">
-                Eco
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </div>
-        </Col>
-        <Col sm={3}>
-          <ListGroup>
-            <ListGroupItem>
-              Target Temperature
-              <span style={{ float: "right" }}>
-                <Temperature value={thermostat.target_temperature_f} />
-              </span>
-            </ListGroupItem>
-            <ListGroupItem>
-              Time To Target
-              <span style={{ float: "right" }}>{thermostat.time_to_target}</span>
-            </ListGroupItem>
-          </ListGroup>
-          {renderTargets()}
-        </Col>
-      </Row>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Outside Humidity</IonLabel>
+              <span>{now.humidity}%</span>
+            </IonItem>
+            <IonItem>
+              <IonLabel>Conditions</IonLabel>
+              <span>{now.description}</span>
+            </IonItem>
+          </IonList>
+        </div>
+        {/* Center screen */}
+        <div className={s.main}>
+          <Thermostat
+            className={s.thermostat}
+            away={Boolean(thermostat.away !== "home")}
+            ambientTemperature={Locale.ftoc(thermostat.ambient_temperature_f, metric)}
+            targetTemperature={Locale.ftoc(thermostat.target_temperature_f, metric)}
+            hvacMode={thermostat.hvac_state}
+            leaf={thermostat.has_leaf}
+          />
+          <IonButtons slot="primary" className={s.selfCenter}>
+            {Array.from(new Array(6), (_, idx) => {
+              const value = idx - 3;
+
+              return (
+                <IonButton onClick={() => adjustTemperature(value)}>
+                  <IonIcon name={value < 0 ? "arrow-dropdown" : "arrow-dropup"} />
+                  <IonLabel>{value}</IonLabel>
+                </IonButton>
+              );
+            })}
+          </IonButtons>
+          <IonSegment onIonChange={e => hvacModeChange(e.detail.value)}>
+            {["off", "heat", "cool", "heat-cool", "eco"].map(value => (
+              <IonSegmentButton value={value}>
+                <IonLabel className={s.hvacTabTitle}>{value.replace("-", "/")}</IonLabel>
+              </IonSegmentButton>
+            ))}
+          </IonSegment>
+        </div>
+        {/* East */}
+        <div>
+          <IonList lines="full">
+            <IonItem>
+              <IonLabel>Target Temperature</IonLabel>
+              <Temperature value={thermostat.target_temperature_f} />
+            </IonItem>
+            <IonItem>
+              <IonLabel>Time To Target</IonLabel>
+              <Temperature value={thermostat.time_to_target} />
+            </IonItem>
+          </IonList>
+          <TargetTemperatures />
+        </div>
+      </section>
     );
   };
 
