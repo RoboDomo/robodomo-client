@@ -246,7 +246,7 @@ module.exports = {
           name: "Nest", // name of button
           type: "thermostat", // type of button
           device: "structure/thermostat_name", // structure and name of thermostat
-          weather: "zip-code", // the zip code for weather to be displayed
+          weather: "92109", // the zip code for weather to be displayed
         },
         // fan, switch, and dimmer buttons show the state of the device (e.g. on, off, low/med/high, 50%).
         // Use a label to render text above the button.
@@ -368,7 +368,7 @@ module.exports = {
     device: "autelis", // host or IP address
     name: "Pool Control",
     url: "http://poolcontrol", // where the http page is
-    location: "zip-code", // location for weather display
+    location: "92109", // location for weather display
     // credentials to log in to the pool control HTTP UI.
     credentials: {
       // These are the defaults and will work unless you've changed them via the http UI.
