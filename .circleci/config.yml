@@ -165,3 +165,31 @@ workflows:
       - gimbal:
           requires:
             - build-pwa
+  schedule-workflow:
+    triggers:
+      - schedule:
+          cron: "15 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - install-dependencies
+      - install-test-dependencies
+      - lint:
+          requires:
+            - install-dependencies
+      - lint-tests:
+          requires:
+            - install-test-dependencies
+      - build-pwa:
+          requires:
+            - install-dependencies
+      - test-pwa:
+          requires:
+            - install-dependencies
+            - build-pwa
+            - install-test-dependencies
+      - gimbal:
+          requires:
+            - build-pwa
