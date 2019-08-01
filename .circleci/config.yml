@@ -127,7 +127,14 @@ jobs:
       - run:
           name: Run e2e tests
           command: sh ./.circleci/test_pwa.sh
+      - run: exit 0
+      - slack/status:
+          fail_only: 'true'
+          webhook: webhook
+orbs:
+  slack: circleci/slack@4.0.1
 
+  
   gimbal:
     <<: *defaults
     docker:
