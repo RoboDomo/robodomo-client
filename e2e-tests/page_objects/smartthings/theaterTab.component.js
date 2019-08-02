@@ -2,81 +2,98 @@ import expect from 'expect';
 
 /** TheaterTabComponent selenium page-object */
 class TheaterTabComponent {
-    get tabPane() { return $('#smartthings-tabs-tabpane-1'); }
+    constructor(parent) {
+        this.parent = parent
+    }
 
-    get ceilingFanLightSwitch() { return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle'); }
-    get ceilingFanLightDimm() { return $('//div[text()="Ceiling Fan Light"]/parent::*//ion-range'); }
+    get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get ceilingFanOffButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Off"]'); }
-    get ceilingFanLowButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Low"]'); }
-    get ceilingFanMediumButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
-    get ceilingFanHighButton() { return $('//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get ceilingFanLightSwitch() { return this.activeTab.$('.//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle'); }
+    get ceilingFanLightDimm() { return this.activeTab.$('.//div[text()="Ceiling Fan Light"]/parent::*//ion-range'); }
+    get ceilingFanLightLi() { return this.ceilingFanLightSwitch.$('./ancestor::li')}
 
-    get entrywayLightsOnButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="On"]'); }
-    get entrywayLightsOffButton() { return $('//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="Off"]'); }
+    get ceilingFanOffButton() { return this.activeTab.$('.//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Off"]'); }
+    get ceilingFanLowButton() { return this.activeTab.$('.//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Low"]'); }
+    get ceilingFanMediumButton() { return this.activeTab.$('.//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
+    get ceilingFanHighButton() { return this.activeTab.$('.//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get ceilingFanLi() { return this.ceilingFanOffButton.$('./ancestor::li')}
+
+    get entrywayLightsOnButton() { return this.activeTab.$('.//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="On"]'); }
+    get entrywayLightsOffButton() { return this.activeTab.$('.//div[text()="Entryway Lights"]/parent::*//ion-segment-button[.="Off"]'); }
+    get entrywayLightsLi() { return this.entrywayLightsOnButton.$('./ancestor::li')}
 
     clickCeilingFanOffButton() {
+        this.ceilingFanLi.waitForAnimation();
         this.ceilingFanOffButton.click();
     }
 
     clickCeilingFanLowButton() {
+        this.ceilingFanLi.waitForAnimation();
         this.ceilingFanLowButton.click();
     }
 
     clickCeilingFanMediumButton() {
+        this.ceilingFanLi.waitForAnimation();
         this.ceilingFanMediumButton.click();
     }
 
     clickCeilingFanHighButton() {
+        this.ceilingFanLi.waitForAnimation();
         this.ceilingFanHighButton.click();
     }
 
     toggleCeilingFanLight(state) {
-        if (this.ceilingFanLightSwitch.getProperty('checked') === true && !state) {
+        this.ceilingFanLightLi.waitForAnimation();
+        if (this.ceilingFanLightSwitch.getAttribute('aria-checked') === 'true' && !state) {
             this.ceilingFanLightSwitch.click();
         }
-        if (this.ceilingFanLightSwitch.getProperty('checked') === false && state) {
+        if (this.ceilingFanLightSwitch.getAttribute('aria-checked') === 'false' && state) {
             this.ceilingFanLightSwitch.click();
         }
     }
 
     toggleEntrywayLights(state) {
-        if (this.entrywayLightsOnButton.getProperty('checked') === true && !state) {
+        this.entrywayLightsLi.waitForAnimation();
+        if (this.entrywayLightsOnButton.getAttribute('checked') === 'true' && !state) {
             this.entrywayLightsOffButton.click();
         }
-        if (this.entrywayLightsOffButton.getProperty('checked') === true && state) {
+        if (this.entrywayLightsOffButton.getAttribute('checked') === 'true' && state) {
             this.entrywayLightsOnButton.click();
         }
     }
 
     validateCeilingFanState(state) {
-        if (state === 'Off')
-            expect(this.ceilingFanOffButton.getProperty('checked')).toEqual(true);
-        else if (state === 'Low')
-            expect(this.ceilingFanLowButton.getProperty('checked')).toEqual(true);
-        else if (state === 'Medium')
-            expect(this.ceilingFanMediumButton.getProperty('checked')).toEqual(true);
+        this.ceilingFanLi.waitForAnimation();
+        if (state === 'off')
+            expect(this.ceilingFanOffButton.getAttribute('checked')).toEqual('true');
+        else if (state === 'low')
+            expect(this.ceilingFanLowButton.getAttribute('checked')).toEqual('true');
+        else if (state === 'medium')
+            expect(this.ceilingFanMediumButton.getAttribute('checked')).toEqual('true');
         else if (state === 'high')
-            expect(this.ceilingFanHighButton.getProperty('checked')).toEqual(true);
+            expect(this.ceilingFanHighButton.getAttribute('checked')).toEqual('true');
     }
 
     validateCeilingFanLightDimmValue(value) {
+        this.ceilingFanLightLi.waitForAnimation();
         expect(this.ceilingFanLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 
     validateCeilingFanLightState(state) {
-        if (state === 'On')
-            expect(this.ceilingFanLightSwitch.getProperty('checked')).toEqual(true);
-        else if (state === 'Off')
-            expect(this.ceilingFanLightSwitch.getProperty('checked')).toEqual(false);
+        this.ceilingFanLightLi.waitForAnimation();
+        if (state === 'off')
+            expect(this.ceilingFanLightSwitch.getAttribute('aria-checked')).toEqual('false');
+        else if (state === 'on')
+            expect(this.ceilingFanLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateEntrywayLightsState(state) {
-        if (state === 'Off')
-            expect(this.entrywayLightsOffButton.getProperty('checked')).toEqual(true);
-        else if (state === 'On')
-            expect(this.entrywayLightsOnButton.getProperty('checked')).toEqual(true);
+        this.entrywayLightsLi.waitForAnimation();
+        if (state === 'off')
+            expect(this.entrywayLightsOffButton.getAttribute('checked')).toEqual('true');
+        else if (state === 'on')
+            expect(this.entrywayLightsOnButton.getAttribute('checked')).toEqual('true');
     }
 }
 
-module.exports = new TheaterTabComponent();
+module.exports = TheaterTabComponent;

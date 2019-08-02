@@ -2,30 +2,36 @@ import expect from 'expect';
 
 /** KitchenTabComponent selenium page-object */
 class KitchenTabComponent {
-    get tabPane() { return $('#smartthings-tabs-tabpane-5'); }
+    constructor(parent) {
+        this.parent = parent
+    }
 
-    get kitchenLightSwitch() { return $('//div[text()="Kitchen Light"]/parent::*//ion-toggle'); }
-    get kitchenLightDimm() { return $('//div[text()="Kitchen Light"]/parent::*//ion-range'); }
+    get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
+
+    get kitchenLightSwitch() { return this.activeTab.$('.//div[text()="Kitchen Light"]/parent::*//ion-toggle'); }
+    get kitchenLightDimm() { return this.activeTab.$('.//div[text()="Kitchen Light"]/parent::*//ion-range'); }
+    get kitchenLightLi() { return this.kitchenLightSwitch.$('./ancestor::li')}
 
     toggleKitchenLight(state) {
-        if (this.kitchenLightSwitch.getProperty('checked') === true && !state) {
+        this.kitchenLightLi.waitForAnimation();
+        if (this.kitchenLightSwitch.getAttribute('aria-checked') === 'true' && !state)
             this.kitchenLightSwitch.click();
-        }
-        if (this.kitchenLightSwitch.getProperty('checked') === false && state) {
+        if (this.kitchenLightSwitch.getAttribute('aria-checked') === 'false' && state)
             this.kitchenLightSwitch.click();
-        }
     }
 
     validateKitchenLightState(state) {
-        if (state === 'On')
-            expect(this.kitchenLightSwitch.getProperty('checked')).toEqual(true);
-        else if (state === 'Off')
-            expect(this.kitchenLightSwitch.getProperty('checked')).toEqual(false);
+        this.kitchenLightLi.waitForAnimation();
+        if (state === 'off')
+            expect(this.kitchenLightSwitch.getAttribute('aria-checked')).toEqual('false');
+        else if (state === 'on')
+            expect(this.kitchenLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateKitchenLightDimmValue(value) {
+        this.kitchenLightLi.waitForAnimation();
         expect(this.kitchenLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 }
 
-module.exports = new KitchenTabComponent();
+module.exports = KitchenTabComponent;

@@ -1,7 +1,11 @@
 
 /** BackRoomTabComponent selenium page-object */
 class BackRoomTabComponent {
-    get tabPane() { return $('#smartthings-tabs-tabpane-3'); }
+    constructor(parent) {
+        this.parent = parent
+    }
+
+    get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 }
 
 module.exports = new BackRoomTabComponent();
