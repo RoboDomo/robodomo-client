@@ -15,7 +15,7 @@ import useLGTV from "@/hooks/useLGTV";
 import useBravia from "@/hooks/useBravia";
 import useDenon from "@/hooks/useDenon";
 
-const TheaterTab = ({ style, theater }) => {
+const TheaterTab = ({ theater }) => {
   const [currentDevice, setCurrentDevice] = useState("None");
   const [currentActivity, setCurrentActivity] = useState("All Off");
   const [, dispatchActivity] = useReducer(macrosReducer);
@@ -99,10 +99,6 @@ const TheaterTab = ({ style, theater }) => {
     avr,
   ]);
 
-  const renderDevice = () => {
-    return <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />;
-  };
-
   return (
     <IonGrid class={s.grid}>
       <IonRow>
@@ -123,7 +119,9 @@ const TheaterTab = ({ style, theater }) => {
         <IonCol size="auto" class={s.column}>
           <AudioControl avr={avr} />
         </IonCol>
-        <IonCol class={s.column}>{renderDevice()}</IonCol>
+        <IonCol class={s.column}>
+          <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />
+        </IonCol>
         <IonCol size="auto" class={s.column}>
           <ButtonList theater={theater} />
         </IonCol>
