@@ -2,18 +2,28 @@ import Page from './page';
 
 /** DashboardPage selenium page-object */
 class WeatherPage extends Page {
-    get sDTabButton() { return $('#tab-button-92109'); }
-    get sDTabPane() { return $('//ion-content//div[@class="ion-page"][contains(.,"San Diego")]'); }
+    get tabContent() { return $('//ion-content[@id="tab-weather"]'); }
 
-    get nYTabButton() { return $('#tab-button-10001'); }
-    get nYTabPane() { return $('//ion-content//div[@class="ion-page"][contains(.,"New York")]'); }
+    get sDTabButton() { return this.tabContent.$('#tab-button-92109'); }
+    get sDTabDiv() { return this.sDTabButton.$('./div'); }
+    get sDTabPane() { return this.tabContent.$('.//ion-content//div[@class="ion-page"][contains(.,"San Diego")]'); }
+
+    get nYTabButton() { return this.tabContent.$('#tab-button-10001'); }
+    get nYTabDiv() { return this.nYTabButton.$('./div'); }
+    get nYTabPane() { return this.tabContent.$('.//ion-content//div[@class="ion-page"][contains(.,"New York")]'); }
 
     goToSDTab() {
-        this.sDTabButton.click();
+        if (this.sDTabButton.getAttribute('aria-selected') !== 'true') {
+            this.sDTabDiv.waitForAnimation();
+            this.sDTabButton.click();
+        }
     }
 
     goToNYTab() {
-        this.nYTabButton.click();
+        if (this.nYTabButton.getAttribute('aria-selected') !== 'true') {
+            this.nYTabDiv.waitForAnimation();
+            this.nYTabButton.click();
+        }
     }
 
     isSDTabSelected() {

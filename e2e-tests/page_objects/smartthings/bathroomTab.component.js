@@ -2,30 +2,38 @@ import expect from 'expect';
 
 /** BathroomTabComponent selenium page-object */
 class BathroomTabComponent {
-    get tabPane() { return $('#smartthings-tabs-tabpane-6'); }
+    constructor(parent) {
+        this.parent = parent
+    }
 
-    get bathroomLightSwitch() { return $('//div[text()="Bathroom Light"]/parent::*//ion-toggle'); }
-    get bathroomLightDimm() { return $('//div[text()="Bathroom Light"]/parent::*//ion-range'); }
+    get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
+
+    get bathroomLightSwitch() { return this.activeTab.$('.//div[text()="Bathroom Light"]/parent::*//ion-toggle'); }
+    get bathroomLightDimm() { return this.activeTab.$('.//div[text()="Bathroom Light"]/parent::*//ion-range'); }
+    get bathroomLightLi() { return this.bathroomLightSwitch.$('./ancestor::li')}
 
     toggleBathroomLight(state) {
-        if (this.bathroomLightSwitch.getProperty('checked') === true && !state) {
+        this.bathroomLightLi.waitForAnimation();
+        if (this.bathroomLightSwitch.getAttribute('aria-checked') === 'true' && !state) {
             this.bathroomLightSwitch.click();
         }
-        if (this.bathroomLightSwitch.getProperty('checked') === false && state) {
+        if (this.bathroomLightSwitch.getAttribute('aria-checked') === 'false' && state) {
             this.bathroomLightSwitch.click();
         }
     }
 
     validateBathroomLightState(state) {
-        if (state === 'On')
-            expect(this.bathroomLightSwitch.getProperty('checked')).toEqual(true);
-        else if (state === 'Off')
-            expect(this.bathroomLightSwitch.getProperty('checked')).toEqual(false);
+        this.bathroomLightLi.waitForAnimation();
+        if (state === 'off')
+            expect(this.bathroomLightSwitch.getAttribute('aria-checked')).toEqual('false');
+        else if (state === 'on')
+            expect(this.bathroomLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateBathroomLightDimmValue(value) {
-        expect(this.bathroomLightDimm.getProperty('value')).toEqual(value.toString());
+        this.bathroomLightLi.waitForAnimation();
+        expect(this.bathroomLightDimm.getProperty('value').toString()).toEqual(value.toString());
     }
 }
 
-module.exports = new BathroomTabComponent();
+module.exports = BathroomTabComponent;

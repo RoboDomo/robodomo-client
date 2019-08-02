@@ -2,25 +2,20 @@ import Page from './page';
 
 /** TheaterPage selenium page-object */
 class TheaterPage extends Page {
-    get pageContent() {
-        return $('//div[contains(@class, "ion-page")]');
-    }
+    get tabContent() { return $('//ion-content[@id="tab-theaters"]'); }
 
-    get homeTheaterTabButton() {
-        return $('#tab-button-theater');
-    }
-
-    get homeTheaterTabPane() {
-        return $('#tab-theaters');
-    }
+    get homeTheaterTabButton() { return this.tabContent.$('#tab-button-theater'); }
+    get homeTheaterTabDiv() { return this.homeTheaterTabButton.$('./div'); }
 
     goToHomeTheaterTab() {
-        this.homeTheaterTabButton.click();
+        if (this.homeTheaterTabButton.getAttribute('aria-selected') !== 'true') {
+            this.homeTheaterTabDiv.waitForAnimation();
+            this.homeTheaterTabButton.click();
+        }
     }
 
     isHomeTheaterTabSelected() {
         browser.waitUntil(() => this.homeTheaterTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.homeTheaterTabPane.isDisplayed();
     }
 }
 
