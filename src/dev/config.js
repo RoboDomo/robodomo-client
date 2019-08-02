@@ -529,17 +529,17 @@ module.exports = {
       {
         name: "Office Dimmer",
         type: "dimmer",
-        rooms: ["Theater", "Office", "Back Room"],
+        rooms: ["Office"],
       },
       {
         name: "Office Light",
         type: "dimmer",
-        rooms: ["Theater", "Office", "Back Room"],
+        rooms: ["Office"],
       },
       {
         name: "Office Fan",
         type: "fan",
-        rooms: ["Theater", "Office", "Back Room"],
+        rooms: ["Office"],
       },
       {
         name: "Entryway Lights",
@@ -549,12 +549,12 @@ module.exports = {
       {
         name: "Kitchen Light",
         type: "dimmer",
-        rooms: ["Kitchen", "Theater", "Bedroom"],
+        rooms: ["Kitchen"],
       },
       {
         name: "Bathroom Light",
         type: "dimmer",
-        rooms: ["Bathroom", "Bedroom"],
+        rooms: ["Bathroom"],
       },
       { name: "Bedroom Lamp", type: "switch", rooms: ["Bedroom"] },
       { name: "Bedroom Fan", type: "fan", rooms: ["Bedroom"] },
@@ -568,12 +568,12 @@ module.exports = {
       {
         name: "Front Door",
         type: "motion",
-        rooms: ["Theater", "Bedroom", "Outside"],
+        rooms: ["Outside"],
       },
       {
         name: "Bathroom Sensor",
         type: "motion",
-        rooms: ["Bathroom", "Bedroom"],
+        rooms: ["Bathroom"],
       },
       { name: "Sliding Door", type: "acceleration", rooms: ["*"] },
       { name: "Sliding Door", type: "temperature", rooms: ["*"] },
