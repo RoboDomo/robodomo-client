@@ -2,42 +2,33 @@ import Page from './page';
 
 /** NestPage selenium page-object */
 class NestPage extends Page {
-    get pageContent() {
-        return $('//div[contains(@class, "ion-page")]');
-    }
+    get tabContent() { return $('//ion-content[@id="tab-nest"]'); }
 
-    get hallwayTabButton() {
-        return $('//*[@id="nest-tabs-tab-Entryway Nest Protect"]');
-    }
-
-    get hallwayTabPane() {
-        return $('//*[@id="nest-tabs-tabpane-Entryway Nest Protect"]');
-    }
-
-    get entrywayTabButton() {
-        return $('//*[@id="nest-tabs-tab-Hallway Thermostat"]');
-    }
-
-    get entrywayTabPane() {
-        return $('//*[@id="nest-tabs-tabpane-Hallway Thermostat"]');
-    }
+    get hallwayTabButton() { return this.tabContent.$('.//*[@id="tab-button-hallwaythermostat"]'); }
+    get hallwayTabDiv() { return this.hallwayTabButton.$('./div'); }
+    get entrywayTabButton() { return this.tabContent.$('.//*[@id="tab-button-entrywaynestprotect"]'); }
+    get entrywayTabDiv() { return this.entrywayTabButton.$('./div'); }
 
     goToHallwayTab() {
-        this.hallwayTabButton.click();
+        if (this.hallwayTabButton.getAttribute('aria-selected') !== 'true') {
+            this.hallwayTabDiv.waitForAnimation();
+            this.hallwayTabButton.click();
+        }
     }
 
     goToEntrywayTab() {
-        this.entrywayTabButton.click();
+        if (this.entrywayTabButton.getAttribute('aria-selected') !== 'true') {
+            this.entrywayTabDiv.waitForAnimation();
+            this.entrywayTabButton.click();
+        }
     }
 
     isHallwayTabSelected() {
         browser.waitUntil(() => this.hallwayTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.hallwayTabPane.isDisplayed();
     }
 
     isEntrywayTabSelected() {
         browser.waitUntil(() => this.entrywayTabButton.getAttribute('aria-selected') === 'true', 5000);
-        this.entrywayTabPane.isDisplayed();
     }
 }
 

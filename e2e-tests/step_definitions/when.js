@@ -1,12 +1,11 @@
 import { When } from 'cucumber';
-import AutelisPage from '../page_objects/autelis.page';
 import DashboardPage from '../page_objects/dashboard.page';
 import NestPage from '../page_objects/nest.page';
 import Page from '../page_objects/page';
 import TheaterPage from '../page_objects/theater.page';
 import WeatherPage from '../page_objects/weather.page';
 
-When(/^User clicks (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) menu button$/, { wrapperOptions: { retry: 2 } }, (menuButton) => {
+When(/^User clicks (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) menu button$/, {}, (menuButton) => {
     switch (menuButton) {
         case 'Autelis':
             new Page('', '/').getMenu().goToAutelisPage();
@@ -34,7 +33,7 @@ When(/^User clicks (Autelis|Dashboard|Nest|Sensors|SmartThings|Theater|Weather) 
     }
 });
 
-When(/^User clicks on (Bedroom|Theater) tab$/, { wrapperOptions: { retry: 2 } }, (menuButton) => {
+When(/^User clicks on (Bedroom|Theater) tab on Dashboard page$/, {}, (menuButton) => {
     switch (menuButton) {
         case 'Bedroom':
             DashboardPage.goToBedroomTab();
@@ -47,20 +46,17 @@ When(/^User clicks on (Bedroom|Theater) tab$/, { wrapperOptions: { retry: 2 } },
     }
 });
 
-When(/^User clicks on (HomeTheater|Autelis) tab$/, { wrapperOptions: { retry: 2 } }, (tabName) => {
+When(/^User clicks on (HomeTheater) tab on Theater page$/, {}, (tabName) => {
     switch (tabName) {
         case 'HomeTheater':
             TheaterPage.goToHomeTheaterTab();
-            break;
-        case 'Autelis':
-            AutelisPage.goToAutelisTab();
             break;
         default:
             break;
     }
 });
 
-When(/^User clicks on (New York, NY|San Diego, CA) tab$/, { wrapperOptions: { retry: 2 } }, (menuButton) => {
+When(/^User clicks on (New York, NY|San Diego, CA) tab on Weather page$/, {}, (menuButton) => {
     switch (menuButton) {
         case 'New York, NY':
             WeatherPage.goToNYTab();
@@ -73,7 +69,7 @@ When(/^User clicks on (New York, NY|San Diego, CA) tab$/, { wrapperOptions: { re
     }
 });
 
-When(/^User clicks on (Hallway Thermostat|Entryway Nest Protect) tab$/, { wrapperOptions: { retry: 2 } }, (tabName) => {
+When(/^User clicks on (Hallway Thermostat|Entryway Nest Protect) tab on Nest page$/, {}, (tabName) => {
     switch (tabName) {
         case 'Entryway Nest Protect':
             NestPage.goToEntrywayTab();

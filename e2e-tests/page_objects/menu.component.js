@@ -2,102 +2,93 @@ import expect from 'expect';
 
 /** MenuComponent selenium page-object */
 class MenuComponent {
-    get autelisButton() {
-        return $('//ion-tab-button[@tab="autelis"]');
-    }
 
-    get dashboardButton() {
-        return $('//ion-tab-button[@tab="dashboard"]');
-    }
+    get menuContainer() { return $('//ion-tab-bar[@slot="top"]'); }
 
-    get nestButton() {
-        return $('//ion-tab-button[@tab="nest"]');
-    }
+    get menuContainerDiv() { return this.menuContainer.$('./parent::div') }
 
-    get sensorsButton() {
-        return $('//ion-tab-button[@tab="sensors"]');
-    }
+    get autelisButton() { return this.menuContainer.$('.//ion-tab-button[@tab="autelis"]' ); }
 
-    get smartThingsButton() {
-        return $('//ion-tab-button[@tab="smartthings"]');
-    }
+    get dashboardButton() { return this.menuContainer.$('.//ion-tab-button[@tab="dashboard"]' ); }
 
-    get theaterButton() {
-        return $('//ion-tab-button[@tab="theater"]');
-    }
+    get nestButton() { return this.menuContainer.$('.//ion-tab-button[@tab="nest"]'); }
 
-    get weatherButton() {
-        return $('//ion-tab-button[@tab="weather"]');
-    }
+    get sensorsButton() { return this.menuContainer.$('.//ion-tab-button[@tab="sensors"]'); }
+
+    get smartThingsButton() { return this.menuContainer.$('.//ion-tab-button[@tab="smartthings"]'); }
+
+    get theaterButton() { return this.menuContainer.$('.//ion-tab-button[@tab="theater"]'); }
+
+    get weatherButton() { return this.menuContainer.$('.//ion-tab-button[@tab="weather"]'); }
 
     goToAutelisPage() {
+        this.menuContainerDiv.waitForAnimation();
         this.autelisButton.click();
     }
 
     goToDashboardPage() {
+        this.menuContainerDiv.waitForAnimation();
         this.dashboardButton.click();
     }
 
     goToNestPage() {
+        this.menuContainerDiv.waitForAnimation();
         this.nestButton.click();
     }
 
     goToSensorsPage() {
+        this.menuContainerDiv.waitForAnimation();
         this.sensorsButton.click();
     }
 
     goToSmartThingsPage() {
+        this.menuContainerDiv.waitForAnimation();
         this.smartThingsButton.click();
     }
 
     goToTheaterPage() {
+        this.menuContainerDiv.waitForAnimation();
         this.theaterButton.click();
     }
 
     goToWeatherPage() {
+        this.menuContainerDiv.waitForAnimation();
         this.weatherButton.click();
     }
 
     isAutelisMenuSelected() {
-        browser.waitUntil(() => this.autelisButton.getAttribute('aria-selected') === 'true', 10000);
-        this.autelisButton.waitForEnabled();
-        expect(this.autelisButton.getAttribute('class')).toContain('tab-selected');
+        this.menuContainerDiv.waitForAnimation();
+        browser.waitUntil(() => this.autelisButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isDashboardMenuSelected() {
-        browser.waitUntil(() => this.dashboardButton.getAttribute('aria-selected') === 'true', 10000);
-        this.dashboardButton.waitForEnabled();
-        expect(this.dashboardButton.getAttribute('class')).toContain('tab-selected');
+        this.menuContainerDiv.waitForAnimation();
+        browser.waitUntil(() => this.dashboardButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isNestMenuSelected() {
-        browser.waitUntil(() => this.nestButton.getAttribute('aria-selected') === 'true', 10000);
-        this.nestButton.waitForEnabled();
-        expect(this.nestButton.getAttribute('class')).toContain('tab-selected');
+        this.menuContainerDiv.waitForAnimation();
+        browser.waitUntil(() => this.nestButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isSensorsMenuSelected() {
-        browser.waitUntil(() => this.sensorsButton.getAttribute('aria-selected') === 'true', 10000);
-        this.sensorsButton.waitForEnabled();
-        expect(this.sensorsButton.getAttribute('class')).toContain('tab-selected');
+        this.menuContainerDiv.waitForAnimation();
+        browser.waitUntil(() => this.sensorsButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isSmartThingsMenuSelected() {
-        browser.waitUntil(() => this.smartThingsButton.getAttribute('aria-selected') === 'true', 10000);
-        this.smartThingsButton.waitForEnabled();
-        expect(this.smartThingsButton.getAttribute('class')).toContain('tab-selected');
+        this.menuContainerDiv.waitForAnimation();
+        browser.waitUntil(() => this.smartThingsButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isTheaterMenuSelected() {
-        browser.waitUntil(() => this.theaterButton.getAttribute('aria-selected') === 'true', 10000);
-        this.theaterButton.waitForEnabled();
-        expect(this.theaterButton.getAttribute('class')).toContain('tab-selected');
+        this.menuContainerDiv.waitForAnimation();
+        browser.waitUntil(() => this.theaterButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     isWeatherMenuSelected() {
-        browser.waitUntil(() => this.weatherButton.getAttribute('aria-selected') === 'true', 10000);
-        this.weatherButton.waitForEnabled();
-        expect(this.weatherButton.getAttribute('class')).toContain('tab-selected');
+        this.menuContainerDiv.waitForAnimation();
+        browser.waitUntil(() => this.weatherButton.getAttribute('aria-selected') === 'true', 20000);
     }
 
     validateElementsScreenshots() {

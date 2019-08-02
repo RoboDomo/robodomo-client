@@ -2,7 +2,7 @@ import { When } from 'cucumber';
 import AutelisPage from '../page_objects/autelis.page';
 
 When(
-    /^User changes Autelis (Solar|Cleaner|Pool Heat|Pool Light|Waterfall|Spa Heat|Jets|Spa Light|Blower) button state to (On|Off)$/,
+    /^User changes Autelis (Solar|Cleaner|Pool Heat|Pool Light|Waterfall|Spa Heat|Jets|Spa Light|Blower) button state to (on|off)$/,
     (buttonName, state) => {
         switch (buttonName) {
             case 'Blower':

@@ -10,16 +10,16 @@ Feature: RoboDomo Visual Regression Dashboard page
         Then Dashboard menu shall be selected
 
 
-    @S1 @automated
+    @automated
     Scenario: Dashboard tabs
         Then Dashboard tab buttons visuals shall match baseline
 
-    @S1 @automated
+    @automated
     Scenario: Dashboard Bedroom tab
-        When User clicks on Bedroom tab
+        When User clicks on Bedroom tab on Dashboard page
         Then Dashboard Bedroom Nest cell visuals shall match baseline
 
-    @S1 @automated
+    @automated
     Scenario: Dashboard Theater tab
-        When User clicks on Theater tab
+        When User clicks on Theater tab on Dashboard page
         Then Dashboard Theater Nest cell visuals shall match baseline
