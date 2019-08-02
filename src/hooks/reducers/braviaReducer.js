@@ -120,12 +120,7 @@ const codes = [
   "iManual",
 ];
 
-const commandMap = (() => {
-  const m = {};
-  for (const code of codes) {
-    m[code.toLowerCase] = code;
-  }
-})();
+const commandMap = new Map(codes.map(code => [code.toLowerCase(), code]));
 
 export default (state, action) => {
   const { type } = action,
@@ -134,7 +129,7 @@ export default (state, action) => {
     status_topic = "bravia/" + hostname + "/status/",
     set_topic = status_topic.replace("status", "set") + "command";
 
-  const command = commandMap[action.type.toLowerCase()];
+  const command = commandMap.get(action.type.toLowerCase());
   if (command) {
     MQTT.publish(set_topic, command);
     return;
