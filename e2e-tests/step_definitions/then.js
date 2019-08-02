@@ -112,6 +112,9 @@ Then(/^Nest (Hallway Thermostat|Entryway Nest Protect) tab is loaded$/, {}, (tab
 
 Then(/^SmartThings (All|Theater|Office|Back Room|Bedroom|Kitchen|Bathroom|Outside) tab is loaded$/, {}, (tabButton) => {
     switch (tabButton) {
+        case 'All':
+            SmartThingsPage.isAllTabSelected();
+            break;
         case 'Theater':
             SmartThingsPage.isTheaterTabSelected();
             break;

@@ -9,12 +9,52 @@ const mockMQTTMessage = function(topic, value) {
     browser.pause(500);
 };
 
+exports.bathroomLightLevel = function(value) {
+    mockMQTTMessage('smartthings/Bathroom Light/level', value);
+};
+
+exports.bathroomLightState = function(value) {
+    mockMQTTMessage('smartthings/Bathroom Light/switch', value);
+};
+
+exports.bedroomFanLevel = function(value) {
+    mockMQTTMessage('smartthings/Bedroom Fan/level', value);
+};
+
+exports.bedroomFanState = function(value) {
+    mockMQTTMessage('smartthings/Bedroom Fan/switch', value);
+};
+
+exports.bedroomLampState = function(value) {
+    mockMQTTMessage('smartthings/Bedroom Lamp/switch', value);
+};
+
+exports.bedroomLightLevel = function(value) {
+    mockMQTTMessage('smartthings/Bedroom Light/level', value);
+};
+
+exports.bedroomLightState = function(value) {
+    mockMQTTMessage('smartthings/Bedroom Light/switch', value);
+};
+
+exports.ceilingFanLevel = function(value) {
+    mockMQTTMessage('smartthings/Ceiling Fan/level', value);
+};
+
+exports.ceilingFanState = function(value) {
+    mockMQTTMessage('smartthings/Ceiling Fan/switch', value);
+};
+
 exports.ceilingFanLightLevel = function(value) {
     mockMQTTMessage('smartthings/Ceiling Fan Light/level', value);
 };
 
 exports.ceilingFanLightState = function(value) {
     mockMQTTMessage('smartthings/Ceiling Fan Light/switch', value);
+};
+
+exports.entrywayLightsState = function(value) {
+    mockMQTTMessage('smartthings/Entryway Lights/switch', value);
 };
 
 exports.kitchenLightLevel = function(value) {
@@ -41,26 +81,22 @@ exports.officeLightState = function(value) {
     mockMQTTMessage('smartthings/Office Light/switch', value);
 };
 
-exports.ceilingFanSwitch = function(value) {
-    mockMQTTMessage('smartthings/Ceiling Fan/switch', value);
-};
-
-exports.ceilingFanLevel = function(value) {
-    mockMQTTMessage('smartthings/Ceiling Fan/level', value);
-};
-
-exports.officeFanSwitch = function(value) {
-    mockMQTTMessage('smartthings/Office Fan/switch', value);
-};
-
 exports.officeFanLevel = function(value) {
     mockMQTTMessage('smartthings/Office Fan/level', value);
 };
 
-exports.entrywayLightsSwitch = function(value) {
-    mockMQTTMessage('smartthings/Entryway Lights/switch', value);
+exports.officeFanState = function(value) {
+    mockMQTTMessage('smartthings/Office Fan/switch', value);
 };
 
-exports.entrywayLightsLevel = function(value) {
-    mockMQTTMessage('smartthings/Entryway Lights/level', value);
+exports.outdoorLightsState = function(value) {
+    mockMQTTMessage('smartthings/Outdoor Light/switch', value);
+};
+
+exports.outsideLightsState = function(value) {
+    mockMQTTMessage('smartthings/Outside Light/switch', value);
+};
+
+exports.porchLightState = function(value) {
+    mockMQTTMessage('smartthings/Porch Light/switch', value);
 };

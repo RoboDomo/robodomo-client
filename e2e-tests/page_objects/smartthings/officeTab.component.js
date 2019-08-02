@@ -59,35 +59,40 @@ class OfficeTabComponent {
     }
 
     validateOfficeDimmValue(value) {
+        this.officeDimmerLi.waitForAnimation();
         expect(this.officeDimmerDimm.getAttribute('value')).toEqual(value.toString());
     }
 
     validateOfficeDimmerState(state) {
-        if (state === 'Off')
+        this.officeDimmerLi.waitForAnimation();
+        if (state === 'off')
             expect(this.officeDimmerSwitch.getAttribute('aria-checked')).toEqual('false');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.officeDimmerSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateOfficeFanState(state) {
-        if (state === 'Off')
+        this.officeFanLi.waitForAnimation();
+        if (state === 'off')
             expect(this.officeFanOffButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'Low')
+        else if (state === 'low')
             expect(this.officeFanLowButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'Medium')
+        else if (state === 'medium')
             expect(this.officeFanMediumButton.getAttribute('checked')).toEqual('true');
         else if (state === 'high')
             expect(this.officeFanHighButton.getAttribute('checked')).toEqual('true');
     }
 
     validateOfficeLightState(state) {
-        if (state === 'Off')
+        this.officeLightLi.waitForAnimation();
+        if (state === 'off')
             expect(this.officeLightSwitch.getAttribute('aria-checked')).toEqual('false');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.officeLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateOfficeLightDimmValue(value) {
+        this.officeLightLi.waitForAnimation();
         expect(this.officeLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 }

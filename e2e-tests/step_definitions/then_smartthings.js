@@ -1,9 +1,8 @@
 import expect from 'expect';
 import { Then } from 'cucumber';
 import SmartThingsPage from '../page_objects/smartthings.page';
-import DashboardPage from '../page_objects/dashboard.page';
 
-Then(/^SmartThings (Bathroom Light) button is in (On|Off|Low|Medium|High) state$/, (buttonName, state) => {
+Then(/^SmartThings (Bathroom Light) button state is (on|off|low|medium|high)$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Bathroom Light':
             SmartThingsPage.getBathroomTab().validateBathroomLightState(state);
@@ -13,7 +12,17 @@ Then(/^SmartThings (Bathroom Light) button is in (On|Off|Low|Medium|High) state$
     }
 });
 
-Then(/^SmartThings (Bedroom Lamp|Bedroom Fan|Bedroom Light) button is in (On|Off|Low|Medium|High) state$/, (buttonName, state) => {
+Then(/^SmartThings (Bathroom Light) dimmer value is (\w+)$/, (dimmerName, value) => {
+    switch (dimmerName) {
+        case 'Bathroom Light':
+            SmartThingsPage.getBathroomTab().validateBathroomLightDimmValue(value);
+            break;
+        default:
+            break;
+    }
+});
+
+Then(/^SmartThings (Bedroom Lamp|Bedroom Fan|Bedroom Light) button state is (on|off|low|medium|high)$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Bedroom Fan':
             SmartThingsPage.getBedroomTab().validateBedroomFanState(state);
@@ -29,7 +38,7 @@ Then(/^SmartThings (Bedroom Lamp|Bedroom Fan|Bedroom Light) button is in (On|Off
     }
 });
 
-Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Entryway Lights) button is in (On|Off|Low|Medium|High) state$/, (buttonName, state) => {
+Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Entryway Lights) button state is (on|off|low|medium|high)$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Ceiling Fan Light':
             SmartThingsPage.getTheaterTab().validateCeilingFanLightState(state);
@@ -46,7 +55,7 @@ Then(/^SmartThings (Ceiling Fan Light|Ceiling Fan|Entryway Lights) button is in 
 
 });
 
-Then(/^SmartThings (Kitchen Light) button is in (On|Off|Low|Medium|High) state$/, (buttonName, state) => {
+Then(/^SmartThings (Kitchen Light) button state is (on|off|low|medium|high)$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Kitchen Light':
             SmartThingsPage.getKitchenTab().validateKitchenLightState(state);
@@ -56,7 +65,7 @@ Then(/^SmartThings (Kitchen Light) button is in (On|Off|Low|Medium|High) state$/
     }
 });
 
-Then(/^SmartThings (Office Dimmer|Office Light|Office Fan) button is in (On|Off|Low|Medium|High) state$/, (buttonName, state) => {
+Then(/^SmartThings (Office Dimmer|Office Light|Office Fan) button state is (on|off|low|medium|high)$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Office Dimmer':
             SmartThingsPage.getOfficeTab().validateOfficeDimmerState(state);
@@ -72,7 +81,7 @@ Then(/^SmartThings (Office Dimmer|Office Light|Office Fan) button is in (On|Off|
     }
 });
 
-Then(/^SmartThings (Porch Light|Outside Light|Outdoor Lights) button is in (On|Off|Low|Medium|High) state$/, (buttonName, state) => {
+Then(/^SmartThings (Porch Light|Outside Light|Outdoor Lights) button state is (on|off|low|medium|high)$/, (buttonName, state) => {
     switch (buttonName) {
         case 'Porch Light':
             SmartThingsPage.getOutsideTab().validatePorchLightState(state);
@@ -88,7 +97,7 @@ Then(/^SmartThings (Porch Light|Outside Light|Outdoor Lights) button is in (On|O
     }
 });
 
-Then(/^SmartThings (Ceiling Fan Light) dimmer value is (\w+) on SmartThings page$/, (dimmerName, value) => {
+Then(/^SmartThings (Ceiling Fan Light) dimmer value is (\w+)$/, (dimmerName, value) => {
     switch (dimmerName) {
         case 'Ceiling Fan Light':
             SmartThingsPage.getTheaterTab().validateCeilingFanLightDimmValue(value);
@@ -98,7 +107,7 @@ Then(/^SmartThings (Ceiling Fan Light) dimmer value is (\w+) on SmartThings page
     }
 });
 
-Then(/^SmartThings (Office Dimmer|Office Light) dimmer value is (\w+) on SmartThings page$/, (dimmerName, value) => {
+Then(/^SmartThings (Office Dimmer|Office Light) dimmer value is (\w+)$/, (dimmerName, value) => {
     switch (dimmerName) {
         case 'Office Dimmer':
             SmartThingsPage.getOfficeTab().validateOfficeDimmValue(value);
@@ -111,7 +120,7 @@ Then(/^SmartThings (Office Dimmer|Office Light) dimmer value is (\w+) on SmartTh
     }
 });
 
-Then(/^SmartThings (Kitchen Light) dimmer value is (\w+) on SmartThings page$/, (dimmerName, value) => {
+Then(/^SmartThings (Kitchen Light) dimmer value is (\w+)$/, (dimmerName, value) => {
     switch (dimmerName) {
         case 'Kitchen Light':
             SmartThingsPage.getKitchenTab().validateKitchenLightDimmValue(value);
@@ -121,17 +130,7 @@ Then(/^SmartThings (Kitchen Light) dimmer value is (\w+) on SmartThings page$/, 
     }
 });
 
-Then(/^SmartThings (Bathroom Light) dimmer value is (\w+) on SmartThings page$/, (dimmerName, value) => {
-    switch (dimmerName) {
-        case 'Bathroom Light':
-            SmartThingsPage.getBathroomTab().validateBathroomLightDimmValue(value);
-            break;
-        default:
-            break;
-    }
-});
-
-Then(/^SmartThings (Bedroom Light) dimmer value is (\w+) on SmartThings page$/, (dimmerName, value) => {
+Then(/^SmartThings (Bedroom Light) dimmer value is (\w+)$/, (dimmerName, value) => {
     switch (dimmerName) {
         case 'Bedroom Light':
             SmartThingsPage.getBedroomTab().validateBedroomLightDimmValue(value);
@@ -142,7 +141,7 @@ Then(/^SmartThings (Bedroom Light) dimmer value is (\w+) on SmartThings page$/, 
 });
 
 // TODO this needs to be merged into the other ones that don't use MQTP data manipulation
-Then(/^SmartThings (Entryway Lights|Ceiling Fan|Office Fan) is (\w+) and (\w+) on SmartThings page$/, (dimmerName, state, value) => {
+Then(/^SmartThings (Entryway Lights|Ceiling Fan|Office Fan) is (\w+) and (\w+)$/, (dimmerName, state, value) => {
     switch (dimmerName) {
         case 'Entryway Lights':
             switch (state) {
@@ -183,25 +182,6 @@ Then(/^SmartThings (Entryway Lights|Ceiling Fan|Office Fan) is (\w+) and (\w+) o
                     expect(SmartThingsPage.getTheaterTab().officeFanHighButton.getProperty('checked')).toEqual(true);
                 }
             }
-            break;
-        default:
-            break;
-    }
-});
-
-// TODO Fix this when state is persisted
-Then(/^SmartThings (Ceiling Fan Light|Office Dimmer|Office Light|Kitchen Light) dimmer value is (\w+) on Dashboard page$/, (dimmerName, value) => {
-    switch (dimmerName) {
-        case 'Ceiling Fan Light':
-            DashboardPage.theaterCeilingFanLightDiv.waitForAnimation();
-            expect(DashboardPage.theaterCeilingFanLightButton.getText()).toContain(`${dimmerName}`);
-            expect(DashboardPage.theaterCeilingFanLightButton.getText()).toContain(`${value.toString()}%`);
-            break;
-        case 'Office Dimmer':
-            break;
-        case 'Office Light':
-            break;
-        case 'Kitchen Light':
             break;
         default:
             break;

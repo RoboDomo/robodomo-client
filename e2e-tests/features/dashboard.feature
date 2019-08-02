@@ -9,7 +9,7 @@ Feature: RoboDomo Dashboard page
         Then User is redirected to Dashboard page
         Then Dashboard menu shall be selected
 
-    @S1 @automated @smoke
+    @automated @smoke
     Scenario Outline: Dashboard tabs
         When User clicks on <tabName> tab on Dashboard page
         Then Dashboard <tabName> tab is loaded
@@ -73,7 +73,7 @@ Feature: RoboDomo Dashboard page
         When User clicks on Theater tab on Dashboard page
         Then Dashboard Theater tab is loaded
         When User clicks on <button> at Theater tab of Dashboard page
-        Then <button> state is changed accordingly (from Off to On or from Off to Low...)
+        Then <button> state is changed accordingly (from off to on or from off to Low...)
         Examples:
             | button            |
             | Ceiling Fan       |
@@ -128,7 +128,7 @@ Feature: RoboDomo Dashboard page
         When User clicks on Bedroom tab on Dashboard page
         Then Dashboard Bedroom tab is loaded
         When User clicks on <button> at Bedroom tab of Dashboard page
-        Then <button> state is changed accordingly (from Off to On or from Off to Low...)
+        Then <button> state is changed accordingly (from off to on or from off to Low...)
         Examples:
             | button         |
             | Bedroom Fan    |

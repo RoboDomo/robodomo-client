@@ -11,6 +11,8 @@ import OutsideTabComponent from './smartthings/outsideTab.component';
 class SmartThingsPage extends Page {
     get tabContent() { return $('//ion-content[@id="tab-smartthings"]'); }
 
+    get allTabButton() { return this.tabContent.$('.//ion-tab-button[@tab = "all"]'); }
+    get allTabDiv() { return this.theaterTabButton.$('./div'); }
     get theaterTabButton() { return this.tabContent.$('.//ion-tab-button[@tab = "theater"]'); }
     get theaterTabDiv() { return this.theaterTabButton.$('./div'); }
     get officeTabButton() { return this.tabContent.$('.//ion-tab-button[@tab = "office"]'); }
@@ -25,6 +27,13 @@ class SmartThingsPage extends Page {
     get bathroomTabDiv() { return this.bathroomTabButton.$('./div'); }
     get outsideTabButton() { return this.tabContent.$('.//ion-tab-button[@tab = "outside"]'); }
     get outsideTabDiv() { return this.outsideTabButton.$('./div'); }
+
+    gotoAllTab() {
+        if (this.allTabButton.getAttribute('aria-selected') !== 'true') {
+            this.allTabDiv.waitForAnimation();
+            this.allTabButton.click();
+        }
+    }
 
     goToTheaterTab() {
         if (this.theaterTabButton.getAttribute('aria-selected') !== 'true') {
@@ -73,6 +82,10 @@ class SmartThingsPage extends Page {
             this.outsideTabDiv.waitForAnimation();
             this.outsideTabButton.click();
         }
+    }
+
+    isAllTabSelected() {
+        browser.waitUntil(() => this.allTabButton.getAttribute('aria-selected') === 'true', 5000);
     }
 
     isTheaterTabSelected() {

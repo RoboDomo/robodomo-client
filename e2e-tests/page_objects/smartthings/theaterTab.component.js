@@ -63,31 +63,35 @@ class TheaterTabComponent {
     }
 
     validateCeilingFanState(state) {
-        if (state === 'Off')
+        this.ceilingFanLi.waitForAnimation();
+        if (state === 'off')
             expect(this.ceilingFanOffButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'Low')
+        else if (state === 'low')
             expect(this.ceilingFanLowButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'Medium')
+        else if (state === 'medium')
             expect(this.ceilingFanMediumButton.getAttribute('checked')).toEqual('true');
         else if (state === 'high')
             expect(this.ceilingFanHighButton.getAttribute('checked')).toEqual('true');
     }
 
     validateCeilingFanLightDimmValue(value) {
+        this.ceilingFanLightLi.waitForAnimation();
         expect(this.ceilingFanLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 
     validateCeilingFanLightState(state) {
-        if (state === 'Off')
+        this.ceilingFanLightLi.waitForAnimation();
+        if (state === 'off')
             expect(this.ceilingFanLightSwitch.getAttribute('aria-checked')).toEqual('false');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.ceilingFanLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateEntrywayLightsState(state) {
-        if (state === 'Off')
+        this.entrywayLightsLi.waitForAnimation();
+        if (state === 'off')
             expect(this.entrywayLightsOffButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.entrywayLightsOnButton.getAttribute('checked')).toEqual('true');
     }
 }

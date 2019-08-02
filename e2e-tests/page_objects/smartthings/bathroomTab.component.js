@@ -23,14 +23,16 @@ class BathroomTabComponent {
     }
 
     validateBathroomLightState(state) {
-        if (state === 'Off')
+        this.bathroomLightLi.waitForAnimation();
+        if (state === 'off')
             expect(this.bathroomLightSwitch.getAttribute('aria-checked')).toEqual('false');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.bathroomLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateBathroomLightDimmValue(value) {
-        expect(this.bathroomLightDimm.getProperty('value')).toEqual(value.toString());
+        this.bathroomLightLi.waitForAnimation();
+        expect(this.bathroomLightDimm.getProperty('value').toString()).toEqual(value.toString());
     }
 }
 

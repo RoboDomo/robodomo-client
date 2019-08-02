@@ -21,21 +21,21 @@ Feature: RoboDomo Autelis page
             | POOL   | Pool parameters are displayed          |
             | SPA    | Spa and Solar parameters are displayed |
 
-    @S1 @automated @smoke
-    Scenario Outline: Check Solar, Cleaner, Pool Heat, Pool light, Waterfall options 'On' and 'Off'
-        When User changes Autelis <button> button state to On
+    @automated @smoke
+    Scenario Outline: Check Solar, Cleaner, Pool Heat, Pool light, Waterfall options 'on' and 'off'
+        When User changes Autelis <button> button state to on
         Then Autelis <button> button is enabled
-        When User changes Autelis <button> button state to Off
+        When User changes Autelis <button> button state to off
         Then Autelis <button> button is disabled
         Examples:
             | button     |
             | Cleaner    |
 
-    @S1 @automated
-    Scenario Outline: Check Solar, Cleaner, Pool Heat, Pool light, Waterfall options 'On' and 'Off'
-        When User changes Autelis <button> button state to On
+    @automated
+    Scenario Outline: Check Solar, Cleaner, Pool Heat, Pool light, Waterfall options 'on' and 'off'
+        When User changes Autelis <button> button state to on
         Then Autelis <button> button is enabled
-        When User changes Autelis <button> button state to Off
+        When User changes Autelis <button> button state to off
         Then Autelis <button> button is disabled
         Examples:
             | button     |
@@ -48,7 +48,7 @@ Feature: RoboDomo Autelis page
             | Spa Light  |
             | Blower     |
 
-    @S1 @automated @smoke
+    @automated @smoke
     Scenario Outline: Check Pool/Spa heat adjustments to lower and higher values
         When User decreases Autelis <sensor> heat
         Then Autelis <sensor> heat is decreased
