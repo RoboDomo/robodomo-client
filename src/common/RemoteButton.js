@@ -14,7 +14,16 @@ import { IonButton } from "@ionic/react";
 
 import MQTT from "@/lib/MQTT";
 
-const RemoteButton = ({ variant, topic, message, dispatch, action, mini, children, onClick }) => {
+const RemoteButton = ({
+  variant = "secondary",
+  topic,
+  message,
+  dispatch,
+  action,
+  mini,
+  children,
+  onClick,
+}) => {
   const w = Math.min(window.screen.availWidth / 5 - 4, 100);
   const style = {
     width: mini ? 46 : w,
