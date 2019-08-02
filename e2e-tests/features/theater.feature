@@ -4,7 +4,7 @@ Feature: RoboDomo Theater page
     I want to see Theater page
     So that I can see all Theater widgets
 
-    @S1 @automated
+    @automated @smoke
     Scenario Outline: Theater tabs
         Given User navigates to Theater page
         Then User is redirected to Theater page

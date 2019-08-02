@@ -10,13 +10,17 @@ class NestPage extends Page {
     get entrywayTabDiv() { return this.entrywayTabButton.$('./div'); }
 
     goToHallwayTab() {
-        this.hallwayTabDiv.waitForAnimation();
-        this.hallwayTabButton.click();
+        if (this.hallwayTabButton.getAttribute('aria-selected') !== 'true') {
+            this.hallwayTabDiv.waitForAnimation();
+            this.hallwayTabButton.click();
+        }
     }
 
     goToEntrywayTab() {
-        this.entrywayTabDiv.waitForAnimation();
-        this.entrywayTabButton.click();
+        if (this.entrywayTabButton.getAttribute('aria-selected') !== 'true') {
+            this.entrywayTabDiv.waitForAnimation();
+            this.entrywayTabButton.click();
+        }
     }
 
     isHallwayTabSelected() {

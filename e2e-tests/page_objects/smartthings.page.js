@@ -11,6 +11,8 @@ import OutsideTabComponent from './smartthings/outsideTab.component';
 class SmartThingsPage extends Page {
     get tabContent() { return $('//ion-content[@id="tab-smartthings"]'); }
 
+    get allTabButton() { return this.tabContent.$('.//ion-tab-button[@tab = "all"]'); }
+    get allTabDiv() { return this.theaterTabButton.$('./div'); }
     get theaterTabButton() { return this.tabContent.$('.//ion-tab-button[@tab = "theater"]'); }
     get theaterTabDiv() { return this.theaterTabButton.$('./div'); }
     get officeTabButton() { return this.tabContent.$('.//ion-tab-button[@tab = "office"]'); }
@@ -26,39 +28,64 @@ class SmartThingsPage extends Page {
     get outsideTabButton() { return this.tabContent.$('.//ion-tab-button[@tab = "outside"]'); }
     get outsideTabDiv() { return this.outsideTabButton.$('./div'); }
 
+    gotoAllTab() {
+        if (this.allTabButton.getAttribute('aria-selected') !== 'true') {
+            this.allTabDiv.waitForAnimation();
+            this.allTabButton.click();
+        }
+    }
+
     goToTheaterTab() {
-        this.theaterTabDiv.waitForAnimation();
-        this.theaterTabButton.click();
+        if (this.theaterTabButton.getAttribute('aria-selected') !== 'true') {
+            this.theaterTabDiv.waitForAnimation();
+            this.theaterTabButton.click();
+        }
     }
 
     goToOfficeTab() {
-        this.officeTabDiv.waitForAnimation();
-        this.officeTabButton.click();
+        if (this.officeTabButton.getAttribute('aria-selected') !== 'true') {
+            this.officeTabDiv.waitForAnimation();
+            this.officeTabButton.click();
+        }
     }
 
     goToBackRoomTab() {
-        this.backRoomTabDiv.waitForAnimation();
-        this.backRoomTabButton.click();
+        if (this.backRoomTabButton.getAttribute('aria-selected') !== 'true') {
+            this.backRoomTabDiv.waitForAnimation();
+            this.backRoomTabButton.click();
+        }
     }
 
     goToBedroomTab() {
-        this.bedroomTabDiv.waitForAnimation();
-        this.bedroomTabButton.click();
+        if (this.bedroomTabButton.getAttribute('aria-selected') !== 'true') {
+            this.bedroomTabDiv.waitForAnimation();
+            this.bedroomTabButton.click();
+        }
     }
 
     goToKitchenTab() {
-        this.kitchenTabDiv.waitForAnimation();
-        this.kitchenTabButton.click();
+        if (this.kitchenTabButton.getAttribute('aria-selected') !== 'true') {
+            this.kitchenTabDiv.waitForAnimation();
+            this.kitchenTabButton.click();
+        }
     }
 
     goToBathroomTab() {
-        this.bathroomTabDiv.waitForAnimation();
-        this.bathroomTabButton.click();
+        if (this.bathroomTabButton.getAttribute('aria-selected') !== 'true') {
+            this.bathroomTabDiv.waitForAnimation();
+            this.bathroomTabButton.click();
+        }
     }
 
     goToOutsideTab() {
-        this.outsideTabDiv.waitForAnimation();
-        this.outsideTabButton.click();
+        if (this.outsideTabButton.getAttribute('aria-selected') !== 'true') {
+            this.outsideTabDiv.waitForAnimation();
+            this.outsideTabButton.click();
+        }
+    }
+
+    isAllTabSelected() {
+        browser.waitUntil(() => this.allTabButton.getAttribute('aria-selected') === 'true', 5000);
     }
 
     isTheaterTabSelected() {

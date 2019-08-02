@@ -15,9 +15,6 @@ workbox.routing.registerRoute(
 
 workbox.routing.registerRoute(new RegExp("/.(?:html)$/"), new workbox.strategies.NetworkFirst());
 
-// use the actual API source here
-// workbox.routing.registerRoute(new RegExp('^https://api.momentum.rent/'), new workbox.strategies.NetworkFirst())
-
 workbox.precaching.precacheAndRoute(self.__precacheManifest || [], {
   offlinePage: "/index.html", //<- in case of getting offline and not have cache content , redirect here
 });

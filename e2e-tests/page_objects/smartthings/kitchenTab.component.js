@@ -21,13 +21,15 @@ class KitchenTabComponent {
     }
 
     validateKitchenLightState(state) {
-        if (state === 'Off')
+        this.kitchenLightLi.waitForAnimation();
+        if (state === 'off')
             expect(this.kitchenLightSwitch.getAttribute('aria-checked')).toEqual('false');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.kitchenLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateKitchenLightDimmValue(value) {
+        this.kitchenLightLi.waitForAnimation();
         expect(this.kitchenLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 }

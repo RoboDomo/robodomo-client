@@ -51,23 +51,26 @@ class OutsideTabComponent {
     }
 
     validatePorchLightState(state) {
-        if (state === 'Off')
+        this.porchLightLi.waitForAnimation();
+        if (state === 'off')
             expect(this.porchLightOffButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.porchLightOnButton.getAttribute('checked')).toEqual('true');
     }
 
     validateOutsideLightState(state) {
-        if (state === 'Off')
+        this.outsideLightLi.waitForAnimation();
+        if (state === 'off')
             expect(this.outsideLightOffButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.outsideLightOnButton.getAttribute('checked')).toEqual('true');
     }
 
     validateOutdoorLightsState(state) {
-        if (state === 'Off')
+        this.outdoorLightsLi.waitForAnimation();
+        if (state === 'off')
             expect(this.outdoorLightsOffButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.outdoorLightsOnButton.getAttribute('checked')).toEqual('true');
     }
 }

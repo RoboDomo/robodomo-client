@@ -63,31 +63,35 @@ class BedroomTabComponent {
     }
 
     validateBedroomFanState(state) {
-        if (state === 'Off')
+        this.bedroomFanLi.waitForAnimation();
+        if (state === 'off')
             expect(this.bedroomFanOffButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'Low')
+        else if (state === 'low')
             expect(this.bedroomFanLowButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'Medium')
+        else if (state === 'medium')
             expect(this.bedroomFanMediumButton.getAttribute('checked')).toEqual('true');
         else if (state === 'high')
             expect(this.bedroomFanHighButton.getAttribute('checked')).toEqual('true');
     }
 
     validateBedroomLampState(state) {
-        if (state === 'Off')
+        this.bedroomLampLi.waitForAnimation();
+        if (state === 'off')
             expect(this.bedroomLampOffButton.getAttribute('checked')).toEqual('true');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.bedroomLampOnButton.getAttribute('checked')).toEqual('true');
     }
 
     validateBedroomLightState(state) {
-        if (state === 'Off')
+        this.bedroomLightLi.waitForAnimation();
+        if (state === 'off')
             expect(this.bedroomLightSwitch.getAttribute('aria-checked')).toEqual('false');
-        else if (state === 'On')
+        else if (state === 'on')
             expect(this.bedroomLightSwitch.getAttribute('aria-checked')).toEqual('true');
     }
 
     validateBedroomLightDimmValue(value) {
+        this.bedroomLightLi.waitForAnimation();
         expect(this.bedroomLightDimm.getAttribute('value')).toEqual(value.toString());
     }
 }

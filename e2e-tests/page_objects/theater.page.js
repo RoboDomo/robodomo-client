@@ -8,8 +8,10 @@ class TheaterPage extends Page {
     get homeTheaterTabDiv() { return this.homeTheaterTabButton.$('./div'); }
 
     goToHomeTheaterTab() {
-        this.homeTheaterTabDiv.waitForAnimation();
-        this.homeTheaterTabButton.click();
+        if (this.homeTheaterTabButton.getAttribute('aria-selected') !== 'true') {
+            this.homeTheaterTabDiv.waitForAnimation();
+            this.homeTheaterTabButton.click();
+        }
     }
 
     isHomeTheaterTabSelected() {

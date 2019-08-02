@@ -57,13 +57,6 @@ exports.config = merge(configBase.config, {
             resolution: '1920x1080',
         },
         {
-            browserName: 'MacOS_Firefox',
-            os: 'OS X',
-            os_version: 'Mojave',
-            browser: 'Firefox',
-            resolution: '1920x1080',
-        },
-        {
             browserName: 'MacOS_Safari',
             os: 'OS X',
             os_version: 'Mojave',

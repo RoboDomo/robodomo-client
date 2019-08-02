@@ -74,41 +74,41 @@ class AutelisPage extends Page {
     }
 
     toggleBlower(state) {
-        state === 'On' ? this.blowerOnButton.click() : this.blowerOffButton.click();
+        state === 'on' ? this.blowerOnButton.click() : this.blowerOffButton.click();
     }
 
     toggleCleaner(state) {
-        state === 'On' ? this.cleanerOnButton.click() : this.cleanerOffButton.click();
+        state === 'on' ? this.cleanerOnButton.click() : this.cleanerOffButton.click();
         browser.pause(1500);
     }
 
     toggleJets(state) {
-        state === 'On' ? this.jetsOnButton.click() : this.jetsOffButton.click();
+        state === 'on' ? this.jetsOnButton.click() : this.jetsOffButton.click();
     }
 
     togglePoolHeat(state) {
-        state === 'On' ? this.poolHeatOnButton.click() : this.poolHeatOffButton.click();
+        state === 'on' ? this.poolHeatOnButton.click() : this.poolHeatOffButton.click();
     }
 
     togglePoolLight(state) {
-        state === 'On' ? this.poolLightOnButton.click() : this.poolLightOffButton.click();
+        state === 'on' ? this.poolLightOnButton.click() : this.poolLightOffButton.click();
     }
 
     toggleSolar(state) {
-        state === 'On' ? this.solarOnButton.click() : this.solarOffButton.click();
+        state === 'on' ? this.solarOnButton.click() : this.solarOffButton.click();
         browser.pause(1500);
     }
 
     toggleSpaHeat(state) {
-        state === 'On' ? this.spaHeatOnButton.click() : this.spaHeatOffButton.click();
+        state === 'on' ? this.spaHeatOnButton.click() : this.spaHeatOffButton.click();
     }
 
     toggleSpaLight(state) {
-        state === 'On' ? this.spaLightOnButton.click() : this.spaLightOffButton.click();
+        state === 'on' ? this.spaLightOnButton.click() : this.spaLightOffButton.click();
     }
 
     toggleWaterfall(state) {
-        state === 'On' ? this.waterfallOnButton.click() : this.waterfallOffButton.click();
+        state === 'on' ? this.waterfallOnButton.click() : this.waterfallOffButton.click();
     }
 
     validatePoolTemperatureChange(action, initialPoolTemperature) {
@@ -128,9 +128,10 @@ class AutelisPage extends Page {
         browser.waitUntil(() => this.switchMessageOff.isDisplayed(), 10000);
     }
 
-    isPoolParameterDisplayed() {
+    isPoolandSolarParameterDisplayed() {
         this.poolButton.isButtonEnabled();
         expect(this.switchMessagePool.getText()).toMatch(/^Pool\s\d{2,3}°F$/);
+        expect(this.switchMessageSolar.getText()).toMatch(/^Solar\s\d{2,3}°F$/);
     }
 
     isSpaAndSolarParameterDisplayed() {

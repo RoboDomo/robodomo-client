@@ -12,41 +12,47 @@ Feature: RoboDomo SmartThings page
         Then SmartThings Theater tab is loaded
 
 
-    @S1 @automated
+    @automated @smoke
     Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' switches on Theater tab
-        And User changes SmartThings <button> button state to On
-        Then SmartThings <button> button is in On state
-        When User changes SmartThings <button> button state to Off
-        Then SmartThings <button> button is in Off state
-        @smoke
+        And User changes SmartThings <button> button state to on
+        Then >SmartThings <button> button state is on
+        When User changes SmartThings <button> button state to off
+        Then >SmartThings <button> button state is off
         Examples:
             | button            |
             | Ceiling Fan Light |
-        Examples:
-            | button            |
-            | Office Dimmer     |
-            | Office Light      |
-            | Kitchen Light     |
 
-    @S1 @automated
+    @automated
+    Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' switches on Theater tab
+        And User changes SmartThings <button> button state to on
+        Then >SmartThings <button> button state is on
+        When User changes SmartThings <button> button state to off
+        Then >SmartThings <button> button state is off
+        Examples:
+            | button        |
+            | Office Dimmer |
+            | Office Light  |
+            | Kitchen Light |
+
+    @automated
     Scenario Outline: Check 'Celing Fan', 'Entryway Lights', 'Office Fan' buttons on Theater tab
         And User changes SmartThings <button> button state to <state>
-        Then SmartThings <button> button is in <state> state
+        Then SmartThings <button> button state is <state>
         Examples:
             | button          | state  |
-            | Ceiling Fan     | Off    |
-            | Ceiling Fan     | Medium |
-            | Office Fan      | Low    |
-            | Office Fan      | High   |
-            | Entryway Lights | On     |
-            | Entryway Lights | Off    |
+            | Ceiling Fan     | off    |
+            | Ceiling Fan     | medium |
+            | Office Fan      | low    |
+            | Office Fan      | high   |
+            | Entryway Lights | on     |
+            | Entryway Lights | off    |
 
     @S1
     Scenario Outline: Check 'Celing Fan', 'Entryway Lights', 'Office Fan' dimming on Theater tab
-        When MQTT message set <optionName> to <state> and <value> on SmartThings page
-        Then SmartThings <optionName> is <state> and <value> on SmartThings page
+        When MQTT message set <optionName> to <state> and <value>
+        Then SmartThings <optionName> is <state> and <value>
         When User clicks Dashboard menu button
-        When User clicks on Theater tab
+        When User clicks on Theater tab on Dashboard page
         # TODO uncomment this when state will be persisted locally
         # Then SmartThings <optionName> dimmer value is <value> on Dashboard page
         Examples:

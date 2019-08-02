@@ -13,13 +13,17 @@ class WeatherPage extends Page {
     get nYTabPane() { return this.tabContent.$('.//ion-content//div[@class="ion-page"][contains(.,"New York")]'); }
 
     goToSDTab() {
-        this.sDTabDiv.waitForAnimation();
-        this.sDTabButton.click();
+        if (this.sDTabButton.getAttribute('aria-selected') !== 'true') {
+            this.sDTabDiv.waitForAnimation();
+            this.sDTabButton.click();
+        }
     }
 
     goToNYTab() {
-        this.nYTabDiv.waitForAnimation();
-        this.nYTabButton.click();
+        if (this.nYTabButton.getAttribute('aria-selected') !== 'true') {
+            this.nYTabDiv.waitForAnimation();
+            this.nYTabButton.click();
+        }
     }
 
     isSDTabSelected() {

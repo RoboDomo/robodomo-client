@@ -6,7 +6,7 @@ Then(
     parametersStatus => {
         switch (parametersStatus) {
             case 'Pool parameters are displayed':
-                AutelisPage.isPoolParameterDisplayed();
+                AutelisPage.isPoolandSolarParameterDisplayed();
                 break;
             case 'Spa and Solar parameters are displayed':
                 AutelisPage.isSpaAndSolarParameterDisplayed();
