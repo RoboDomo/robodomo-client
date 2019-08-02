@@ -1,4 +1,4 @@
-@mqtt @this
+@mqtt
 Feature: RoboDomo MQTT Dashboard page
     As a User
     I want to press all the switches and check all the sensor states on different tabs of Dashboard page

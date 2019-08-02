@@ -25,7 +25,6 @@ class DashboardPage extends Page {
     get bedroomNestTemperatureValue() { return this.activeTab.$('.//form//input'); }
     get bedroomNestIncreaseButton() { return this.activeTab.$('.//form//button[2]'); }
 
-
     get theaterCeilingFanButton() { return this.activeTab.$('.//ion-card[contains(.,"Ceiling Fan")]'); }
     get theaterCeilingFanDiv() { return this.theaterCeilingFanLightButton.$('./parent::div'); }
     get theaterCeilingFanLightButton() { return this.activeTab.$('.//ion-card[contains(.,"Ceiling Fan Light")]'); }

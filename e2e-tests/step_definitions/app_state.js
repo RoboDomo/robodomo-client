@@ -111,7 +111,7 @@ When(/^MQTT message set (Office Dimmer|Office Light|Office Fan) to state (\w+)(|
     }
 });
 
-When(/^MQTT message set (Outdoor Lights|Outside Light|Porch Light) to state (\w+)(| and value (\w+))$/, (objectName, state, level) => {
+When(/^MQTT message set (Outdoor Lights|Outside Light|Porch Light) to state (\w+)$/, (objectName, state) => {
     switch (objectName) {
         case 'Outdoor Lights':
             outdoorLightsState(state);
