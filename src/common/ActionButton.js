@@ -12,7 +12,7 @@ import React from "react";
 
 import { IonButton } from "@ionic/react";
 
-const ActionButton = ({ variant, dispatch, action, mini, children, onClick }) => {
+const ActionButton = ({ variant = "tertiary", dispatch, action, mini, children, onClick }) => {
   const w = Math.min(window.screen.availWidth / 5 - 4, 100);
   const style = {
     width: mini ? 46 : w,
