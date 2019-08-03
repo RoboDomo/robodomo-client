@@ -1,5 +1,14 @@
 import React from "react";
-import { Badge, ListGroup } from "react-bootstrap";
+import {
+  IonList,
+  IonRadioGroup,
+  IonRadio,
+  IonItem,
+  IonListHeader,
+  IonLabel,
+  IonBadge,
+} from "@ionic/react";
+import s from "./DevicesListGroup.module.css";
 
 const DevicesListGroup = ({ devices, currentDevice, tvInput, avrInput, onClick }) => {
   tvInput = tvInput || "off";
@@ -9,55 +18,58 @@ const DevicesListGroup = ({ devices, currentDevice, tvInput, avrInput, onClick }
 
   //<ListGroup.Item variant="dark">Devices</ListGroup.Item>
   return (
-    <ListGroup>
-      <div style={{ fontWeight: "bold", textAlign: "center" }}>Devices</div>
-      {devices.map(device => {
-        const deviceType = device.type;
-        let deviceName = device.name;
+    <IonList>
+      <IonRadioGroup>
+        <IonListHeader class={s.header}>Devices</IonListHeader>
+        {devices.map(device => {
+          const deviceType = device.type;
+          let deviceName = device.name;
 
-        if (deviceType === "bravia" || deviceType === "lgtv") {
-          if (true || ~tvInput.indexOf("hdmi")) {
-            deviceName = (
-              <>
-                {device.name}
-                <Badge variant="secondary" className="float-right">
+          if (deviceType === "bravia" || deviceType === "lgtv") {
+            if (true || ~tvInput.indexOf("hdmi")) {
+              deviceName = (
+                <>
+                  <IonLabel>{device.name}</IonLabel>
+                  <IonBadge color="secondary" slot="end">
+                    {tvInput.toUpperCase()}
+                  </IonBadge>
+                </>
+              );
+            } else {
+              deviceName = (
+                <>
+                  <IonLabel>{device.name}</IonLabel>
+                  <br />
                   {tvInput.toUpperCase()}
-                </Badge>
-              </>
-            );
-          } else {
+                </>
+              );
+            }
+          } else if (deviceType === "denon" && avrInput) {
             deviceName = (
               <>
-                {device.name}
-                <br />
-                {tvInput.toUpperCase()}
+                <IonLabel>{device.name}</IonLabel>
+                <IonBadge color="secondary" slot="end">
+                  {avrInput.toUpperCase()}
+                </IonBadge>
               </>
             );
           }
-        } else if (deviceType === "denon" && avrInput) {
-          deviceName = (
-            <>
-              {device.name}
-              <Badge variant="secondary" className="float-right">
-                {avrInput.toUpperCase()}
-              </Badge>
-            </>
-          );
-        }
 
-        return (
-          <ListGroup.Item
-            active={currentDevice === device.name}
-            onClick={() => {
-              onClick(device);
-            }}
-            key={device.name}
-          >
-            {deviceName}
-          </ListGroup.Item>
-        );
-      })}
-    </ListGroup>
+          return (
+            <IonItem
+              color={currentDevice === device.name ? "dark" : undefined}
+              onClick={() => {
+                onClick(device);
+              }}
+              button={true}
+            >
+              {deviceName}
+              <IonRadio slot="start" value={device.name} checked={currentDevice === device.name} />
+            </IonItem>
+          );
+        })}
+      </IonRadioGroup>
+    </IonList>
   );
 };
 

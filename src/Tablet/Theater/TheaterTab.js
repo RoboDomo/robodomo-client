@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 
-import { Row, Col } from "react-bootstrap";
+import { IonGrid, IonRow, IonCol } from "@ionic/react";
+import s from "./TheaterTab.module.css";
 
 import AudioControl from "./AudioControl";
 import ActivitiesListGroup from "./ActivitiesListGroup";
@@ -14,7 +15,7 @@ import useLGTV from "@/hooks/useLGTV";
 import useBravia from "@/hooks/useBravia";
 import useDenon from "@/hooks/useDenon";
 
-const TheaterTab = ({ style, theater }) => {
+const TheaterTab = ({ theater }) => {
   const [currentDevice, setCurrentDevice] = useState("None");
   const [currentActivity, setCurrentActivity] = useState("All Off");
   const [, dispatchActivity] = useReducer(macrosReducer);
@@ -98,41 +99,34 @@ const TheaterTab = ({ style, theater }) => {
     avr,
   ]);
 
-  const renderDevice = () => {
-    return <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />;
-  };
-
   return (
-    <Row style={{ marginTop: 4 }}>
-      <Col sm={2}>
-        <ActivitiesListGroup
-          activities={activities}
-          currentActivity={currentActivity}
-          onClick={handleActivityClick}
-        />
-        <div style={{ height: 4 }} />
-        <DevicesListGroup
-          devices={devices}
-          currentDevice={currentDevice}
-          tvInput={tv.input}
-          avrInput={avr.input}
-          onClick={handleDeviceClick}
-        />
-      </Col>
-      <Col sm={10}>
-        <Row style={{ width: "100%", textAlign: "center" }}>
-          <Col sm={2} style={{ textAlign: "center" }}>
-            <AudioControl avr={avr} />
-          </Col>
-          <Col sm={7} style={{ textAlign: "center" }}>
-            {renderDevice()}
-          </Col>
-          <Col sm={3} style={{ textAlign: "center" }}>
-            <ButtonList theater={theater} />
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+    <IonGrid class={s.grid}>
+      <IonRow>
+        <IonCol sizeMd="auto" size={12} class={s.column}>
+          <ActivitiesListGroup
+            activities={activities}
+            currentActivity={currentActivity}
+            onClick={handleActivityClick}
+          />
+          <DevicesListGroup
+            devices={devices}
+            currentDevice={currentDevice}
+            tvInput={tv.input}
+            avrInput={avr.input}
+            onClick={handleDeviceClick}
+          />
+        </IonCol>
+        <IonCol size="auto" class={s.column}>
+          <AudioControl avr={avr} />
+        </IonCol>
+        <IonCol class={s.column}>
+          <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />
+        </IonCol>
+        <IonCol size="auto" class={s.column}>
+          <ButtonList theater={theater} />
+        </IonCol>
+      </IonRow>
+    </IonGrid>
   );
 };
 
