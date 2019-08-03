@@ -8,32 +8,38 @@ const PoolTile = ({ device }) => {
   const autelis = useAutelis();
 
   const renderPool = () => {
-    const renderControl = (ndx, text, big) => {
+    const renderControl = (ndx, text, value) => {
       const thingState = autelis[ndx];
 
       if (!thingState) {
-        return null;
+        return <div>{text} Off</div>;
+      }
+      if (!value) {
+        return <div>{text} On</div>;
       }
 
-      if (big) {
-        return <div style={{ fontSize: 30 }}>{text}</div>;
-      }
-
-      return <div>{text}</div>;
+      return (
+        <div>
+          {text} {value}
+        </div>
+      );
     };
 
     if (on) {
       return (
         <div>
-          {renderControl("pump", `Pool ${autelis.poolTemp}°F`, true)}
-          {renderControl("pump", "Filter On")}
-          {renderControl("cleaner", "Cleaner On")}
-          {renderControl("waterfall", "Waterfall On")}
-          {renderControl("poolHeat", "Pool Heat " + autelis.poolSetpoint)}
-          {renderControl(
-            "solarHeat",
-            "Solar Heat " + (autelis.solarHeat ? autelis.solarTemp : "off")
-          )}
+          <div style={{ fontSize: 30 }}>{`Pool ${autelis.poolTemp}°F`}</div>
+          <div style={{ display: "flex" }}>
+            <div style={{ width: "50%" }}>
+              {renderControl("pump", "Filter")}
+              {renderControl("cleaner", "Cleaner")}
+              {renderControl("waterfall", "Waterfall")}
+            </div>
+            <div style={{ width: "50%" }}>
+              {renderControl("poolHeat", "Pool Heat", autelis.poolSetpoint)}
+              {renderControl("solarHeat", "Solar Heat", autelis.solarTemp)}
+            </div>
+          </div>
         </div>
       );
     } else {
