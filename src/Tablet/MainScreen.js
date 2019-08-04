@@ -7,8 +7,18 @@
 import React, { lazy } from "react";
 import { Redirect, Route, Switch } from "react-router";
 
-import { IonApp, IonPage, IonTabBar, IonTabButton, IonIcon, IonLabel } from "@ionic/react";
+import {
+  IonApp,
+  IonPage,
+  IonTabBar,
+  IonTabButton,
+  IonIcon,
+  IonLabel,
+  IonToggle,
+  IonItem,
+} from "@ionic/react";
 import AnimatedDiv from "@/common/AnimatedDiv";
+import useDarkMode from "../hooks/useDarkMode";
 
 const Dashboard = lazy(() =>
   import(
@@ -80,18 +90,26 @@ const Navigation = ({ activeTab }) => (
 );
 
 const MainScreen = () => {
+  const [dark, setDark] = useDarkMode();
+
   return (
-    <IonApp>
-      <IonPage>
-        <Navigation />
-        <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
-        <Switch>
-          {Array.from(tabs).map(([id, cfg]) => (
-            <Route path={`/:tab(${id})`} component={cfg.component} key={id} />
-          ))}
-        </Switch>
-      </IonPage>
-    </IonApp>
+    <div className={`${dark ? "dark" : "light"}`}>
+      <IonApp>
+        <IonPage>
+          <IonItem>
+            <IonToggle onClick={e => setDark(e.target.checked)} />
+            <IonLabel>{dark ? "dark" : "light"}</IonLabel>
+          </IonItem>
+          <Navigation />
+          <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
+          <Switch>
+            {Array.from(tabs).map(([id, cfg]) => (
+              <Route path={`/:tab(${id})`} component={cfg.component} key={id} />
+            ))}
+          </Switch>
+        </IonPage>
+      </IonApp>
+    </div>
   );
 };
 

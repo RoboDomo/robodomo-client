@@ -205,10 +205,6 @@
   --ion-toolbar-color-activated: #fff;
 }
 
-ion-content {
-  --color: #aaaaaa;
-}
-
 html {
   font-family: var(--rd-font);
   -webkit-font-smoothing: antialiased;
@@ -290,4 +286,30 @@ input::placeholder {
 
 main {
   padding: 0 var(--rd-spc-s);
+}
+
+:root .dark {
+  --ion-background-color: var(--rd-color-black);
+  --ion-text-color: #aaaaaa;
+  --ion-text-color-rgb: 170, 170, 170;
+
+  --ion-color-dark: #292929;
+  --ion-color-dark-rgb: 34, 34, 34;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
+}
+
+:root .light {
+  --ion-background-color: var(--rd-color-white);
+  --ion-text-color: #2e2e2e;
+  --ion-text-color-rgb: 46, 46, 46;
+
+  --ion-color-dark: #f4f5f8;
+  --ion-color-dark-rgb: 244, 244, 244;
+  --ion-color-dark-contrast: #000000;
+  --ion-color-dark-contrast-rgb: 0, 0, 0;
+  --ion-color-dark-shade: #d7d8da;
+  --ion-color-dark-tint: #f5f6f9;
 }
