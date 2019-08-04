@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { IonIcon, IonList, IonListHeader, IonItem, IonLabel } from "@ionic/react";
+import { IonIcon, IonLabel } from "@ionic/react";
 
 import ActionButton from "@/common/ActionButton";
 import denonReducer from "@/hooks/reducers/denonReducer";
@@ -28,19 +28,19 @@ const Button = ({ avr, action, children, variant }) => {
   }
 
   return (
-    <IonItem>
+    <div>
       <ActionButton variant={variant} dispatch={dispatch} action={action}>
         {children}
       </ActionButton>
-    </IonItem>
+    </div>
   );
 };
 
 const AudioControl = ({ avr }) =>
   avr ? (
     <>
-      <IonList>
-        <IonListHeader>Master Volume</IonListHeader>
+      <div>
+        <div>Master Volume</div>
         <Button avr={avr} action="mute" variant={avr.mute ? "primary" : "tertiary"}>
           <IonIcon name="volume-off" />
         </Button>
@@ -51,10 +51,10 @@ const AudioControl = ({ avr }) =>
         <Button avr={avr} action="masterdown">
           <IonIcon name="volume-low" />
         </Button>
-      </IonList>
+      </div>
 
-      <IonList>
-        <IonListHeader>Center Channel</IonListHeader>
+      <div>
+        <div>Center Channel</div>
         <Button avr={avr} action="centerup">
           <IonIcon name="volume-high" />
         </Button>
@@ -62,10 +62,10 @@ const AudioControl = ({ avr }) =>
         <Button avr={avr} action="centerdown">
           <IonIcon name="volume-low" />
         </Button>
-      </IonList>
+      </div>
 
-      <IonList>
-        <IonListHeader>{avr.surroundMode}</IonListHeader>
+      <div>
+        <div>{avr.surroundMode}</div>
         <Button avr={avr} action="auto">
           "Auto"
         </Button>
@@ -75,7 +75,7 @@ const AudioControl = ({ avr }) =>
         <Button avr={avr} action="music">
           "Music"
         </Button>
-      </IonList>
+      </div>
     </>
   ) : null;
 
