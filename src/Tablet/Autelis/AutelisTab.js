@@ -1,14 +1,7 @@
 import React, { useReducer } from "react";
 import useConfig from "@/hooks/useConfig";
 import { Row, Col } from "react-bootstrap";
-import {
-  IonSegment,
-  IonSegmentButton,
-  IonLabel,
-  IonCard,
-  IonCardContent,
-  IonToggle,
-} from "@ionic/react";
+import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
 import s from "./AutelisTab.module.css";
 
 import NumberField from "@/common/form/NumberField";
@@ -49,8 +42,6 @@ const AutelisTab = () => {
 
   const weather = useWeather(location),
     { now, display_city } = weather;
-
-  console.log(weather, now, display_city, location);
 
   //
   // RENDER
@@ -197,17 +188,44 @@ const AutelisTab = () => {
 
   const renderSolar = () => {
     return (
-      <>
-        <IonToggle
-          checked={solarOn}
-          onChange={() => {
-            dispatch({ type: "solarHeat", value: !solarOn });
+      <div
+        style={{
+          display: "flex",
+          marginTop: 8,
+        }}
+      >
+        <IonSegment className={s.toggle} color={solarOn ? "success" : undefined}>
+          <IonSegmentButton
+            checked={solarOn}
+            onClick={() => {
+              if (!solarOn) {
+                dispatch({ type: "solarHeat", value: true });
+              }
+            }}
+          >
+            <IonLabel>On</IonLabel>
+          </IonSegmentButton>
+          <IonSegmentButton
+            checked={!solarOn}
+            onClick={() => {
+              if (solarOn) {
+                dispatch({ type: "solarHeat", value: false });
+              }
+            }}
+          >
+            <IonLabel>Off</IonLabel>
+          </IonSegmentButton>
+        </IonSegment>
+        <div
+          style={{
+            textAlign: "center",
+            flex: 0.6,
+            fontSize: 36,
           }}
-        />
-        <IonLabel>
-          On Solar <Temperature value={solarTemp} />
-        </IonLabel>
-      </>
+        >
+          Solar <Temperature value={solarTemp} />
+        </div>
+      </div>
     );
   };
 
@@ -596,34 +614,22 @@ const AutelisTab = () => {
       <>
         <div style={{ margin: 8 }}>
           <div style={{ marginLeft: 60 }}>
-            <IonCard color="light">
-              <IonCardContent>
-                {renderWeather()}
-                {renderMainSwitch()}
-                {renderSolar()}
-                {renderCleaner()}
-              </IonCardContent>
-            </IonCard>
+            {renderWeather()}
+            {renderMainSwitch()}
+            {renderSolar()}
+            {renderCleaner()}
           </div>
           <Row style={{ marginTop: 10 }}>
             <Col sm={6}>
-              <IonCard color="light">
-                <IonCardContent>
-                  {renderPoolHeater()}
-                  {renderPoolLight()}
-                  {renderWaterfall()}
-                </IonCardContent>
-              </IonCard>
+              {renderPoolHeater()}
+              {renderPoolLight()}
+              {renderWaterfall()}
             </Col>
             <Col sm={6}>
-              <IonCard color="light">
-                <IonCardContent>
-                  {renderSpaHeater()}
-                  {renderJets()}
-                  {renderSpaLight()}
-                  {renderBlower()}
-                </IonCardContent>
-              </IonCard>
+              {renderSpaHeater()}
+              {renderJets()}
+              {renderSpaLight()}
+              {renderBlower()}
             </Col>
           </Row>
           <Row
