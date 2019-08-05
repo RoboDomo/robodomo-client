@@ -1,7 +1,7 @@
 import React /*, { useState, useEffect, useRef }*/ from "react";
 
 import s from "./DimmerField.module.css";
-import { IonRange, IonIcon, IonToggle } from "@ionic/react";
+import { IonRange, IonIcon, IonToggle, IonItem, IonLabel } from "@ionic/react";
 
 const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) => {
   const applyValueChange = val => {
@@ -23,8 +23,8 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
   };
 
   return (
-    <div style={{ display: "flex", marginTop: 10 }}>
-      <div style={{ marginTop: 10, flex: 1 }}>{label}</div>
+    <IonItem style={{ display: "flex", marginTop: 10 }}>
+      <IonLabel style={{ marginTop: 10, flex: 1 }}>{label}</IonLabel>
       <div style={{ whiteSpace: "nowrap", display: "flex" }}>
         <IonToggle checked={toggled} onClick={handleToggle} className={s.toggle} />
         <div style={{ flex: 1, marginTop: 0 }}>
@@ -42,7 +42,7 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
           </IonRange>
         </div>
       </div>
-    </div>
+    </IonItem>
   );
 };
 

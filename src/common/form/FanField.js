@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
+import { IonSegment, IonSegmentButton, IonLabel, IonItem } from "@ionic/react";
 
 const FanField = ({ label, name, toggled, value, onChange }) => {
   if (!name) {
@@ -16,8 +16,8 @@ const FanField = ({ label, name, toggled, value, onChange }) => {
   checked.high = toggled && value > 66;
 
   return (
-    <div style={{ display: "flex", marginTop: 10 }}>
-      <div style={{ flex: 1, marginTop: 12 }}>{label}</div>
+    <IonItem style={{ display: "flex", marginTop: 10 }}>
+      <IonLabel style={{ flex: 1, marginTop: 12 }}>{label}</IonLabel>
       <div style={{ textAlign: "right", marginRight: 25 }}>
         <IonSegment>
           <IonSegmentButton checked={checked.off} onClick={() => onChange(name, "off")}>
@@ -34,7 +34,7 @@ const FanField = ({ label, name, toggled, value, onChange }) => {
           </IonSegmentButton>
         </IonSegment>
       </div>
-    </div>
+    </IonItem>
   );
 };
 
