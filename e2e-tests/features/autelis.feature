@@ -48,7 +48,7 @@ Feature: RoboDomo Autelis page
             | Spa Light  |
             | Blower     |
 
-    @automated @smoke
+    @automated @smoke @this
     Scenario Outline: Check Pool/Spa heat adjustments to lower and higher values
         When User decreases Autelis <sensor> heat
         Then Autelis <sensor> heat is decreased

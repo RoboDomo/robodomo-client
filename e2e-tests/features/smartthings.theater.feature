@@ -15,9 +15,9 @@ Feature: RoboDomo SmartThings page
     @automated @smoke
     Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' switches on Theater tab
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button            |
             | Ceiling Fan Light |
@@ -25,9 +25,9 @@ Feature: RoboDomo SmartThings page
     @automated
     Scenario Outline: Check 'Ceiling Fan Light', 'Office Dimmer', 'Office Light', 'Kitchen Light' switches on Theater tab
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button        |
             | Office Dimmer |
