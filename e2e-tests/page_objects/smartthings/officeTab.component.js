@@ -8,7 +8,7 @@ class OfficeTabComponent {
 
     get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get officeDimmerSwitch() { return this.activeTab.$('.//dion-labeliv[text()="Office Dimmer")]//ion-toggle'); }
+    get officeDimmerSwitch() { return this.activeTab.$('.//ion-card[contains(., "Office Dimmer")]//ion-toggle'); }
     get officeDimmerDimm() { return this.activeTab.$('.//ion-card[contains(., "Office Dimmer")]//ion-range'); }
     get officeDimmerLi() { return this.officeDimmerSwitch.$('./ancestor::li')}
 
