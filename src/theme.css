@@ -296,12 +296,12 @@ main {
   --ion-text-color: #2e2e2e;
   --ion-text-color-rgb: 46, 46, 46;
 
-  --ion-color-dark: #f4f5f8;
-  --ion-color-dark-rgb: 244, 244, 244;
+  --ion-color-dark: #e3e4e6;
+  --ion-color-dark-rgb: 227, 228, 230;
   --ion-color-dark-contrast: #000000;
   --ion-color-dark-contrast-rgb: 0, 0, 0;
-  --ion-color-dark-shade: #d7d8da;
-  --ion-color-dark-tint: #f5f6f9;
+  --ion-color-dark-shade: #c8c9ca;
+  --ion-color-dark-tint: #e6e7e9;
 }
 
 :root .light ion-app {
