@@ -11,7 +11,6 @@ Feature: RoboDomo Theater page
         Then Theater menu shall be selected
         When User clicks on <tabName> tab on Theater page
         Then Theater <tabName> tab is loaded
-        @smoke
         Examples:
             | tabName     |
             | HomeTheater |
