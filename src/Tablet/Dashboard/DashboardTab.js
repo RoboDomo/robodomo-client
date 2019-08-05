@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { IonContent } from "@ionic/react";
 
 import Tile from "./Tile";
 import ClockTile from "./ClockTile";
@@ -106,20 +107,20 @@ const DashboardTab = ({ dashboard }) => {
   }
 
   return (
-    <section>
+    <IonContent>
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, 128px)",
           gridTemplateRows: "auto auto auto auto",
           gridGap: 0,
-          gridAutoRows: "minmax(256px, auto)",
+          gridAutoRows: "minmax(128px, auto)",
           gridAutoFlow: "dense",
         }}
       >
         {tiles.current}
       </div>
-    </section>
+    </IonContent>
   );
 };
 export default DashboardTab;

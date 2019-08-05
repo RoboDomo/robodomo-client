@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 import useConfig from "@/hooks/useConfig";
 import { Row, Col } from "react-bootstrap";
-import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
+import { IonContent, IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
 import s from "./AutelisTab.module.css";
 
 import NumberField from "@/common/form/NumberField";
@@ -611,7 +611,7 @@ const AutelisTab = () => {
 
   const render = () => {
     return (
-      <>
+      <IonContent>
         <div style={{ margin: 8 }}>
           <div style={{ marginLeft: 60 }}>
             {renderWeather()}
@@ -646,7 +646,7 @@ const AutelisTab = () => {
             <MacroTile label="Spa Off" name="Spa Off" width={1} />
           </Row>
         </div>
-      </>
+      </IonContent>
     );
   };
 

@@ -3,6 +3,7 @@ import { format, parseISO } from "date-fns";
 import OnIdle from "@modus/react-idle";
 import cx from "classnames";
 import { FaFlag } from "react-icons/fa";
+import { IonContent } from "@ionic/react";
 
 import Clock from "@/common/Clock";
 import useWeather from "@/hooks/useWeather";
@@ -140,28 +141,30 @@ const WeatherTab = ({ zip }) => {
     }
 
     return (
-      <main data-testid="weather-section">
-        <h2>
-          <Clock /> Weather for {weather.now.city}, {weather.now.state}
-        </h2>
-        <div>{weather.now.description}</div>
-        <section className={s.conditions} data-testid="weather-conditions">
-          <PrimaryConditions weather={weather} />
+      <IonContent>
+        <main data-testid="weather-section">
+          <h2>
+            <Clock /> Weather for {weather.now.city}, {weather.now.state}
+          </h2>
+          <div>{weather.now.description}</div>
+          <section className={s.conditions} data-testid="weather-conditions">
+            <PrimaryConditions weather={weather} />
+            <OnIdle>
+              <SecondaryConditions weather={weather} />
+            </OnIdle>
+          </section>
+
+          <h4>Hourly Forecast</h4>
           <OnIdle>
-            <SecondaryConditions weather={weather} />
+            <Hourly data={weather.hourly} />
           </OnIdle>
-        </section>
 
-        <h4>Hourly Forecast</h4>
-        <OnIdle>
-          <Hourly data={weather.hourly} />
-        </OnIdle>
-
-        <h5>7 Day Forecast</h5>
-        <OnIdle>
-          <Daily data={weather.forecast} />
-        </OnIdle>
-      </main>
+          <h5>7 Day Forecast</h5>
+          <OnIdle>
+            <Daily data={weather.forecast} />
+          </OnIdle>
+        </main>
+      </IonContent>
     );
   } catch (e) {
     console.log("exception weather", e.message, e.stack, weather);
