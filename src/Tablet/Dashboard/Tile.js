@@ -24,7 +24,7 @@ const Tile = ({
       timer = null;
       setPressed(false);
       if (typeof onClick === "string") {
-        history.push(onClick);
+        history.push(`/${onClick}`);
       } else if (typeof onClick === "function") {
         onClick();
       }

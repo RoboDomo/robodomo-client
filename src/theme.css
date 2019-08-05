@@ -29,6 +29,7 @@
 
   --rd-color-white: #ffffff;
   --rd-color-black: #1b1b1b;
+  --rd-color-bg-dark: #232325;
   --rd-color-bg-grey: #f5f5f5;
   --rd-color-border: #d9d9d9;
   --rd-color-lbl-grey: #999999;
@@ -121,6 +122,8 @@
 
   --ion-text-color: #aaaaaa;
   --ion-text-color-rgb: 170, 170, 170;
+
+  --ion-item-background: transparent;
 }
 
 /* Additional Ionic Colors
@@ -322,4 +325,16 @@ main {
   :root {
     --prefer-theme: dark;
   }
+}
+
+ion-card.sc-ion-card-md-h {
+  --background: var(--rd-color-bg-dark);
+}
+
+ion-card ion-item {
+  --background: var(--rd-color-bg-dark);
+}
+
+ion-card-title {
+  --color: var(--rd-color-text-light);
 }

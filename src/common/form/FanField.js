@@ -16,25 +16,22 @@ const FanField = ({ label, name, toggled, value, onChange }) => {
   checked.high = toggled && value > 66;
 
   return (
-    <div style={{ display: "flex", marginTop: 10 }}>
-      <div style={{ flex: 1, marginTop: 12 }}>{label}</div>
-      <div style={{ textAlign: "right", marginRight: 25 }}>
-        <IonSegment>
-          <IonSegmentButton checked={checked.off} onClick={() => onChange(name, "off")}>
-            <IonLabel>Off</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton checked={checked.low} onClick={() => onChange(name, "low")}>
-            <IonLabel>Low</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton checked={checked.medium} onClick={() => onChange(name, "medium")}>
-            <IonLabel>Medium</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton checked={checked.high} onClick={() => onChange(name, "high")}>
-            <IonLabel>High</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-      </div>
-    </div>
+    <>
+      <IonSegment>
+        <IonSegmentButton checked={checked.off} onClick={() => onChange(name, "off")}>
+          <IonLabel>Off</IonLabel>
+        </IonSegmentButton>
+        <IonSegmentButton checked={checked.low} onClick={() => onChange(name, "low")}>
+          <IonLabel>Low</IonLabel>
+        </IonSegmentButton>
+        <IonSegmentButton checked={checked.medium} onClick={() => onChange(name, "medium")}>
+          <IonLabel>Medium</IonLabel>
+        </IonSegmentButton>
+        <IonSegmentButton checked={checked.high} onClick={() => onChange(name, "high")}>
+          <IonLabel>High</IonLabel>
+        </IonSegmentButton>
+      </IonSegment>
+    </>
   );
 };
 

@@ -1,5 +1,14 @@
 import React, { useRef, useEffect } from "react";
 import {
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonCardTitle,
+  IonText,
+  IonItem,
+  IonContent,
+} from "@ionic/react";
+import {
   useSwitch,
   useDimmer,
   useFan,
@@ -193,16 +202,38 @@ const SmartThingsTab = ({ room }) => {
   };
 
   return (
-    <AnimatedStack className={s.container}>
-      {room.things.map((thing, ndx) => {
-        const key = `${room.name}-${thing.name}`;
-        return (
-          <Thing
-            {...{ thing, things, handleFanChange, toggleSwitch, toggleDimmer, ToggleField, key }}
-          />
-        );
-      })}
-    </AnimatedStack>
+    <IonContent>
+      <IonItem>
+        <IonText color="primary">
+          <h1>{room.name}</h1>
+        </IonText>
+      </IonItem>
+      <AnimatedStack className={s.container}>
+        {room.things.map((thing, ndx) => {
+          const key = `${room.name}-${thing.name}`;
+          return (
+            <IonCard>
+              <IonCardHeader>
+                <IonCardTitle>{thing.name}</IonCardTitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <Thing
+                  {...{
+                    thing,
+                    things,
+                    handleFanChange,
+                    toggleSwitch,
+                    toggleDimmer,
+                    ToggleField,
+                    key,
+                  }}
+                />
+              </IonCardContent>
+            </IonCard>
+          );
+        })}
+      </AnimatedStack>
+    </IonContent>
   );
 };
 

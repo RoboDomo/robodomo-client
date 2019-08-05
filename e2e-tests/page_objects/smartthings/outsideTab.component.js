@@ -8,16 +8,16 @@ class OutsideTabComponent {
 
     get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get porchLightOnButton() { return this.activeTab.$('.//div[text()="Porch Light"]/parent::*//ion-segment-button[.="On"]'); }
-    get porchLightOffButton() { return this.activeTab.$('.//div[text()="Porch Light"]/parent::*//ion-segment-button[.="Off"]'); }
+    get porchLightOnButton() { return this.activeTab.$('.//ion-card[contains(., "Porch Light")]//ion-segment-button[.="On"]'); }
+    get porchLightOffButton() { return this.activeTab.$('.//ion-card[contains(., "Porch Light")]//ion-segment-button[.="Off"]'); }
     get porchLightLi() { return this.porchLightOnButton.$('./ancestor::li')}
 
-    get outsideLightOnButton() { return this.activeTab.$('.//div[text()="Outside Light"]/parent::*//ion-segment-button[.="On"]'); }
-    get outsideLightOffButton() { return this.activeTab.$('.//div[text()="Outside Light"]/parent::*//ion-segment-button[.="Off"]'); }
+    get outsideLightOnButton() { return this.activeTab.$('.//ion-card[contains(., "Outside Light")]//ion-segment-button[.="On"]'); }
+    get outsideLightOffButton() { return this.activeTab.$('.//ion-card[contains(., "Outside Light")]//ion-segment-button[.="Off"]'); }
     get outsideLightLi() { return this.outsideLightOnButton.$('./ancestor::li')}
 
-    get outdoorLightsOnButton() { return this.activeTab.$('.//div[text()="Outdoor Lights"]/parent::*//ion-segment-button[.="On"]'); }
-    get outdoorLightsOffButton() { return this.activeTab.$('.//div[text()="Outdoor Lights"]/parent::*//ion-segment-button[.="Off"]'); }
+    get outdoorLightsOnButton() { return this.activeTab.$('.//ion-card[contains(., "Outdoor Lights")]//ion-segment-button[.="On"]'); }
+    get outdoorLightsOffButton() { return this.activeTab.$('.//ion-card[contains(., "Outdoor Lights")]//ion-segment-button[.="Off"]'); }
     get outdoorLightsLi() { return this.outdoorLightsOnButton.$('./ancestor::li')}
 
     togglePorchLight(state) {

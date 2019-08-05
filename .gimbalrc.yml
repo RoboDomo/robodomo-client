@@ -1,5 +1,5 @@
 audits:
-  - axe
+  # - axe
   - heap-snapshot
   - lighthouse
   - size
@@ -9,9 +9,9 @@ audits:
 configs:
   heap-snapshot:
     threshold:
-      LayoutCount: 10
-      Nodes: 350
-      RecalcStyleCount: 15
+      LayoutCount: 14
+      Nodes: 650
+      RecalcStyleCount: 20
   lighthouse:
     threshold:
       accessibility: 50
@@ -30,10 +30,10 @@ configs:
   serve:
     rewrites:
       - destination: index.html
-        source: '*'
+        source: "*"
   size:
     - path: ./build/precache-*.js
-      maxSize: 3 KB
+      maxSize: 4 KB
     - path: ./build/dll/vendor_*.dll.js
       maxSize: 340 KB
     - path: ./build/static/js/demo-config.*.chunk.js
@@ -94,7 +94,7 @@ outputs:
   markdown: artifacts/gimbal.md
 
 plugins:
-  - plugin: '@modus/gimbal-plugin-axe'
+  - plugin: "@modus/gimbal-plugin-axe"
     thresholds:
       aria-allowed-role: minor
       bypass: serious
@@ -102,9 +102,9 @@ plugins:
       meta-viewport: critical
       page-has-heading-one: moderate
       region: moderate
-  - plugin: '@modus/gimbal-plugin-source-map-explorer'
+  - plugin: "@modus/gimbal-plugin-source-map-explorer"
     bundles:
-      - path: '**/main.*.js'
+      - path: "**/main.*.js"
         thresholds:
           ../delegated 0 from dll-reference vendor*: 50 B
           ../external "vendor_*": 75 B
@@ -113,14 +113,14 @@ plugins:
           serviceWorker.js: 300 B
           index.js: 500 B
           <unmapped>: 150 B
-      - path: '**/*.chunk.js'
+      - path: "**/*.chunk.js"
         thresholds:
-          '../**/*.js': 400 KB
-          '**/*.js': 400 KB
+          "../**/*.js": 400 KB
+          "**/*.js": 400 KB
           <unmapped>: 300 B
-      - '!precache-manifest*'
-      - '!service-worker.js'
-      - '!**/runtime*.js'
+      - "!precache-manifest*"
+      - "!service-worker.js"
+      - "!**/runtime*.js"
   # - '@modus/gimbal-plugin-last-value'
   # - plugin: '@modus/gimbal-plugin-mysql'
   #   enabled: ${env:CI, true, false}
