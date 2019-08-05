@@ -98,7 +98,7 @@ const MainScreen = () => {
         <IonPage>
           <IonItem>
             <IonToggle onClick={e => setDark(e.target.checked)} />
-            <IonLabel>{dark ? "dark" : "light"}</IonLabel>
+            <IonLabel>Dark Mode: {dark ? "On" : "Off"}</IonLabel>
           </IonItem>
           <Navigation />
           <Route exact path="/" render={() => <Redirect to="/dashboard" />} />

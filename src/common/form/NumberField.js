@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-import { IonInput, IonButton, IonIcon, IonItem } from "@ionic/react";
+import { IonInput, IonButton, IonIcon } from "@ionic/react";
 
 //import DelayedTask from "@/lib/DelayedTask";
 
@@ -37,33 +37,29 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
 
   return (
     <div style={{ display: "flex" }}>
-      <div style={{ marginTop: 8, flex: 1 }}>{label}</div>
-      <IonItem className="float-right">
-        <IonButton
-          onClick={() => {
-            change(val - step);
-          }}
-        >
-          <IonIcon name="arrow-dropleft" />
-        </IonButton>
-        <IonInput
-          type="text"
-          style={{
-            width: 40,
-            textAlign: "center",
-            height: 38,
-          }}
-          value={val}
-          readOnly
-        />
-        <IonButton
-          onClick={() => {
-            change(val + step);
-          }}
-        >
-          <IonIcon name="arrow-dropright" />
-        </IonButton>
-      </IonItem>
+      <div style={{ marginTop: 8 }}>{label}</div>
+      <IonButton
+        onClick={() => {
+          change(val - step);
+        }}
+      >
+        <IonIcon name="arrow-dropleft" />
+      </IonButton>
+      <IonInput
+        type="text"
+        style={{
+          width: 32,
+        }}
+        value={val}
+        readOnly
+      />
+      <IonButton
+        onClick={() => {
+          change(val + step);
+        }}
+      >
+        <IonIcon name="arrow-dropright" />
+      </IonButton>
     </div>
   );
 };
