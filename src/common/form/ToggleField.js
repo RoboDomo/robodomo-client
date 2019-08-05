@@ -1,10 +1,10 @@
 import React from "react";
-import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
+import { IonSegment, IonSegmentButton, IonLabel, IonItem } from "@ionic/react";
 
 const ToggleField = ({ name, label, toggled, onToggle }) => {
   return (
-    <div style={{ display: "flex", marginTop: 10 }}>
-      <div style={{ marginTop: 12, flex: 1 }}>{label}</div>
+    <IonItem style={{ display: "flex", marginTop: 10 }}>
+      <IonLabel style={{ marginTop: 12, flex: 1 }}>{label}</IonLabel>
       <div className="float-right" style={{ whiteSpace: "nowrap" }}>
         <IonSegment>
           <IonSegmentButton
@@ -29,7 +29,7 @@ const ToggleField = ({ name, label, toggled, onToggle }) => {
           </IonSegmentButton>
         </IonSegment>
       </div>
-    </div>
+    </IonItem>
   );
 };
 
