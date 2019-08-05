@@ -8,8 +8,8 @@ class TheaterTabComponent {
 
     get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get ceilingFanLightSwitch() { return this.activeTab.$('.//div[text()="Ceiling Fan Light"]/parent::*//ion-toggle'); }
-    get ceilingFanLightDimm() { return this.activeTab.$('.//div[text()="Ceiling Fan Light"]/parent::*//ion-range'); }
+    get ceilingFanLightSwitch() { return this.activeTab.$('.//ion-label[text()="Ceiling Fan Light"]/parent::*//ion-toggle'); }
+    get ceilingFanLightDimm() { return this.activeTab.$('.//ion-label[text()="Ceiling Fan Light"]/parent::*//ion-range'); }
     get ceilingFanLightLi() { return this.ceilingFanLightSwitch.$('./ancestor::li')}
 
     get ceilingFanOffButton() { return this.activeTab.$('.//div[text()="Ceiling Fan"]/parent::*//ion-segment-button[.="Off"]'); }

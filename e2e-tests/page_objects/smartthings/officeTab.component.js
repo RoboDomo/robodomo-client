@@ -8,12 +8,12 @@ class OfficeTabComponent {
 
     get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get officeDimmerSwitch() { return this.activeTab.$('.//div[text()="Office Dimmer"]/parent::*//ion-toggle'); }
-    get officeDimmerDimm() { return this.activeTab.$('.//div[text()="Office Dimmer"]/parent::*//ion-range'); }
+    get officeDimmerSwitch() { return this.activeTab.$('.//ion-label[text()="Office Dimmer"]/parent::*//ion-toggle'); }
+    get officeDimmerDimm() { return this.activeTab.$('.//ion-label[text()="Office Dimmer"]/parent::*//ion-range'); }
     get officeDimmerLi() { return this.officeDimmerSwitch.$('./ancestor::li')}
 
-    get officeLightSwitch() { return this.activeTab.$('.//div[text()="Office Light"]/parent::*//ion-toggle'); }
-    get officeLightDimm() { return this.activeTab.$('.//div[text()="Office Light"]/parent::*//ion-range'); }
+    get officeLightSwitch() { return this.activeTab.$('.//ion-label[text()="Office Light"]/parent::*//ion-toggle'); }
+    get officeLightDimm() { return this.activeTab.$('.//ion-label[text()="Office Light"]/parent::*//ion-range'); }
     get officeLightLi() { return this.officeLightSwitch.$('./ancestor::li')}
 
     get officeFanOffButton() { return this.activeTab.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Off"]'); }

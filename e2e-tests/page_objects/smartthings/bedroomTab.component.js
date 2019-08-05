@@ -18,8 +18,8 @@ class BedroomTabComponent {
     get bedroomFanHighButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="High"]'); }
     get bedroomFanLi() { return this.bedroomFanOffButton.$('./ancestor::li'); }
 
-    get bedroomLightSwitch() { return this.activeTab.$('.//div[text()="Bedroom Light"]/parent::*//ion-toggle'); }
-    get bedroomLightDimm() { return this.activeTab.$('.//div[text()="Bedroom Light"]/parent::*//ion-range'); }
+    get bedroomLightSwitch() { return this.activeTab.$('.//ion-label[text()="Bedroom Light"]/parent::*//ion-toggle'); }
+    get bedroomLightDimm() { return this.activeTab.$('.//ion-label[text()="Bedroom Light"]/parent::*//ion-range'); }
     get bedroomLightLi() { return this.bedroomLightSwitch.$('./ancestor::li')}
 
     clickBedroomFanOffButton() {

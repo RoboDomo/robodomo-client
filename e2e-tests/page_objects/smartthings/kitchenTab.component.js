@@ -8,8 +8,8 @@ class KitchenTabComponent {
 
     get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get kitchenLightSwitch() { return this.activeTab.$('.//div[text()="Kitchen Light"]/parent::*//ion-toggle'); }
-    get kitchenLightDimm() { return this.activeTab.$('.//div[text()="Kitchen Light"]/parent::*//ion-range'); }
+    get kitchenLightSwitch() { return this.activeTab.$('.//ion-label[text()="Kitchen Light"]/parent::*//ion-toggle'); }
+    get kitchenLightDimm() { return this.activeTab.$('.//ion-label[text()="Kitchen Light"]/parent::*//ion-range'); }
     get kitchenLightLi() { return this.kitchenLightSwitch.$('./ancestor::li')}
 
     toggleKitchenLight(state) {

@@ -8,8 +8,8 @@ class BathroomTabComponent {
 
     get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get bathroomLightSwitch() { return this.activeTab.$('.//div[text()="Bathroom Light"]/parent::*//ion-toggle'); }
-    get bathroomLightDimm() { return this.activeTab.$('.//div[text()="Bathroom Light"]/parent::*//ion-range'); }
+    get bathroomLightSwitch() { return this.activeTab.$('.//ion-label[text()="Bathroom Light"]/parent::*//ion-toggle'); }
+    get bathroomLightDimm() { return this.activeTab.$('.//ion-label[text()="Bathroom Light"]/parent::*//ion-range'); }
     get bathroomLightLi() { return this.bathroomLightSwitch.$('./ancestor::li')}
 
     toggleBathroomLight(state) {
