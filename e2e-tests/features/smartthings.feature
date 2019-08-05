@@ -66,30 +66,6 @@ Feature: RoboDomo SmartThings page
 # --- Back Room tab
 
     @automated @smoke
-    Scenario Outline: Check 'Office Dimmer', 'Office Light' switches on Back Room tab
-        When User clicks on Back Room tab on SmartThings page
-        Then SmartThings Back Room tab is loaded
-        And User changes SmartThings <button> button state to on
-        Then SmartThings <button> button state is on
-        When User changes SmartThings <button> button state to off
-        Then SmartThings <button> button state is off
-        Examples:
-            | button        |
-            | Office Dimmer |
-
-    @automated
-    Scenario Outline: Check 'Office Dimmer', 'Office Light' switches on Back Room tab
-        When User clicks on Back Room tab on SmartThings page
-        Then SmartThings Back Room tab is loaded
-        And User changes SmartThings <button> button state to on
-        Then SmartThings <button> button state is on
-        When User changes SmartThings <button> button state to off
-        Then SmartThings <button> button state is off
-        Examples:
-            | button       |
-            | Office Light |
-
-    @automated
     Scenario: Check 'Entryway Lights' buttons on Back Room tab
         When User clicks on Back Room tab on SmartThings page
         Then SmartThings Back Room tab is loaded
@@ -97,23 +73,6 @@ Feature: RoboDomo SmartThings page
         Then SmartThings Entryway Lights button state is off
         And User changes SmartThings Entryway Lights button state to off
         Then SmartThings Entryway Lights button state is off
-
-
-    @automated
-    Scenario Outline: Check 'Office Fan' buttons on Back Room tab
-        When User clicks on Back Room tab on SmartThings page
-        Then SmartThings Back Room tab is loaded
-        And User changes SmartThings <button> button state to off
-        Then SmartThings <button> button state is off
-        When User changes SmartThings <button> button state to low
-        Then SmartThings <button> button state is low
-        When User changes SmartThings <button> button state to medium
-        Then SmartThings <button> button state is medium
-        When User changes SmartThings <button> button state to high
-        Then SmartThings <button> button state is high
-        Examples:
-            | button     |
-            | Office Fan |
 
 # --- Bedroom tab
 
@@ -126,20 +85,7 @@ Feature: RoboDomo SmartThings page
         When User changes SmartThings <button> button state to off
         Then SmartThings <button> button state is off
         Examples:
-            | button        |
-            | Kitchen Light |
-
-    @automated
-    Scenario Outline: Check 'Kitchen Light', 'Bathroom Light', 'Bedroom Light' switches on Bedroom tab
-        When User clicks on Bedroom tab on SmartThings page
-        Then SmartThings Bedroom tab is loaded
-        And User changes SmartThings <button> button state to on
-        Then SmartThings <button> button state is on
-        When User changes SmartThings <button> button state to off
-        Then SmartThings <button> button state is off
-        Examples:
             | button         |
-            | Bathroom Light |
             | Bedroom Light  |
 
     @automated

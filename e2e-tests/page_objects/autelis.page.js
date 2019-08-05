@@ -48,6 +48,7 @@ class AutelisPage extends Page {
 
     adjustPoolHeat(action) {
         let initialTemp = parseInt(this.poolHeatCounter.getValue(), 0);
+        browser.pause(750);
         action === 'increases' ? this.poolHeatAdjButtons[1].click() : this.poolHeatAdjButtons[0].click();
         browser.pause(750);
         return initialTemp;
@@ -55,6 +56,7 @@ class AutelisPage extends Page {
 
     adjustSpaHeat(action) {
         let initialTemp = parseInt(this.spaHeatCounter.getValue(), 0);
+        browser.pause(750);
         action === 'increases' ? this.spaHeatAdjButtons[1].click() : this.spaHeatAdjButtons[0].click();
         browser.pause(750);
         return initialTemp;
