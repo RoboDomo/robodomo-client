@@ -17,9 +17,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Office tab on SmartThings page
         Then SmartThings Office tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button        |
             | Office Dimmer |
@@ -29,9 +29,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Office tab on SmartThings page
         Then SmartThings Office tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button       |
             | Office Light |
@@ -51,13 +51,13 @@ Feature: RoboDomo SmartThings page
         When User clicks on Office tab on SmartThings page
         Then SmartThings Office tab is loaded
         And User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         When User changes SmartThings <button> button state to low
-        Then >SmartThings <button> button state is low
+        Then SmartThings <button> button state is low
         When User changes SmartThings <button> button state to medium
-        Then >SmartThings <button> button state is medium
+        Then SmartThings <button> button state is medium
         When User changes SmartThings <button> button state to high
-        Then >SmartThings <button> button state is high
+        Then SmartThings <button> button state is high
         Examples:
             | button     |
             | Office Fan |
@@ -70,9 +70,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Back Room tab on SmartThings page
         Then SmartThings Back Room tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button        |
             | Office Dimmer |
@@ -82,9 +82,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Back Room tab on SmartThings page
         Then SmartThings Back Room tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button       |
             | Office Light |
@@ -104,13 +104,13 @@ Feature: RoboDomo SmartThings page
         When User clicks on Back Room tab on SmartThings page
         Then SmartThings Back Room tab is loaded
         And User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         When User changes SmartThings <button> button state to low
-        Then >SmartThings <button> button state is low
+        Then SmartThings <button> button state is low
         When User changes SmartThings <button> button state to medium
-        Then >SmartThings <button> button state is medium
+        Then SmartThings <button> button state is medium
         When User changes SmartThings <button> button state to high
-        Then >SmartThings <button> button state is high
+        Then SmartThings <button> button state is high
         Examples:
             | button     |
             | Office Fan |
@@ -122,9 +122,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Bedroom tab on SmartThings page
         Then SmartThings Bedroom tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button        |
             | Kitchen Light |
@@ -134,9 +134,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Bedroom tab on SmartThings page
         Then SmartThings Bedroom tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button         |
             | Bathroom Light |
@@ -147,9 +147,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Bedroom tab on SmartThings page
         Then SmartThings Bedroom tab is loaded
         And User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         And User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button          |
             | Entryway Lights |
@@ -161,13 +161,13 @@ Feature: RoboDomo SmartThings page
         When User clicks on Bedroom tab on SmartThings page
         Then SmartThings Bedroom tab is loaded
         And User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         When User changes SmartThings <button> button state to low
-        Then >SmartThings <button> button state is low
+        Then SmartThings <button> button state is low
         When User changes SmartThings <button> button state to medium
-        Then >SmartThings <button> button state is medium
+        Then SmartThings <button> button state is medium
         When User changes SmartThings <button> button state to high
-        Then >SmartThings <button> button state is high
+        Then SmartThings <button> button state is high
         Examples:
             | button      |
             | Bedroom Fan |
@@ -180,9 +180,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Kitchen tab on SmartThings page
         Then SmartThings Kitchen tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button        |
             | Kitchen Light |
@@ -195,9 +195,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Bathroom tab on SmartThings page
         Then SmartThings Bathroom tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button         |
             | Bathroom Light |
@@ -210,9 +210,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Outside tab on SmartThings page
         Then SmartThings Outside tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button      |
             | Porch Light |
@@ -222,9 +222,9 @@ Feature: RoboDomo SmartThings page
         When User clicks on Outside tab on SmartThings page
         Then SmartThings Outside tab is loaded
         And User changes SmartThings <button> button state to on
-        Then >SmartThings <button> button state is on
+        Then SmartThings <button> button state is on
         When User changes SmartThings <button> button state to off
-        Then >SmartThings <button> button state is off
+        Then SmartThings <button> button state is off
         Examples:
             | button         |
             | Outside Light  |
