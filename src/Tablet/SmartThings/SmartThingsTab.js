@@ -212,8 +212,8 @@ const SmartThingsTab = ({ room }) => {
         {room.things.map((thing, ndx) => {
           const key = `${room.name}-${thing.name}`;
           return (
-            <IonCard>
-              <IonCardHeader>
+            <IonCard color="dark">
+              <IonCardHeader color="dark">
                 <IonCardTitle>{thing.name}</IonCardTitle>
               </IonCardHeader>
               <IonCardContent>
