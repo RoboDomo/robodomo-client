@@ -109,8 +109,8 @@ const DashboardTab = ({ dashboard }) => {
     <section>
       <div
         style={{
-          display: "inline-grid",
-          gridTemplateColumns: "auto auto auto auto auto auto auto auto",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, 128px)",
           gridTemplateRows: "auto auto auto auto",
           gridGap: 0,
           gridAutoRows: "minmax(256px, auto)",
