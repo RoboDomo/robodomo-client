@@ -9,17 +9,17 @@ class MQTT extends EventEmitter {
 
   constructor() {
     super();
-    this.connect = this.connect.bind(this);
+    this.connect = this.connect;
     this.cache = {};
     this.setMaxListeners(250);
 
     if (process.env.NODE_ENV === "testing" || process.env.REACT_APP_DEMO === "true") {
       // save a reference for testing
-      window.SEND_MQTT_MESSAGE = this.onMessageArrived.bind(this);
+      window.SEND_MQTT_MESSAGE = this.onMessageArrived;
     }
   }
 
-  connect() {
+  connect = () => {
     // Don't attempt to connect if we are in a DEMO environment
     if (process.env.REACT_APP_DEMO === "true") {
       import("@/dev/mqtt-sim" /* webpackChunkName: "mqtt-sim" */).then(({ getRandomMessage }) => {
@@ -53,32 +53,32 @@ class MQTT extends EventEmitter {
 
     const mqtt = (this.mqtt = connect({ host: this.host, port: this.port }));
 
-    mqtt.on("connect", this.onConnect.bind(this));
-    mqtt.on("failure", this.onFailure.bind(this));
-    mqtt.on("message", this.onMessageArrived.bind(this));
-    mqtt.on("close", this.onConnectionLost.bind(this));
-  }
+    mqtt.on("connect", this.onConnect);
+    mqtt.on("failure", this.onFailure);
+    mqtt.on("message", this.onMessageArrived);
+    mqtt.on("close", this.onConnectionLost);
+  };
 
-  onConnect() {
+  onConnect = () => {
     // Work out the subscription queue
     this.subscribeQueued();
 
     this.emit("connect");
-  }
+  };
 
-  onFailure() {
+  onFailure = () => {
     this.emit("failure");
     // mosca retries for us
-  }
+  };
 
-  emitMessage(topic, payload) {
+  emitMessage = (topic, payload) => {
     try {
       payload = JSON.parse(payload);
     } catch (e) {}
     this.emit(topic, topic, payload);
-  }
+  };
 
-  onMessageArrived(topic, payload) {
+  onMessageArrived = (topic, payload) => {
     if (!payload) {
       return;
     }
@@ -97,15 +97,15 @@ class MQTT extends EventEmitter {
       this.emitMessage(topic, message);
     }
     this.emit("message", topic, message);
-  }
+  };
 
-  onConnectionLost(e) {
+  onConnectionLost = e => {
     console.log("mqtt", "onConnectionLost", e, this.subscriptions);
     this.emit("connectionlost");
     // mosca reonnects for us
-  }
+  };
 
-  subscribe(topic, handler) {
+  subscribe = (topic, handler) => {
     if (!this.mqtt) {
       // Looks like we haven't connected yet.
       // We are going to queue up all the subscription so they
@@ -124,7 +124,16 @@ class MQTT extends EventEmitter {
       );
 
       if (process.env.REACT_APP_DEMO === "true") {
-        if (this.getMessageByTopic) {
+        const state = this.cache[topic] || localStorage.getItem(topic);
+        if (state && handler) {
+          setTimeout(() => {
+            try {
+              handler(topic, JSON.parse(state));
+            } catch (e) {
+              handler(topic, state);
+            }
+          }, 1);
+        } else if (this.getMessageByTopic) {
           this.getMessageByTopic(topic);
         }
       }
@@ -155,7 +164,7 @@ class MQTT extends EventEmitter {
         }
       }, 1);
     }
-  }
+  };
 
   /**
    * Process queued subscriptions
@@ -167,7 +176,7 @@ class MQTT extends EventEmitter {
     });
   };
 
-  unsubscribe(topic, handler) {
+  unsubscribe = (topic, handler) => {
     if (!this.mqtt) {
       // if we haven't connected yet then remove subscriptions from the queue instead
       this.subscriptionQueue.forEach(item => {
@@ -199,9 +208,9 @@ class MQTT extends EventEmitter {
     } else {
       this.mqtt.unsubscribe(topic);
     }
-  }
+  };
 
-  publish(topic, message) {
+  publish = (topic, message) => {
     if (process.env.REACT_APP_DEMO === "true") {
       // save state
       const { set } = require("@/dev/state");
@@ -240,7 +249,7 @@ class MQTT extends EventEmitter {
       );
       //      console.warn("MQTT >>>", String(message));
     }
-  }
+  };
 }
 
 export default new MQTT();

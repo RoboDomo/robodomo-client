@@ -25,7 +25,9 @@ const Hourly = ({ data }) => (
         return null;
       }
 
-      const localTime = format(parseISO(data.localTime), "h:mm aa");
+      const localTimeStamp = ~~data.localTime || parseISO(data.localTime);
+
+      const localTime = format(localTimeStamp, "h:mm aa");
       return (
         <div key={i} className={s.hourlyItem}>
           <div className="small" data-testid="weather-hourly-item">

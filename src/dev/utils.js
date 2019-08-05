@@ -10,7 +10,7 @@ const randomItem = arr => arr[Math.floor(Math.random() * arr.length)];
 /**
  * @return {"on" | "off"} Random on/off
  */
-const onOrOff = () => (Math.random() < 0.5 ? "off" : "on");
+const onOrOff = () => (Math.random() < 0.1 ? "off" : "on");
 
 /**
  * @return {number} Random temperature in F
