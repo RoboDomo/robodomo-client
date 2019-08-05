@@ -12,10 +12,10 @@ class BedroomTabComponent {
     get bedroomLampOffButton() { return this.activeTab.$('.//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="Off"]'); }
     get bedroomLampLi() { return this.bedroomLampOnButton.$('./ancestor::li')}
 
-    get bedroomFanOffButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Off"]'); }
-    get bedroomFanLowButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Low"]'); }
-    get bedroomFanMediumButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
-    get bedroomFanHighButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get bedroomFanOffButton() { return this.activeTab.$('.//ion-label[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Off"]'); }
+    get bedroomFanLowButton() { return this.activeTab.$('.//ion-label[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Low"]'); }
+    get bedroomFanMediumButton() { return this.activeTab.$('.//ion-label[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
+    get bedroomFanHighButton() { return this.activeTab.$('.//ion-label[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="High"]'); }
     get bedroomFanLi() { return this.bedroomFanOffButton.$('./ancestor::li'); }
 
     get bedroomLightSwitch() { return this.activeTab.$('.//ion-label[text()="Bedroom Light"]/parent::*//ion-toggle'); }
