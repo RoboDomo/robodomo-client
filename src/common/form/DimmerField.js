@@ -1,7 +1,7 @@
 import React /*, { useState, useEffect, useRef }*/ from "react";
 
 import s from "./DimmerField.module.css";
-import { IonRange, IonIcon, IonToggle, IonItem, IonLabel } from "@ionic/react";
+import { IonRange, IonIcon, IonToggle } from "@ionic/react";
 
 const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) => {
   const applyValueChange = val => {
@@ -23,26 +23,21 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
   };
 
   return (
-    <IonItem style={{ display: "flex", marginTop: 10 }}>
-      <IonLabel style={{ marginTop: 10, flex: 1 }}>{label}</IonLabel>
-      <div style={{ whiteSpace: "nowrap", display: "flex" }}>
-        <IonToggle checked={toggled} onClick={handleToggle} className={s.toggle} />
-        <div style={{ flex: 1, marginTop: 0 }}>
-          <IonRange
-            className={s.range}
-            value={value || 0}
-            step={1}
-            onIonChange={handleSliderChange}
-            debounce={100}
-            min={1}
-            max={100}
-          >
-            <IonIcon slot="start" size="small" name="sunny" />
-            <IonIcon slot="end" name="sunny" />
-          </IonRange>
-        </div>
-      </div>
-    </IonItem>
+    <div className={s.container}>
+      <IonToggle checked={toggled} onClick={handleToggle} className={s.toggle} />
+      <IonRange
+        className={s.range}
+        value={value || 0}
+        step={1}
+        onIonChange={handleSliderChange}
+        debounce={100}
+        min={1}
+        max={100}
+      >
+        <IonIcon slot="start" size="small" name="sunny" />
+        <IonIcon slot="end" name="sunny" />
+      </IonRange>
+    </div>
   );
 };
 
