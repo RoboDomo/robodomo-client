@@ -291,19 +291,6 @@ main {
   padding: 0 var(--rd-spc-s);
 }
 
-:root .dark {
-  --ion-background-color: var(--rd-color-black);
-  --ion-text-color: #aaaaaa;
-  --ion-text-color-rgb: 170, 170, 170;
-
-  --ion-color-dark: #292929;
-  --ion-color-dark-rgb: 34, 34, 34;
-  --ion-color-dark-contrast: #ffffff;
-  --ion-color-dark-contrast-rgb: 255, 255, 255;
-  --ion-color-dark-shade: #1e2023;
-  --ion-color-dark-tint: #383a3e;
-}
-
 :root .light {
   --ion-background-color: var(--rd-color-white);
   --ion-text-color: #2e2e2e;
@@ -317,6 +304,10 @@ main {
   --ion-color-dark-tint: #f5f6f9;
 }
 
+:root .light ion-app {
+  background-color: var(--rd-color-white);
+}
+
 :root {
   --prefer-theme: light;
 }
@@ -325,16 +316,4 @@ main {
   :root {
     --prefer-theme: dark;
   }
-}
-
-ion-card.sc-ion-card-md-h {
-  --background: var(--rd-color-bg-dark);
-}
-
-ion-card ion-item {
-  --background: var(--rd-color-bg-dark);
-}
-
-ion-card-title {
-  --color: var(--rd-color-text-light);
 }
