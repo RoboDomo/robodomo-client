@@ -1,13 +1,17 @@
 .card.card {
-    display: flex;
-    font-weight: bold;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: var(--rd-spc-xxs);
+  display: flex;
+  font-weight: bold;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: var(--rd-spc-xxs);
+}
+
+.card.card > button {
+  background: inherit;
 }
 
 .content.content {
-    padding-left: var(--rd-spc-xxs);
-    padding-right: var(--rd-spc-xxs);
+  padding-left: var(--rd-spc-xxs);
+  padding-right: var(--rd-spc-xxs);
 }

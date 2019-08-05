@@ -8,18 +8,18 @@ class BedroomTabComponent {
 
     get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get bedroomLampOnButton() { return this.activeTab.$('.//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="On"]'); }
-    get bedroomLampOffButton() { return this.activeTab.$('.//div[text()="Bedroom Lamp"]/parent::*//ion-segment-button[.="Off"]'); }
+    get bedroomLampOnButton() { return this.activeTab.$('.//ion-card[contains(., "Bedroom Lamp")]//ion-segment-button[.="On"]'); }
+    get bedroomLampOffButton() { return this.activeTab.$('.//ion-card[contains(., "Bedroom Lamp")]//ion-segment-button[.="Off"]'); }
     get bedroomLampLi() { return this.bedroomLampOnButton.$('./ancestor::li')}
 
-    get bedroomFanOffButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Off"]'); }
-    get bedroomFanLowButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Low"]'); }
-    get bedroomFanMediumButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
-    get bedroomFanHighButton() { return this.activeTab.$('.//div[text()="Bedroom Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get bedroomFanOffButton() { return this.activeTab.$('.//ion-card[contains(., "Bedroom Fan")]//ion-segment-button[.="Off"]'); }
+    get bedroomFanLowButton() { return this.activeTab.$('.//ion-card[contains(., "Bedroom Fan")]//ion-segment-button[.="Low"]'); }
+    get bedroomFanMediumButton() { return this.activeTab.$('.//ion-card[contains(., "Bedroom Fan")]//ion-segment-button[.="Medium"]'); }
+    get bedroomFanHighButton() { return this.activeTab.$('.//ion-card[contains(., "Bedroom Fan")]//ion-segment-button[.="High"]'); }
     get bedroomFanLi() { return this.bedroomFanOffButton.$('./ancestor::li'); }
 
-    get bedroomLightSwitch() { return this.activeTab.$('.//div[text()="Bedroom Light"]/parent::*//ion-toggle'); }
-    get bedroomLightDimm() { return this.activeTab.$('.//div[text()="Bedroom Light"]/parent::*//ion-range'); }
+    get bedroomLightSwitch() { return this.activeTab.$('.//ion-card[contains(., "Bedroom Light")]//ion-toggle'); }
+    get bedroomLightDimm() { return this.activeTab.$('.//ion-card[contains(., "Bedroom Light")]//ion-range'); }
     get bedroomLightLi() { return this.bedroomLightSwitch.$('./ancestor::li')}
 
     clickBedroomFanOffButton() {
