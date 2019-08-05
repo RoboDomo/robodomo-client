@@ -97,7 +97,7 @@ const MainScreen = () => {
       <IonApp>
         <IonPage>
           <IonItem>
-            <IonToggle onClick={e => setDark(e.target.checked)} />
+            <IonToggle onClick={e => setDark(e.target.checked)} checked={dark} />
             <IonLabel>Dark Mode: {dark ? "On" : "Off"}</IonLabel>
           </IonItem>
           <Navigation />

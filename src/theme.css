@@ -313,3 +313,13 @@ main {
   --ion-color-dark-shade: #d7d8da;
   --ion-color-dark-tint: #f5f6f9;
 }
+
+:root {
+  --prefer-theme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --prefer-theme: dark;
+  }
+}
