@@ -11,6 +11,9 @@ import {
   IonButton,
   IonButtons,
   IonIcon,
+  IonGrid,
+  IonRow,
+  IonCol,
 } from "@ionic/react";
 
 import useConfig from "@/hooks/useConfig";
@@ -126,113 +129,115 @@ const ThermostatTab = ({ thermostat }) => {
 
     return (
       <IonContent>
-        <section className={s.layoutContainer}>
-          <div>
-            <IonList lines="full">
-              <IonItem>
-                <IonLabel>Presence</IonLabel>
-                <span>{thermostat.away.toUpperCase()}</span>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Ambient Temperature</IonLabel>
-                <span>
-                  <Temperature value={thermostat.ambient_temperature_f} />
-                </span>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Ambient Humidity</IonLabel>
-                <span>{thermostat.humidity}%</span>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Mode</IonLabel>
-                <span>{thermostat.hvac_mode}</span>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Operating State</IonLabel>
-                <span>{thermostat.hvac_state}</span>
-              </IonItem>
-            </IonList>
-            <IonList lines="full">
-              <IonItem>
-                <IonLabel>{thermostat.structure_name}</IonLabel>
-                <span>{thermostat.postal_code}</span>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Outside Temperature</IonLabel>
-                <span>
-                  <Temperature value={now.temperature} />
-                </span>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Outside Humidity</IonLabel>
-                <span>{now.humidity}%</span>
-              </IonItem>
-              <IonItem>
-                <IonLabel>Conditions</IonLabel>
-                <span>{now.description}</span>
-              </IonItem>
-            </IonList>
-          </div>
-          {/* Center screen */}
-          <div className={s.main}>
-            <AnimatedDiv
-              className={s.thermostat}
-              animate={{ scale: [0.7, 1.05, 1], opacity: [0.5, 1] }}
-              transition={{
-                type: "spring",
-                stiffness: 260,
-                damping: 20,
-                duration: 0.7,
-                ease: "easeOut",
-              }}
-            >
-              <Thermostat
-                away={Boolean(thermostat.away !== "home")}
-                ambientTemperature={Locale.ftoc(thermostat.ambient_temperature_f, metric)}
-                targetTemperature={Locale.ftoc(thermostat.target_temperature_f, metric)}
-                hvacMode={thermostat.hvac_state}
-                leaf={thermostat.has_leaf}
-              />
-            </AnimatedDiv>
-            <IonButtons slot="primary" className={s.selfCenter}>
-              {Array.from(new Array(6), (_, idx) => {
-                const value = idx - 3;
+        <IonGrid>
+          <IonRow>
+            <IonCol size={12} sizeMd={5} sizeLg={3}>
+              <IonList lines="full">
+                <IonItem>
+                  <IonLabel>Presence</IonLabel>
+                  <span>{thermostat.away.toUpperCase()}</span>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Ambient Temperature</IonLabel>
+                  <span>
+                    <Temperature value={thermostat.ambient_temperature_f} />
+                  </span>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Ambient Humidity</IonLabel>
+                  <span>{thermostat.humidity}%</span>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Mode</IonLabel>
+                  <span>{thermostat.hvac_mode}</span>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Operating State</IonLabel>
+                  <span>{thermostat.hvac_state}</span>
+                </IonItem>
+              </IonList>
+              <IonList lines="full">
+                <IonItem>
+                  <IonLabel>{thermostat.structure_name}</IonLabel>
+                  <span>{thermostat.postal_code}</span>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Outside Temperature</IonLabel>
+                  <span>
+                    <Temperature value={now.temperature} />
+                  </span>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Outside Humidity</IonLabel>
+                  <span>{now.humidity}%</span>
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Conditions</IonLabel>
+                  <span>{now.description}</span>
+                </IonItem>
+              </IonList>
+            </IonCol>
+            {/* Center screen */}
+            <IonCol size={12} sizeMd={7} sizeLg={6} className={s.main}>
+              <AnimatedDiv
+                className={s.thermostat}
+                animate={{ scale: [0.7, 1.05, 1], opacity: [0.5, 1] }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                  duration: 0.7,
+                  ease: "easeOut",
+                }}
+              >
+                <Thermostat
+                  away={Boolean(thermostat.away !== "home")}
+                  ambientTemperature={Locale.ftoc(thermostat.ambient_temperature_f, metric)}
+                  targetTemperature={Locale.ftoc(thermostat.target_temperature_f, metric)}
+                  hvacMode={thermostat.hvac_state}
+                  leaf={thermostat.has_leaf}
+                />
+              </AnimatedDiv>
+              <IonButtons slot="primary" className={s.selfCenter}>
+                {Array.from(new Array(6), (_, idx) => {
+                  const value = idx - 3;
 
-                return (
-                  <IonButton onClick={() => adjustTemperature(value)}>
-                    <IonIcon name={value < 0 ? "arrow-dropdown" : "arrow-dropup"} />
-                    <IonLabel>{value}</IonLabel>
-                  </IonButton>
-                );
-              })}
-            </IonButtons>
-            <IonSegment onIonChange={e => hvacModeChange(e.detail.value)}>
-              {["off", "heat", "cool", "heat-cool", "eco"].map(value => (
-                <IonSegmentButton value={value} checked={thermostat.hvac_mode === value}>
-                  <IonLabel className={s.hvacTabTitle}>{value.replace("-", "/")}</IonLabel>
-                </IonSegmentButton>
-              ))}
-            </IonSegment>
-          </div>
-          {/* East */}
-          <div>
-            <IonList lines="full">
-              <IonItem>
-                <IonLabel>Target Temperature</IonLabel>
-                <Temperature value={thermostat.target_temperature_f} />
-              </IonItem>
-              <IonItem>
-                <IonLabel>Time To Target</IonLabel>
-                <Temperature value={thermostat.time_to_target} />
-              </IonItem>
-            </IonList>
-            <TargetTemperatures
-              thermostat={thermostat}
-              handler={setTargetTemperature}
-              mode={thermoState.hvac_mode}
-            />
-          </div>
-        </section>
+                  return (
+                    <IonButton onClick={() => adjustTemperature(value)}>
+                      <IonIcon name={value < 0 ? "arrow-dropdown" : "arrow-dropup"} />
+                      <IonLabel>{value}</IonLabel>
+                    </IonButton>
+                  );
+                })}
+              </IonButtons>
+              <IonSegment onIonChange={e => hvacModeChange(e.detail.value)}>
+                {["off", "heat", "cool", "heat-cool", "eco"].map(value => (
+                  <IonSegmentButton value={value} checked={thermostat.hvac_mode === value}>
+                    <IonLabel className={s.hvacTabTitle}>{value.replace("-", "/")}</IonLabel>
+                  </IonSegmentButton>
+                ))}
+              </IonSegment>
+            </IonCol>
+            {/* East */}
+            <IonCol size={12} sizeMd={5} sizeLg={3}>
+              <IonList lines="full">
+                <IonItem>
+                  <IonLabel>Target Temperature</IonLabel>
+                  <Temperature value={thermostat.target_temperature_f} />
+                </IonItem>
+                <IonItem>
+                  <IonLabel>Time To Target</IonLabel>
+                  <Temperature value={thermostat.time_to_target} />
+                </IonItem>
+              </IonList>
+              <TargetTemperatures
+                thermostat={thermostat}
+                handler={setTargetTemperature}
+                mode={thermoState.hvac_mode}
+              />
+            </IonCol>
+          </IonRow>
+        </IonGrid>
       </IonContent>
     );
   };
