@@ -3,13 +3,19 @@ import useConfig from "@/hooks/useConfig";
 import Locale from "@/lib/Locale";
 
 const val = n => {
-  return parseInt(n * 10) / 10;
+  const numeric = parseInt(n * 10) / 10;
+  return isNaN(numeric) ? null : numeric;
 };
 
 // sometimes you want a metric value even if the app is not displaying metric in general
 const Temperature = ({ value, units = true, metric = false }) => {
   const Config = useConfig(),
-    isMetric = metric || Config.metric;
+    isMetric = metric || Config.metric,
+    numeric = val(value);
+
+  if (!numeric) {
+    return null;
+  }
 
   if (isMetric) {
     return (
