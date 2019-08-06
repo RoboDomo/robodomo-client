@@ -116,6 +116,7 @@ const DashboardTab = ({ dashboard }) => {
           gridGap: 0,
           gridAutoRows: "minmax(128px, auto)",
           gridAutoFlow: "dense",
+          maxWidth: "1024px",
         }}
       >
         {tiles.current}
