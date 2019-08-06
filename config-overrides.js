@@ -3,6 +3,7 @@ const path = require("path");
 const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 const AutoDllPlugin = require("autodll-webpack-plugin");
+const WorkerPlugin = require("worker-plugin");
 
 module.exports = function override(config) {
   // custom service workers
@@ -83,6 +84,9 @@ module.exports = function override(config) {
         },
       })
     );
+
+    // Web Workers plugin
+    config.plugins.push(new WorkerPlugin());
   }
 
   return config;

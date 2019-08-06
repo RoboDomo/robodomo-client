@@ -14,42 +14,44 @@ import AnimatedStack from "@/common/AnimatedStack";
 
 import s from "./WeatherTab.module.css";
 
-const Hourly = ({ data }) => (
-  <AnimatedStack
-    onScroll={e => e.stopPropagation()}
-    className={s.forecastContainerHourly}
-    data-testid="weather-hourly"
-  >
-    {data.map((data, i) => {
-      if (data.localTime === undefined) {
-        return null;
-      }
+const Hourly = ({ data }) =>
+  data ? (
+    <AnimatedStack
+      onScroll={e => e.stopPropagation()}
+      className={s.forecastContainerHourly}
+      data-testid="weather-hourly"
+    >
+      {data.map((data, i) => {
+        if (data.localTime === undefined) {
+          return null;
+        }
 
-      const localTimeStamp = ~~data.localTime || parseISO(data.localTime);
+        const localTimeStamp = ~~data.localTime || parseISO(data.localTime);
 
-      const localTime = format(localTimeStamp, "h:mm aa");
-      return (
-        <div key={i} className={s.hourlyItem}>
-          <div className="small" data-testid="weather-hourly-item">
-            {localTime}
+        const localTime = format(localTimeStamp, "h:mm aa");
+        return (
+          <div key={i} className={s.hourlyItem}>
+            <div className="small" data-testid="weather-hourly-item">
+              {localTime}
+            </div>
+            <img
+              className={s.img_small}
+              alt={data.skyDescription}
+              title={data.description}
+              src={data.iconLink}
+            />
+            <h4>
+              <Temperature value={data.temperature} />
+            </h4>
           </div>
-          <img
-            className={s.img_small}
-            alt={data.skyDescription}
-            title={data.description}
-            src={data.iconLink}
-          />
-          <h4>
-            <Temperature value={data.temperature} />
-          </h4>
-        </div>
-      );
-    })}
-  </AnimatedStack>
-);
+        );
+      })}
+    </AnimatedStack>
+  ) : null;
 
 const Daily = ({ data }) => {
   let lastDay = "";
+  if (!data) return null;
   return (
     <AnimatedStack
       onScroll={e => e.stopPropagation()}
