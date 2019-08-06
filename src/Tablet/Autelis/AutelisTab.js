@@ -1,7 +1,16 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect, useState } from "react";
+import cx from "classnames";
 import useConfig from "@/hooks/useConfig";
-import { Row, Col } from "react-bootstrap";
-import { IonSegment, IonSegmentButton, IonLabel } from "@ionic/react";
+import searchUnsplash from "@/lib/unsplash";
+import {
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
+  IonCard,
+  IonCardContent,
+  IonToggle,
+  IonCardHeader,
+} from "@ionic/react";
 import s from "./AutelisTab.module.css";
 
 import NumberField from "@/common/form/NumberField";
@@ -9,14 +18,149 @@ import Clock from "@/common/Clock";
 import useAutelis from "@/hooks/useAutelis";
 import autelisReducer from "@/hooks/reducers/autelisReducer";
 import useWeather from "@/hooks/useWeather";
-import MacroTile from "../Dashboard/MacroTile";
 import Temperature from "@/common/Temperature";
 import Locale from "@/lib/Locale";
 
+import { ReactComponent as Sunrise } from "@/icons/sunrise.svg";
+import { ReactComponent as Sunset } from "@/icons/sunset.svg";
+import { ReactComponent as Whirlpool } from "@/icons/whirlpool.svg";
+import { ReactComponent as Pool } from "@/icons/pool.svg";
+import { ReactComponent as Solar } from "@/icons/solar.svg";
+
+const Header = ({ now, city }) => {
+  // find a photo that matches the city and weather description
+  const [photo, setPhoto] = useState(null);
+
+  useEffect(() => {
+    searchUnsplash(`${city} ${now.description}`).then(setPhoto);
+  }, [city, now.description, photo]);
+
+  const sunrise = new Date(now.sunrise * 1000).toLocaleTimeString().replace(":00 ", " "),
+    sunset = new Date(now.sunset * 1000).toLocaleTimeString().replace(":00 ", " "),
+    img = now.iconLink ? (
+      <img
+        alt={now.iconName}
+        style={{
+          paddingBottom: 0,
+          width: 64,
+          height: 64,
+        }}
+        src={now.iconLink}
+      />
+    ) : null;
+  return (
+    <header className={s.weatherHeader} style={{ backgroundImage: `url(${photo})` }}>
+      <div className={s.weatherShim}>
+        <div className={s.clock}>
+          <Clock />
+        </div>
+        <div className={s.sun}>
+          <div className={s.sunstate}>
+            <Sunrise /> {sunrise}
+          </div>
+          <div className={s.sunstate}>
+            <Sunset /> {sunset}
+          </div>
+        </div>
+        <h1 className={s.city}>{city}</h1>
+        <div className={s.temperature}>
+          {img} <Temperature value={now.temperature} />
+        </div>
+      </div>
+    </header>
+  );
+};
+
+const SectionHeader = ({ isOn, temp, onToggle, title, Icon }) => (
+  <header className={cx(s.sectionHeader, { [s.areaOn]: isOn })}>
+    <aside>
+      <h2 className={s.sectionTitle}>
+        {title} {isOn ? <Temperature value={temp} /> : null}
+      </h2>
+    </aside>
+    <aside>
+      <Icon className={s.svgHeader} />
+      <IonToggle checked={isOn} onIonChange={onToggle} />
+    </aside>
+  </header>
+);
+
+const SegmentedToggle = ({ on, type }) => {
+  const Config = useConfig();
+  const controller = Config.autelis;
+  const [, dispatch] = useReducer(autelisReducer, { autelis: controller });
+
+  return (
+    <IonSegment className={s.toggle} color={on ? "success" : undefined}>
+      <IonSegmentButton
+        checked={on}
+        onClick={() => {
+          if (!on) {
+            dispatch({ type: type, value: true });
+          }
+        }}
+      >
+        <IonLabel>On</IonLabel>
+      </IonSegmentButton>
+      <IonSegmentButton
+        checked={!on}
+        onClick={() => {
+          if (on) {
+            dispatch({ type: type, value: false });
+          }
+        }}
+      >
+        <IonLabel>Off</IonLabel>
+      </IonSegmentButton>
+    </IonSegment>
+  );
+};
+
+const ToggledStatus = ({ title, ...rest }) => (
+  <IonCard className={s.statusFieldContainer}>
+    <IonCardHeader className={s.statusTitle}>
+      <div className="h4">{title}</div>
+    </IonCardHeader>
+    <IonCardContent>
+      <SegmentedToggle {...rest} />
+    </IonCardContent>
+  </IonCard>
+);
+
+const Heater = ({ title, temp, tempType, ...rest }) => {
+  const Config = useConfig();
+  const controller = Config.autelis;
+  const metric = Config.metric;
+  const [, dispatch] = useReducer(autelisReducer, { autelis: controller });
+  return (
+    <IonCard>
+      <IonCardHeader className={s.statusTitle}>
+        <div className="h4">{title}</div>
+      </IonCardHeader>
+      <IonCardContent className={s.tempLine}>
+        <SegmentedToggle {...rest} />
+        <NumberField
+          name="temp"
+          value={Locale.ftoc(temp, metric)}
+          step={metric ? 0.1 : 1}
+          onValueChange={newValue => {
+            dispatch({
+              type: tempType,
+              value: Locale.ctof(newValue, metric),
+            });
+          }}
+        />
+      </IonCardContent>
+    </IonCard>
+  );
+};
+
 const AutelisTab = () => {
   const Config = useConfig();
+  if (!Config) {
+    return null;
+  }
   const controller = Config.autelis,
-    metric = Config.metric,
     location = controller.location;
 
   const [, dispatch] = useReducer(autelisReducer, { autelis: controller });
@@ -43,614 +187,81 @@ const AutelisTab = () => {
   const weather = useWeather(location),
     { now, display_city } = weather;
 
-  //
-  // RENDER
-  //
-  const poolOn = !spa && pump,
-    spaOn = spa && pump,
+  // console.log(weather, now, display_city, location);
+
+  const poolOn = !!pump,
+    spaOn = !!spa,
     solarOn = solarHeat && pump;
 
-  const sunrise = new Date(now.sunrise * 1000).toLocaleTimeString().replace(":00 ", " "),
-    sunset = new Date(now.sunset * 1000).toLocaleTimeString().replace(":00 ", " "),
-    img = now.iconLink ? (
-      <img
-        alt={now.iconName}
-        style={{
-          paddingBottom: 0,
-          width: 64,
-          height: 64,
-        }}
-        src={now.iconLink}
-      />
-    ) : null;
-
-  const renderWeather = () => {
-    return (
-      <div style={{ fontSize: 36, display: "flex", justifyContent: "end" }}>
-        <div style={{ flex: 0.3 }}>
-          <Clock />
-        </div>
-        <div style={{ fontSize: 18, flex: 0.3 }}>
-          <div>Sunrise: {sunrise}</div>
-          <div>Sunset: {sunset}</div>
-        </div>
-        <div style={{ fontSize: 38, flex: 1 }}>
-          {display_city} {img} <Temperature value={now.temperature} />
-        </div>
-      </div>
-    );
-  };
-
-  const renderMainSwitch = () => {
-    const renderOffButton = () => {
-      return (
-        <IonSegmentButton
-          checked={!poolOn && !spaOn}
-          onClick={() => {
-            if (poolOn) {
-              dispatch({ type: "pump", value: false });
-            } else if (spaOn) {
-              dispatch({ type: "spa", value: false });
-            }
-            if (cleaner) {
-              dispatch({ type: "cleaner", value: false });
-            }
-            if (solarOn) {
-              dispatch({ type: "solarHeat", value: false });
-            }
-          }}
-        >
-          OFF
-        </IonSegmentButton>
-      );
-    };
-
-    const renderPoolButton = () => {
-      return (
-        <IonSegmentButton
-          checked={poolOn}
-          onClick={() => {
-            if (!poolOn) {
-              if (!pump) {
-                dispatch({ type: "pump", value: true });
-              }
-              dispatch({ type: "spa", value: false });
-            }
-          }}
-        >
-          POOL
-        </IonSegmentButton>
-      );
-    };
-
-    const renderSpaButton = () => {
-      return (
-        <IonSegmentButton
-          checked={spaOn}
-          onClick={() => {
-            if (!spaOn) {
-              if (!pump) {
-                dispatch({ type: "pump", value: true });
-              }
-              dispatch({ type: "spa", value: true });
-            }
-          }}
-        >
-          SPA
-        </IonSegmentButton>
-      );
-    };
-
-    const renderTemp = () => {
-      if (poolOn) {
-        return (
-          <>
-            Pool <Temperature value={poolTemp} />
-          </>
-        );
-      } else if (spaOn) {
-        return (
-          <>
-            Spa <Temperature value={spaTemp} />
-          </>
-        );
-      } else {
-        return <>All Off</>;
-      }
-    };
-
-    return (
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
-        <IonSegment
-          className={s.mainSwitch}
-          color={spaOn ? "danger" : poolOn ? "success" : undefined}
-        >
-          {renderOffButton()}
-          {renderPoolButton()}
-          {renderSpaButton()}
-        </IonSegment>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 44,
-          }}
-        >
-          {renderTemp()}
-        </div>
-      </div>
-    );
-  };
-
-  const renderSolar = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: 8,
-        }}
-      >
-        <IonSegment className={s.toggle} color={solarOn ? "success" : undefined}>
-          <IonSegmentButton
-            checked={solarOn}
-            onClick={() => {
-              if (!solarOn) {
-                dispatch({ type: "solarHeat", value: true });
-              }
-            }}
-          >
-            <IonLabel>On</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton
-            checked={!solarOn}
-            onClick={() => {
-              if (solarOn) {
-                dispatch({ type: "solarHeat", value: false });
-              }
-            }}
-          >
-            <IonLabel>Off</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 36,
-          }}
-        >
-          Solar <Temperature value={solarTemp} />
-        </div>
-      </div>
-    );
-  };
-
-  const renderCleaner = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: 8,
-        }}
-      >
-        <IonSegment className={s.toggle} color={cleaner ? "success" : undefined}>
-          <IonSegmentButton
-            checked={cleaner}
-            onClick={() => {
-              if (!cleaner) {
-                dispatch({ type: "cleaner", value: true });
-              }
-            }}
-          >
-            <IonLabel>On</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton
-            checked={!cleaner}
-            onClick={() => {
+  return (
+    <>
+      <Header now={now} city={display_city} />
+      <main className={s.container}>
+        <section data-testid="pool">
+          <SectionHeader
+            title="Pool"
+            isOn={poolOn}
+            temp={poolTemp}
+            Icon={Pool}
+            onToggle={() => {
+              dispatch({ type: "pump", value: !poolOn });
+              dispatch({ type: "solarHeat", value: !poolOn });
               if (cleaner) {
-                dispatch({ type: "cleaner", value: false });
+                dispatch({ type: "cleaner", value: !poolOn });
               }
-            }}
-          >
-            <IonLabel>Off</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 36,
-          }}
-        >
-          Cleaner
-        </div>
-      </div>
-    );
-  };
-
-  const renderWaterfall = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: 8,
-        }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24,
-          }}
-        >
-          Waterfall
-        </div>
-        <IonSegment className={s.toggle} color={waterfall ? "success" : undefined}>
-          <IonSegmentButton
-            checked={waterfall}
-            onClick={() => {
-              if (!waterfall) {
-                dispatch({ type: "waterfall", value: true });
-              }
-            }}
-          >
-            <IonLabel>On</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton
-            checked={!waterfall}
-            onClick={() => {
-              if (waterfall) {
-                dispatch({ type: "waterfall", value: false });
-              }
-            }}
-          >
-            <IonLabel>Off</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-      </div>
-    );
-  };
-
-  const renderPoolLight = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: 8,
-        }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24,
-          }}
-        >
-          Pool Light
-        </div>
-        <IonSegment className={s.toggle} color={poolLight ? "success" : undefined}>
-          <IonSegmentButton
-            checked={poolLight}
-            onClick={() => {
-              if (!poolLight) {
-                dispatch({ type: "poolLight", value: true });
-              }
-            }}
-          >
-            <IonLabel>On</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton
-            checked={!poolLight}
-            onClick={() => {
-              if (poolLight) {
-                dispatch({ type: "poolLight", value: false });
-              }
-            }}
-          >
-            <IonLabel>Off</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-      </div>
-    );
-  };
-
-  const renderPoolHeater = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: 8,
-        }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24,
-          }}
-        >
-          Pool Heat
-        </div>
-        <div style={{ flex: 0.6, display: "flex" }}>
-          <IonSegment className={s.toggle} color={poolHeat ? "danger" : undefined}>
-            <IonSegmentButton
-              checked={poolHeat}
-              onClick={() => {
-                if (!poolHeat) {
-                  if (spaHeat) {
-                    dispatch({ type: "spaHeat", value: false });
-                  }
-                  dispatch({ type: "poolHeat", value: true });
-                }
-              }}
-            >
-              <IonLabel>On</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton
-              checked={!poolHeat}
-              onClick={() => {
-                if (poolHeat) {
-                  dispatch({ type: "poolHeat", value: false });
-                }
-              }}
-            >
-              <IonLabel>Off</IonLabel>
-            </IonSegmentButton>
-          </IonSegment>
-        </div>
-        <div style={{ flex: 0.2 }}>
-          <NumberField
-            name="poolSetpoint"
-            value={Locale.ftoc(poolSetpoint, metric)}
-            step={metric ? 0.1 : 1}
-            onValueChange={newValue => {
-              dispatch({
-                type: "poolSetpoint",
-                value: Locale.ctof(newValue, metric),
-              });
             }}
           />
-        </div>
-      </div>
-    );
-  };
+          <ToggledStatus on={cleaner} title="Cleaner" type="cleaner" />
+          <Heater
+            on={poolHeat}
+            title="Heater"
+            type="poolHeat"
+            temp={poolSetpoint}
+            tempType="poolSetpoint"
+          />
+          <ToggledStatus on={poolLight} title="Pool Light" type="poolLight" />
+          <ToggledStatus on={waterfall} title="Waterfall" type="waterfall" />
+        </section>
 
-  const renderSpaHeater = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: 8,
-        }}
-      >
-        <div style={{ flex: 0.6, display: "flex" }}>
-          <IonSegment className={s.toggle} color={spaHeat ? "danger" : undefined}>
-            <IonSegmentButton
-              checked={spaHeat}
-              onClick={() => {
-                if (!spaHeat) {
-                  if (!spa) {
-                    dispatch({ type: "spa", value: true });
-                  }
-                  dispatch({ type: "spaHeat", value: true });
-                }
-              }}
-            >
-              <IonLabel>On</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton
-              checked={!spaHeat}
-              onClick={() => {
-                if (spaHeat) {
-                  dispatch({ type: "spaHeat", value: false });
-                }
-              }}
-            >
-              <IonLabel>Off</IonLabel>
-            </IonSegmentButton>
-          </IonSegment>
-        </div>
-        <div style={{ flex: 0.2 }}>
-          <NumberField
-            name="spaSetpoint"
-            value={Locale.ftoc(spaSetpoint, metric)}
-            step={metric ? 0.1 : 1}
-            onValueChange={newValue => {
-              dispatch({
-                type: "spaSetpoint",
-                value: Locale.ctof(newValue, metric),
-              });
+        <section data-testid="spa" style={{ gridRow: "1/3" }}>
+          <SectionHeader
+            title="SPA"
+            isOn={spaOn}
+            temp={spaTemp}
+            Icon={Whirlpool}
+            onToggle={() => {
+              dispatch({ type: "spa", value: !spaOn });
             }}
           />
-        </div>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24,
-          }}
-        >
-          Spa Heat
-        </div>
-      </div>
-    );
-  };
+          <ToggledStatus on={cleaner} title="Cleaner" type="cleaner" />
+          <Heater
+            on={spaHeat}
+            title="Heater"
+            type="spaHeat"
+            temp={spaSetpoint}
+            tempType="spaSetpoint"
+          />
+          <ToggledStatus on={jets} title="Jets" type="jet" />
+          <ToggledStatus on={spaLight} title="Light" type="spaLight" />
+          <ToggledStatus on={blower} title="Blower" type="blower" />
+          <ToggledStatus on={spaHeat} title="Heater" type="spaHeat" />
+        </section>
 
-  const renderSpaLight = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: 8,
-        }}
-      >
-        <IonSegment className={s.toggle} color={spaLight ? "success" : undefined}>
-          <IonSegmentButton
-            checked={spaLight}
-            onClick={() => {
-              if (!spaLight) {
-                dispatch({ type: "spaLight", value: true });
-              }
+        <section data-testid="solar">
+          <SectionHeader
+            title="Solar"
+            isOn={solarOn}
+            temp={solarTemp}
+            Icon={Solar}
+            onToggle={() => {
+              dispatch({ type: "solarHeat", value: !solarOn });
             }}
-          >
-            <IonLabel>On</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton
-            checked={!spaLight}
-            onClick={() => {
-              if (spaLight) {
-                dispatch({ type: "spaLight", value: false });
-              }
-            }}
-          >
-            <IonLabel>Off</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24,
-          }}
-        >
-          Spa Light
-        </div>
-      </div>
-    );
-  };
-
-  const renderJets = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: 8,
-        }}
-      >
-        <IonSegment className={s.toggle} color={jets ? "success" : undefined}>
-          <IonSegmentButton
-            checked={jets}
-            onClick={() => {
-              if (!jets) {
-                dispatch({ type: "jet", value: true });
-              }
-            }}
-          >
-            <IonLabel>On</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton
-            checked={!jets}
-            onClick={() => {
-              if (jets) {
-                dispatch({ type: "jet", value: false });
-              }
-            }}
-          >
-            <IonLabel>Off</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24,
-          }}
-        >
-          Jets
-        </div>
-      </div>
-    );
-  };
-
-  const renderBlower = () => {
-    return (
-      <div
-        style={{
-          display: "flex",
-          marginTop: 8,
-        }}
-      >
-        <IonSegment className={s.toggle} color={blower ? "success" : undefined}>
-          <IonSegmentButton
-            checked={blower}
-            onClick={() => {
-              if (!blower) {
-                dispatch({ type: "blower", value: true });
-              }
-            }}
-          >
-            <IonLabel>On</IonLabel>
-          </IonSegmentButton>
-          <IonSegmentButton
-            checked={!blower}
-            onClick={() => {
-              if (blower) {
-                dispatch({ type: "blower", value: false });
-              }
-            }}
-          >
-            <IonLabel>Off</IonLabel>
-          </IonSegmentButton>
-        </IonSegment>
-        <div
-          style={{
-            textAlign: "center",
-            flex: 0.6,
-            fontSize: 24,
-          }}
-        >
-          Blower
-        </div>
-      </div>
-    );
-  };
-
-  const render = () => {
-    return (
-      <>
-        <div style={{ margin: 8 }}>
-          <div style={{ marginLeft: 60 }}>
-            {renderWeather()}
-            {renderMainSwitch()}
-            {renderSolar()}
-            {renderCleaner()}
-          </div>
-          <Row style={{ marginTop: 10 }}>
-            <Col sm={6}>
-              {renderPoolHeater()}
-              {renderPoolLight()}
-              {renderWaterfall()}
-            </Col>
-            <Col sm={6}>
-              {renderSpaHeater()}
-              {renderJets()}
-              {renderSpaLight()}
-              {renderBlower()}
-            </Col>
-          </Row>
-          <Row
-            style={{
-              textAlign: "center",
-              marginTop: 10,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <MacroTile label="Warm Spa" name="Warm Spa" width={1} />
-            <MacroTile label="Enter Spa" name="Enter Spa" width={1} />
-            <MacroTile label="Exit Spa" name="Exit Spa" width={1} />
-            <MacroTile label="Spa Off" name="Spa Off" width={1} />
-          </Row>
-        </div>
-      </>
-    );
-  };
-
-  return render();
+          />
+          <ToggledStatus on={solarOn} title="Solar" type="solarHeat" />
+        </section>
+      </main>
+    </>
+  );
 };
 
 export default AutelisTab;
