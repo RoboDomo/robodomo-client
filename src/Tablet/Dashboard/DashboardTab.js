@@ -110,7 +110,7 @@ const DashboardTab = ({ dashboard }) => {
       <div
         style={{
           display: "inline-grid",
-          gridTemplateColumns: "auto auto auto auto auto auto auto auto",
+          gridTemplateColumns: "auto auto auto auto auto auto auto auto auto auto",
           gridTemplateRows: "auto auto auto auto",
           gridGap: 0,
           gridAutoRows: "minmax(256px, auto)",

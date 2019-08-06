@@ -59,7 +59,7 @@ const FanTile = ({ name }) => {
   }
 
   return (
-    <Tile width={1} height={1}>
+    <Tile width={2} height={1}>
       <div
         style={{
           textAlign: "center",
