@@ -71,11 +71,16 @@ class MQTT extends EventEmitter {
     // mosca retries for us
   };
 
-  emitMessage = (topic, payload) => {
+  parsePayload = payload => {
     try {
-      payload = JSON.parse(payload);
-    } catch (e) {}
-    this.emit(topic, topic, payload);
+      return JSON.parse(payload);
+    } catch (e) {
+      return payload;
+    }
+  };
+
+  emitMessage = (topic, payload) => {
+    this.emit(topic, topic, this.parsePayload(payload));
   };
 
   onMessageArrived = (topic, payload) => {
@@ -127,11 +132,7 @@ class MQTT extends EventEmitter {
         const state = this.cache[topic] || localStorage.getItem(topic);
         if (state && handler) {
           setTimeout(() => {
-            try {
-              handler(topic, JSON.parse(state));
-            } catch (e) {
-              handler(topic, state);
-            }
+            handler(topic, this.parsePayload(state));
           }, 1);
         } else if (this.getMessageByTopic) {
           this.getMessageByTopic(topic);
@@ -157,11 +158,7 @@ class MQTT extends EventEmitter {
     const state = this.cache[topic] || localStorage.getItem(topic);
     if (state && handler) {
       setTimeout(() => {
-        try {
-          handler(topic, JSON.parse(state));
-        } catch (e) {
-          handler(topic, state);
-        }
+        handler(topic, this.parsePayload(state));
       }, 1);
     }
   };

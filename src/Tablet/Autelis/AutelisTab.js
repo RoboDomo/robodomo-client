@@ -1,7 +1,7 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 import cx from "classnames";
 import useConfig from "@/hooks/useConfig";
-import useUnsplash from "@/hooks/useUnsplash";
+import searchUnsplash from "@/lib/unsplash";
 import {
   IonSegment,
   IonSegmentButton,
@@ -29,7 +29,11 @@ import { ReactComponent as Solar } from "@/icons/solar.svg";
 
 const Header = ({ now, city }) => {
   // find a photo that matches the city and weather description
-  const photo = useUnsplash(`${city} ${now.description}`);
+  const [photo, setPhoto] = useState(null);
+
+  useEffect(() => {
+    searchUnsplash(`${city} ${now.description}`).then(setPhoto);
+  }, [city, now.description, photo]);
 
   const sunrise = new Date(now.sunrise * 1000).toLocaleTimeString().replace(":00 ", " "),
     sunset = new Date(now.sunset * 1000).toLocaleTimeString().replace(":00 ", " "),
