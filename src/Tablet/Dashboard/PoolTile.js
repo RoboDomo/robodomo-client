@@ -58,7 +58,7 @@ const PoolTile = ({ device }) => {
     <Tile
       color={color}
       width={2}
-      height={1}
+      height={2}
       onClick={() => {
         localStorage.setItem("autelis-radio", "pool");
         window.location.hash = "autelis";
