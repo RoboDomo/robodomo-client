@@ -22,38 +22,28 @@ const SpaTile = ({ device }) => {
   const on = isOn("spa") || isOn("spaHeat") || isOn("jet") || isOn("blower") || isOn("spaLight"),
     color = on ? "danger" : undefined;
 
-  const renderControl = (ndx, text, value) => {
-    const thingState = autelis[ndx];
-
-    if (!thingState) {
-      return <div>{text} Off</div>;
+  const renderControl = (ndx, text, big) => {
+    const thing = autelis[ndx];
+    //        if (thing && state.spa !== 'on' ||  thing.toLowerCase() === 'off' ) {
+    if (!thing) {
+      return null;
     }
-    if (!value) {
-      return <div>{text} On</div>;
+    if (big) {
+      return <div style={{ fontSize: 30 }}>{text}</div>;
     }
 
-    return (
-      <div>
-        {text} {value}
-      </div>
-    );
+    return <div>{text}</div>;
   };
 
   const renderSpa = () => {
     if (on) {
       return (
         <div>
-          <div style={{ fontSize: 30 }}>{`Spa ${autelis.spaTemp}°F`}</div>
-          <div style={{ display: "flex" }}>
-            <div style={{ width: "50%" }}>
-              {renderControl("spaHeat", "Heat")}
-              {renderControl("jet", "Jets")}
-            </div>
-            <div style={{ width: "50%" }}>
-              {renderControl("blower", "Blower")}
-              {renderControl("spaLight", "Light")}
-            </div>
-          </div>
+          {renderControl("spa", `Spa ${autelis.spaTemp}°F`, true)}
+          {renderControl("spaHeat", "Heat On")}
+          {renderControl("jet", "Jets On")}
+          {renderControl("blower", "Blower On")}
+          {renderControl("spaLight", "Light On")}
         </div>
       );
     } else {
