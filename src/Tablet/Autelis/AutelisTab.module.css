@@ -1,7 +1,97 @@
+.container {
+  display: grid;
+  grid-gap: var(--rd-spc-s);
+  padding-top: var(--rd-spc-s);
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+}
+
 .mainSwitch {
-    flex: 1;
+  flex: 1;
 }
 
 .toggle {
-    flex: 1;
+  flex: 1;
+}
+.weatherHeader {
+  --color: rgba(255, 255, 255, 0.75);
+  color: var(--color);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.weatherShim {
+  display: grid;
+  grid-template-columns: auto auto 1fr auto;
+  grid-column-gap: var(--rd-spc-m);
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: var(--rd-spc-m) var(--rd-spc-s);
+}
+
+.weatherShim h1 {
+  color: var(--rd-color-white);
+  margin: 0;
+  padding-left: var(--rd-spc-m);
+}
+
+.clock {
+  font-size: 1.8rem;
+}
+
+.sunstate {
+  composes: flex-h from global;
+  align-items: center;
+}
+
+.sunstate svg {
+  width: 1.6rem;
+  margin-right: var(--rd-spc-xs);
+}
+
+.sunstate g {
+  fill: var(--color);
+}
+
+.temperature {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.sectionHeader {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+  align-items: center;
+  --color: var(--ion-color-primary);
+  align-items: center;
+  color: var(--color);
+}
+
+.sectionHeader aside {
+  display: flex;
+  align-items: center;
+}
+
+.sectionHeader h2 {
+  margin: 0;
+}
+
+.sectionTitle {
+  padding-left: var(--rd-spc-s);
+}
+
+.svgHeader {
+  width: 1.6rem;
+  margin: 0 var(--rd-spc-s);
+  fill: var(--color);
+}
+
+.areaOn {
+  --color: var(--rd-color-success);
+}
+
+.tempLine {
+  display: grid;
+  grid-template-columns: 1fr auto;
 }

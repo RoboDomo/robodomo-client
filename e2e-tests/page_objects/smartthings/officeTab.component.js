@@ -8,18 +8,18 @@ class OfficeTabComponent {
 
     get activeTab() { return this.parent.$('.//div[@class="ion-page"]'); }
 
-    get officeDimmerSwitch() { return this.activeTab.$('.//div[text()="Office Dimmer"]/parent::*//ion-toggle'); }
-    get officeDimmerDimm() { return this.activeTab.$('.//div[text()="Office Dimmer"]/parent::*//ion-range'); }
+    get officeDimmerSwitch() { return this.activeTab.$('.//ion-card[contains(., "Office Dimmer")]//ion-toggle'); }
+    get officeDimmerDimm() { return this.activeTab.$('.//ion-card[contains(., "Office Dimmer")]//ion-range'); }
     get officeDimmerLi() { return this.officeDimmerSwitch.$('./ancestor::li')}
 
-    get officeLightSwitch() { return this.activeTab.$('.//div[text()="Office Light"]/parent::*//ion-toggle'); }
-    get officeLightDimm() { return this.activeTab.$('.//div[text()="Office Light"]/parent::*//ion-range'); }
+    get officeLightSwitch() { return this.activeTab.$('.//ion-card[contains(., "Office Light")]//ion-toggle'); }
+    get officeLightDimm() { return this.activeTab.$('.//ion-card[contains(., "Office Light")]//ion-range'); }
     get officeLightLi() { return this.officeLightSwitch.$('./ancestor::li')}
 
-    get officeFanOffButton() { return this.activeTab.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Off"]'); }
-    get officeFanLowButton() { return this.activeTab.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Low"]'); }
-    get officeFanMediumButton() { return this.activeTab.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="Medium"]'); }
-    get officeFanHighButton() { return this.activeTab.$('.//div[text()="Office Fan"]/parent::*//ion-segment-button[.="High"]'); }
+    get officeFanOffButton() { return this.activeTab.$('.//ion-card[contains(., "Office Fan")]//ion-segment-button[.="Off"]'); }
+    get officeFanLowButton() { return this.activeTab.$('.//ion-card[contains(., "Office Fan")]//ion-segment-button[.="Low"]'); }
+    get officeFanMediumButton() { return this.activeTab.$('.//ion-card[contains(., "Office Fan")]//ion-segment-button[.="Medium"]'); }
+    get officeFanHighButton() { return this.activeTab.$('.//ion-card[contains(., "Office Fan")]//ion-segment-button[.="High"]'); }
     get officeFanLi() { return this.officeFanOffButton.$('./ancestor::li')}
 
     clickOfficeFanOffButton() {

@@ -1,7 +1,20 @@
 .container {
-  width: 50%;
-  margin: auto;
+  display: grid;
+  align-items: stretch;
   overflow: scroll;
-  height: 100%;
   padding-bottom: 10vh;
+}
+
+.container li {
+  display: flex;
+}
+
+.container ion-card {
+  flex: 1;
+}
+
+@media screen and (min-width: 860px) {
+  .container {
+    grid-template-columns: 1fr 1fr;
+  }
 }

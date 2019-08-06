@@ -23,25 +23,20 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
   };
 
   return (
-    <div style={{ display: "flex", marginTop: 10 }}>
-      <div style={{ marginTop: 10, flex: 1 }}>{label}</div>
-      <div style={{ whiteSpace: "nowrap", display: "flex" }}>
-        <IonToggle checked={toggled} onClick={handleToggle} className={s.toggle} />
-        <div style={{ flex: 1, marginTop: 0 }}>
-          <IonRange
-            className={s.range}
-            value={value || 0}
-            step={1}
-            onIonChange={handleSliderChange}
-            debounce={100}
-            min={1}
-            max={100}
-          >
-            <IonIcon slot="start" size="small" name="sunny" />
-            <IonIcon slot="end" name="sunny" />
-          </IonRange>
-        </div>
-      </div>
+    <div className={s.container}>
+      <IonToggle checked={toggled} onClick={handleToggle} className={s.toggle} />
+      <IonRange
+        className={s.range}
+        value={value || 0}
+        step={1}
+        onIonChange={handleSliderChange}
+        debounce={100}
+        min={1}
+        max={100}
+      >
+        <IonIcon slot="start" size="small" name="sunny" />
+        <IonIcon slot="end" name="sunny" />
+      </IonRange>
     </div>
   );
 };

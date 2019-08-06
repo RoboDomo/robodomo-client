@@ -7,6 +7,10 @@
   margin: var(--rd-spc-xxs);
 }
 
+.card.card > button {
+  background: inherit;
+}
+
 .content.content {
   padding-left: var(--rd-spc-xxs);
   padding-right: var(--rd-spc-xxs);
