@@ -117,8 +117,8 @@ const SegmentedToggle = ({ on, type }) => {
 };
 
 const ToggledStatus = ({ title, ...rest }) => (
-  <IonCard className={s.statusFieldContainer}>
-    <IonCardHeader className={s.statusTitle}>
+  <IonCard className={s.statusFieldContainer} color="dark">
+    <IonCardHeader className={s.statusTitle} color="dark">
       <div className="h4">{title}</div>
     </IonCardHeader>
     <IonCardContent>
@@ -133,8 +133,8 @@ const Heater = ({ title, temp, tempType, ...rest }) => {
   const metric = Config.metric;
   const [, dispatch] = useReducer(autelisReducer, { autelis: controller });
   return (
-    <IonCard>
-      <IonCardHeader className={s.statusTitle}>
+    <IonCard color="dark">
+      <IonCardHeader className={s.statusTitle} color="dark">
         <div className="h4">{title}</div>
       </IonCardHeader>
       <IonCardContent className={s.tempLine}>

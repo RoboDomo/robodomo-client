@@ -49,6 +49,7 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
         type="text"
         style={{
           width: 32,
+          height: 42,
         }}
         value={val}
         readOnly
