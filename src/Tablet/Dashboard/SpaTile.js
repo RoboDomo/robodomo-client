@@ -58,7 +58,7 @@ const SpaTile = ({ device }) => {
   return (
     <Tile
       width={2}
-      height={1}
+      height={2}
       onClick={() => {
         localStorage.setItem("autelis-radio", "spa");
         window.location.hash = "autelis";
