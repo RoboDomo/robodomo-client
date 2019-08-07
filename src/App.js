@@ -12,32 +12,9 @@ import "@ionic/core/css/core.css";
 import "@ionic/core/css/ionic.bundle.css";
 import "./theme.css";
 
-// We only need to calculate platform once.
-import bowser from "bowser";
-const parser = bowser.getParser(window.navigator.userAgent),
-  platform = parser.getResult().platform;
-
 const Tablet = lazy(() =>
-  import("./Tablet/MainScreen" /* webpackChunkName: "tablet", webpackPrefetch: true  */)
+  import("./Tablet/MainScreen" /* webpackChunkName: "tablet", webpackPreload: true  */)
 );
-const Phone = lazy(() =>
-  import("./Phone/MainScreen" /* webpackChunkName: "phone", webpackPrefetch: true  */)
-);
-
-const Platform = () => {
-  if (platform.type === "mobile") {
-    setTimeout(async () => {
-      try {
-        await window.screen.orientation.lock("natural");
-      } catch (e) {
-        console.error("failed to lock", e);
-        console.dir(e);
-      }
-    }, 1);
-    return <Phone />;
-  }
-  return <Tablet />;
-};
 
 const App = () => {
   return (
@@ -45,7 +22,7 @@ const App = () => {
       <Router>
         <MqttProvider>
           <ConfigProvider>
-            <Platform />
+            <Tablet />
           </ConfigProvider>
         </MqttProvider>
       </Router>
