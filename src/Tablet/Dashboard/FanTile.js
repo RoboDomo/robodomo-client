@@ -28,11 +28,11 @@ const FanTile = ({ name }) => {
 
     if (value) {
       if (fan.switch !== "on") {
+        fan.level = value;
         fan.switch = "on";
         forceUpdate();
         // we need to delay a bit so the switch on takes
         setTimeout(() => {
-          fan.level = value;
           forceUpdate();
         }, 100);
       } else {
@@ -40,6 +40,7 @@ const FanTile = ({ name }) => {
         forceUpdate();
       }
     } else {
+      fan.level = value;
       fan.switch = "off";
       forceUpdate();
     }
@@ -59,7 +60,7 @@ const FanTile = ({ name }) => {
   }
 
   return (
-    <Tile width={2} height={1}>
+    <Tile width={1} height={1}>
       <div
         style={{
           textAlign: "center",
