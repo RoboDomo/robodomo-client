@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+// const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 const AutoDllPlugin = require("autodll-webpack-plugin");
 
 module.exports = function override(config) {
   // custom service workers
-  config.plugins = config.plugins
-    .map(plugin => {
-      if (plugin.constructor.name === "GenerateSW") {
-        return new WorkboxWebpackPlugin.InjectManifest({
-          swDest: "service-worker.js",
-          swSrc: "./src/serviceWorkerCustom.js",
-          // chunks: ['main'],
-          exclude: [/\.(svg|png|map)$/, /^manifest.*\.js$/],
-        });
-      }
+  // config.plugins = config.plugins
+  //   .map(plugin => {
+  //     if (plugin.constructor.name === "GenerateSW") {
+  //       return new WorkboxWebpackPlugin.InjectManifest({
+  //         swDest: "service-worker.js",
+  //         swSrc: "./src/serviceWorkerCustom.js",
+  //         // chunks: ['main'],
+  //         exclude: [/\.(svg|png|map)$/, /^manifest.*\.js$/],
+  //       });
+  //     }
 
-      return plugin;
-    })
-    .filter(Boolean);
+  //     return plugin;
+  //   })
+  //   .filter(Boolean);
 
   // custom alias for src/
   config.resolve.alias["@"] = path.resolve(__dirname, "src");
