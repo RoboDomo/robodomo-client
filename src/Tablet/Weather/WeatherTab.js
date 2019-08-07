@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { format, parseISO } from "date-fns";
 import OnIdle from "@modus/react-idle";
 import cx from "classnames";
@@ -10,13 +10,14 @@ import useWeather from "@/hooks/useWeather";
 import Temperature from "@/common/Temperature";
 import Speed from "@/common/Speed";
 import Distance from "@/common/Distance";
+import searchUnsplash from "@/lib/unsplash";
 
 import AnimatedStack from "@/common/AnimatedStack";
 
 import s from "./WeatherTab.module.css";
 
-const Hourly = ({ data }) =>
-  data ? (
+const Hourly = React.memo(
+  ({ data }) => (
     <AnimatedStack
       onScroll={e => e.stopPropagation()}
       className={s.forecastContainerHourly}
@@ -48,51 +49,56 @@ const Hourly = ({ data }) =>
         );
       })}
     </AnimatedStack>
-  ) : null;
+  ),
+  () => true
+);
 
-const Daily = ({ data }) => {
-  let lastDay = "";
-  if (!data) return null;
-  return (
-    <AnimatedStack
-      onScroll={e => e.stopPropagation()}
-      data-testid="weather-daily"
-      className={s.forecastContainerDaily}
-    >
-      {data.map((o, i) => {
-        if (!o) {
-          return null;
-        }
-        const d = new Date(o.utcTime * 1000),
-          weekday = o.weekday,
-          day = d.getDate(),
-          month = d.getMonth();
+const Daily = React.memo(
+  ({ data }) => {
+    let lastDay = "";
+    if (!data) return null;
+    return (
+      <AnimatedStack
+        onScroll={e => e.stopPropagation()}
+        data-testid="weather-daily"
+        className={s.forecastContainerDaily}
+      >
+        {data.map((o, i) => {
+          if (!o) {
+            return null;
+          }
+          const d = new Date(o.utcTime * 1000),
+            weekday = o.weekday,
+            day = d.getDate(),
+            month = d.getMonth();
 
-        const showDaySeparator = i && lastDay !== o.weekday;
-        lastDay = o.weekday;
-        return (
-          <div
-            key={i}
-            data-testid="weather-daily-item"
-            className={cx(s.dailyItem, { [s.daySeparator]: showDaySeparator })}
-          >
-            <h6>
-              {weekday} {month}/{day}
-            </h6>
-            <div>{o.daySegment}</div>
-            <div>
-              <img alt={o.iconName} className={s.img_small} src={o.iconLink} />
+          const showDaySeparator = i && lastDay !== o.weekday;
+          lastDay = o.weekday;
+          return (
+            <div
+              key={i}
+              data-testid="weather-daily-item"
+              className={cx(s.dailyItem, { [s.daySeparator]: showDaySeparator })}
+            >
+              <h6>
+                {weekday} {month}/{day}
+              </h6>
+              <div>{o.daySegment}</div>
+              <div>
+                <img alt={o.iconName} className={s.img_small} src={o.iconLink} />
+              </div>
+              <h4>
+                <Temperature value={o.temperature} />
+              </h4>
+              <div>{o.temperatureDesc}</div>
             </div>
-            <h4>
-              <Temperature value={o.temperature} />
-            </h4>
-            <div>{o.temperatureDesc}</div>
-          </div>
-        );
-      })}
-    </AnimatedStack>
-  );
-};
+          );
+        })}
+      </AnimatedStack>
+    );
+  },
+  () => true
+);
 
 const PrimaryConditions = ({ weather }) => (
   <aside className={s.primaryConditions}>
@@ -137,25 +143,38 @@ const WeatherTab = ({ zip }) => {
   // metric = Config.metric;
   const weather = useWeather(zip);
 
+  // find a photo that matches the city and weather description
+  const [photo, setPhoto] = useState(null);
+
+  useEffect(() => {
+    if (weather && weather.now) {
+      const { city, state, description } = weather.now;
+      searchUnsplash(`${city} ${state} ${description}`).then(setPhoto);
+    }
+  }, [weather, photo]);
+
   try {
     if (!weather.astronomy || !weather.forecast || !weather.hourly) {
       return null;
     }
 
     return (
-      <IonContent>
-        <main data-testid="weather-section">
-          <h2>
-            <Clock /> Weather for {weather.now.city}, {weather.now.state}
-          </h2>
-          <div>{weather.now.description}</div>
-          <section className={s.conditions} data-testid="weather-conditions">
-            <PrimaryConditions weather={weather} />
-            <OnIdle>
-              <SecondaryConditions weather={weather} />
-            </OnIdle>
-          </section>
-
+      <IonContent data-testid="weather-section">
+        <header style={{ backgroundImage: `url(${photo})` }} className={s.weatherHeader}>
+          <div className={s.weatherShim}>
+            <h2>
+              <Clock /> Weather for {weather.now.city}, {weather.now.state}
+            </h2>
+            <div>{weather.now.description}</div>
+            <section className={s.conditions} data-testid="weather-conditions">
+              <PrimaryConditions weather={weather} />
+              <OnIdle>
+                <SecondaryConditions weather={weather} />
+              </OnIdle>
+            </section>
+          </div>
+        </header>
+        <main>
           <h4>Hourly Forecast</h4>
           <OnIdle>
             <Hourly data={weather.hourly} />
