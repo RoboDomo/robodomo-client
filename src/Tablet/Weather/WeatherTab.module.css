@@ -65,3 +65,18 @@
   font-size: 30px;
   margin: 5px 0 10px 0;
 }
+
+.weatherHeader {
+  --color: rgba(255, 255, 255, 0.75);
+  color: var(--color);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  box-shadow: inset 0px 1px 16px rgba(0, 0, 0.4);
+}
+
+.weatherShim {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: var(--rd-spc-m) var(--rd-spc-s);
+  color: var(--color);
+}

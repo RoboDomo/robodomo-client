@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer } from "react";
 
-import { IonGrid, IonRow, IonCol } from "@ionic/react";
+import { IonContent, IonGrid, IonRow, IonCol } from "@ionic/react";
 import s from "./TheaterTab.module.css";
 
 import AudioControl from "./AudioControl";
@@ -100,33 +100,35 @@ const TheaterTab = ({ theater }) => {
   ]);
 
   return (
-    <IonGrid class={s.grid}>
-      <IonRow>
-        <IonCol sizeMd="auto" size={12} class={s.column}>
-          <ActivitiesListGroup
-            activities={activities}
-            currentActivity={currentActivity}
-            onClick={handleActivityClick}
-          />
-          <DevicesListGroup
-            devices={devices}
-            currentDevice={currentDevice}
-            tvInput={tv.input}
-            avrInput={avr.input}
-            onClick={handleDeviceClick}
-          />
-        </IonCol>
-        <IonCol size="auto" class={s.column}>
-          <AudioControl avr={avr} />
-        </IonCol>
-        <IonCol class={s.column}>
-          <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />
-        </IonCol>
-        <IonCol size="auto" class={s.column}>
-          <ButtonList theater={theater} />
-        </IonCol>
-      </IonRow>
-    </IonGrid>
+    <IonContent>
+      <IonGrid class={s.grid}>
+        <IonRow>
+          <IonCol sizeMd="auto" size={12} class={s.column}>
+            <ActivitiesListGroup
+              activities={activities}
+              currentActivity={currentActivity}
+              onClick={handleActivityClick}
+            />
+            <DevicesListGroup
+              devices={devices}
+              currentDevice={currentDevice}
+              tvInput={tv.input}
+              avrInput={avr.input}
+              onClick={handleDeviceClick}
+            />
+          </IonCol>
+          <IonCol size="auto" class={s.column}>
+            <AudioControl avr={avr} />
+          </IonCol>
+          <IonCol class={s.column}>
+            <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />
+          </IonCol>
+          <IonCol size="auto" class={s.column}>
+            <ButtonList theater={theater} />
+          </IonCol>
+        </IonRow>
+      </IonGrid>
+    </IonContent>
   );
 };
 

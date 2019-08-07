@@ -1,25 +1,25 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
-const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
+// const WorkboxWebpackPlugin = require("workbox-webpack-plugin");
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin");
 const AutoDllPlugin = require("autodll-webpack-plugin");
 
 module.exports = function override(config) {
   // custom service workers
-  config.plugins = config.plugins
-    .map(plugin => {
-      if (plugin.constructor.name === "GenerateSW") {
-        return new WorkboxWebpackPlugin.InjectManifest({
-          swDest: "service-worker.js",
-          swSrc: "./src/serviceWorkerCustom.js",
-          // chunks: ['main'],
-          exclude: [/\.(svg|png|map)$/, /^manifest.*\.js$/],
-        });
-      }
+  // config.plugins = config.plugins
+  //   .map(plugin => {
+  //     if (plugin.constructor.name === "GenerateSW") {
+  //       return new WorkboxWebpackPlugin.InjectManifest({
+  //         swDest: "service-worker.js",
+  //         swSrc: "./src/serviceWorkerCustom.js",
+  //         // chunks: ['main'],
+  //         exclude: [/\.(svg|png|map)$/, /^manifest.*\.js$/],
+  //       });
+  //     }
 
-      return plugin;
-    })
-    .filter(Boolean);
+  //     return plugin;
+  //   })
+  //   .filter(Boolean);
 
   // custom alias for src/
   config.resolve.alias["@"] = path.resolve(__dirname, "src");
@@ -51,38 +51,40 @@ module.exports = function override(config) {
       ])
     );
 
-    config.plugins.push(
-      new AutoDllPlugin({
-        inject: true, // will inject the DLL bundle to index.html
-        debug: true,
-        filename: "[name]_[hash].dll.js",
-        path: "./dll",
-        entry: {
-          vendor: [
-            "react",
-            "react-dom",
-            "react-router",
-            "react-router-dom",
-            "@modus/react-idle",
-            "lodash-es",
-            "bowser",
-            "date-fns",
-            "mqtt",
-            "bootstrap",
-            "react-bootstrap",
-            "react-bootstrap-toggle",
-            "react-bootstrap-slider",
-            "react-dock",
-            "react-nest-thermostat",
-            "react-popper",
-            "react-icons",
-            "framer-motion",
-            "idb-keyval",
-            // cannot DLL ionic due to resolver issues in AutoDLL plugin
-          ],
-        },
-      })
-    );
+    if (process.env.NODE_ENV === "development") {
+      config.plugins.push(
+        new AutoDllPlugin({
+          inject: true, // will inject the DLL bundle to index.html
+          debug: true,
+          filename: "[name]_[hash].dll.js",
+          path: "./dll",
+          entry: {
+            vendor: [
+              "react",
+              "react-dom",
+              "react-router",
+              "react-router-dom",
+              "@modus/react-idle",
+              "lodash-es",
+              "bowser",
+              "date-fns",
+              "mqtt",
+              "bootstrap",
+              "react-bootstrap",
+              "react-bootstrap-toggle",
+              "react-bootstrap-slider",
+              "react-dock",
+              "react-nest-thermostat",
+              "react-popper",
+              "react-icons",
+              "framer-motion",
+              "idb-keyval",
+              // cannot DLL ionic due to resolver issues in AutoDLL plugin
+            ],
+          },
+        })
+      );
+    }
   }
 
   return config;

@@ -14,4 +14,5 @@
 .content.content {
   padding-left: var(--rd-spc-xxs);
   padding-right: var(--rd-spc-xxs);
+  white-space: nowrap;
 }

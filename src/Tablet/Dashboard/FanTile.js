@@ -28,11 +28,11 @@ const FanTile = ({ name }) => {
 
     if (value) {
       if (fan.switch !== "on") {
+        fan.level = value;
         fan.switch = "on";
         forceUpdate();
         // we need to delay a bit so the switch on takes
         setTimeout(() => {
-          fan.level = value;
           forceUpdate();
         }, 100);
       } else {
@@ -40,6 +40,7 @@ const FanTile = ({ name }) => {
         forceUpdate();
       }
     } else {
+      fan.level = value;
       fan.switch = "off";
       forceUpdate();
     }
