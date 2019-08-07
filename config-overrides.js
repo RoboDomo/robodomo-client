@@ -86,7 +86,7 @@ module.exports = function override(config) {
     );
 
     // Web Workers plugin
-    config.plugins.push(new WorkerPlugin());
+    config.plugins.push(new WorkerPlugin({ preserveTypeModule: true }));
   }
 
   return config;
