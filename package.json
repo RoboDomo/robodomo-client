@@ -90,7 +90,6 @@
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
     "prettier": "^1.17.1",
-    "workbox-webpack-plugin": "^4.3.1",
-    "worker-plugin": "^3.1.0"
+    "workbox-webpack-plugin": "^4.3.1"
   }
 }
