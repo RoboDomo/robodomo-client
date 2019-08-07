@@ -296,29 +296,31 @@ module.exports = {
         // a large 256x256 tile that renders the current weather, updates in real time
         { type: "weather", location: "92109" },
 
-        // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
-        { type: "thermostat", device: "Thermostat" },
-        // a 256x128 tile that renders that status of your swimming pool controller.  Background is green if it is running.
-        { type: "pool", controller: "autelis" },
-        // a 256x128 tile that renders that status of your spa controller.  Background is red if it is running.
-        { type: "spa", controller: "autelis" },
-        // a 256x256 tile that renders that stat of a theater, along with audio controls
-        {
-          type: "theater",
-          title: "Home Theater", // name of theater to display, as defined in the theaters section above
-        },
         // a 128x128 tile that monitors the state of one or more garage doors.  Renders red if any are open.
         {
           type: "garagedoor",
           title: "Garage Doors",
           devices: ["Garage Door Sensor", "Cart Door Sensor"], // the doors to monitor
         },
-        // 128x128 fan tile (rotates off -> low -> medium -> high -> off)
-        { device: "Ceiling Fan", type: "fan" },
+
+        // a large 256x256 tile that renders the inside temperature, and Nest Thermostat control
+        { type: "thermostat", device: "Thermostat" },
+        // a 256x128 tile that renders that status of your swimming pool controller.  Background is green if it is running.
+        { type: "pool", controller: "autelis" },
+        // a 256x128 tile that renders that status of your spa controller.  Background is red if it is running.
+        { type: "spa", controller: "autelis" },
         // 128x128 dimmer tile (toggles on/off to the last dimmer setting)
         { device: "Ceiling Fan Light", type: "dimmer" },
         // 128x128 switch tile (toggles )
         { device: "Kitchen Light", type: "switch" },
+        // a 256x256 tile that renders that stat of a theater, along with audio controls
+        {
+          type: "theater",
+          title: "Home Theater", // name of theater to display, as defined in the theaters section above
+        },
+        // 128x128 fan tile (rotates off -> low -> medium -> high -> off)
+        { device: "Ceiling Fan", type: "fan" },
+
         // macro tiles
         { type: "macro", name: "TV Break", label: "TV Break" },
         { type: "macro", name: "TV Resume", label: "TV Resume" },
