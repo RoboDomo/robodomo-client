@@ -6,16 +6,24 @@
 
 import React, { lazy } from "react";
 import { Redirect, Route, Switch } from "react-router";
+import { Link } from "react-router-dom";
 
 import {
   IonApp,
   IonPage,
-  IonTabBar,
-  IonTabButton,
+  IonContent,
+  IonMenu,
+  IonList,
   IonIcon,
   IonLabel,
   IonToggle,
   IonItem,
+  IonHeader,
+  IonTitle,
+  IonButtons,
+  IonToolbar,
+  IonMenuButton,
+  IonSplitPane,
 } from "@ionic/react";
 import AnimatedDiv from "@/common/AnimatedDiv";
 import useDarkMode from "../hooks/useDarkMode";
@@ -56,37 +64,25 @@ const tabs = new Map([
   ["smartthings", { component: SmartThings, name: "SmartThings", icon: "switch" }],
 ]);
 
-const Navigation = ({ activeTab }) => (
-  <AnimatedDiv
-    animate={{
-      opacity: [0, 0, 1],
-      y: [-100, 0],
-    }}
-    style={{
-      opacity: 0,
-    }}
-  >
-    <IonTabBar slot="top">
-      {Array.from(tabs).map(([id, cfg]) => (
-        <IonTabButton tab={id} href={`/${id}`} key={id}>
-          <IonIcon name={cfg.icon} />
-          <IonLabel>
-            <AnimatedDiv
-              animate={{
-                opacity: [0, 0, 1],
-                scale: [0, 1],
-              }}
-              style={{
-                opacity: 0,
-              }}
-            >
+const Navigation = ({ activeTab, dark, setDark }) => (
+  <IonMenu side="start" contentId="main" type="reveal">
+    <IonContent>
+      <IonList>
+        {Array.from(tabs).map(([id, cfg]) => (
+          <Link replace className="sidemenu-link" to={`/${id}`}>
+            <IonItem button>
+              <IonIcon name={cfg.icon} />
               {cfg.name}
-            </AnimatedDiv>
-          </IonLabel>
-        </IonTabButton>
-      ))}
-    </IonTabBar>
-  </AnimatedDiv>
+            </IonItem>
+          </Link>
+        ))}
+        <IonItem>
+          <IonToggle onClick={e => setDark(e.target.checked)} checked={dark} />
+          <IonLabel>Dark Mode: {dark ? "On" : "Off"}</IonLabel>
+        </IonItem>
+      </IonList>
+    </IonContent>
+  </IonMenu>
 );
 
 const MainScreen = () => {
@@ -95,19 +91,35 @@ const MainScreen = () => {
   return (
     <div className={`${dark ? "dark" : "light"}`}>
       <IonApp>
-        <IonPage>
-          <IonItem>
-            <IonToggle onClick={e => setDark(e.target.checked)} checked={dark} />
-            <IonLabel>Dark Mode: {dark ? "On" : "Off"}</IonLabel>
-          </IonItem>
-          <Navigation />
-          <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
-          <Switch>
-            {Array.from(tabs).map(([id, cfg]) => (
-              <Route path={`/:tab(${id})`} component={cfg.component} key={id} />
-            ))}
-          </Switch>
-        </IonPage>
+        <IonSplitPane contentId="main">
+          <Navigation dark={dark} setDark={setDark} />
+          <IonPage id="main">
+            <AnimatedDiv
+              animate={{
+                opacity: [0, 0, 1],
+                y: [-100, 0],
+              }}
+              style={{
+                opacity: 0,
+              }}
+            >
+              <IonHeader>
+                <IonToolbar>
+                  <IonButtons slot="start">
+                    <IonMenuButton />
+                  </IonButtons>
+                  <IonTitle>Robodomo Client</IonTitle>
+                </IonToolbar>
+              </IonHeader>
+            </AnimatedDiv>
+            <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
+            <Switch>
+              {Array.from(tabs).map(([id, cfg]) => (
+                <Route path={`/${id}`} component={cfg.component} key={id} />
+              ))}
+            </Switch>
+          </IonPage>
+        </IonSplitPane>
       </IonApp>
     </div>
   );
