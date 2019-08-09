@@ -88,12 +88,6 @@ module.exports = {
       // console, harmony remote and hub, apple tv, etc.  This array defines these:
       devices: [
         {
-          // example config for a harmony hub (remote hub, not home hub)
-          name: "Harmony Hub", // name your harmony hub, displayed in the UI
-          type: "harmony", // type of device = harmony
-          device: "harmony-hub", // this is the hostname or IP of the Harmony Hub
-        },
-        {
           // example config for a TiVo DVR or set top box (TiVo Mini, etc.)
           name: "TiVo", // name your TiVo, displayed in the UI
           type: "tivo", // type of device = tivo
@@ -114,14 +108,6 @@ module.exports = {
           device: "denon-avr", // hostname or IP address of your Denon AVR
         },
         // Your theater has a TV.  Currently, RoboDomo supports LG and Sony/Bravia TVs.
-        {
-          // example config for an LG
-          name: "TVLG", // name to be displayed in the UI
-          type: "lgtv", // type = lgtv
-          favorites: lgtvFavorites, // favorite apps
-          device: "lgtv", // hostname or IP of your LGTV
-        },
-        // or
         {
           name: "TVSONY", // name to be displayed in the UI
           type: "bravia",
@@ -187,42 +173,6 @@ module.exports = {
               text: "Setting AVR to TV",
               topic: "denon/denon-avr/set",
               message: "SITV",
-            },
-          ],
-        },
-        // a second activity
-        {
-          name: "Apple TV",
-          defaultDevice: "Apple TV",
-          inputs: {
-            tv: "hdmi2",
-            avr: "MPLAY",
-          },
-          script: [
-            {
-              text: "Starting Harmony Activity",
-              topic: "harmony/harmony-hub/set/activity",
-              message: "35943341",
-            },
-            {
-              text: "Turning on LG TV",
-              topic: "lgtv/lgtv/set",
-              message: "POWERON",
-            },
-            {
-              text: "Setting LGTV Input to HDMI2",
-              topic: "lgtv/lgtv/set/command",
-              message: "LAUNCH-com.webos.app.hdmi2",
-            },
-            {
-              text: "Turning on AVR",
-              topic: "denon/denon-avr/set/",
-              message: "PWON",
-            },
-            {
-              text: "Setting AVR Input to MPLAY",
-              topic: "denon/denon-avr/set/",
-              message: "SIMPLAY",
             },
           ],
         },
