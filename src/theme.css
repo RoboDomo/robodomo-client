@@ -202,12 +202,6 @@
   --ion-color-navigation: #6600cc;
 }
 
-.md {
-  --ion-toolbar-background: var(--ion-color-primary);
-  --ion-toolbar-color: #fff;
-  --ion-toolbar-color-activated: #fff;
-}
-
 html {
   font-family: var(--rd-font);
   -webkit-font-smoothing: antialiased;
