@@ -24,9 +24,8 @@ const DimmerField = ({ label, name, value, toggled, onToggle, onValueChange }) =
 
   return (
     <div className={s.container}>
-      <IonToggle checked={toggled} onClick={handleToggle} className={s.toggle} mode="md" />
+      <IonToggle checked={toggled} onClick={handleToggle} className={s.toggle} />
       <IonRange
-        mode="md"
         className={s.range}
         value={value || 0}
         step={1}

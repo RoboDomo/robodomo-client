@@ -20,9 +20,7 @@ const DevicesListGroup = ({ devices, currentDevice, tvInput, avrInput, onClick }
   return (
     <IonList>
       <IonRadioGroup>
-        <IonListHeader class={s.header} mode="md">
-          Devices
-        </IonListHeader>
+        <IonListHeader class={s.header}>Devices</IonListHeader>
         {devices.map(device => {
           const deviceType = device.type;
           let deviceName = device.name;

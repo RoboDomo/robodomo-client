@@ -80,7 +80,7 @@ const SectionHeader = ({ isOn, temp, onToggle, title, Icon }) => (
     </aside>
     <aside>
       <Icon className={s.svgHeader} />
-      <IonToggle checked={isOn} onIonChange={onToggle} mode="md" />
+      <IonToggle checked={isOn} onIonChange={onToggle} />
     </aside>
   </header>
 );

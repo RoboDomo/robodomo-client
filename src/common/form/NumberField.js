@@ -38,13 +38,13 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
   return (
     <div style={{ display: "flex" }}>
       <div style={{ marginTop: 8, flex: 1 }}>{label}</div>
-      <IonItem className="float-right" mode="md">
+      <IonItem className="float-right" lines="none">
         <IonButton
           onClick={() => {
             change(val - step);
           }}
         >
-          <IonIcon mode="md" name="arrow-dropleft" />
+          <IonIcon name="arrow-dropleft" />
         </IonButton>
         <IonInput
           type="text"
@@ -61,7 +61,7 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
             change(val + step);
           }}
         >
-          <IonIcon mode="md" name="arrow-dropright" />
+          <IonIcon name="arrow-dropright" />
         </IonButton>
       </IonItem>
     </div>

@@ -10,9 +10,7 @@ const ActivitiesListGroup = ({ activities, currentActivity, onClick }) => {
   return (
     <IonList>
       <IonRadioGroup>
-        <IonListHeader class={s.header} mode="md">
-          Activities
-        </IonListHeader>
+        <IonListHeader class={s.header}>Activities</IonListHeader>
         {activities.map(activity => {
           return (
             <IonItem

@@ -40,7 +40,7 @@ const AudioControl = ({ avr }) =>
   avr ? (
     <>
       <IonList lines="none">
-        <IonListHeader mode="md">Master Volume</IonListHeader>
+        <IonListHeader>Master Volume</IonListHeader>
         <Button avr={avr} action="mute" variant={avr.mute ? "primary" : "tertiary"}>
           <IonIcon name="volume-off" />
         </Button>
@@ -54,7 +54,7 @@ const AudioControl = ({ avr }) =>
       </IonList>
 
       <IonList lines="none">
-        <IonListHeader mode="md">Center Channel</IonListHeader>
+        <IonListHeader>Center Channel</IonListHeader>
         <Button avr={avr} action="centerup">
           <IonIcon name="volume-high" />
         </Button>
@@ -65,7 +65,7 @@ const AudioControl = ({ avr }) =>
       </IonList>
 
       <IonList lines="none">
-        <IonListHeader mode="md">{avr.surroundMode}</IonListHeader>
+        <IonListHeader>{avr.surroundMode}</IonListHeader>
         <Button avr={avr} action="auto">
           "Auto"
         </Button>
