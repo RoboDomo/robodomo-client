@@ -162,9 +162,8 @@ workflows:
             - install-dependencies
       - test-pwa:
           requires:
-            - install-dependencies
             - build-pwa
-            - install-test-dependencies
+            - lint-tests
       - gimbal:
           requires:
             - build-pwa
