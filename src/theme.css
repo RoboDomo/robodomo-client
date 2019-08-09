@@ -317,3 +317,8 @@ main {
     --prefer-theme: dark;
   }
 }
+
+:root .split-pane-visible > ion-menu.split-pane-side {
+  min-width: 240px;
+  max-width: 240px;
+}

@@ -71,13 +71,13 @@ const Navigation = ({ activeTab, dark, setDark }) => (
         {Array.from(tabs).map(([id, cfg]) => (
           <Link replace className="sidemenu-link" to={`/${id}`}>
             <IonItem button>
-              <IonIcon name={cfg.icon} />
-              {cfg.name}
+              <IonIcon name={cfg.icon} slot="start" />
+              <IonLabel>{cfg.name}</IonLabel>
             </IonItem>
           </Link>
         ))}
         <IonItem>
-          <IonToggle onClick={e => setDark(e.target.checked)} checked={dark} />
+          <IonToggle onClick={e => setDark(e.target.checked)} checked={dark} slot="end" />
           <IonLabel>Dark Mode: {dark ? "On" : "Off"}</IonLabel>
         </IonItem>
       </IonList>
