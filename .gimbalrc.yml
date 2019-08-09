@@ -90,7 +90,8 @@ configs:
       maxSize: 35 MB
 
 outputs:
-  cli: ${env:CI, true, false}
+  cli:
+    onlyFailures: true
   html: artifacts/gimbal.html
   json: artifacts/gimbal.json
   markdown: artifacts/gimbal.md
