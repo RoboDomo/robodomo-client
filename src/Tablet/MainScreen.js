@@ -14,6 +14,7 @@ import {
   IonContent,
   IonMenu,
   IonList,
+  IonListHeader,
   IonIcon,
   IonLabel,
   IonToggle,
@@ -76,6 +77,9 @@ const Navigation = ({ activeTab, dark, setDark }) => (
             </IonItem>
           </Link>
         ))}
+      </IonList>
+      <IonList>
+        <IonListHeader>OPTIONS</IonListHeader>
         <IonItem>
           <IonToggle onClick={e => setDark(e.target.checked)} checked={dark} slot="end" />
           <IonLabel>Dark Mode: {dark ? "On" : "Off"}</IonLabel>
