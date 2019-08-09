@@ -192,7 +192,7 @@ const ThermostatTab = ({ thermostat }) => {
               leaf={thermostat.has_leaf}
             />
           </AnimatedDiv>
-          <IonButtons slot="primary" className={s.selfCenter}>
+          <IonButtons className={s.selfCenter}>
             {Array.from(new Array(6), (_, idx) => {
               const value = idx - 3;
 
