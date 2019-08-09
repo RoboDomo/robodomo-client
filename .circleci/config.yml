@@ -137,9 +137,6 @@ jobs:
       - restore_cache: *restore-npm-cache
       - restore_cache: *restore-app-cache
       - run:
-          name: Gimbal Version
-          command: gimbal --version
-      - run:
           name: Run Gimbal
           command: gimbal
       - store_artifacts:
