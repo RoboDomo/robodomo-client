@@ -325,3 +325,7 @@ ion-card-title {
   --padding-end: "10";
   --padding-start: "10";
 }
+
+.ios ion-list ion-list-header {
+  --color: rgb(115, 115, 115);
+}
