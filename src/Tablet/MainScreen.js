@@ -65,7 +65,7 @@ const tabs = new Map([
 ]);
 
 const Navigation = ({ activeTab, dark, setDark }) => (
-  <IonMenu side="start" contentId="main" type="reveal">
+  <IonMenu side="start" contentId="main" type="push">
     <IonContent>
       <IonList>
         {Array.from(tabs).map(([id, cfg]) => (
