@@ -1105,10 +1105,10 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
-"@modus/gimbal-core@1.1.9":
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/@modus/gimbal-core/-/gimbal-core-1.1.9.tgz#7535210627f744b93ad7294b6e3a43649f20356d"
-  integrity sha512-Z7FtsI/fFOP0blzjnUtpGQS/Yu9tCRBMQSpMusTEOz873y7F+IxMRTmlRX+c0sSkSJZWd81o1rFGebfQYZespg==
+"@modus/gimbal-core@1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@modus/gimbal-core/-/gimbal-core-1.1.12.tgz#847287af4953e07f4648906b6d1858905816b486"
+  integrity sha512-Fb0myFv10iDGuflJwgUfUkwf8bYkRTAhCUCyf+KHPOL1Q7s9xRFqpbrNx1UxjKaH/5wg6YMyRR7g5aX4S1kvvA==
   dependencies:
     cli-table3 "0.5.1"
     colors "1.3.3"
@@ -1124,38 +1124,38 @@
     spinnies "0.4.3"
     strip-ansi "5.2.0"
 
-"@modus/gimbal-plugin-axe@1.1.9":
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/@modus/gimbal-plugin-axe/-/gimbal-plugin-axe-1.1.9.tgz#3711f36dca15743d17af87ee3390fa0f57610988"
-  integrity sha512-dR6Ril9Cg8XxvgeqNSJCsPcGtg4STSAU5CIwy7jJUrpjyU9k+jCQhVYji9lqcnrSjaUiHqJ/dTZcXSe5gR+RDQ==
+"@modus/gimbal-plugin-axe@1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@modus/gimbal-plugin-axe/-/gimbal-plugin-axe-1.1.12.tgz#3cb9db1a6d1e1ff117659e0b6f218302d6a4b016"
+  integrity sha512-gqFdeXekpXGw6no/vj7fOA4sHcFLnnmEbpSekplXc6XjiC4Ot5bttAeOhMcMpf/fkr/cTugx2IP01sVKgeaZ2g==
   dependencies:
     axe-puppeteer "1.0.0"
     deepmerge "4.0.0"
 
-"@modus/gimbal-plugin-last-value@1.1.9":
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/@modus/gimbal-plugin-last-value/-/gimbal-plugin-last-value-1.1.9.tgz#1a8ebb0dc5cdf507758bbcea3e4226c727648195"
-  integrity sha512-hzRFkR+jOmjr/AlTuuo/7j1N4YO5NHdnG/8z3JTPJxxPSZYaki+0sGhVhrj4wX9BPZE53EhnVslNp0kPq0ughg==
+"@modus/gimbal-plugin-last-value@1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@modus/gimbal-plugin-last-value/-/gimbal-plugin-last-value-1.1.12.tgz#0de8cd54e3da28426e9a9d7d5bfbf29933c05fb1"
+  integrity sha512-ORLEmuBTDBJsdig8Z7wNalJczxgqJPrTiNGh3wtduV8Z2GxtSEn4xTbe54fY5NIy2M9ZT4KX5XiqnWK86Fh/Rg==
   dependencies:
-    "@modus/gimbal-core" "1.1.9"
+    "@modus/gimbal-core" "1.1.12"
     bytes "3.1.0"
     deepmerge "4.0.0"
 
-"@modus/gimbal-plugin-mysql@1.1.9":
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/@modus/gimbal-plugin-mysql/-/gimbal-plugin-mysql-1.1.9.tgz#50c0eb37bcf8794ba258e111a895d7d269b52efd"
-  integrity sha512-3D0x7s879N9C1V+DGgcZy7wF8lRH1V3ZXVD7azDZ4C8sYnnLJe8dvhX5WVJhFqskO8ETFaWlCF7JvZ5Y9MZJ3A==
+"@modus/gimbal-plugin-mysql@1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@modus/gimbal-plugin-mysql/-/gimbal-plugin-mysql-1.1.12.tgz#d06d8b0009f52e4270ab80e644ad0977f3bb554b"
+  integrity sha512-1737o2bdPfgj7sj6F3RHTrPntLwJtsb/rZkqqJxk1ieE1z/KGe8qLSxnzxi8z6TnNCAC8SmFaGG+xma8z+LL2w==
   dependencies:
-    "@modus/gimbal-core" "1.1.9"
+    "@modus/gimbal-core" "1.1.12"
     deepmerge "4.0.0"
     mysql "2.17.1"
 
-"@modus/gimbal-plugin-source-map-explorer@1.1.9":
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/@modus/gimbal-plugin-source-map-explorer/-/gimbal-plugin-source-map-explorer-1.1.9.tgz#21a1a7dbacd0459872acefc11f7a04f0bea2d29c"
-  integrity sha512-xHgUhF3BM08/RPKGQ1jj3QCNu2iSZoWg/1NgJ6kNtZsT6yMf952/tq6pzt6ujstq8uqrWJu+//ApQVrCWSgcBg==
+"@modus/gimbal-plugin-source-map-explorer@1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@modus/gimbal-plugin-source-map-explorer/-/gimbal-plugin-source-map-explorer-1.1.12.tgz#62daf48806b7d875678b0c88da3b4cc1e74ab66d"
+  integrity sha512-i1P/0xp0z9FVMAwd8aqZWivRgOl9/xV0bF3eyBfY34HNMk4QxaVAGuolsPKNWLZGBnO+BZ5YDVpHvdelxloqfg==
   dependencies:
-    "@modus/gimbal-core" "1.1.9"
+    "@modus/gimbal-core" "1.1.12"
     bytes "3.1.0"
     deepmerge "4.0.0"
     globby "10.0.1"
