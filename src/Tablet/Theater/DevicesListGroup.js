@@ -57,6 +57,7 @@ const DevicesListGroup = ({ devices, currentDevice, tvInput, avrInput, onClick }
 
           return (
             <IonItem
+              lines="none"
               color={currentDevice === device.name ? "dark" : undefined}
               onClick={() => {
                 onClick(device);
