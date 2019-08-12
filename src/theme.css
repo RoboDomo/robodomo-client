@@ -317,6 +317,10 @@ main {
   max-width: 240px;
 }
 
+.ios .dark ion-toolbar {
+  --background: var(--rd-color-black);
+}
+
 .ios ion-range {
   --knob-background: var(--ion-color-primary);
 }
@@ -338,4 +342,13 @@ main {
 
 .ios ion-list ion-list-header {
   --color: var(--rd-color-text-light);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-shadow: none;
 }
