@@ -19,8 +19,7 @@
     "noUnusedLocals": true,
     "paths": {
       "@/*": ["./*"],
-      "Tablet/*": ["./Tablet/*"],
-      "Phone/*": ["./Phone/*"]
+      "Tablet/*": ["./Tablet/*"]
     }
   },
   "exclude": ["node_modules", "build", "webpack", "src/serviceWorkerCustom.js", "**/*.spec.js"]
