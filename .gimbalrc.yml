@@ -45,7 +45,7 @@ configs:
     - path: ./build/static/js/main.*.chunk.js
       maxSize: 2 KB
     - path: ./build/static/js/phone.*.chunk.js
-      maxSize: 20 KB
+      maxSize: 1 B
     - path: ./build/static/js/robodomo.*.chunk.js
       maxSize: 3 KB
     - path: ./build/static/js/tab-autelis.*.chunk.js
