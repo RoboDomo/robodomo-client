@@ -120,7 +120,7 @@ plugins:
         thresholds:
           "../**/*.js": 400 KB
           "**/*.js": 400 KB
-          <unmapped>: 300 B
+          <unmapped>: 2 KB
       - "!precache-manifest*"
       - "!service-worker.js"
       - "!**/runtime*.js"
