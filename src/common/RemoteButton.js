@@ -26,7 +26,7 @@ const RemoteButton = ({
 }) => {
   const w = Math.min(window.screen.availWidth / 5 - 4, 100);
   const style = {
-    width: mini ? 46 : w,
+    width: mini ? 40 : w,
     height: 40,
     fontSize: 14,
   };

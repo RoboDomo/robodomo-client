@@ -196,8 +196,8 @@ module.exports = {
         // example fan button
         { name: "Ceiling Fan", type: "fan", device: "Ceiling Fan" },
         // example dimmer button
-        { type: "label", text: "Ceiling Fan Light" },
-        { name: "Light", type: "dimmer", device: "Ceiling Fan Light" },
+        { type: "label", text: "Ceiling Light" },
+        { name: "Light", type: "dimmer", device: "Ceiling Light" },
         // example macro buttons
         { type: "label", text: "Macros" },
         // TV Break macro pauses TV and turns on the ceiling fan light
@@ -252,7 +252,7 @@ module.exports = {
         // a 256x128 tile that renders that status of your spa controller.  Background is red if it is running.
         { type: "spa", controller: "autelis" },
         // 128x128 dimmer tile (toggles on/off to the last dimmer setting)
-        { device: "Ceiling Fan Light", type: "dimmer" },
+        { device: "Ceiling Light", type: "dimmer" },
         // 128x128 switch tile (toggles )
         { device: "Kitchen Light", type: "switch" },
         // a 256x256 tile that renders that stat of a theater, along with audio controls
@@ -468,7 +468,7 @@ module.exports = {
     // for the rooms you define here.  A thing may be in one or more rooms, making the things rendered on your defined
     // tabs as useful as possible.
     things: [
-      { name: "Ceiling Fan Light", type: "dimmer", rooms: ["Theater"] },
+      { name: "Ceiling Light", type: "dimmer", rooms: ["Theater"] },
       { name: "Ceiling Fan", type: "fan", rooms: ["Theater"] },
       {
         name: "Office Dimmer",

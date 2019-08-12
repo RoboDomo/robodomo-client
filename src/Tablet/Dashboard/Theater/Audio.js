@@ -52,6 +52,7 @@ const Audio = ({ device }) => {
       </ButtonGroup>
       <ButtonGroup style={{ marginTop: 4 }}>
         <RemoteButton
+          mini
           onClick={e => {
             e.preventDefault();
             e.stopPropagation();
@@ -61,6 +62,7 @@ const Audio = ({ device }) => {
           Auto
         </RemoteButton>
         <RemoteButton
+          mini
           onClick={e => {
             e.preventDefault();
             e.stopPropagation();
