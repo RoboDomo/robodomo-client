@@ -55,7 +55,7 @@ const TargetTemperatures = ({ mode, thermostat, handler }) => {
       return null;
     case "heat":
       return (
-        <IonList>
+        <IonList lines="none">
           {Array.from(new Array(9), (_, idx) => (
             <TargetButton
               target={idx + 69}
@@ -68,7 +68,7 @@ const TargetTemperatures = ({ mode, thermostat, handler }) => {
       );
     case "cool":
       return (
-        <IonList>
+        <IonList lines="none">
           <AnimatedStack>
             {Array.from(new Array(9), (_, idx) => (
               <TargetButton
@@ -132,7 +132,7 @@ const ThermostatTab = ({ thermostat }) => {
         <IonGrid>
           <IonRow>
             <IonCol size={12} sizeMd={5} sizeLg={3}>
-              <IonList lines="full">
+              <IonList lines="none">
                 <IonItem>
                   <IonLabel>Presence</IonLabel>
                   <span>{thermostat.away.toUpperCase()}</span>
@@ -156,7 +156,7 @@ const ThermostatTab = ({ thermostat }) => {
                   <span>{thermostat.hvac_state}</span>
                 </IonItem>
               </IonList>
-              <IonList lines="full">
+              <IonList lines="none">
                 <IonItem>
                   <IonLabel>{thermostat.structure_name}</IonLabel>
                   <span>{thermostat.postal_code}</span>
@@ -220,7 +220,7 @@ const ThermostatTab = ({ thermostat }) => {
             </IonCol>
             {/* East */}
             <IonCol size={12} sizeMd={5} sizeLg={3}>
-              <IonList lines="full">
+              <IonList lines="none">
                 <IonItem>
                   <IonLabel>Target Temperature</IonLabel>
                   <Temperature value={thermostat.target_temperature_f} />

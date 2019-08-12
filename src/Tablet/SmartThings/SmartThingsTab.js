@@ -203,7 +203,7 @@ const SmartThingsTab = ({ room }) => {
 
   return (
     <IonContent>
-      <IonItem>
+      <IonItem lines="none">
         <IonText color="primary">
           <h1>{room.name}</h1>
         </IonText>

@@ -316,3 +316,26 @@ main {
   min-width: 240px;
   max-width: 240px;
 }
+
+.ios ion-range {
+  --knob-background: var(--ion-color-primary);
+}
+
+.ios ion-toggle {
+  --background-checked: #bfbfbf;
+  --handle-background-checked: var(--ion-color-primary);
+}
+
+.ios ion-card-content div ion-item {
+  --color: var(--rd-color-text-light);
+  --background: var(--rd-color-black);
+}
+
+.ios ion-card-content div ion-item ion-input {
+  --padding-end: "10";
+  --padding-start: "10";
+}
+
+.ios ion-list ion-list-header {
+  --color: var(--rd-color-text-light);
+}
