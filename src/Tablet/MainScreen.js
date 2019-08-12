@@ -6,7 +6,8 @@
 
 import React, { lazy } from "react";
 import { Redirect, Route, Switch } from "react-router";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import s from "./MainScreen.module.css";
 
 import {
   IonApp,
@@ -70,12 +71,12 @@ const Navigation = ({ activeTab, dark, setDark }) => (
     <IonContent>
       <IonList>
         {Array.from(tabs).map(([id, cfg]) => (
-          <Link replace className="sidemenu-link" to={`/${id}`}>
+          <NavLink replace className={s.link} activeClassName={s.activeLink} to={`/${id}`}>
             <IonItem button>
               <IonIcon name={cfg.icon} slot="start" />
               <IonLabel>{cfg.name}</IonLabel>
             </IonItem>
-          </Link>
+          </NavLink>
         ))}
       </IonList>
       <IonList>
@@ -95,27 +96,27 @@ const MainScreen = () => {
   return (
     <div className={`${dark ? "dark" : "light"}`}>
       <IonApp>
-        <IonSplitPane contentId="main">
+        <AnimatedDiv
+          animate={{
+            opacity: [0, 0, 1],
+            y: [-100, 0],
+          }}
+          style={{
+            opacity: 0,
+          }}
+        >
+          <IonHeader>
+            <IonToolbar>
+              <IonButtons slot="start">
+                <IonMenuButton />
+              </IonButtons>
+              <IonTitle>Robodomo Client</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+        </AnimatedDiv>
+        <IonSplitPane contentId="main" className={s.splitPane}>
           <Navigation dark={dark} setDark={setDark} />
           <IonPage id="main">
-            <AnimatedDiv
-              animate={{
-                opacity: [0, 0, 1],
-                y: [-100, 0],
-              }}
-              style={{
-                opacity: 0,
-              }}
-            >
-              <IonHeader>
-                <IonToolbar>
-                  <IonButtons slot="start">
-                    <IonMenuButton />
-                  </IonButtons>
-                  <IonTitle>Robodomo Client</IonTitle>
-                </IonToolbar>
-              </IonHeader>
-            </AnimatedDiv>
             <Route exact path="/" render={() => <Redirect to="/dashboard" />} />
             <Switch>
               {Array.from(tabs).map(([id, cfg]) => (
