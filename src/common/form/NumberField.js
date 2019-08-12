@@ -38,7 +38,7 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
   return (
     <div style={{ display: "flex" }}>
       <div style={{ marginTop: 8, flex: 1 }}>{label}</div>
-      <IonItem className="float-right">
+      <IonItem className="float-right" lines="none">
         <IonButton
           onClick={() => {
             change(val - step);

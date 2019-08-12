@@ -14,6 +14,7 @@ const ActivitiesListGroup = ({ activities, currentActivity, onClick }) => {
         {activities.map(activity => {
           return (
             <IonItem
+              lines="none"
               color={currentActivity === activity.name ? "success" : undefined}
               onClick={() => {
                 onClick(activity);
