@@ -7,6 +7,8 @@ audits:
   # - unused-source
 
 configs:
+  comment:
+    onlyFailures: true
   heap-snapshot:
     threshold:
       LayoutCount: 14
@@ -88,7 +90,8 @@ configs:
       maxSize: 35 MB
 
 outputs:
-  cli: false
+  cli:
+    onlyFailures: true
   html: artifacts/gimbal.html
   json: artifacts/gimbal.json
   markdown: artifacts/gimbal.md
