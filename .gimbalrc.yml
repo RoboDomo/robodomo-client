@@ -35,15 +35,15 @@ configs:
         source: "*"
   size:
     - path: ./build/precache-*.js
-      maxSize: 4 KB
+      maxSize: 30 KB
     - path: ./build/dll/vendor_*.dll.js
-      maxSize: 340 KB
+      maxSize: 1 KB
     - path: ./build/static/js/demo-config.*.chunk.js
       maxSize: 3 KB
     - path: ./build/static/js/framer.*.chunk.js
       maxSize: 200 B
     - path: ./build/static/js/main.*.chunk.js
-      maxSize: 1 KB
+      maxSize: 2 KB
     - path: ./build/static/js/phone.*.chunk.js
       maxSize: 20 KB
     - path: ./build/static/js/robodomo.*.chunk.js
@@ -65,7 +65,7 @@ configs:
     - path: ./build/static/js/tablet.*.chunk.js
       maxSize: 2 KB
     - path: ./build/static/js/*.chunk.js
-      maxSize: 50 KB
+      maxSize: 64 KB
     - path: ./build/static/js/runtime*.js
       maxSize: 3.25 KB
     - path: ./build/static/media/*.svg
@@ -87,7 +87,7 @@ configs:
     - path: ./build/index.html
       maxSize: 5 KB
     - path: ./build/
-      maxSize: 35 MB
+      maxSize: 50 MB
 
 outputs:
   cli:
@@ -113,14 +113,14 @@ plugins:
           ../external "vendor_*": 75 B
           ../delegated 65 from dll-reference vendor_*: 50 B
           ../delegated 1252 from dll-reference vendor_*: 150 B
-          serviceWorker.js: 300 B
-          index.js: 500 B
-          <unmapped>: 150 B
+          serviceWorker.js: 2 KB
+          index.js: 600 B
+          <unmapped>: 5 KB
       - path: "**/*.chunk.js"
         thresholds:
           "../**/*.js": 400 KB
           "**/*.js": 400 KB
-          <unmapped>: 300 B
+          <unmapped>: 2 KB
       - "!precache-manifest*"
       - "!service-worker.js"
       - "!**/runtime*.js"
