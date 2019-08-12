@@ -88,14 +88,6 @@ module.exports = {
       // console, harmony remote and hub, apple tv, etc.  This array defines these:
       devices: [
         {
-          // example config for a TiVo DVR or set top box (TiVo Mini, etc.)
-          name: "TiVo", // name your TiVo, displayed in the UI
-          type: "tivo", // type of device = tivo
-          favorites: tivoFavorites, // favorite channels
-          device: "tivo-bolt-3tb", // this is the hostname or IP of your TiVo
-          guide: "SchedulesDirect GUIDE ID", // each TiVo might be connected to a different cable provider so you set the guide id here.
-        },
-        {
           // example config for an Apple TV
           name: "Apple TV", // name to be displayed in the UI
           type: "appletv", // type = appletv
@@ -127,7 +119,7 @@ module.exports = {
       activities: [
         {
           name: "TV", // name of activity to be displayed in teh UI
-          defaultDevice: "TiVo", // this is the device control that will be displayed in the UI by default for this activity
+          defaultDevice: "AVR", // this is the device control that will be displayed in the UI by default for this activity
           // The inputs for this activity... if tv is hdmi1 and avr is TV, then RoboDomo knows your watching TV.
           inputs: {
             tv: "hdmi1",
