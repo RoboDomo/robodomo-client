@@ -8,7 +8,6 @@ import {
   IonList,
   IonItem,
   IonButton,
-  IonButtons,
   IonIcon,
 } from "@ionic/react";
 
@@ -20,6 +19,7 @@ import Locale from "@/lib/Locale";
 import Temperature from "@/common/Temperature";
 import AnimatedStack from "@/common/AnimatedStack";
 import AnimatedDiv from "@/common/AnimatedDiv";
+import NumberField from "@/common/form/NumberField";
 
 import s from "./ThermostatTab.module.css";
 
@@ -104,13 +104,6 @@ const ThermostatTab = ({ thermostat }) => {
     } catch (e) {}
   };
 
-  const adjustTemperature = temp => {
-    const newVal = Number(thermoState.target_temperature_f) + temp;
-    try {
-      dispatch({ type: "target_temp", value: newVal });
-    } catch (e) {}
-  };
-
   const render = () => {
     const thermostat = thermoState;
 
@@ -192,18 +185,12 @@ const ThermostatTab = ({ thermostat }) => {
               leaf={thermostat.has_leaf}
             />
           </AnimatedDiv>
-          <IonButtons className={s.selfCenter}>
-            {Array.from(new Array(6), (_, idx) => {
-              const value = idx - 3;
-
-              return (
-                <IonButton onClick={() => adjustTemperature(value)}>
-                  <IonIcon name={value < 0 ? "arrow-dropdown" : "arrow-dropup"} />
-                  <IonLabel>{value}</IonLabel>
-                </IonButton>
-              );
-            })}
-          </IonButtons>
+          <NumberField
+            value={Locale.ftoc(thermostat.target_temperature_f, metric)}
+            onValueChange={value => {
+              setTargetTemperature(value);
+            }}
+          />
           <IonSegment onIonChange={e => hvacModeChange(e.detail.value)}>
             {["off", "heat", "cool", "heat-cool", "eco"].map(value => (
               <IonSegmentButton value={value} checked={thermostat.hvac_mode === value}>
