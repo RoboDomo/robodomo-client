@@ -40,7 +40,7 @@ const Tile = ({
       }}
       transition={{ duration: 0.4 }}
       whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 1.3 }}
+      whileTap={{ scale: 0.95 }}
       style={{
         gridColumnEnd: "span " + width,
         gridRowEnd: "span " + height,
