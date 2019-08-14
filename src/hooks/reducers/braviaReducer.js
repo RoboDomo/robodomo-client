@@ -132,7 +132,7 @@ export default (state, action) => {
   const command = commandMap.get(action.type.toLowerCase());
   if (command) {
     MQTT.publish(set_topic, command);
-    return;
+    return state;
   }
 
   switch (type.toLowerCase) {
