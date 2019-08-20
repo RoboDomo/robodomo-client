@@ -14,14 +14,13 @@ const Audio = ({ device }) => {
 
   return (
     <>
-      <ButtonGroup>
+      <ButtonGroup style={{ right: 3 }}>
         <RemoteButton
           mini
           variant={mute ? "danger" : undefined}
           onClick={e => {
             e.preventDefault();
             e.stopPropagation();
-            console.log("avr", avr);
             dispatch({ type: avr.mute ? "unmute" : "mute" });
           }}
         >
@@ -49,8 +48,6 @@ const Audio = ({ device }) => {
         >
           <FaVolumeUp />
         </RemoteButton>
-      </ButtonGroup>
-      <ButtonGroup style={{ marginTop: 4 }}>
         <RemoteButton
           mini
           onClick={e => {
