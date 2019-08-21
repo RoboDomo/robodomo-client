@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 
-import { IonInput, IonButton, IonIcon, IonItem } from "@ionic/react";
+import { IonLabel, IonButton, IonIcon } from "@ionic/react";
 
 //import DelayedTask from "@/lib/DelayedTask";
 
-const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
+const NumberField = ({ value, step = 1, min, max, onValueChange }) => {
   const [val, setVal] = useState(Number(value));
   const changed = useRef(false);
   const timer = useRef(null);
@@ -36,34 +36,24 @@ const NumberField = ({ label, value, step = 1, min, max, onValueChange }) => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <div style={{ marginTop: 8, flex: 1 }}>{label}</div>
-      <IonItem className="float-right" lines="none">
-        <IonButton
-          onClick={() => {
-            change(val - step);
-          }}
-        >
-          <IonIcon name="arrow-dropleft" />
-        </IonButton>
-        <IonInput
-          type="text"
-          style={{
-            width: 40,
-            textAlign: "center",
-            height: 38,
-          }}
-          value={val}
-          readOnly
-        />
-        <IonButton
-          onClick={() => {
-            change(val + step);
-          }}
-        >
-          <IonIcon name="arrow-dropright" />
-        </IonButton>
-      </IonItem>
+    <div style={{ display: "inline", textAlign: "center" }}>
+      <IonButton
+        onClick={e => {
+          e.stopPropagation();
+          change(val - step);
+        }}
+      >
+        <IonIcon name="arrow-dropleft" />
+      </IonButton>
+      <IonLabel style={{ margin: 10 }}>{val}</IonLabel>
+      <IonButton
+        onClick={e => {
+          e.stopPropagation();
+          change(val + step);
+        }}
+      >
+        <IonIcon name="arrow-dropright" />
+      </IonButton>
     </div>
   );
 };
