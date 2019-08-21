@@ -88,14 +88,6 @@ module.exports = {
       // console, harmony remote and hub, apple tv, etc.  This array defines these:
       devices: [
         {
-          // example config for a TiVo DVR or set top box (TiVo Mini, etc.)
-          name: "TiVo", // name your TiVo, displayed in the UI
-          type: "tivo", // type of device = tivo
-          favorites: tivoFavorites, // favorite channels
-          device: "tivo-bolt-3tb", // this is the hostname or IP of your TiVo
-          guide: "SchedulesDirect GUIDE ID", // each TiVo might be connected to a different cable provider so you set the guide id here.
-        },
-        {
           // example config for an Apple TV
           name: "Apple TV", // name to be displayed in the UI
           type: "appletv", // type = appletv
@@ -127,7 +119,7 @@ module.exports = {
       activities: [
         {
           name: "TV", // name of activity to be displayed in teh UI
-          defaultDevice: "TiVo", // this is the device control that will be displayed in the UI by default for this activity
+          defaultDevice: "AVR", // this is the device control that will be displayed in the UI by default for this activity
           // The inputs for this activity... if tv is hdmi1 and avr is TV, then RoboDomo knows your watching TV.
           inputs: {
             tv: "hdmi1",
@@ -204,8 +196,8 @@ module.exports = {
         // example fan button
         { name: "Ceiling Fan", type: "fan", device: "Ceiling Fan" },
         // example dimmer button
-        { type: "label", text: "Ceiling Fan Light" },
-        { name: "Light", type: "dimmer", device: "Ceiling Fan Light" },
+        { type: "label", text: "Ceiling Light" },
+        { name: "Light", type: "dimmer", device: "Ceiling Light" },
         // example macro buttons
         { type: "label", text: "Macros" },
         // TV Break macro pauses TV and turns on the ceiling fan light
@@ -260,7 +252,7 @@ module.exports = {
         // a 256x128 tile that renders that status of your spa controller.  Background is red if it is running.
         { type: "spa", controller: "autelis" },
         // 128x128 dimmer tile (toggles on/off to the last dimmer setting)
-        { device: "Ceiling Fan Light", type: "dimmer" },
+        { device: "Ceiling Light", type: "dimmer" },
         // 128x128 switch tile (toggles )
         { device: "Kitchen Light", type: "switch" },
         // a 256x256 tile that renders that stat of a theater, along with audio controls
@@ -476,7 +468,7 @@ module.exports = {
     // for the rooms you define here.  A thing may be in one or more rooms, making the things rendered on your defined
     // tabs as useful as possible.
     things: [
-      { name: "Ceiling Fan Light", type: "dimmer", rooms: ["Theater"] },
+      { name: "Ceiling Light", type: "dimmer", rooms: ["Theater"] },
       { name: "Ceiling Fan", type: "fan", rooms: ["Theater"] },
       {
         name: "Office Dimmer",
