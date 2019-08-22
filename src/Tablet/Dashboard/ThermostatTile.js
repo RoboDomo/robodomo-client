@@ -7,7 +7,7 @@ import Locale from "@/lib/Locale";
 import Temperature from "@/common/Temperature";
 
 import Tile from "./Tile";
-import NumberInput from "@/common/form/NumberInput";
+import NumberField from "@/common/form/NumberField";
 import Thermostat from "react-nest-thermostat";
 import { Form } from "react-bootstrap";
 
@@ -46,7 +46,7 @@ const ThermostatTile = ({ device }) => {
           leaf={thermostat.has_leaf}
         />
         <Form style={{ margin: 0 }}>
-          <NumberInput
+          <NumberField
             key={thermostat.target_temperature_f}
             value={Locale.ftoc(target, metric)}
             step={metric ? 0.1 : 1}

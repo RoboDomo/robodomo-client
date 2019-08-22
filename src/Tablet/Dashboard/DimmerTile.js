@@ -25,7 +25,7 @@ const DimmerTile = ({ name }) => {
     <Tile width={1} height={1} color={dimmer.switch === "on" ? "warning" : undefined}>
       <div style={{ textAlign: "center" }} onClick={onClick}>
         <TiAdjustBrightness size={24} style={{ marginBottom: 10 }} />
-        <div style={{ fontWeight: "normal" }}>{name}</div>
+        <div style={{ fontWeight: "bold" }}>{name}</div>
         <div style={{ fontSize: 30 }}>{style.value}</div>
       </div>
     </Tile>
