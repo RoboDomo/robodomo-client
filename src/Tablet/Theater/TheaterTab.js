@@ -64,27 +64,19 @@ const TheaterTab = ({ theater }) => {
   };
 
   useEffect(() => {
-    let found = false;
     if (!tv.power) {
-      //      console.log("TV OFF");
       setCurrentActivity("All Off");
       setCurrentDevice(null);
       tv.input = "Off";
-      found = true;
     } else {
       for (const activity of activities) {
         const inputs = activity.inputs || {};
         if (inputs.tv === tv.input && inputs.avr === avr.input) {
-          found = true;
-          if (currentActivity !== activity.name) {
-            setCurrentDevice(prev => activity.defaultDevice);
-            setCurrentActivity(prev => activity.name);
-            break;
+          if (currentActivity === "All Off") {
+            setCurrentDevice(null);
+            setCurrentActivity("All Off");
           }
         }
-      }
-      if (!found) {
-        setCurrentDevice(tv.name);
       }
     }
   }, [
