@@ -76,6 +76,11 @@ const TheaterTab = ({ theater }) => {
             setCurrentDevice(null);
             setCurrentActivity("All Off");
           }
+
+          if (currentDevice != null) {
+            setCurrentDevice(currentDevice);
+            setCurrentActivity(activity.name);
+          }
         }
       }
     }
