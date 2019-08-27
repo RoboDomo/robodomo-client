@@ -115,7 +115,7 @@ const TheaterTab = ({ theater }) => {
             />
           </IonCol>
           <IonCol size="auto" class={s.column}>
-            <AudioControl avr={avr} />
+            <AudioControl avr={currentActivity !== "All Off" ? avr : false} />
           </IonCol>
           <IonCol class={s.column}>
             <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />
