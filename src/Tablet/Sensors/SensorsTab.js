@@ -101,7 +101,7 @@ const SensorsTab = () => {
   const renderCard = type => {
     return (
       <IonCard color="dark">
-        <IonCardHeader color="medium">{type.toUpperCase()}</IonCardHeader>
+        <IonCardHeader color="dark">{type.toUpperCase()}</IonCardHeader>
         <IonCardContent>{renderType(type)}</IonCardContent>
       </IonCard>
     );

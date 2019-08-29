@@ -1,5 +1,4 @@
 import React from "react";
-import { IonList } from "@ionic/react";
 
 import RemoteButton from "@/common/RemoteButton";
 import FanButton from "@/common/FanButton";
@@ -14,7 +13,7 @@ const ButtonList = ({ theater }) => {
 
   let key = 0;
   return (
-    <IonList>
+    <div>
       {theater.buttons.map(button => {
         switch (button.type) {
           case "label":
@@ -59,7 +58,7 @@ const ButtonList = ({ theater }) => {
             );
         }
       })}
-    </IonList>
+    </div>
   );
 };
 export default ButtonList;

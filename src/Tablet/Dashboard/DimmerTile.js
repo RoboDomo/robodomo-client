@@ -19,20 +19,11 @@ const DimmerTile = ({ name }) => {
     }
   };
 
-  const style =
-    dimmer.switch === "off"
-      ? {
-          color: undefined,
-          value: "Off",
-        }
-      : {
-          color: "yellow",
-          value: `${dimmer.level}%`,
-        };
+  const style = dimmer.switch === "off" ? { value: "Off" } : { value: `${dimmer.level}%` };
 
   return (
-    <Tile width={1} height={1}>
-      <div style={{ textAlign: "center", color: style.color }} onClick={onClick}>
+    <Tile width={1} height={1} color={dimmer.switch === "on" ? "warning" : undefined}>
+      <div style={{ textAlign: "center" }} onClick={onClick}>
         <TiAdjustBrightness size={24} style={{ marginBottom: 10 }} />
         <div style={{ fontWeight: "bold" }}>{name}</div>
         <div style={{ fontSize: 30 }}>{style.value}</div>

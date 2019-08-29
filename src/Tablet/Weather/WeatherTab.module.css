@@ -14,19 +14,21 @@
   padding: var(--rd-spc-xxs);
   text-align: center;
 }
-.hourlyItem,
-.dailyItem {
-  composes: border-radius-s from global;
+
+.forecastContainerDaily ion-card,
+.forecastContainerHourly ion-card {
+  margin: 0px;
+}
+
+.hourlyItem {
   width: 6.25rem;
-  border: 1px solid var(--rd-color-black);
-  background-color: #1f1f1f;
 }
 
 .dailyItem {
   width: 8.75rem;
 }
 
-.daySeparator {
+.forecastContainerDaily .daySeparator {
   margin-left: var(--rd-spc-m);
 }
 
@@ -36,15 +38,10 @@
   height: 4rem;
 }
 
-.imgSmall,
-.imgLeft {
-  vertical-align: bottom;
-  width: 3rem;
-  height: 3rem;
-}
-
-.imgLeft {
-  vertical-align: middle;
+.hourlyItem .imgSmall,
+.dailyItem .imgSmall {
+  margin: auto;
+  width: 51px;
 }
 
 .flag {

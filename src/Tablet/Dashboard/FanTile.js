@@ -60,11 +60,10 @@ const FanTile = ({ name }) => {
   }
 
   return (
-    <Tile width={1} height={1}>
+    <Tile width={1} height={1} color={fan.switch === "on" ? "warning" : undefined}>
       <div
         style={{
           textAlign: "center",
-          color: fan.switch === "on" ? "yellow" : undefined,
         }}
         onClick={onClick}
       >

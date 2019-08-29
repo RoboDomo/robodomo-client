@@ -1,0 +1,11 @@
+.splitPane {
+  margin-top: 56px;
+}
+
+.activeLink ion-item {
+  color: var(--ion-color-primary);
+}
+
+.activeLink ion-icon {
+  color: var(--ion-color-primary);
+}

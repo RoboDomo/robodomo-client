@@ -3,7 +3,7 @@ import { format, parseISO } from "date-fns";
 import OnIdle from "@modus/react-idle";
 import cx from "classnames";
 import { FaFlag } from "react-icons/fa";
-import { IonContent } from "@ionic/react";
+import { IonContent, IonCard } from "@ionic/react";
 
 import Clock from "@/common/Clock";
 import useWeather from "@/hooks/useWeather";
@@ -32,12 +32,12 @@ const Hourly = React.memo(
 
         const localTime = format(localTimeStamp, "h:mm aa");
         return (
-          <div key={i} className={s.hourlyItem}>
+          <IonCard key={i} className={s.hourlyItem} color="dark">
             <div className="small" data-testid="weather-hourly-item">
               {localTime}
             </div>
             <img
-              className={s.img_small}
+              className={s.imgSmall}
               alt={data.skyDescription}
               title={data.description}
               src={data.iconLink}
@@ -45,7 +45,7 @@ const Hourly = React.memo(
             <h4>
               <Temperature value={data.temperature} />
             </h4>
-          </div>
+          </IonCard>
         );
       })}
     </AnimatedStack>
@@ -75,23 +75,24 @@ const Daily = React.memo(
           const showDaySeparator = i && lastDay !== o.weekday;
           lastDay = o.weekday;
           return (
-            <div
+            <IonCard
               key={i}
               data-testid="weather-daily-item"
               className={cx(s.dailyItem, { [s.daySeparator]: showDaySeparator })}
+              color="dark"
             >
               <h6>
                 {weekday} {month}/{day}
               </h6>
               <div>{o.daySegment}</div>
               <div>
-                <img alt={o.iconName} className={s.img_small} src={o.iconLink} />
+                <img alt={o.iconName} className={s.imgSmall} src={o.iconLink} />
               </div>
               <h4>
                 <Temperature value={o.temperature} />
               </h4>
               <div>{o.temperatureDesc}</div>
-            </div>
+            </IonCard>
           );
         })}
       </AnimatedStack>
