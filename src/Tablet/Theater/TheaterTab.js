@@ -64,27 +64,24 @@ const TheaterTab = ({ theater }) => {
   };
 
   useEffect(() => {
-    let found = false;
     if (!tv.power) {
-      //      console.log("TV OFF");
       setCurrentActivity("All Off");
       setCurrentDevice(null);
       tv.input = "Off";
-      found = true;
     } else {
       for (const activity of activities) {
         const inputs = activity.inputs || {};
         if (inputs.tv === tv.input && inputs.avr === avr.input) {
-          found = true;
-          if (currentActivity !== activity.name) {
-            setCurrentDevice(prev => activity.defaultDevice);
-            setCurrentActivity(prev => activity.name);
-            break;
+          if (currentActivity === "All Off") {
+            setCurrentDevice(null);
+            setCurrentActivity("All Off");
+          }
+
+          if (currentDevice != null) {
+            setCurrentDevice(currentDevice);
+            setCurrentActivity(activity.name);
           }
         }
-      }
-      if (!found) {
-        setCurrentDevice(tv.name);
       }
     }
   }, [
@@ -118,7 +115,7 @@ const TheaterTab = ({ theater }) => {
             />
           </IonCol>
           <IonCol size="auto" class={s.column}>
-            <AudioControl avr={avr} />
+            <AudioControl avr={currentActivity !== "All Off" ? avr : false} />
           </IonCol>
           <IonCol class={s.column}>
             <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />

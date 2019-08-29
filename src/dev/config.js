@@ -117,9 +117,18 @@ module.exports = {
       //
       // RoboDomo theater tabs detect what activity is running by what input the TV and AVR are set to.
       activities: [
+        // all off - turn off your theater devices
+        {
+          name: "All Off",
+          defaultDevice: null,
+          script: [
+            { topic: "lgtv/lgtv/set", message: "POWEROFF" },
+            { topic: "denon/denon-avr/set", message: "PWOFF" },
+          ],
+        },
         {
           name: "TV", // name of activity to be displayed in teh UI
-          defaultDevice: "AVR", // this is the device control that will be displayed in the UI by default for this activity
+          defaultDevice: "Apple TV", // this is the device control that will be displayed in the UI by default for this activity
           // The inputs for this activity... if tv is hdmi1 and avr is TV, then RoboDomo knows your watching TV.
           inputs: {
             tv: "hdmi1",
@@ -166,15 +175,6 @@ module.exports = {
               topic: "denon/denon-avr/set",
               message: "SITV",
             },
-          ],
-        },
-        // all off - turn off your theater devices
-        {
-          name: "All Off",
-          defaultDevice: null,
-          script: [
-            { topic: "lgtv/lgtv/set", message: "POWEROFF" },
-            { topic: "denon/denon-avr/set", message: "PWOFF" },
           ],
         },
       ],
