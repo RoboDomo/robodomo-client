@@ -18,20 +18,9 @@ const SwitchTile = ({ name }) => {
     }
   };
 
-  if (thing.switch === "off") {
-    return (
-      <Tile width={1} height={1}>
-        <div style={{ textAlign: "center" }} onClick={onClick}>
-          <TiLightbulb size={24} style={{ marginBottom: 10 }} />
-          <div style={{ fontWeight: "normal" }}>{name}</div>
-          <div style={{ fontSize: 30 }}>Off</div>
-        </div>
-      </Tile>
-    );
-  }
   return (
-    <Tile width={1} height={1}>
-      <div style={{ textAlign: "center", color: "yellow" }} onClick={onClick}>
+    <Tile width={1} height={1} color={thing.switch === "on" ? "warning" : undefined}>
+      <div style={{ textAlign: "center" }} onClick={onClick}>
         <TiLightbulb size={24} style={{ marginBottom: 10 }} />
         <div style={{ fontWeight: "normal" }}>{name}</div>
         <div style={{ fontSize: 30 }}>On</div>
