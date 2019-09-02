@@ -113,6 +113,7 @@ const TheaterTab = ({ theater }) => {
               avrInput={avr.input}
               onClick={handleDeviceClick}
             />
+            <ButtonList theater={theater} />
           </IonCol>
           <IonCol size="auto" class={s.column}>
             <AudioControl avr={currentActivity !== "All Off" ? avr : false} />
@@ -120,14 +121,11 @@ const TheaterTab = ({ theater }) => {
           <IonCol class={s.column}>
             <TheaterDevice currentDevice={currentDevice} avr={avr} tv={tv} deviceMap={deviceMap} />
           </IonCol>
-          <IonCol size="auto" class={s.column}>
-            <ButtonList theater={theater} />
-          </IonCol>
+          <IonCol size="auto" class={s.column} />
         </IonRow>
       </IonGrid>
     </IonContent>
   );
 };
 
-//
 export default TheaterTab;
