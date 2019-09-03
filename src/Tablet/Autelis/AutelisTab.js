@@ -223,7 +223,7 @@ const AutelisTab = () => {
           <ToggledStatus on={waterfall} title="Waterfall" type="waterfall" />
         </section>
 
-        <section data-testid="spa" style={{ gridRow: "1/3" }}>
+        <section data-testid="spa" style={{ gridRow: "1/2" }}>
           <SectionHeader
             title="SPA"
             isOn={spaOn}

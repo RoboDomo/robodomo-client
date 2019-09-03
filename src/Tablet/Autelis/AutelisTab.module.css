@@ -1,8 +1,7 @@
 .container {
   display: grid;
-  grid-gap: var(--rd-spc-s);
   padding-top: var(--rd-spc-s);
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
 }
 
 .mainSwitch {
